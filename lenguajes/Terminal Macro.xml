@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<Language name="Terminal Macro" ext="ttm" >
+  <Completion>
+    <Include Attribute="Keyword"></Include>
+    <Include Attribute="Types"></Include>
+    <Include Attribute="Vars"></Include>
+	<List>
+  "begin&#xD;  &#xD;end;"
+  "IF expresion THEN begin&#xD;  &#xD;END;"
+  "IF expresion THEN begin&#xD;  &#xD;ELSE &#xD;END;"
+  "WHILE expresion DO begin&#xD;  &#xD;END;"
+  "timeout := 20"
+  "CONNECT ""192.168.1.1"""
+  "CONNECTSSH ""192.168.1.1"""
+  "curIP := ""192.168.1.1"""
+  "curTYPE := ""telnet""" 
+  "curTYPE := ""SSH""" 
+  "curTYPE := ""Other""" 
+  "curPORT := 23"
+  "curENDLINE := ""LF"""
+  "curENDLINE := ""CRLF"""
+  "curAPP := ""cmd"""
+  "promptDETECT := true"
+  "promptSTART := ""$"""
+  "promptEND := ""]"""
+    </List>
+  </Completion>
+  <Attribute Name="Keyword" ForeCol="blue" Style="b"> </Attribute>
+  <Attribute Name="String" ForeCol="black" BackCol="#FFFF80" > </Attribute>
+  <Attribute Name="Types"   ForeCol="blue"> </Attribute>
+  <Attribute Name="Vars"> </Attribute>
+  <Identifiers CharsStart= "A..Za..z_" Content = "A..Za..z0..9_"> 
+    <token attribute="Keyword"> 
+VAR TYPE  program begin
+END  ELSE  ELSIF
+true false
+CONNECT CONNECTSSH DISCONNECT SENDLN WAIT PAUSE STOP
+LOGOPEN LOGWRITE LOGCLOSE LOGPAUSE LOGSTART
+FILEOPEN FILECLOSE FILEWRITE
+MESSAGEBOX CAPTURE ENDCAPTURE EDIT DETECT_PROMPT CLEAR
+    </token>
+    <token attribute="Types">
+	int string boolean
+    </token>
+    <token attribute="Vars">
+	timeout curIP curTYPE curPORT curENDLINE curAPP
+	promptSTART promptEND promptDETECT
+    </token>
+  </Identifiers>
+  <Token CharsStart="0..9" Content = '0..9.' Attribute='NUMBER'> </Token>
+  <Token CharsStart="$" Content = '0..9ABCDEFabcdef' Attribute='NUMBER'> </Token>
+  <String Start="'" End="'" Multiline="true"></String>
+  <String Start='"' End='"' Multiline="true"></String>
+  <Token CharsStart="#" Content = '0..9' Attribute='STRING'> </Token>
+  <Comment Start="//" ></Comment>
+  <Comment Start="/*" End="*/" Multiline="true"></Comment>
+
+  <Section Name="unit" Start="unit"></Section>
+
+  <Block>
+    <Start> Repeat </Start>
+	<End> Until </End>
+  </Block>
+  <Block Start="Case" End= "End" ></Block>
+  <Block Name="Proc" Start="procedure" End="end" Parent="Main" BackCol="#D0F5FF">
+    <Block Name="ProcParam" Start="(" End=")" Folding="false"></Block>
+    <Section Start="var" BackCol="#F3F781"> </Section>
+    <Section Start="begin" BackCol="#F5DA81" Unique="true"> </Section>
+  </Block>
+</Language>

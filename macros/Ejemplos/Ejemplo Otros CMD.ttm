@@ -1,0 +1,11 @@
+/* Ejemplo de ejecución de terminal usando la línea
+de comandos de Windows */
+DISCONNECT  //por si había una conexión activas
+CLEAR       //limpia la pantalla
+curTYPE := "Other"    //Este es el tipo para otros procesos que no sean telnet, ssh o serial
+curAPP := "cmd"       //El proceso que vamoa a lanzar
+curENDLINE := "CRLF"  //El tipo de salto de línea a enviar
+CONNECT               //Inicia conexión 
+PAUSE 3               //Espera unos segundos
+DETECT_PROMPT         //Configura la línea actual como el prompt
+
