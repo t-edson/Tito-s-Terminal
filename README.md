@@ -3,6 +3,8 @@ Tito-s-Terminal
 
 Terminal con Interfaz gráfica, coloreado de sintaxis y automatización para telnet, y ssh.
 
+![Texto alternativo](http://blog.pucp.edu.pe/media/4946/20140903-tterm1.png "Título de la imagen")
+
 Tito's Terminal empezó como una broma, pero ahora es una aplicación bastante completa y ha migrado recientemente a Lazarus.
 
 Este terminal puede hacer de cliente para Telnet, SSH, Serial(no disponible aún) y en general cualquier proceso que maneje consola.
