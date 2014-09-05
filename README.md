@@ -31,6 +31,6 @@ Tito's Terminal también permite la automatización de las conexiones con un len
 
 ![Tito's Terminal](http://blog.pucp.edu.pe/media/4946/20140905-tterm3.png "Título de la imagen")
 
-Las funcines de ejecución de macros, así como otras comunes, tienen un acceso directo desde el menú principal o contextual del aplicativo.
+Las funciones de ejecución de macros, así como otras comunes, tienen un acceso directo desde el menú principal o contextual del aplicativo.
 
 El programa es fuertemente configurable, con innumerables opciones para la apariencia y el modo de trabajo. Para evitar tener que configurar constantemente el entorno, se incluye el manejo de sesiones, que pueden guardar toda la configuración en un solo archivo, y que puede luego recuperarse de forma sencilla, con un par de "Clicks".
