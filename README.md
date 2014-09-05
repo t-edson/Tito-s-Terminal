@@ -3,7 +3,7 @@ Tito-s-Terminal
 
 Terminal con Interfaz gráfica, coloreado de sintaxis y automatización para telnet, y ssh.
 
-![Texto alternativo](http://blog.pucp.edu.pe/media/4946/20140903-tterm1.png "Título de la imagen")
+![Tito's Terminal](http://blog.pucp.edu.pe/media/4946/20140905-tterm1red.png "Título de la imagen")
 
 Tito's Terminal empezó como una broma, pero ahora es una aplicación bastante completa y ha migrado recientemente a Lazarus.
 
@@ -28,6 +28,8 @@ También se incluye un editor remoto, que interactuando, mediante comandos, con 
 Los editores del programa incluyen resaltado de sintaxis (para diversos lenguajes), plegado de código y autocompletado de código. Estos editores se pueden configurar en su apariencia y se pueden agregar lenguajes nuevos o modificar los que ya existen, en cuanto a resaltado de sintaxis, plegado de código o autocompletado.
 
 Tito's Terminal también permite la automatización de las conexiones con un lenguaje de macros similar al usado para TeraTerm. Se incluye además un editor de código preparado exclusivamente para escribir y probar las macros.
+
+![Tito's Terminal](http://blog.pucp.edu.pe/media/4946/20140905-tterm3.png "Título de la imagen")
 
 Las funcines de ejecución de macros, así como otras comunes, tienen un acceso directo desde el menú principal o contextual del aplicativo.
 
