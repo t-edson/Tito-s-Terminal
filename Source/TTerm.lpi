@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <Title Value="TTerm"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="2">
+      <Item1 Name="Debug" Default="True"/>
+      <Item2 Name="Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="TTerm"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <MsgFileName Value=""/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="3">
+      <Item1>
+        <PackageName Value="IDEIntf"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="SynEdit"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
+    </RequiredPackages>
+    <Units Count="31">
+      <Unit0>
+        <Filename Value="TTerm.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TTerm"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="formprincipal.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmPrincipal"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormPrincipal"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="UnTerminal.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UnTerminal"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="FormConexRapida.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmConexRap"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormConexRapida"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="FormConfig.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Config"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormConfig"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="globales.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Globales"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="FrameCfgDetPrompt.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fraDetPrompt"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frameCfgDetPrompt"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="FrameCfgConex.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fraConexion"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="FrameCfgConex"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="termVT.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TermVT"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="uResaltTerm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uResaltTerm"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="FrameCfgEdit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fcEdit"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="FrameCfgEdit"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="FormSelFuente.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSelFuente"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormSelFuente"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="framecfgpantterm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fraPantTerm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frameCfgPantTerm"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="configframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ConfigFrame"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="FormEditMacros.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmEditMacros"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormEditMacros"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="FrameCfgGener.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fraCfgGener"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="FrameCfgGener"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="XpresBas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="XpresBas"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="XPresParser.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="XpresParser"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="FrameExpRemoto.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fraExpRemoto"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="FrameExpRemoto"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="formexpremoto.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmExpRemoto"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormExpRemoto"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="FrameConfExpRem.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fcExpRem"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="frameConfExpRem"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="FrameConfMacros.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fcMacros"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="FrameConfMacros"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="FormEditRemoto.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmEditRemoto"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormEditRemoto"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="FormAbrirRemoto.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAbrirRemoto"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormAbrirRemoto"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="MisUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MisUtils"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="synFacilCompletion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SynFacilCompletion"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="SynFacilUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SynFacilUtils"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="SynFacilHighlighter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SynFacilHighlighter"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="FrameCfgComandRec.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fraComandRec"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="FrameCfgComandRec"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="FrameCfgRutasCnx.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fraCfgRutArc"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="FrameCfgRutasCnx"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="framecfgpancom.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fraPanCom"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="FrameCfgPanCom"/>
+      </Unit30>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="TTerm"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <IncludeAssertionCode Value="True"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <Checks>
+        <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf2"/>
+        <UseHeaptrc Value="True"/>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <MsgFileName Value=""/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

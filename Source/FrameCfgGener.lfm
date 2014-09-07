@@ -1,0 +1,9 @@
+object fraCfgGener: TfraCfgGener
+  Left = 0
+  Height = 231
+  Top = 0
+  Width = 320
+  TabOrder = 0
+  DesignLeft = 401
+  DesignTop = 333
+end
