@@ -23,6 +23,8 @@ La detección del prompt, es útil visualmente y también es necesario para algu
 
 El explorador de archivos remoto,  funciona interactuando con el terminal, mediante comandos, pero solo para las sesiones Telnet y SSH. De esta forma se puede emular un explorador de archivo en conexiones UNIX/Linux.
 
+![Tito's Terminal](http://blog.pucp.edu.pe/media/4946/20140908-tterm5.png "Título de la imagen")
+
 También se incluye un editor remoto, que interactuando, mediante comandos, con el shell permite realizar la edición de archivos pequeños, desde dentro del mismo shell UNIX/Linux.
 
 Los editores del programa incluyen resaltado de sintaxis (para diversos lenguajes), plegado de código y autocompletado de código. Estos editores se pueden configurar en su apariencia y se pueden agregar lenguajes nuevos o modificar los que ya existen, en cuanto a resaltado de sintaxis, plegado de código o autocompletado.
