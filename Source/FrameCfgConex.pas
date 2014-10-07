@@ -42,7 +42,7 @@ type
     constructor Create(AOwner: TComponent) ; override;
     destructor Destroy; override;
   private
-    proc: TConexProc;
+    proc: TConsoleProc;
     procedure Ocultar;
     { private declarations }
   public
@@ -58,7 +58,7 @@ type
     procedure GrabarIP;
     procedure PropToWindow; override;
     procedure WindowToProp; override;
-    procedure Iniciar(secINI0: string; proc0: TConexProc);
+    procedure Iniciar(secINI0: string; proc0: TConsoleProc);
   end;
 
 implementation
@@ -66,7 +66,7 @@ implementation
 const MAX_ARC_REC = 5;  //si se cambia, actualizar ActualMenusReciente()
 
 { TfraConexion }
-procedure TfraConexion.Iniciar(secINI0: string; proc0: TConexProc);
+procedure TfraConexion.Iniciar(secINI0: string; proc0: TConsoleProc);
 begin
   secINI := secINI0;  //sección INI
   proc := proc0;

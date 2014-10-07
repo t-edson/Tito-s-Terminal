@@ -13,24 +13,27 @@ type
   { TfraDetPrompt }
 
   TfraDetPrompt = class(TFrame)
-    chkDetParcial: TCheckBox;
     chkDetecPrompt: TCheckBox;
     GroupBox1: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    RadioButton3: TRadioButton;
+    RadioButton4: TRadioButton;
     txtCadFin: TEdit;
     txtCadIni: TEdit;
     procedure chkDetecPromptChange(Sender: TObject);
   private
     ed: TSynEdit;
-    proc: TConexProc;
+    proc: TConsoleProc;
   public
     //parámetros de detección de prompt
     detecPrompt: boolean;
     prIni     : string;
     prFin     : string;
-    DetParcial : boolean;
-    procedure Iniciar(secINI0: string; ed0: TSynEdit; proc0: TConexProc); //Inicia el frame
+    TipDetec : TPrompMatch;
+    procedure Iniciar(secINI0: string; ed0: TSynEdit; proc0: TConsoleProc); //Inicia el frame
     procedure ConfigCambios;
   end;
 
@@ -40,7 +43,7 @@ implementation
 
 { TfraDetPrompt }
 
-procedure TfraDetPrompt.Iniciar(secINI0: string; ed0: TSynEdit; proc0: TConexProc);
+procedure TfraDetPrompt.Iniciar(secINI0: string; ed0: TSynEdit; proc0: TConsoleProc);
 //necesita referencias al editor y al terminal para actualizar la detección de prompt
 begin
   secINI := secINI0;  //sección INI
@@ -52,7 +55,8 @@ begin
   Asoc_Bol_TChkB(@detecPrompt, chkDetecPrompt,'DetecPrompt', false);
   Asoc_Str_TEdit(@prIni,txtCadIni,'cadIni','');
   Asoc_Str_TEdit(@prFin,txtCadFin,'cadFin','');
-  Asoc_Bol_TChkB(@DetParcial, chkDetParcial,'DetParcial', false);
+  Asoc_Enum_TRadBut(@TipDetec, SizeOf(TipDetec),
+         [RadioButton1, RadioButton2, RadioButton3, RadioButton4],'TipDetec', 0);
 end;
 
 procedure TfraDetPrompt.chkDetecPromptChange(Sender: TObject);
@@ -82,9 +86,9 @@ begin
   //configura detección en proceso
   if DetecPrompt then begin  //hay detección
     proc.detecPrompt:=true;
-    proc.prIni:= prIni;
-    proc.prFin:= prFin;
-    proc.detParcial:= detParcial;
+    proc.promptIni:= prIni;
+    proc.promptFin:= prFin;
+    proc.promptMatch := TipDetec;
   end else begin //sin detección
     proc.detecPrompt:=false;
   end;

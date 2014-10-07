@@ -22,6 +22,9 @@ object fraPanCom: TfraPanCom
     Top = 40
     Width = 121
     Caption = '&Plegado de Código'
+    Checked = True
+    Enabled = False
+    State = cbChecked
     TabOrder = 1
   end
   object chkSaveBefSend: TCheckBox

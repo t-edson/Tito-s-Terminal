@@ -10,11 +10,11 @@ object fraDetPrompt: TfraDetPrompt
   DesignTop = 197
   object GroupBox1: TGroupBox
     Left = 8
-    Height = 105
+    Height = 160
     Top = 8
     Width = 304
     Caption = '                            '
-    ClientHeight = 87
+    ClientHeight = 142
     ClientWidth = 300
     TabOrder = 0
     object Label1: TLabel
@@ -56,13 +56,37 @@ object fraDetPrompt: TfraDetPrompt
       OnChange = chkDetecPromptChange
       TabOrder = 2
     end
-    object chkDetParcial: TCheckBox
-      Left = 14
+    object RadioButton1: TRadioButton
+      Left = 8
       Height = 19
-      Top = 56
-      Width = 205
-      Caption = 'Detección parcial dentro de la línea'
+      Top = 48
+      Width = 146
+      Caption = 'Correspondencia Exacta'
       TabOrder = 3
+    end
+    object RadioButton2: TRadioButton
+      Left = 8
+      Height = 19
+      Top = 96
+      Width = 122
+      Caption = 'Al inicio de la línea.'
+      TabOrder = 4
+    end
+    object RadioButton3: TRadioButton
+      Left = 8
+      Height = 19
+      Top = 72
+      Width = 116
+      Caption = 'Al final de la línea.'
+      TabOrder = 5
+    end
+    object RadioButton4: TRadioButton
+      Left = 8
+      Height = 19
+      Top = 120
+      Width = 174
+      Caption = 'En cualquier parte de la línea.'
+      TabOrder = 6
     end
   end
 end

@@ -238,7 +238,6 @@ end;
 procedure TfrmEditRemoto.acArcGuaComExecute(Sender: TObject);
 var
   arc0: String;
-  resp: TModalResult;
 begin
 //  edit.SaveAsDialog(SaveDialog1);
   if not SaveDialog1.Execute then begin  //se canceló
@@ -246,9 +245,8 @@ begin
   end;
   arc0 := SaveDialog1.FileName;
   if FileExists(arc0) then begin
-    resp := MessageDlg('', Format(MSG_OVERWRITE,[arc0]),
-                       mtConfirmation, [mbYes, mbNo, mbCancel],0);
-    if (resp = mrCancel) or (resp = mrNo) then Exit;
+    if MsgYesNoCancel('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
+                      [arc0]) in [2,3] then exit;
   end;
   NomArcLocal := UTF8ToSys(arc0);   //asigna nuevo nombre
 //  if ExtractFileExt(NomArc) = '' then NomArc += '.'+extDef;  //completa extensión

@@ -7,12 +7,12 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, FormPrincipal, UnTerminal, FormConexRapida, FormConfig, globales,
-  frameCfgDetPrompt, FrameCfgConex, SynFacilHighlighter, TermVT, uResaltTerm,
-  FrameCfgEdit, FormSelFuente, frameCfgPantTerm, ConfigFrame, FormEditMacros,
+  Forms, FormPrincipal, FormConexRapida, FormConfig, globales,
+  frameCfgDetPrompt, FrameCfgConex, uResaltTerm,
+  FrameCfgEdit, FormSelFuente, frameCfgPantTerm, FormEditMacros,
   FrameCfgGener, XpresBas, XPresParser, FrameExpRemoto, FormExpRemoto,
   frameConfExpRem, FrameConfMacros, FormEditRemoto, FormAbrirRemoto,
-  SynFacilCompletion, MisUtils, SynFacilUtils, FrameCfgComandRec, 
+  FrameCfgComandRec, 
 FrameCfgRutasCnx, FrameCfgPanCom;
 
 {$R *.res}

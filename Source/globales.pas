@@ -9,13 +9,13 @@ uses  Classes, SysUtils, Forms, Graphics, Dialogs, SynEdit, SynEditKeyCmds, MisU
       ShellApi, types, dateutils, LazLogger, Menus ;
 
 const
-  NOM_PROG = 'Tito''s Terminal 0.1b';   //nombre de programa
+  NOM_PROG = 'Tito''s Terminal 0.2b';   //nombre de programa
 
 var
    //Variables globales
    MsjError    : String;    //Bandera - Mensaje de error
 
-   rutApp     : string;      //ruta de la apliación
+   rutApp     : string;      //ruta de la aplicación
    rutMacros  : string;      //ruta de la carpeta de macros
    rutScripts : string;      //ruta de la carpeta de scripts
    rutLenguajes: string;     //ruta para guardar las sintaxis

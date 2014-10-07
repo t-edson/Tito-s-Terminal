@@ -5,7 +5,7 @@ unit FrameCfgPanCom;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, EditBtn
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, EditBtn, SynFacilCompletion
   ,ConfigFrame;   //para interceptar TFrame
 
 type
@@ -23,8 +23,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     procedure chkUsarPrepChange(Sender: TObject);
+    procedure ConfigResalt;
   private
-    { private declarations }
+    hl    : TSynFacilComplet;  //referencia al resaltador
   public
     CompletCode: boolean;  //habilita el completado de código
     CodFolding : boolean;  //habilita el plegado de código
@@ -32,7 +33,7 @@ type
     UsarPrep   : boolean;  //usar preprocesador
     LinCom     : string;   //línea de comando para preporcesador
     ArcEnviar  : string;   //tetxo a enviar
-    procedure Iniciar(secINI0: string); //Inicia el frame
+    procedure Iniciar(secINI0: string; hl0: TSynFacilComplet); //Inicia el frame
     procedure PropToWindow; override;
   end;
 
@@ -50,9 +51,18 @@ begin
   txtArcEnviar.Enabled:=chkUsarPrep.Checked;
 end;
 
-procedure TfraPanCom.Iniciar(secINI0: string);
+procedure TfraPanCom.ConfigResalt;
+begin
+  hl.OpenOnKeyUp := CompletCode;
+  //no se puede configurar plegado de código
+end;
+
+procedure TfraPanCom.Iniciar(secINI0: string; hl0: TSynFacilComplet);
 begin
   secINI := secINI0;  //sección INI
+  hl := hl0;
+  OnUpdateChanges:=@ConfigResalt;
+  //manejador de cambios
   Asoc_Bol_TChkB(@CompletCode,chkCompletCode,'CompletCode',true);
   Asoc_Bol_TChkB(@CodFolding , chkCodFolding,'CodFolding',true);
   Asoc_Bol_TChkB(@SaveBefSend,chkSaveBefSend,'SaveBefSend',false);

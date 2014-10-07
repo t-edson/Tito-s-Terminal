@@ -22,14 +22,14 @@ type
     txtMaxLinT: TEdit;
     txtMaxColT: TEdit;
   private
-    p: TConexProc;   //referencia a proceso telnet
+    p: TConsoleProc;   //referencia a proceso telnet
     procedure ConfigTerminal;
   public
     maxLinTer : integer;  //máxima cantidad de líneas que se nantienen en el terminal
     maxColTer : integer;  //máxima cantidad de columnas que se muestran en el terminal
     interDirec: boolean;  //interceptar teclas direccionales
     curSigPrm : boolean;  //cursor sigue a prompt
-    procedure Iniciar(secINI0: string; p0: TConexProc); //Inicia el frame
+    procedure Iniciar(secINI0: string; p0: TConsoleProc ); //Inicia el frame
   end;
 
 implementation
@@ -37,7 +37,7 @@ implementation
 {$R *.lfm}
 
 { TfraPantTerm }
-procedure TfraPantTerm.Iniciar(secINI0: string; p0: TConexProc);
+procedure TfraPantTerm.Iniciar(secINI0: string; p0: TConsoleProc);
 begin
   secINI := secINI0;  //sección INI
   //asigna referencia necesarias

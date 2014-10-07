@@ -10,8 +10,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, StdCtrls, ExtCtrls,
-  EditBtn, SynEdit, SynEditHighlighter,
-  dialogs, Buttons, ComCtrls, UnTerminal, MisUtils,
+  EditBtn, SynEdit, SynEditHighlighter, dialogs, Buttons, ComCtrls,
+  UnTerminal, MisUtils, SynFacilCompletion,
   FrameCfgDetPrompt, FrameCfgConex, FrameCfgEdit, frameCfgPantTerm, FrameCfgGener,
   frameConfExpRem, FrameConfMacros, FrameCfgComandRec, FrameCfgRutasCnx, FrameCfgPanCom
   ,ConfigFrame;   //para interceptar TFrame
@@ -45,7 +45,7 @@ type
     edPCom  : TSynEdit;    //referencia al editor panel de comando
     edMacr  : TSynEdit;    //referencia al editor panel de comando
     edRemo  : TSynEdit;    //referencia al editor remoto
-    prTel   : TConexProc;
+    prTel   : TConsoleProc;
     //frames de configuración
     fcGener   : TfraCfgGener;   //configuraciones generales (no visible)
     fcConex   : TFraConexion;   //conexión
@@ -66,7 +66,7 @@ type
     VerBHerTerm : boolean;   //barra de herramientas
     VerBarEst   : boolean;   //barra de estado
     TipAlineam  : integer;   //tipo de alineamiento de pantalla
-    procedure Iniciar;
+    procedure Iniciar(hl0: TSynFacilComplet);
     procedure LeerArchivoIni(iniFile: string='');
     procedure escribirArchivoIni(iniFile: string='');
     procedure Configurar(grupo: string='');
@@ -136,7 +136,7 @@ begin
   MostEnVentana;   //carga las propiedades en el frame
 end;
 
-procedure TConfig.Iniciar;
+procedure TConfig.Iniciar(hl0: TSynFacilComplet);
 //Inicia el formulario de configuración. Debe llamarse antes de usar el formulario y
 //después de haber cargado todos los frames.
 begin
@@ -146,7 +146,7 @@ begin
   fcRutArc.Iniciar('rutas_conex');
   fcEdTerm.Iniciar('terminal', edTerm, clBlack);
   fcEdPcom.Iniciar('panelCom', edPCom);
-  fcPanCom.Iniciar('fcPanCom');
+  fcPanCom.Iniciar('fcPanCom', hl0);
   fcMacros.Iniciar('cfgMacros');
   fcEdMacr.Iniciar('edMacros', edMacr, $E8FFE8);
   fcEdRemo.Iniciar('edRemoto', edRemo);

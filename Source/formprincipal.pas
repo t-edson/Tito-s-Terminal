@@ -278,7 +278,7 @@ type
     procedure mnSesionesAlmClick(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
     procedure procChangeState(info: string; pFinal: TPoint);
-    procedure procInitLines(const grilla: TtsGrid; fIni, fFin: integer);
+    procedure procInitScreen(const grilla: TtsGrid; fIni, fFin: integer);
     procedure procAddLine(HeightScr: integer);
     procedure procLlegoPrompt(prompt: string; pIni: TPoint; HeightScr: integer);
     procedure procRefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
@@ -309,7 +309,7 @@ type
     procedure MostrarPanCom(visibilidad: boolean);
     procedure PosicionarCursor(HeightScr: integer);
   public
-    proc   : TConexProc; //referencia al proceso actual
+    proc   : TConsoleProc; //referencia al proceso actual
     ejecMac: boolean;   //indica que está ejecutando una macro
     ejecCom: boolean;   //indica que está ejecutando un comando (editor remoto, exp. remoto ...)
     SesAct : string;    //nombre de la sesión actual
@@ -358,16 +358,16 @@ begin
   ePCom.LoadSyntaxFromPath;
 
   //inicia proceso
-  proc := TConexProc.Create(StatusBar1.Panels[1]);
+  proc := TConsoleProc.Create(StatusBar1.Panels[1]);
   StatusBar1.OnDrawPanel:=@StatusBar1DrawPanel;
 
   //proc.OnRefreshAll:=@procRefreshEdit;
-  proc.OnInitLines:=@procInitLines;
+  proc.OnInitScreen :=@procInitScreen;
   proc.OnRefreshLine:=@procRefreshLine;
   proc.OnRefreshLines:=@procRefreshLines;
   proc.OnAddLine:=@procAddLine;
 
-  proc.OnLlegoPrompt:=@procLlegoPrompt;
+  proc.OnGetPrompt:=@procLlegoPrompt;
   proc.OnChangeState:=@procChangeState;
 
   AcTerDescon.Enabled:=false;  //Se supone que inicia siempre sin conectar
@@ -398,7 +398,7 @@ begin
   Config.prTel := proc;     //pasa referencia a proceso
   Config.fcComRec.OnProbar:=@EnvioTemporizado;
 
-  Config.Iniciar;
+  Config.Iniciar(ePCom.hl);  //Inicia la configuración
   ConfiguraEntorno;
   DistribuirPantalla; //ubica componentes
   //muestra dirección IP actual
@@ -607,7 +607,7 @@ begin
   AcTerConec.Enabled := proc.state = ECO_STOPPED;
   AcTerDescon.Enabled:= not (proc.state = ECO_STOPPED);
 end;
-procedure TfrmPrincipal.procInitLines(const grilla: TtsGrid; fIni, fFin: integer);
+procedure TfrmPrincipal.procInitScreen(const grilla: TtsGrid; fIni, fFin: integer);
 var
   i: Integer;
 begin
@@ -754,7 +754,7 @@ begin
       StatusBar.Canvas.TextRect(Rect, 2 + Rect.Left, 2 + Rect.Top, StatusBar1.Panels[0].Text);
     end;
   end;
-  if panel.Index = 1 then proc.DibPanelEstado(StatusBar.Canvas, Rect);
+  if panel.Index = 1 then proc.DrawStatePanel(StatusBar.Canvas, Rect);
 end;
 
 procedure TfrmPrincipal.EnvioTemporizado;
@@ -837,6 +837,9 @@ procedure TfrmPrincipal.InicConect;  //Inicia la conexión actual
 begin
   //se supone que el proceso ya está configurado y listo para abrir
   proc.Open;  //lo abre
+  if msjError<>'' then begin
+    msgerr(msjError);
+  end;
   ActualizarInfoPanel0;  //por si ha cambiado la conexión
 end;
 procedure TfrmPrincipal.InicConectTelnet(ip: string);  //Inicia una conexión telnet
@@ -1159,7 +1162,6 @@ end;
 procedure TfrmPrincipal.AcArcGuaSesCExecute(Sender: TObject); //guarda sesión como
 var
   arc0: String;
-  resp: TModalResult;
   NomArc: String;
 begin
   SaveDialog1.Filter:='Archivo de sesión|*.ses|Todos los archivos|*.*';
@@ -1169,9 +1171,8 @@ begin
   end;
   arc0 := SaveDialog1.FileName;
   if FileExists(arc0) then begin
-    resp := MessageDlg('', Format(MSG_OVERWRITE,[arc0]),
-                       mtConfirmation, [mbYes, mbNo, mbCancel],0);
-    if (resp = mrCancel) or (resp = mrNo) then Exit;
+    if MsgYesNoCancel('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
+                      [arc0]) in [2,3] then exit;
   end;
   NomArc := UTF8ToSys(arc0);   //asigna nuevo nombre
   if ExtractFileExt(NomArc) = '' then NomArc += '.'+'ses';  //completa extensión
@@ -1445,8 +1446,9 @@ procedure TfrmPrincipal.AcTerDetPrmExecute(Sender: TObject); //Detecta prompt
 begin
   proc.AutoConfigPrompt;  //auto-detección
   config.fcDetPrompt.DetecPrompt := proc.detecPrompt;
-  config.fcDetPrompt.prIni := proc.prIni;
-  config.fcDetPrompt.prFin := proc.prFin;
+  config.fcDetPrompt.prIni := proc.promptIni;
+  config.fcDetPrompt.prFin := proc.promptFin;
+  config.fcDetPrompt.TipDetec:=proc.promptMatch;
   config.fcDetPrompt.OnUpdateChanges;  //actualiza resaltador y al mismo proceso
 end;
 procedure TfrmPrincipal.AcTerEnvCtrlCExecute(Sender: TObject);  //Ctrl+C
