@@ -6,8 +6,8 @@ object fraDetPrompt: TfraDetPrompt
   ClientHeight = 223
   ClientWidth = 328
   TabOrder = 0
-  DesignLeft = 249
-  DesignTop = 197
+  DesignLeft = 202
+  DesignTop = 186
   object GroupBox1: TGroupBox
     Left = 8
     Height = 160

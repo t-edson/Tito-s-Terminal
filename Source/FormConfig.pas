@@ -9,11 +9,10 @@ unit FormConfig;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, StdCtrls, ExtCtrls,
-  EditBtn, SynEdit, SynEditHighlighter, dialogs, Buttons, ComCtrls,
+  SysUtils, Forms, Graphics, SynEdit, Buttons, ComCtrls,
   UnTerminal, MisUtils, SynFacilCompletion,
-  FrameCfgDetPrompt, FrameCfgConex, FrameCfgEdit, frameCfgPantTerm, FrameCfgGener,
-  frameConfExpRem, FrameConfMacros, FrameCfgComandRec, FrameCfgRutasCnx, FrameCfgPanCom
+  FrameCfgGener, FrameCfgDetPrompt, FrameCfgConex, FrameCfgEdit, frameCfgPantTerm,
+  FrameCfgExpRem, FrameCfgMacros, FrameCfgComandRec, FrameCfgRutasCnx, FrameCfgPanCom
   ,ConfigFrame;   //para interceptar TFrame
 
 type
@@ -69,10 +68,11 @@ type
     procedure Iniciar(hl0: TSynFacilComplet);
     procedure LeerArchivoIni(iniFile: string='');
     procedure escribirArchivoIni(iniFile: string='');
-    procedure Configurar(grupo: string='');
+    procedure Configurar(Id: string='');
     function ContienePrompt(const linAct, prIni, prFin: string): integer;
     function ContienePrompt(const cad: string): boolean;
     function EsPrompt(const cad: string): boolean;
+    procedure SetLanguage(lang: string);
   end;
 
 var
@@ -80,7 +80,6 @@ var
 
 implementation
 {$R *.lfm}
-const MAX_ARC_REC = 5;  //si se cambia, actualizar ActualMenusReciente()
 
   { TConfig }
 
@@ -89,37 +88,40 @@ begin
   //Crea frames de configuración
   fcConex:= TFraConexion.Create(Self);
   fcConex.parent := self;
-  fcComRec := TfraComandRec.Create(Self);
-  fcComRec.parent := self;
+  fcDetPrompt:= TfraDetPrompt.Create(Self);
+  fcDetPrompt.parent := self;
   fcRutArc := TfraCfgRutArc.Create(Self);
   fcRutArc.parent := self;
 
+  fcPantTerm:= TfraPantTerm.Create(Self);
+  fcPantTerm.parent := self;
   fcEdTerm:= TfcEdit.Create(Self);
   fcEdTerm.Name := 'ter';  //para que no de error de nombre
   fcEdTerm.parent := self;
+  fcComRec := TfraComandRec.Create(Self);
+  fcComRec.parent := self;
+
   fcEdPcom:= TfcEdit.Create(Self);
   fcEdPcom.Name := 'pcom'; //para que no de error de nombre
   fcEdPcom.parent := self;
   fcPanCom:= TfraPanCom.Create(Self);
   fcPanCom.parent := self;
+
   fcMacros    := TfcMacros.Create(self);
   fcMacros.Parent := self;
   fcEdMacr:= TfcEdit.Create(Self);
   fcEdMacr.Name := 'emac'; //para que no de error de nombre
   fcEdMacr.parent := self;
+
   fcEdRemo:= TfcEdit.Create(Self);
   fcEdRemo.Name := 'erem'; //para que no de error de nombre
   fcEdRemo.parent := self;
 
-  fcPantTerm:= TfraPantTerm.Create(Self);
-  fcPantTerm.parent := self;
-  fcDetPrompt:= TfraDetPrompt.Create(Self);
-  fcDetPrompt.parent := self;
-  fcGener := TfraCfgGener.Create(Self);
-  fcGener.parent := self;
-
   fcExpRem    := TfcExpRem.Create(self);
   fcExpRem.parent := self;
+
+  fcGener := TfraCfgGener.Create(Self);
+  fcGener.parent := self;
 
   //Obtiene nombre de archivo INI
   arIni := GetIniName;
@@ -135,7 +137,6 @@ procedure TConfig.FormShow(Sender: TObject);
 begin
   MostEnVentana;   //carga las propiedades en el frame
 end;
-
 procedure TConfig.Iniciar(hl0: TSynFacilComplet);
 //Inicia el formulario de configuración. Debe llamarse antes de usar el formulario y
 //después de haber cargado todos los frames.
@@ -164,38 +165,30 @@ begin
   //lee parámetros del archivo de configuración.
   LeerArchivoIni;
 end;
-
 procedure TConfig.TreeView1Click(Sender: TObject);
-var
-  selec: String;
-  nivel: Integer;
 begin
   if TreeView1.Selected = nil then exit;
+  //hay ítem seleccionado
   Hide_AllConfigFrames(self);  //oculta todos
-  nivel := TreeView1.Selected.Level;
-  if nivel = 1 then  //de dos niveles
-    selec := TreeView1.Selected.Parent.Text +'-'+TreeView1.Selected.Text
-  else  //de un nivel
-    selec := TreeView1.Selected.Text;
-  case selec of
-  'Conexión',
-  'Conexión-General'         :fcConex.ShowPos(145,0) ;
-  'Conexión-Detec.de Prompt' :fcDetPrompt.ShowPos(145,0);
-  'Conexión-Rutas/Archivos'   : fcRutArc.ShowPos(145,0);
-  'Terminal',
-  'Terminal-Pantalla'        :fcPantTerm.ShowPos(145,0);
-  'Terminal-Editor'          :fcEdTerm.ShowPos(145,0);
-  'Terminal-Comando Recurrente': fcComRec.ShowPos(145,0);
-  'Panel de Comandos',
-  'Panel de Comandos-Editor' :fcEdPcom.ShowPos(145,0);
-  'Panel de Comandos-Otros'  :fcPanCom.ShowPos(145,0);
-  'Macros',
-  'Macros-Configuración'     :fcMacros.ShowPos(145,0);
-  'Macros-Editor'            :fcEdMacr.ShowPos(145,0);
-  'Editor Remoto',
-  'Editor Remoto-Editor'     :fcEdRemo.ShowPos(145,0);
-  'Otros',
-  'Otros-Explorador Remoto'  :fcExpRem.ShowPos(145,0);
+  case IdFromTTreeNode(TreeView1.Selected) of
+  '1',
+  '1.1'  : fcConex.ShowPos(145,0) ;
+  '1.2'  : fcDetPrompt.ShowPos(145,0);
+  '1.3'  : fcRutArc.ShowPos(145,0);
+  '2',
+  '2.1'  : fcPantTerm.ShowPos(145,0);
+  '2.2'  : fcEdTerm.ShowPos(145,0);
+  '2.3'  : fcComRec.ShowPos(145,0);
+  '3',
+  '3.1'  : fcEdPcom.ShowPos(145,0);
+  '3.2'  : fcPanCom.ShowPos(145,0);
+  '4',
+  '4.1'  : fcMacros.ShowPos(145,0);
+  '4.2'  : fcEdMacr.ShowPos(145,0);
+  '5',
+  '5.1'  : fcEdRemo.ShowPos(145,0);
+  '6',
+  '6.1'  : fcExpRem.ShowPos(145,0);
   end;
 end;
 
@@ -222,20 +215,15 @@ procedure TConfig.bitCancelClick(Sender: TObject);
 begin
   self.Hide;
 end;
-procedure TConfig.Configurar(grupo: string='');
+procedure TConfig.Configurar(Id: string='');
 //Muestra el formulario, de modo que permita configurar la sesión actual
 var
   it: TTreeNode;
 begin
-  if grupo<> '' then begin  /////se pide mostrar un grupo en especial
+  if Id<> '' then begin  /////se pide mostrar un Id en especial
     //oculta los demás
-    for it in TreeView1.Items do if it.Level=0 then begin
-        if it.Text=grupo then it.Selected:=true;
-    end;
-{    //selecciona el primer visible
-    for it in TreeView1.Items do if it.Visible then begin
-      it.Selected:=true; break;
-    end;}
+    it := TTreeNodeFromId(Id,TreeView1);
+    if it <> nil then it.Selected:=true;
     TreeView1Click(self);
   end else begin ////////muestra todos
     for it in TreeView1.Items do begin
@@ -317,6 +305,73 @@ begin
     msjError := SavePropToFile_AllFrames(self, arINI)
   else
     msjError := SavePropToFile_AllFrames(self, iniFile);
+end;
+
+procedure TConfig.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  fcGener.SetLanguage(lang);
+
+  fcConex.SetLanguage(lang);
+  fcDetPrompt.SetLanguage(lang);
+  fcRutArc.SetLanguage(lang);
+
+  fcPantTerm.SetLanguage(lang);
+  fcEdTerm.SetLanguage(lang);
+  fcComRec.SetLanguage(lang);
+
+  fcEdPcom.SetLanguage(lang);
+  fcPanCom.SetLanguage(lang);
+
+  fcMacros.SetLanguage(lang);
+  fcEdMacr.SetLanguage(lang);
+
+  fcEdRemo.SetLanguage(lang);
+
+  fcExpRem.SetLanguage(lang);
+
+  case lowerCase(lang) of
+  'es': begin
+      TTreeNodeFromId('1',TreeView1).Text:='Conexión';
+      TTreeNodeFromId('1.1',TreeView1).Text:='General';
+      TTreeNodeFromId('1.2',TreeView1).Text:='Detec.de Prompt';
+      TTreeNodeFromId('1.3',TreeView1).Text:='Rutas/Archivos';
+      TTreeNodeFromId('2',TreeView1).Text:='Terminal';
+      TTreeNodeFromId('2.1',TreeView1).Text:='Pantalla';
+      TTreeNodeFromId('2.2',TreeView1).Text:='Editor';
+      TTreeNodeFromId('2.3',TreeView1).Text:='Comando Recurrente';
+      TTreeNodeFromId('3',TreeView1).Text:='Panel de Comandos';
+      TTreeNodeFromId('3.1',TreeView1).Text:='Editor';
+      TTreeNodeFromId('3.2',TreeView1).Text:='Otros';
+      TTreeNodeFromId('4',TreeView1).Text:='Macros';
+      TTreeNodeFromId('4.1',TreeView1).Text:='Configuración';
+      TTreeNodeFromId('4.2',TreeView1).Text:='Editor';
+      TTreeNodeFromId('5',TreeView1).Text:='Editor Remoto';
+      TTreeNodeFromId('5.1',TreeView1).Text:='Editor';
+      TTreeNodeFromId('6',TreeView1).Text:='Otros';
+      TTreeNodeFromId('6.1',TreeView1).Text:='Explorador Remoto';
+    end;
+  'en': begin
+      TTreeNodeFromId('1',TreeView1).Text:='Connection';
+      TTreeNodeFromId('1.1',TreeView1).Text:='General';
+      TTreeNodeFromId('1.2',TreeView1).Text:='Prompt detection';
+      TTreeNodeFromId('1.3',TreeView1).Text:='Paths/Files';
+      TTreeNodeFromId('2',TreeView1).Text:='Terminal';
+      TTreeNodeFromId('2.1',TreeView1).Text:='Screen';
+      TTreeNodeFromId('2.2',TreeView1).Text:='Editor';
+      TTreeNodeFromId('2.3',TreeView1).Text:='Recurring command';
+      TTreeNodeFromId('3',TreeView1).Text:='Command Panel';
+      TTreeNodeFromId('3.1',TreeView1).Text:='Editor';
+      TTreeNodeFromId('3.2',TreeView1).Text:='Others';
+      TTreeNodeFromId('4',TreeView1).Text:='Macros';
+      TTreeNodeFromId('4.1',TreeView1).Text:='Setup';
+      TTreeNodeFromId('4.2',TreeView1).Text:='Editor';
+      TTreeNodeFromId('5',TreeView1).Text:='Remote Editor';
+      TTreeNodeFromId('5.1',TreeView1).Text:='Editor';
+      TTreeNodeFromId('6',TreeView1).Text:='Others';
+      TTreeNodeFromId('6.1',TreeView1).Text:='Remote Explorer';
+    end;
+  end;
 end;
 
 end.

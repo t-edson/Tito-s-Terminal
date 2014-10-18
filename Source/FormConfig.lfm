@@ -1,7 +1,7 @@
 object Config: TConfig
-  Left = 276
+  Left = 234
   Height = 289
-  Top = 165
+  Top = 154
   Width = 465
   BorderStyle = bsDialog
   Caption = 'Configuración'
@@ -10,7 +10,7 @@ object Config: TConfig
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.4.0'
   object bitAceptar: TBitBtn
     Left = 168
     Height = 30
@@ -49,10 +49,10 @@ object Config: TConfig
     Height = 272
     Top = 8
     Width = 136
-    DefaultItemHeight = 18
+    DefaultItemHeight = 16
     Font.CharSet = ANSI_CHARSET
     Font.Height = -12
-    Font.Name = 'Arimo'
+    Font.Name = 'Calibri'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     ParentFont = False

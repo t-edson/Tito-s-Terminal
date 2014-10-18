@@ -6,8 +6,8 @@ object fraConexion: TfraConexion
   ClientHeight = 215
   ClientWidth = 325
   TabOrder = 0
-  DesignLeft = 269
-  DesignTop = 444
+  DesignLeft = 194
+  DesignTop = 326
   object lblIP: TLabel
     Left = 120
     Height = 15

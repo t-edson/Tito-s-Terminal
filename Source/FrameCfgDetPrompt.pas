@@ -35,6 +35,7 @@ type
     TipDetec : TPrompMatch;
     procedure Iniciar(secINI0: string; ed0: TSynEdit; proc0: TConsoleProc); //Inicia el frame
     procedure ConfigCambios;
+    procedure SetLanguage(lang: string);
   end;
 
 implementation
@@ -93,5 +94,31 @@ begin
     proc.detecPrompt:=false;
   end;
 end;
+
+procedure TfraDetPrompt.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  case lowerCase(lang) of
+  'es': begin
+      chkDetecPrompt.Caption:='Detección de Prompt';
+      Label1.Caption:='Inicio Prompt:';
+      Label2.Caption:='Fin Prompt';
+      RadioButton1.Caption:='Correspondencia Exacta';
+      RadioButton3.Caption:='Al final de la línea.';
+      RadioButton2.Caption:='Al inicio de la línea.';
+      RadioButton4.Caption:='En cualquier parte de la línea.';
+    end;
+  'en': begin
+      chkDetecPrompt.Caption:='Prompt Detection';
+      Label1.Caption:='Prompt Start:';
+      Label2.Caption:='Prompt End';
+      RadioButton1.Caption:='Match exactly';
+      RadioButton3.Caption:='Match at the End of Line.';
+      RadioButton2.Caption:='Match at the Start of Line.';
+      RadioButton4.Caption:='Match at any position.';
+    end;
+  end;
+end;
+
 end.
 

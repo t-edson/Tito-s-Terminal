@@ -3,8 +3,8 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Debug"/>
-    <Units Count="52">
+    <BuildModes Active="Release"/>
+    <Units Count="58">
       <Unit0>
         <Filename Value="TTerm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -21,14 +21,15 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FormPrincipal"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="824"/>
-        <CursorPos X="6" Y="837"/>
+        <TopLine Value="1093"/>
+        <CursorPos X="18" Y="1108"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="2">
-          <Item0 X="7" Y="1083" ID="0"/>
-          <Item1 X="1" Y="840" ID="1"/>
+          <Item0 X="7" Y="1087" ID="0"/>
+          <Item1 X="18" Y="977" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -41,8 +42,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FormConexRapida"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="26"/>
-        <CursorPos X="1" Y="45"/>
+        <TopLine Value="1"/>
+        <CursorPos X="4" Y="8"/>
         <UsageCount Value="201"/>
       </Unit2>
       <Unit3>
@@ -52,21 +53,23 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FormConfig"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="33"/>
-        <CursorPos X="27" Y="48"/>
+        <TopLine Value="301"/>
+        <CursorPos X="1" Y="314"/>
+        <FoldState Value=" T3k203217 T0oW8Jr"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="globales.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Globales"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="22" Y="24"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="FrameCfgDetPrompt.pas"/>
@@ -76,8 +79,8 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frameCfgDetPrompt"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="41"/>
-        <CursorPos X="24" Y="56"/>
+        <TopLine Value="92"/>
+        <CursorPos X="1" Y="98"/>
         <UsageCount Value="204"/>
       </Unit5>
       <Unit6>
@@ -87,12 +90,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="FrameCfgConex"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="12" Y="10"/>
+        <TopLine Value="218"/>
+        <CursorPos X="1" Y="248"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="uResaltTerm.pas"/>
@@ -136,22 +137,11 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="frameCfgPantTerm"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="17"/>
-        <CursorPos X="44" Y="32"/>
+        <TopLine Value="53"/>
+        <CursorPos X="9" Y="72"/>
         <UsageCount Value="200"/>
       </Unit10>
       <Unit11>
-        <Filename Value="ConfigFrame.pas"/>
-        <UnitName Value="ConfigFrame"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="97"/>
-        <CursorPos X="32" Y="115"/>
-        <UsageCount Value="203"/>
-        <Bookmarks Count="1">
-          <Item0 X="1" Y="1" ID="1"/>
-        </Bookmarks>
-      </Unit11>
-      <Unit12>
         <Filename Value="FormEditMacros.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEditMacros"/>
@@ -163,8 +153,8 @@
         <CursorPos X="6" Y="195"/>
         <FoldState Value=" T3lR03714V"/>
         <UsageCount Value="200"/>
-      </Unit12>
-      <Unit13>
+      </Unit11>
+      <Unit12>
         <Filename Value="FrameCfgGener.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraCfgGener"/>
@@ -172,11 +162,11 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="FrameCfgGener"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3"/>
-        <CursorPos X="19" Y="18"/>
+        <TopLine Value="8"/>
+        <CursorPos X="11" Y="26"/>
         <UsageCount Value="204"/>
-      </Unit13>
-      <Unit14>
+      </Unit12>
+      <Unit13>
         <Filename Value="XpresBas.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="XpresBas"/>
@@ -184,8 +174,8 @@
         <TopLine Value="177"/>
         <CursorPos X="3" Y="185"/>
         <UsageCount Value="200"/>
-      </Unit14>
-      <Unit15>
+      </Unit13>
+      <Unit14>
         <Filename Value="XPresParser.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="XpresParser"/>
@@ -193,8 +183,8 @@
         <TopLine Value="78"/>
         <CursorPos X="14" Y="93"/>
         <UsageCount Value="200"/>
-      </Unit15>
-      <Unit16>
+      </Unit14>
+      <Unit15>
         <Filename Value="FrameExpRemoto.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraExpRemoto"/>
@@ -202,12 +192,11 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="FrameExpRemoto"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="38"/>
-        <CursorPos X="1" Y="39"/>
-        <FoldState Value=" T5904 T3jA0T7 piXjT08422712111 T6jC01634]D3 T0jFII3514124;"/>
+        <TopLine Value="261"/>
+        <CursorPos X="7" Y="281"/>
         <UsageCount Value="200"/>
-      </Unit16>
-      <Unit17>
+      </Unit15>
+      <Unit16>
         <Filename Value="FormExpRemoto.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmExpRemoto"/>
@@ -215,61 +204,65 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FormExpRemoto"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="47"/>
-        <CursorPos X="1" Y="71"/>
+        <TopLine Value="1"/>
+        <CursorPos X="12" Y="9"/>
         <UsageCount Value="200"/>
-      </Unit17>
-      <Unit18>
-        <Filename Value="FrameConfExpRem.pas"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="framecfgexprem.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fcExpRem"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="frameConfExpRem"/>
+        <UnitName Value="FrameCfgExpRem"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="18"/>
-        <CursorPos X="2" Y="27"/>
+        <TopLine Value="40"/>
+        <CursorPos X="3" Y="54"/>
         <UsageCount Value="200"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="FrameConfMacros.pas"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="framecfgmacros.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fcMacros"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameConfMacros"/>
+        <UnitName Value="FrameCfgMacros"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="1" Y="40"/>
+        <TopLine Value="23"/>
+        <CursorPos X="1" Y="54"/>
         <UsageCount Value="200"/>
-      </Unit19>
-      <Unit20>
+      </Unit18>
+      <Unit19>
         <Filename Value="FormEditRemoto.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEditRemoto"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FormEditRemoto"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="126"/>
+        <CursorPos X="13" Y="142"/>
+        <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="FormAbrirRemoto.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAbrirRemoto"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormAbrirRemoto"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="216"/>
-        <CursorPos X="32" Y="246"/>
+        <TopLine Value="77"/>
+        <CursorPos X="3" Y="106"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit20>
       <Unit21>
-        <Filename Value="FormAbrirRemoto.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmAbrirRemoto"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormAbrirRemoto"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="33"/>
-        <CursorPos X="1" Y="59"/>
-        <UsageCount Value="200"/>
-      </Unit21>
-      <Unit22>
         <Filename Value="FrameCfgComandRec.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraComandRec"/>
@@ -277,11 +270,11 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="FrameCfgComandRec"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="53"/>
-        <CursorPos X="1" Y="75"/>
+        <TopLine Value="78"/>
+        <CursorPos X="5" Y="108"/>
         <UsageCount Value="205"/>
-      </Unit22>
-      <Unit23>
+      </Unit21>
+      <Unit22>
         <Filename Value="FrameCfgRutasCnx.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraCfgRutArc"/>
@@ -289,25 +282,32 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="FrameCfgRutasCnx"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="36"/>
-        <CursorPos X="23" Y="42"/>
+        <TopLine Value="60"/>
+        <CursorPos X="57" Y="87"/>
         <UsageCount Value="203"/>
-      </Unit23>
-      <Unit24>
+      </Unit22>
+      <Unit23>
         <Filename Value="FrameCfgPanCom.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraPanCom"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="FrameCfgPanCom"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="11" Y="35"/>
-        <UsageCount Value="63"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <TopLine Value="52"/>
+        <CursorPos X="1" Y="83"/>
+        <UsageCount Value="84"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="ConfigFrame.pas"/>
+        <UnitName Value="ConfigFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="97"/>
+        <CursorPos X="32" Y="115"/>
+        <UsageCount Value="201"/>
+        <Bookmarks Count="1">
+          <Item0 X="1" Y="1" ID="1"/>
+        </Bookmarks>
       </Unit24>
       <Unit25>
         <Filename Value="MisUtils.pas"/>
@@ -315,7 +315,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="200"/>
+        <UsageCount Value="198"/>
       </Unit25>
       <Unit26>
         <Filename Value="UnTerminal.pas"/>
@@ -324,7 +324,7 @@
         <TopLine Value="441"/>
         <CursorPos X="25" Y="459"/>
         <FoldState Value=" T5S02011 TMmF010T181117]G8iX0w T3kg0I4 pkEiX2A6 piZkW06054 T6l001225 T0l5H88]Tek2bB3A3161Q THlR4Q]^U"/>
-        <UsageCount Value="201"/>
+        <UsageCount Value="199"/>
         <Bookmarks Count="1">
           <Item0 X="1" Y="1" ID="1"/>
         </Bookmarks>
@@ -336,7 +336,7 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <FoldState Value=" T3jU05B13M"/>
-        <UsageCount Value="202"/>
+        <UsageCount Value="200"/>
       </Unit27>
       <Unit28>
         <Filename Value="synFacilCompletion.pas"/>
@@ -345,7 +345,7 @@
         <TopLine Value="173"/>
         <CursorPos X="36" Y="545"/>
         <FoldState Value=" TL00u8 T4iJ05 T5iQ0{E TCiRH61 TMiZ210814241416111317]C24D p0vZ0121212712]j7jHLx T8jO223 T3l00N3 pjCjf0E2]9IjZ0Z5 pidjc09]IkSke0G[I4YjE0E]r6l202A T0lAy5D]q0iXR97]96jPSEH]hZkPk3[96CD8[94ajWq22 THuL2O1g"/>
-        <UsageCount Value="201"/>
+        <UsageCount Value="199"/>
         <Bookmarks Count="1">
           <Item0 X="1" Y="646" ID="1"/>
         </Bookmarks>
@@ -356,7 +356,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="586"/>
         <CursorPos X="24" Y="603"/>
-        <UsageCount Value="200"/>
+        <UsageCount Value="198"/>
       </Unit29>
       <Unit30>
         <Filename Value="SynFacilHighlighter.pas"/>
@@ -365,7 +365,7 @@
         <TopLine Value="331"/>
         <CursorPos X="38" Y="354"/>
         <FoldState Value=" T4902 TCYEI3 TLdR1 T7iDG8 T8jF2T11]U3pO0H4 pjFjb0O3 pkIl40L]9iXjF0901]y0pUL4I]bdmbBZD21143126 T6q205M[i4)I[g5Hu74x]V TF#0225H"/>
-        <UsageCount Value="200"/>
+        <UsageCount Value="198"/>
       </Unit30>
       <Unit31>
         <Filename Value="synhighlighterfacil.pas"/>
@@ -374,7 +374,7 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <FoldState Value=" T4D02 T5G011 poMoQ0N TMpg01041H21132C1 TCcEH3 T7iGG8]F8jI2T3 pkAl02L]:3pN0H4 pjFjb0M[Q4Hl10L]9iXjF09[94YiN0a1]RclZ0L[I5jI0E5]sHif2N113 T0pTL4H]JbmZBYE]balGnG6]tQjIac6]Igi6Y7[94Xi3V3N]9cnPf3I]9ZkfM5[{b5JhBE]/RjTj3G]HYnUg5E[Z4jND3G[Z4na73B]9dl4K4H[-5LD21 T6q105O[Z4)421I THu44x3 pi0$C2n p0wH49]fF~Z225C"/>
-        <UsageCount Value="178"/>
+        <UsageCount Value="176"/>
       </Unit31>
       <Unit32>
         <Filename Value="utilEditSyn.pas"/>
@@ -382,7 +382,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="49"/>
         <CursorPos X="3" Y="65"/>
-        <UsageCount Value="178"/>
+        <UsageCount Value="176"/>
         <Bookmarks Count="1">
           <Item0 X="1" Y="545" ID="2"/>
         </Bookmarks>
@@ -393,7 +393,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="195"/>
         <CursorPos X="6" Y="211"/>
-        <UsageCount Value="173"/>
+        <UsageCount Value="171"/>
       </Unit33>
       <Unit34>
         <Filename Value="interprete_bas.pas"/>
@@ -402,14 +402,14 @@
         <TopLine Value="231"/>
         <CursorPos X="6" Y="277"/>
         <FoldState Value=" TL00V T5X05 TMi7020D1Z161 T0iA045B3 T3iF0541B piYkK031121317 THiZ23]h6oI016l"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="45"/>
       </Unit34>
       <Unit35>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1654"/>
         <CursorPos X="3" Y="1670"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="10"/>
       </Unit35>
       <Unit36>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\packages\fcl-process\src\process.pp"/>
@@ -417,7 +417,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="48" Y="24"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit36>
       <Unit37>
         <Filename Value="C:\lazarus\components\synedit\synedithighlighter.pp"/>
@@ -425,7 +425,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1525"/>
         <CursorPos X="3" Y="1534"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="1"/>
       </Unit37>
       <Unit38>
         <Filename Value="C:\lazarus\components\synedit\syneditkeycmds.pp"/>
@@ -433,14 +433,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="98"/>
         <CursorPos X="17" Y="111"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit38>
       <Unit39>
         <Filename Value="XPresParser.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="124"/>
         <CursorPos X="27" Y="146"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="3"/>
       </Unit39>
       <Unit40>
         <Filename Value="C:\lazarus\lcl\controls.pp"/>
@@ -448,7 +448,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="3" Y="88"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="10"/>
       </Unit40>
       <Unit41>
         <Filename Value="C:\lazarus\lcl\lclclasses.pp"/>
@@ -456,14 +456,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="33" Y="42"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="10"/>
       </Unit41>
       <Unit42>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\sysutils\filutilh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="77"/>
         <CursorPos X="25" Y="95"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="10"/>
       </Unit42>
       <Unit43>
         <Filename Value="C:\lazarus\components\synedit\synedit.pp"/>
@@ -471,7 +471,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2436"/>
         <CursorPos X="26" Y="2440"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="1"/>
       </Unit43>
       <Unit44>
         <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
@@ -479,36 +479,36 @@
         <WindowIndex Value="0"/>
         <TopLine Value="768"/>
         <CursorPos X="3" Y="783"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit44>
       <Unit45>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="853"/>
         <CursorPos X="11" Y="869"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="2"/>
       </Unit45>
       <Unit46>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\astrings.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1015"/>
         <CursorPos X="3" Y="1019"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="2"/>
       </Unit46>
       <Unit47>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\sysutils\sysutilh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="209"/>
         <CursorPos X="14" Y="225"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="3"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\_Librerias\UnTerminal 0.6\UnTerminal.pas"/>
         <UnitName Value="UnTerminal"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="353"/>
-        <CursorPos X="7" Y="380"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="737"/>
+        <CursorPos X="34" Y="763"/>
+        <UsageCount Value="9"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\_Librerias\SynFacilCompletion0.7b\SynFacilCompletion.pas"/>
@@ -516,15 +516,15 @@
         <WindowIndex Value="0"/>
         <TopLine Value="46"/>
         <CursorPos X="1" Y="61"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit49>
       <Unit50>
         <Filename Value="..\_Librerias\SynFacilUtils 0.3b\SynFacilUtils.pas"/>
         <UnitName Value="SynFacilUtils"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="856"/>
-        <CursorPos X="50" Y="880"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="84"/>
+        <CursorPos X="5" Y="99"/>
+        <UsageCount Value="10"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\_Librerias\MisUtils 0.1b\MisUtils.pas"/>
@@ -532,124 +532,173 @@
         <WindowIndex Value="0"/>
         <TopLine Value="149"/>
         <CursorPos X="1" Y="165"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit51>
+      <Unit52>
+        <Filename Value="..\_Librerias\ConfigFrame 0.3.1b\ConfigFrame.pas"/>
+        <UnitName Value="ConfigFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="4"/>
+        <UsageCount Value="10"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="C:\lazarus\lcl\comctrls.pp"/>
+        <UnitName Value="ComCtrls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3350"/>
+        <CursorPos X="14" Y="3364"/>
+        <UsageCount Value="8"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="..\_Librerias\ConfigFrame 0.4\ConfigFrame.pas"/>
+        <UnitName Value="ConfigFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="302"/>
+        <CursorPos X="40" Y="323"/>
+        <UsageCount Value="9"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="..\_Librerias\MisUtils 0.1\MisUtils.pas"/>
+        <UnitName Value="MisUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="9"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="..\_Librerias\MisUtils 0.2b\MisUtils.pas"/>
+        <UnitName Value="MisUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8"/>
+        <CursorPos X="3" Y="24"/>
+        <FoldState Value=" TLjA04X"/>
+        <UsageCount Value="10"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="FormPrincipal.lfm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2669"/>
+        <CursorPos X="24" Y="2837"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit57>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="1453" Column="73" TopLine="1432"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="544" Column="38" TopLine="518"/>
       </Position1>
       <Position2>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="374" Column="1" TopLine="355"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="552" Column="38" TopLine="526"/>
       </Position2>
       <Position3>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="365" Column="35" TopLine="349"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="775" Column="40" TopLine="748"/>
       </Position3>
       <Position4>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="281" Column="29" TopLine="266"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position4>
       <Position5>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="386" Column="3" TopLine="366"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="544" Column="38" TopLine="521"/>
       </Position5>
       <Position6>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="13" Column="25" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="543" Column="19" TopLine="526"/>
       </Position6>
       <Position7>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="4" Column="1" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="544" Column="38" TopLine="526"/>
       </Position7>
       <Position8>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="17" Column="31" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="552" Column="38" TopLine="526"/>
       </Position8>
       <Position9>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="14" Column="65" TopLine="3"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="774" Column="44" TopLine="748"/>
       </Position9>
       <Position10>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="1352" Column="3" TopLine="1348"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="773" Column="10" TopLine="748"/>
       </Position10>
       <Position11>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="839" Column="24" TopLine="836"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="775" Column="40" TopLine="748"/>
       </Position11>
       <Position12>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="840" Column="1" TopLine="834"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="552" Column="15" TopLine="537"/>
       </Position12>
       <Position13>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="840" Column="1" TopLine="834"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="544" Column="43" TopLine="537"/>
       </Position13>
       <Position14>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="14" Column="63" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="542" Column="43" TopLine="537"/>
       </Position14>
       <Position15>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="18" Column="1" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="716" Column="79" TopLine="698"/>
       </Position15>
       <Position16>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="1175" Column="17" TopLine="1161"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="753" Column="92" TopLine="737"/>
       </Position16>
       <Position17>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="17" Column="27" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="746" Column="74" TopLine="737"/>
       </Position17>
       <Position18>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="1175" Column="18" TopLine="1161"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="753" Column="92" TopLine="737"/>
       </Position18>
       <Position19>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="1178" Column="17" TopLine="1161"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="746" Column="92" TopLine="737"/>
       </Position19>
       <Position20>
-        <Filename Value="FormEditRemoto.pas"/>
-        <Caret Line="137" Column="50" TopLine="117"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="753" Column="70" TopLine="737"/>
       </Position20>
       <Position21>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="1178" Column="38" TopLine="1161"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="785" Column="1" TopLine="768"/>
       </Position21>
       <Position22>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="1174" Column="24" TopLine="1161"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="945" Column="15" TopLine="933"/>
       </Position22>
       <Position23>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="15" Column="66" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="966" Column="15" TopLine="952"/>
       </Position23>
       <Position24>
-        <Filename Value="globales.pas"/>
-        <Caret Line="10" Column="1" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="978" Column="74" TopLine="960"/>
       </Position24>
       <Position25>
-        <Filename Value="FrameCfgConex.pas"/>
-        <Caret Line="69" Column="68" TopLine="47"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="1094" Column="68" TopLine="1091"/>
       </Position25>
       <Position26>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="25" Column="17" TopLine="1"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="1122" Column="68" TopLine="1095"/>
       </Position26>
       <Position27>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="401" Column="15" TopLine="382"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="1094" Column="28" TopLine="1078"/>
       </Position27>
       <Position28>
-        <Filename Value="formprincipal.pas"/>
-        <Caret Line="1509" Column="1" TopLine="1477"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="1356" Column="6" TopLine="1340"/>
       </Position28>
     </JumpHistory>
   </ProjectSession>

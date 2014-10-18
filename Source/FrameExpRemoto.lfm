@@ -869,38 +869,6 @@ object fraExpRemoto: TfraExpRemoto
       ImageIndex = 11
       OnExecute = acArcNuevoExecute
     end
-    object acEdEdit: TAction
-      Category = 'Edit'
-      Caption = '&Editar'
-      ImageIndex = 7
-      OnExecute = acEdEditExecute
-    end
-    object acHerEjec: TAction
-      Category = 'Her'
-      Caption = 'E&jecutar'
-      ImageIndex = 9
-      OnExecute = acHerEjecExecute
-    end
-    object acEdElim: TAction
-      Category = 'Edit'
-      Caption = '&Eliminar'
-      ImageIndex = 8
-      OnExecute = acEdElimExecute
-    end
-    object acVerRefres: TAction
-      Category = 'Edit'
-      Caption = '&Refrescar Todo'
-      Hint = 'Refresca la lista'
-      ImageIndex = 5
-      OnExecute = acVerRefresExecute
-    end
-    object acConfig: TAction
-      Category = 'Her'
-      Caption = '&Configurar'
-      Hint = 'Configurar el explorador'
-      ImageIndex = 6
-      OnExecute = acConfigExecute
-    end
     object acArcNueCar: TAction
       Category = 'Arc'
       Caption = 'Nueva Carpeta'
@@ -916,6 +884,38 @@ object fraExpRemoto: TfraExpRemoto
     object acArcAcce: TAction
       Category = 'Arc'
       Caption = '&Acceder'
+    end
+    object acEdEdit: TAction
+      Category = 'Edit'
+      Caption = '&Editar'
+      ImageIndex = 7
+      OnExecute = acEdEditExecute
+    end
+    object acEdElim: TAction
+      Category = 'Edit'
+      Caption = '&Eliminar'
+      ImageIndex = 8
+      OnExecute = acEdElimExecute
+    end
+    object acVerRefres: TAction
+      Category = 'Edit'
+      Caption = '&Refrescar Todo'
+      Hint = 'Refresca la lista'
+      ImageIndex = 5
+      OnExecute = acVerRefresExecute
+    end
+    object acHerEjec: TAction
+      Category = 'Her'
+      Caption = 'E&jecutar'
+      ImageIndex = 9
+      OnExecute = acHerEjecExecute
+    end
+    object acConfig: TAction
+      Category = 'Her'
+      Caption = '&Configurar'
+      Hint = 'Configurar el explorador'
+      ImageIndex = 6
+      OnExecute = acConfigExecute
     end
   end
 end

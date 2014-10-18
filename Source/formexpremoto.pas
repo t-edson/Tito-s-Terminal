@@ -23,7 +23,7 @@ type
     explor: TfraExpRemoto;
     actualizar: boolean;
   public
-    { public declarations }
+    procedure SetLanguage(lang: string);
   end;
 
 var
@@ -42,12 +42,6 @@ begin
   explor.OnDblClickArch:=@explorDblClickArch;
 //  explor.OnEnter:=@explorEnter;
 end;
-procedure TfrmExpRemoto.explorEnter(Sender: TObject);
-begin
-   msgbox('Enter');
-end;
-
-
 procedure TfrmExpRemoto.FormDestroy(Sender: TObject);
 begin
   explor.Destroy;
@@ -55,7 +49,13 @@ end;
 
 procedure TfrmExpRemoto.FormShow(Sender: TObject);
 begin
+  Caption:=dic('Explorador Remoto');
   actualizar := true;
+end;
+
+procedure TfrmExpRemoto.explorEnter(Sender: TObject);
+begin
+   msgbox('Enter');
 end;
 
 procedure TfrmExpRemoto.explorDblClickArch;
@@ -80,6 +80,20 @@ begin
   if actualizar then begin
     explor.Actualizar;  //lee archivos
     actualizar := false;
+  end;
+end;
+
+procedure TfrmExpRemoto.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  explor.SetLanguage(lang);
+  case lowerCase(lang) of
+  'es': begin
+      dicClear;  //ya está en español.
+    end;
+  'en': begin
+      dicSet('Explorador Remoto','Remote Explorer');
+    end;
   end;
 end;
 

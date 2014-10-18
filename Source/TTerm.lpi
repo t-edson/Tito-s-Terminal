@@ -28,7 +28,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\_Librerias\MisUtils 0.1;..\_Librerias\UnTerminal 0.6;..\_Librerias\SynFacilUtils 0.3b;..\_Librerias\SynFacilCompletion0.7b;..\_Librerias\SynFacilSyn 09.3b"/>
+            <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2b;..\_Librerias\UnTerminal 0.6;..\_Librerias\SynFacilUtils 0.3b;..\_Librerias\SynFacilCompletion0.7b;..\_Librerias\SynFacilSyn 09.3b;..\_Librerias\ConfigFrame 0.4"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -198,20 +198,20 @@
         <UnitName Value="FormExpRemoto"/>
       </Unit16>
       <Unit17>
-        <Filename Value="FrameConfExpRem.pas"/>
+        <Filename Value="framecfgexprem.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fcExpRem"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="frameConfExpRem"/>
+        <UnitName Value="FrameCfgExpRem"/>
       </Unit17>
       <Unit18>
-        <Filename Value="FrameConfMacros.pas"/>
+        <Filename Value="framecfgmacros.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fcMacros"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameConfMacros"/>
+        <UnitName Value="FrameCfgMacros"/>
       </Unit18>
       <Unit19>
         <Filename Value="FormEditRemoto.pas"/>
@@ -225,6 +225,7 @@
         <Filename Value="FormAbrirRemoto.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAbrirRemoto"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FormAbrirRemoto"/>
       </Unit20>
@@ -262,7 +263,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\_Librerias\MisUtils 0.1;..\_Librerias\UnTerminal 0.6;..\_Librerias\SynFacilUtils 0.3b;..\_Librerias\SynFacilCompletion0.7b;..\_Librerias\SynFacilSyn 09.3b;..\_Librerias\ConfigFrame 0.3.1b"/>
+      <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2b;..\_Librerias\UnTerminal 0.6;..\_Librerias\SynFacilUtils 0.3b;..\_Librerias\SynFacilCompletion0.7b;..\_Librerias\SynFacilSyn 09.3b;..\_Librerias\ConfigFrame 0.4"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

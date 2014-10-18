@@ -74,7 +74,6 @@ type
 //    procedure BuscaPosicionCampos;
     procedure ConfigurarColumnasDetalladas;
     procedure ConfigurarColumnasSimple;
-    { private declarations }
   public
     OnDblClickArch: procedure of object;  //doble click en archivo
     procedure Actualizar;
@@ -86,6 +85,7 @@ type
     function NumSeleccionados: integer;
     constructor Create(AOwner: TComponent) ; override;
     destructor Destroy; override;
+    procedure SetLanguage(lang: string);
   end;
 
 implementation
@@ -165,7 +165,7 @@ var
 begin
   ListView1.Columns.Clear;
   Col := ListView1.Columns.Add;
-  Col.Caption := 'Nombre';
+  Col.Caption := dic('Nombre');
   Col.Alignment := taLeftJustify;
   Col.Width := 200;
 end;
@@ -175,37 +175,37 @@ var
 begin
   ListView1.Columns.Clear;
   Col := ListView1.Columns.Add;
-  Col.Caption := 'Nombre';
+  Col.Caption := dic('Nombre');
   Col.Alignment := taLeftJustify;
   Col.Width := 160;
 
   Col := ListView1.Columns.Add;
-  Col.Caption := 'Fecha Modificación';
+  Col.Caption := dic('Fecha Modificación');
   Col.Alignment := taLeftJustify;
   Col.Width := 100;
 
   Col := ListView1.Columns.Add;
-  Col.Caption := 'Tamaño';
+  Col.Caption := dic('Tamaño');
   Col.Alignment := taRightJustify;
   Col.Width := 80;
 
   Col := ListView1.Columns.Add;
-  Col.Caption := 'Atributos';
+  Col.Caption := dic('Atributos');
   Col.Alignment := taLeftJustify;
   Col.Width := 90;
 
   Col := ListView1.Columns.Add;
-  Col.Caption := 'Propietario';
+  Col.Caption := dic('Propietario');
   Col.Alignment := taLeftJustify;
   Col.Width := 80;
 
   Col := ListView1.Columns.Add;
-  Col.Caption := 'Grupo';
+  Col.Caption := dic('Grupo');
   Col.Alignment := taLeftJustify;
   Col.Width := 80;
 
   Col := ListView1.Columns.Add;
-  Col.Caption := 'Enlaces asociados';
+  Col.Caption := dic('Enlaces asociados');
   Col.Alignment := taRightJustify;
   Col.Width := 40;
 end;
@@ -269,16 +269,18 @@ var
   n: Integer;
   fil: String;
 begin
-  if not frmPrincipal.ConexDisponible then begin
-    msgexc('No hay conexión disponible.');
-    ListView1.Items.Clear;
-    AgregarFilaErr('Error leyendo datos.');
-    exit;
-  end;
-  AgregarMensajeEspera('Leyendo...');   //sería bueno mostrar una animación
-  //actualiza lista de archivos
   ListDet := config.fcExpRem.ListDet;  //lee bandera
   MosOcul := config.fcExpRem.MosOcul;
+  if ListDet then ConfigurarColumnasDetalladas  //actualiza apariencia
+  else ConfigurarColumnasSimple;
+  if not frmPrincipal.ConexDisponible then begin
+    MsgExc('No hay conexión disponible.');
+    ListView1.Items.Clear;
+    AgregarFilaErr(dic('Error leyendo datos.'));
+    exit;
+  end;
+  AgregarMensajeEspera(dic('Leyendo...'));   //sería bueno mostrar una animación
+  //actualiza lista de archivos
   if config.fcExpRem.MosRut then begin  //debe actualizar ruta
     frmPrincipal.EnviarComando('pwd',listmp); //lee ruta
     txtRuta.Text:= listmp.Text;
@@ -297,7 +299,7 @@ begin
   end;
   if MsjErr <> '' then begin
     ListView1.Items.Clear;
-    AgregarFilaErr('Error leyendo datos.');
+    AgregarFilaErr(dic('Error leyendo datos.'));
   end else begin  //no hubo MsjErr
     ListView1.Items.Clear;
     if not MosOcul then AgregarCarpAtras;  //para que se pueda retroceder
@@ -323,7 +325,7 @@ begin
         inc(n);
       end;
     end;
-    StatusBar1.Panels[0].Text := IntToStr(n) + ' archivos leidos.';
+    StatusBar1.Panels[0].Text := IntToStr(n) + dic(' archivos leidos.');
   end;
 end;
 procedure TfraExpRemoto.ActualizarSel(arc: string);
@@ -392,7 +394,7 @@ begin
   if Item.Caption <> Avalue then begin
     frmPrincipal.EnviarComando('mv "'+ Item.Caption + '" "'+ Avalue+'"', listmp);
     if trim(listmp.Text)<>'' then msgErr(listmp.Text);
-    if config.fcExpRem.RefDesp then ActualizarSel('Avalue');
+    if config.fcExpRem.RefDesp then ActualizarSel(Avalue);
   end;
 end;
 
@@ -421,7 +423,7 @@ end;
 procedure TfraExpRemoto.ListView1SelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
-  StatusBar1.Panels[1].Text:=IntToStr(NumSeleccionados)+' elementos Selecionados.';
+  StatusBar1.Panels[1].Text:=IntToStr(NumSeleccionados)+dic(' elementos selecionados.');
 end;
 
 procedure TfraExpRemoto.acArcNuevoExecute(Sender: TObject); //nuevo archivo
@@ -430,11 +432,11 @@ var
   n: Integer;
 begin
   //Genera nuevo nombre
-  nom := 'NuevoArchivo';
+  nom := dic('NuevoArchivo');
   n := 1;
   while BuscarItem(nom)<>nil do
     begin
-      inc(n); nom := 'NuevoArchivo' + IntToStr(n);
+      inc(n); nom := dic('NuevoArchivo') + IntToStr(n);
     end;
   frmPrincipal.EnviarComando('echo "" >'+ nom, listmp);
   if config.fcExpRem.RefDesp then ActualizarSel(nom);
@@ -458,11 +460,11 @@ var
   n: Integer;
 begin
   //Genera nuevo nombre
-  nom := 'NuevaCarpeta';
+  nom := dic('NuevaCarpeta');
   n := 1;
   while BuscarItem(nom)<>nil do
     begin
-      inc(n); nom := 'NuevaCarpeta' + IntToStr(n);
+      inc(n); nom := dic('NuevaCarpeta') + IntToStr(n);
     end;
   frmPrincipal.EnviarComando('mkdir '+nom, listmp);
   if config.fcExpRem.RefDesp then ActualizarSel(nom);
@@ -475,7 +477,7 @@ begin
   if it = nil then exit;
   if SelecMultiple then begin  //selección múltiple
     if SelecMulTodArchivos then begin //todos son archivos
-      if MsgYesNo('¿Eliminar '+ IntToStr(NumSeleccionados) +' archivos?') = 1 then begin
+      if MsgYesNo('¿Eliminar %d archivos?',[NumSeleccionados]) = 1 then begin
         for it in ListView1.Items do if it.Selected then begin
           frmPrincipal.EnviarComando('rm "' + it.Caption+'"', listmp);
         end;
@@ -486,13 +488,13 @@ begin
     end;
   end else begin  //selección simple
     if it.ImageIndex = IMG_CARPETA then begin //es carpeta
-      if MsgYesNo('¿Eliminar carpeta: '+ it.Caption +'?') = 1 then begin
+      if MsgYesNo('¿Eliminar carpeta: %s ?',[it.Caption]) = 1 then begin
         frmPrincipal.EnviarComando('rmdir '+it.Caption, listmp);
         if trim(listmp.Text)<>'' then msgErr(listmp.Text);
         if config.fcExpRem.RefDesp then Actualizar;
       end;
     end else begin  //es archivo
-      if MsgYesNo('¿Eliminar archivo: '+ it.Caption +'?') = 1 then begin
+      if MsgYesNo('¿Eliminar archivo: %s ?', [it.Caption]) = 1 then begin
         frmPrincipal.EnviarComando('rm "' + it.Caption+'"', listmp);
         if trim(listmp.Text)<>'' then msgErr(listmp.Text);
         if config.fcExpRem.RefDesp then Actualizar;
@@ -523,7 +525,66 @@ begin
 end;
 procedure TfraExpRemoto.acConfigExecute(Sender: TObject);
 begin
-  config.Configurar('Otros');
+  config.Configurar('6.1');
+end;
+
+procedure TfraExpRemoto.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  case lowerCase(lang) of
+  'es': begin
+      Label1.Caption:='Ruta Actual:';
+{      ListView1.Columns[0].Caption:='Nombre';
+      ListView1.Columns[1].Caption:='Fecha';
+      ListView1.Columns[2].Caption:='Tamaño';}
+      acArcNuevo.Caption := '&Nuevo Archivo';
+      acArcNueCar.Caption := 'Nueva Carpeta';
+      acArcRenom.Caption := '&Renombrar';
+      acArcAcce.Caption := '&Acceder';
+      acEdEdit.Caption := '&Editar';
+      acEdElim.Caption := '&Eliminar';
+      acVerRefres.Caption := '&Refrescar Todo';
+      acHerEjec.Caption := 'E&jecutar';
+      acConfig.Caption := '&Configurar';
+
+      dicClear;  //ya está en español
+    end;
+  'en': begin
+      Label1.Caption:='Current path:';
+{      ListView1.Columns[0].Caption:='Name';
+      ListView1.Columns[1].Caption:='Date';
+      ListView1.Columns[2].Caption:='Size';}
+      acArcNuevo.Caption := '&New File';
+      acArcNueCar.Caption := 'New &Folder';
+      acArcRenom.Caption := '&Rename';
+      acArcAcce.Caption := '&Enter';
+      acEdEdit.Caption := '&Edit';
+      acEdElim.Caption := '&Delete';
+      acVerRefres.Caption := '&Refresh All';
+      acHerEjec.Caption := 'E&xec';
+      acConfig.Caption := '&Setup';
+      //diccionario
+      dicSet('Nombre','Name');
+      dicSet('Fecha Modificación','Modified Date');
+      dicSet('Tamaño','Size');
+      dicSet('Atributos','Attributes');
+      dicSet('Propietario','Owner');
+      dicSet('Grupo','Group');
+      dicSet('Enlaces asociados','Associated links');
+
+      dicSet('No hay conexión disponible.','No available connection');
+      dicSet('Error leyendo datos.','Error on reading data.');
+      dicSet('Leyendo...','Reading...');
+      dicSet(' archivos leidos.',' files read.');
+      dicSet(' elementos selecionados.',' items selected.');
+      dicSet('NuevoArchivo','NewFile');
+      dicSet('NuevaCarpeta','NewFolder');
+      dicSet('¿Eliminar %d archivos?','Delete %d files?');
+      dicSet('No se puede eliminar carpetas y archivos juntos','Cannot delete files and folders together.');
+      dicSet('¿Eliminar carpeta: %s ?','Delete folder: %s ?');
+      dicSet('¿Eliminar archivo: %s ?','Delete file: %s ?');
+    end;
+  end;
 end;
 
 end.

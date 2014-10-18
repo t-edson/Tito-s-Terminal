@@ -6,8 +6,8 @@ object fraPantTerm: TfraPantTerm
   ClientHeight = 212
   ClientWidth = 344
   TabOrder = 0
-  DesignLeft = 248
-  DesignTop = 454
+  DesignLeft = 214
+  DesignTop = 239
   object txtMaxLinT: TEdit
     Left = 184
     Height = 23

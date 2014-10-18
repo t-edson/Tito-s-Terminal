@@ -17,9 +17,10 @@ type
     DirectoryEdit1: TDirectoryEdit;
     DirectoryEdit2: TDirectoryEdit;
     DirectoryEdit3: TDirectoryEdit;
-    mnRutScript: TLabel;
-    mnRutScript1: TLabel;
-    mnRutScript2: TLabel;
+    lblRutScript: TLabel;
+    lblRutMac: TLabel;
+    lblRutLeng: TLabel;
+  private
   public
     UltScript: string;   //último script editado
     AbrirUltScr: boolean;
@@ -28,6 +29,7 @@ type
     Lenguajes: string;
     procedure Iniciar(secINI0: string);
     procedure ReadFileToProp(var arcINI: TIniFile); override;
+    procedure SetLanguage(lang: string);
   end;
 
 implementation
@@ -52,16 +54,38 @@ begin
   inherited ReadFileToProp(arcINI);
   //valida las rutas leidas
   if not DirectoryExists(Scripts) then begin
-    MsgExc('No se encuentra carpeta: '+Scripts);
+    MsgExc('No se encuentra carpeta: %s',[Scripts]);
     Scripts := rutScripts;
   end;
   if not DirectoryExists(Macros) then begin
-    MsgExc('No se encuentra carpeta: '+Macros);
+    MsgExc('No se encuentra carpeta: %s', [Macros]);
     Macros := rutMacros;
   end;
   if not DirectoryExists(Lenguajes) then begin
-    MsgExc('No se encuentra carpeta: '+Lenguajes);
+    MsgExc('No se encuentra carpeta: %s', [Lenguajes]);
     Lenguajes := rutLenguajes;
+  end;
+end;
+
+procedure TfraCfgRutArc.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  case lowerCase(lang) of
+  'es': begin
+      lblRutScript.Caption:='Ruta de &Scripts:';
+      lblRutMac.Caption:='Ruta de &Macros:';
+      lblRutLeng.Caption:='Ruta de &Lenguajes:';
+      chkAbrirUltScr.Caption:='&Abrir último archivo editado, al iniciar.';
+      dicClear;  //ya está en español
+    end;
+  'en': begin
+      lblRutScript.Caption:='&Scripts path:';
+      lblRutMac.Caption:='&Macros path:';
+      lblRutLeng.Caption:='&Languages path:';
+      chkAbrirUltScr.Caption:='&Open last edited file on Start.';
+      //diccionario
+      dicSet('No se encuentra carpeta: %s','Folder not found: %s');
+    end;
   end;
 end;
 

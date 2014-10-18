@@ -17,8 +17,8 @@ type
   private
     { private declarations }
   public
-    { public declarations }
     procedure Iniciar(secINI0: string); //Inicia el frame
+    procedure SetLanguage(lang: string);
   end;
 
 implementation
@@ -32,5 +32,10 @@ begin
   secINI := secINI0;  //sección INI
 end;
 
+procedure TfraCfgGener.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  //no tiene controles ni mensajes
+end;
 end.
 

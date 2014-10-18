@@ -1,7 +1,7 @@
 object frmPrincipal: TfrmPrincipal
-  Left = 296
+  Left = 221
   Height = 568
-  Top = 90
+  Top = 73
   Width = 901
   AllowDropFiles = True
   Caption = 'Tito''s Telnet'
@@ -1239,7 +1239,7 @@ object frmPrincipal: TfrmPrincipal
     Images = ImageList1
     left = 24
     top = 24
-    object MenuItem2: TMenuItem
+    object mnArchivo: TMenuItem
       Caption = '&Archivo'
       object MenuItem1: TMenuItem
         Action = AcArcConec
@@ -1498,7 +1498,7 @@ object frmPrincipal: TfrmPrincipal
         }
       end
     end
-    object MenuItem14: TMenuItem
+    object mnEdicion: TMenuItem
       Caption = '&Edición'
       object MenuItem16: TMenuItem
         Action = acEdUndo
@@ -1702,7 +1702,7 @@ object frmPrincipal: TfrmPrincipal
         Action = acEdSelecAll
       end
     end
-    object MenuItem15: TMenuItem
+    object mnVer: TMenuItem
       Caption = '&Ver'
       object MenuItem23: TMenuItem
         Action = AcVerPanCom
@@ -2162,7 +2162,7 @@ object frmPrincipal: TfrmPrincipal
         Action = AcPcmVerBHer
       end
     end
-    object MenuItem6: TMenuItem
+    object mnTerminal: TMenuItem
       Caption = '&Terminal'
       object MenuItem13: TMenuItem
         Action = AcTerConec
@@ -2398,7 +2398,7 @@ object frmPrincipal: TfrmPrincipal
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
       end
-      object MenuItem67: TMenuItem
+      object mnTerSend: TMenuItem
         Caption = '&Enviar'
         object MenuItem68: TMenuItem
           Action = AcTerEnvCtrlC
@@ -2603,7 +2603,7 @@ object frmPrincipal: TfrmPrincipal
         Action = AcTerVerBHer
       end
     end
-    object MenuItem39: TMenuItem
+    object mnHerram: TMenuItem
       Caption = '&Herramientas'
       object mnEjecMacro: TMenuItem
         Caption = '&Ejecutar Macro'
@@ -2659,7 +2659,7 @@ object frmPrincipal: TfrmPrincipal
         }
       end
     end
-    object MenuItem36: TMenuItem
+    object mnAyuda: TMenuItem
       Caption = 'Ay&uda'
     end
   end
@@ -2667,216 +2667,6 @@ object frmPrincipal: TfrmPrincipal
     Images = ImageList1
     left = 168
     top = 24
-    object AcArcConec: TAction
-      Category = 'Arc'
-      Caption = '&Conexión Rápida...'
-      Hint = 'Abre una nueva conexión'
-      OnExecute = AcArcConecExecute
-    end
-    object AcArcNueVen: TAction
-      Category = 'Arc'
-      Caption = 'Nueva &Ventana...'
-      Hint = 'Abre una nueva Ventana'
-      ImageIndex = 0
-      OnExecute = AcArcNueVenExecute
-    end
-    object acEdUndo: TAction
-      Category = 'Edit'
-      Caption = '&Deshacer'
-      Hint = 'Deshacer'
-      ImageIndex = 1
-      OnExecute = acEdUndoExecute
-      ShortCut = 16474
-    end
-    object acEdRedo: TAction
-      Category = 'Edit'
-      Caption = '&Rehacer'
-      Hint = 'Reahacer'
-      ImageIndex = 2
-      OnExecute = acEdRedoExecute
-      ShortCut = 24666
-    end
-    object acEdCut: TEditCut
-      Category = 'Edit'
-      Caption = 'Cor&tar'
-      Hint = 'Cortar'
-      ImageIndex = 3
-      ShortCut = 16472
-    end
-    object AcTerConec: TAction
-      Category = 'Ter'
-      Caption = '&Conectar'
-      Hint = 'Conectar con la conexión actual'
-      ImageIndex = 26
-      OnExecute = AcTerConecExecute
-    end
-    object AcTerDescon: TAction
-      Category = 'Ter'
-      Caption = '&Desconectar'
-      Hint = 'Desconecta la sesión actual'
-      ImageIndex = 27
-      OnExecute = AcTerDesconExecute
-    end
-    object AcTerLimBuf: TAction
-      Category = 'Ter'
-      Caption = '&Limpiar Buffer'
-      Hint = 'Limpia el buffer de pantalla'
-      ImageIndex = 33
-      OnExecute = AcTerLimBufExecute
-    end
-    object AcTerDetPrm: TAction
-      Category = 'Ter'
-      Caption = 'Detectar &Prompt'
-      Hint = 'Detecta el prompt actual'
-      ImageIndex = 30
-      OnExecute = AcTerDetPrmExecute
-    end
-    object AcHerCfg: TAction
-      Category = 'Her'
-      Caption = 'Confi&guración...'
-      Hint = 'Configurar'
-      ImageIndex = 16
-      OnExecute = AcHerCfgExecute
-    end
-    object AcVerPanCom: TAction
-      Category = 'Ver'
-      Caption = '&Panel de Comandos'
-      Hint = 'Ver panel de comandos'
-      OnExecute = AcVerPanComExecute
-      ShortCut = 113
-    end
-    object AcVerBarEst: TAction
-      Category = 'Ver'
-      Caption = 'Barra de estado'
-      Hint = 'Ver Barra de Estado'
-      OnExecute = AcVerBarEstExecute
-    end
-    object AcVerEdiMac: TAction
-      Category = 'Ver'
-      Caption = 'Editor de &Macros'
-      Hint = 'Ver Editor de Macros'
-      ImageIndex = 34
-      OnExecute = AcVerEdiMacExecute
-    end
-    object AcVerEdiRem: TAction
-      Category = 'Ver'
-      Caption = '&Editor Remoto'
-      Hint = 'Ver Editor Remoto'
-      ImageIndex = 37
-      OnExecute = AcVerEdiRemExecute
-      ShortCut = 16497
-    end
-    object AcVerExpRem: TAction
-      Category = 'Ver'
-      Caption = 'E&xplorador Remoto'
-      Hint = 'Ver Explorador Remoto'
-      ImageIndex = 36
-      OnExecute = AcVerExpRemExecute
-      ShortCut = 16453
-    end
-    object AcTerVerBHer: TAction
-      Category = 'Ter'
-      Caption = 'Ver Barra de &Herramientas'
-      Hint = 'Ver Barra de Herramientas'
-    end
-    object AcPcmNuevo: TAction
-      Category = 'Pcm'
-      Caption = '&Nuevo'
-      Hint = 'Nuevo archivo'
-      ImageIndex = 13
-      OnExecute = AcPcmNuevoExecute
-    end
-    object AcPcmAbrir: TAction
-      Category = 'Pcm'
-      Caption = '&Abrir...'
-      Hint = 'Abrir Archivo'
-      ImageIndex = 9
-      OnExecute = AcPcmAbrirExecute
-    end
-    object AcPcmGuardar: TAction
-      Category = 'Pcm'
-      Caption = '&Guardar'
-      Hint = 'Guardar Archivo'
-      ImageIndex = 6
-      OnExecute = AcPcmGuardarExecute
-    end
-    object AcPcmGuaCom: TAction
-      Category = 'Pcm'
-      Caption = 'G&uardar Como...'
-      Hint = 'Guardar Como ...'
-      ImageIndex = 12
-      OnExecute = AcPcmGuaComExecute
-    end
-    object AcPCmEnvLin: TAction
-      Category = 'Pcm'
-      Caption = 'Enviar &Línea'
-      Hint = 'Enviar línea actual'
-      ImageIndex = 31
-      OnExecute = AcPCmEnvLinExecute
-      ShortCut = 120
-    end
-    object AcPCmEnvTod: TAction
-      Category = 'Pcm'
-      Caption = 'Enviar &Todo'
-      Hint = 'Enviar todas las líneas'
-      ImageIndex = 32
-      OnExecute = AcPCmEnvTodExecute
-      ShortCut = 16504
-    end
-    object AcTerPrmArr: TAction
-      Category = 'Ter'
-      Caption = '&Subir a prompt'
-      Hint = 'Subir al prompt anterior'
-      ImageIndex = 28
-      OnExecute = AcTerPrmArrExecute
-    end
-    object AcTerPrmAba: TAction
-      Category = 'Ter'
-      Caption = '&Bajar a prompt'
-      Hint = 'Bajar al siguiente prompt'
-      ImageIndex = 29
-      OnExecute = AcTerPrmAbaExecute
-    end
-    object AcTerConfig: TAction
-      Category = 'Ter'
-      Caption = 'Confi&gurar'
-      ImageIndex = 16
-      OnExecute = AcTerConfigExecute
-    end
-    object acPCmEnvCtrC: TAction
-      Category = 'Pcm'
-      Caption = 'Enviar Ct&rl+C'
-      Hint = 'Enviar Ctrl+C al terminal'
-      ImageIndex = 38
-      OnExecute = acPCmEnvCtrCExecute
-    end
-    object AcPcmOcul: TAction
-      Category = 'Pcm'
-      Caption = 'Ocultar'
-      Hint = 'Ocultar Panel de comandos'
-      OnExecute = AcPcmOculExecute
-    end
-    object AcPcmCamPos: TAction
-      Category = 'Pcm'
-      Caption = 'Cambiar posición'
-      Hint = 'Cambia la posición del Panel de comandos'
-      ImageIndex = 35
-      OnExecute = AcPcmCamPosExecute
-      ShortCut = 8305
-    end
-    object AcPcmVerBHer: TAction
-      Category = 'Pcm'
-      Caption = 'Ver Barra de &Herramientas'
-      Hint = 'Ver Barra de Herramientas'
-      OnExecute = AcPcmVerBHerExecute
-    end
-    object AcPcmConfig: TAction
-      Category = 'Pcm'
-      Caption = 'Confi&gurar'
-      Hint = 'Configurar el panel de comandos'
-      ImageIndex = 16
-      OnExecute = AcPcmConfigExecute
-    end
     object AcArcNueSes: TAction
       Category = 'Arc'
       Caption = '&Nueva Sesión'
@@ -2926,6 +2716,234 @@ object frmPrincipal: TfrmPrincipal
       ImageIndex = 7
       OnExecute = AcArcSalirExecute
     end
+    object AcArcConec: TAction
+      Category = 'Arc'
+      Caption = '&Conexión Rápida...'
+      Hint = 'Abre una nueva conexión'
+      OnExecute = AcArcConecExecute
+    end
+    object AcArcNueVen: TAction
+      Category = 'Arc'
+      Caption = 'Nueva &Ventana...'
+      Hint = 'Abre una nueva Ventana'
+      ImageIndex = 0
+      OnExecute = AcArcNueVenExecute
+    end
+    object acEdUndo: TAction
+      Category = 'Edit'
+      Caption = '&Deshacer'
+      Hint = 'Deshacer'
+      ImageIndex = 1
+      OnExecute = acEdUndoExecute
+      ShortCut = 16474
+    end
+    object acEdRedo: TAction
+      Category = 'Edit'
+      Caption = '&Rehacer'
+      Hint = 'Reahacer'
+      ImageIndex = 2
+      OnExecute = acEdRedoExecute
+      ShortCut = 24666
+    end
+    object acEdCut: TEditCut
+      Category = 'Edit'
+      Caption = 'Cor&tar'
+      Hint = 'Cortar'
+      ImageIndex = 3
+      ShortCut = 16472
+    end
+    object acEdCopy: TEditCopy
+      Category = 'Edit'
+      Caption = '&Copiar'
+      Hint = 'Copiar'
+      ImageIndex = 10
+      ShortCut = 16451
+    end
+    object acEdPaste: TAction
+      Category = 'Edit'
+      Caption = '&Pegar'
+      ImageIndex = 11
+      OnExecute = acEdPasteExecute
+    end
+    object acEdSelecAll: TAction
+      Category = 'Edit'
+      Caption = 'Seleccionar &Todo'
+      Hint = 'Seleccionar todo'
+      ShortCut = 16453
+    end
+    object acEdModCol: TAction
+      Category = 'Edit'
+      Caption = 'Modo Columna'
+      Hint = 'Modo columna'
+      ImageIndex = 15
+    end
+    object AcVerPanCom: TAction
+      Category = 'Ver'
+      Caption = '&Panel de Comandos'
+      Hint = 'Ver panel de comandos'
+      OnExecute = AcVerPanComExecute
+      ShortCut = 113
+    end
+    object AcVerBarEst: TAction
+      Category = 'Ver'
+      Caption = 'Barra de estado'
+      Hint = 'Ver Barra de Estado'
+      OnExecute = AcVerBarEstExecute
+    end
+    object AcVerEdiMac: TAction
+      Category = 'Ver'
+      Caption = 'Editor de &Macros'
+      Hint = 'Ver Editor de Macros'
+      ImageIndex = 34
+      OnExecute = AcVerEdiMacExecute
+    end
+    object AcVerEdiRem: TAction
+      Category = 'Ver'
+      Caption = '&Editor Remoto'
+      Hint = 'Ver Editor Remoto'
+      ImageIndex = 37
+      OnExecute = AcVerEdiRemExecute
+      ShortCut = 16497
+    end
+    object AcVerExpRem: TAction
+      Category = 'Ver'
+      Caption = 'E&xplorador Remoto'
+      Hint = 'Ver Explorador Remoto'
+      ImageIndex = 36
+      OnExecute = AcVerExpRemExecute
+      ShortCut = 16453
+    end
+    object AcPcmNuevo: TAction
+      Category = 'Pcm'
+      Caption = '&Nuevo'
+      Hint = 'Nuevo archivo'
+      ImageIndex = 13
+      OnExecute = AcPcmNuevoExecute
+    end
+    object AcPcmAbrir: TAction
+      Category = 'Pcm'
+      Caption = '&Abrir...'
+      Hint = 'Abrir Archivo'
+      ImageIndex = 9
+      OnExecute = AcPcmAbrirExecute
+    end
+    object AcPcmGuardar: TAction
+      Category = 'Pcm'
+      Caption = '&Guardar'
+      Hint = 'Guardar Archivo'
+      ImageIndex = 6
+      OnExecute = AcPcmGuardarExecute
+    end
+    object AcPcmGuaCom: TAction
+      Category = 'Pcm'
+      Caption = 'G&uardar Como...'
+      Hint = 'Guardar Como ...'
+      ImageIndex = 12
+      OnExecute = AcPcmGuaComExecute
+    end
+    object AcPCmEnvLin: TAction
+      Category = 'Pcm'
+      Caption = 'Enviar &Línea'
+      Hint = 'Enviar línea actual'
+      ImageIndex = 31
+      OnExecute = AcPCmEnvLinExecute
+      ShortCut = 120
+    end
+    object AcPCmEnvTod: TAction
+      Category = 'Pcm'
+      Caption = 'Enviar &Todo'
+      Hint = 'Enviar todas las líneas'
+      ImageIndex = 32
+      OnExecute = AcPCmEnvTodExecute
+      ShortCut = 16504
+    end
+    object acPCmEnvCtrC: TAction
+      Category = 'Pcm'
+      Caption = 'Enviar Ct&rl+C'
+      Hint = 'Enviar Ctrl+C al terminal'
+      ImageIndex = 38
+      OnExecute = acPCmEnvCtrCExecute
+    end
+    object AcPcmOcul: TAction
+      Category = 'Pcm'
+      Caption = 'Ocultar'
+      Hint = 'Ocultar Panel de comandos'
+      OnExecute = AcPcmOculExecute
+    end
+    object AcPcmCamPos: TAction
+      Category = 'Pcm'
+      Caption = 'Cambiar posición'
+      Hint = 'Cambia la posición del Panel de comandos'
+      ImageIndex = 35
+      OnExecute = AcPcmCamPosExecute
+      ShortCut = 8305
+    end
+    object AcPcmVerBHer: TAction
+      Category = 'Pcm'
+      Caption = 'Ver Barra de &Herramientas'
+      Hint = 'Ver Barra de Herramientas'
+      OnExecute = AcPcmVerBHerExecute
+    end
+    object AcPcmConfig: TAction
+      Category = 'Pcm'
+      Caption = 'Confi&gurar'
+      Hint = 'Configurar el panel de comandos'
+      ImageIndex = 16
+      OnExecute = AcPcmConfigExecute
+    end
+    object AcTerConec: TAction
+      Category = 'Ter'
+      Caption = '&Conectar'
+      Hint = 'Conectar con la conexión actual'
+      ImageIndex = 26
+      OnExecute = AcTerConecExecute
+    end
+    object AcTerDescon: TAction
+      Category = 'Ter'
+      Caption = '&Desconectar'
+      Hint = 'Desconecta la sesión actual'
+      ImageIndex = 27
+      OnExecute = AcTerDesconExecute
+    end
+    object AcTerLimBuf: TAction
+      Category = 'Ter'
+      Caption = '&Limpiar Buffer'
+      Hint = 'Limpia el buffer de pantalla'
+      ImageIndex = 33
+      OnExecute = AcTerLimBufExecute
+    end
+    object AcTerDetPrm: TAction
+      Category = 'Ter'
+      Caption = 'Detectar &Prompt'
+      Hint = 'Detecta el prompt actual'
+      ImageIndex = 30
+      OnExecute = AcTerDetPrmExecute
+    end
+    object AcTerVerBHer: TAction
+      Category = 'Ter'
+      Caption = 'Ver Barra de &Herramientas'
+      Hint = 'Ver Barra de Herramientas'
+    end
+    object AcTerPrmArr: TAction
+      Category = 'Ter'
+      Caption = '&Subir a prompt'
+      Hint = 'Subir al prompt anterior'
+      ImageIndex = 28
+      OnExecute = AcTerPrmArrExecute
+    end
+    object AcTerPrmAba: TAction
+      Category = 'Ter'
+      Caption = '&Bajar a prompt'
+      Hint = 'Bajar al siguiente prompt'
+      ImageIndex = 29
+      OnExecute = AcTerPrmAbaExecute
+    end
+    object AcTerConfig: TAction
+      Category = 'Ter'
+      Caption = 'Confi&gurar'
+      ImageIndex = 16
+      OnExecute = AcTerConfigExecute
+    end
     object AcTerEnvCtrlC: TAction
       Category = 'Ter'
       Caption = 'Enviar &Ctrl-C'
@@ -2956,37 +2974,6 @@ object frmPrincipal: TfrmPrincipal
       ImageIndex = 42
       OnExecute = AcTerEnvLFExecute
     end
-    object acEdCopy: TEditCopy
-      Category = 'Edit'
-      Caption = '&Copiar'
-      Hint = 'Copiar'
-      ImageIndex = 10
-      ShortCut = 16451
-    end
-    object acEdPaste: TAction
-      Category = 'Edit'
-      Caption = '&Pegar'
-      ImageIndex = 11
-      OnExecute = acEdPasteExecute
-    end
-    object acEdSelecAll: TAction
-      Category = 'Edit'
-      Caption = 'Seleccionar &Todo'
-      Hint = 'Seleccionar todo'
-      ShortCut = 16453
-    end
-    object acEdModCol: TAction
-      Category = 'Edit'
-      Caption = 'Modo Columna'
-      Hint = 'Modo columna'
-      ImageIndex = 15
-    end
-    object AcHerGraMac: TAction
-      Category = 'Her'
-      Caption = '&Grabar Macro'
-      ImageIndex = 43
-      OnExecute = AcHerGraMacExecute
-    end
     object AcTerCopPal: TAction
       Category = 'Ter'
       Caption = 'Copiar &Palabra'
@@ -3006,6 +2993,19 @@ object frmPrincipal: TfrmPrincipal
       Category = 'Ter'
       Caption = 'Copiar N&ombre y Ruta'
       OnExecute = AcTerCopNomRutExecute
+    end
+    object AcHerCfg: TAction
+      Category = 'Her'
+      Caption = 'Confi&guración...'
+      Hint = 'Configurar'
+      ImageIndex = 16
+      OnExecute = AcHerCfgExecute
+    end
+    object AcHerGraMac: TAction
+      Category = 'Her'
+      Caption = '&Grabar Macro'
+      ImageIndex = 43
+      OnExecute = AcHerGraMacExecute
     end
   end
   object ImageList1: TImageList

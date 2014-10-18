@@ -6,8 +6,8 @@ object fraComandRec: TfraComandRec
   ClientHeight = 233
   ClientWidth = 328
   TabOrder = 0
-  DesignLeft = 289
-  DesignTop = 171
+  DesignLeft = 255
+  DesignTop = 176
   object chkActivo: TCheckBox
     Left = 24
     Height = 19

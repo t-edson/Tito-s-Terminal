@@ -30,6 +30,7 @@ type
     interDirec: boolean;  //interceptar teclas direccionales
     curSigPrm : boolean;  //cursor sigue a prompt
     procedure Iniciar(secINI0: string; p0: TConsoleProc ); //Inicia el frame
+    procedure SetLanguage(lang: string);
   end;
 
 implementation
@@ -55,6 +56,29 @@ procedure TfraPantTerm.ConfigTerminal;
 //Configura el terminal de acuerdo a las variables de estado
 begin
   p.TerminalWidth:=maxColTer;
+end;
+
+procedure TfraPantTerm.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  case lowerCase(lang) of
+  'es': begin
+      Label2.Caption:='&Tipo de terminal:';
+      Label3.Caption:='Ta&maño de terminal:';
+      Label4.Caption:='Máximo Núm. Columnas:';
+      Label1.Caption:='Máximo Núm. Líneas :';
+      chkInterDirec.Caption:='&Interceptar teclas direccionales';
+      chkCurSigPrmpt.Caption:='Cursor de Terminal &sigue a Prompt';
+    end;
+  'en': begin
+      Label2.Caption:='Terminal &Type:';
+      Label3.Caption:='Terminal &Size:';
+      Label4.Caption:='Max Columns:';
+      Label1.Caption:='Max Lines :';
+      chkInterDirec.Caption:='&Intercepts directionals keys';
+      chkCurSigPrmpt.Caption:='Terminal Cursor &follows Prompt';
+    end;
+  end;
 end;
 
 end.

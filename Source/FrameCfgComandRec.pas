@@ -26,6 +26,7 @@ type
     txtArchivo: TEdit;
     procedure chkActivoChange(Sender: TObject);
     procedure cmdProbarClick(Sender: TObject);
+  private
   public
     Activar : boolean;
     Tempo   : integer;
@@ -37,6 +38,7 @@ type
     Archivo0 : string;
     OnProbar: procedure of object;
     procedure Iniciar(secINI0: string);
+    procedure SetLanguage(lang: string);
   end;
 
 implementation
@@ -80,6 +82,29 @@ begin
   Asoc_Str_TEdit(@Archivo, txtArchivo, 'Archivo','');
   cmdProbar.OnClick:=@cmdProbarClick;  //evento
   chkActivoChange(self);  //para actualizar
+end;
+
+procedure TfraComandRec.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  case lowerCase(lang) of
+  'es': begin
+      chkActivo.Caption:='Enviar Comando &Recurrente';
+      cmdProbar.Caption:='&Probar';
+      Label1.Caption:='Tiempo entre envíos (min):';
+      GroupBox1.Caption:='&Enviar';
+      optComando.Caption:='&Comando:';
+      optScript.Caption:='&Archivo de comandos:';
+    end;
+  'en': begin
+      chkActivo.Caption:='Send &Recurring Command';
+      cmdProbar.Caption:='&Test';
+      Label1.Caption:='&Interval of sending (min):';
+      GroupBox1.Caption:='&Send';
+      optComando.Caption:='&Command:';
+      optScript.Caption:='&Command file:';
+    end;
+  end;
 end;
 
 end.

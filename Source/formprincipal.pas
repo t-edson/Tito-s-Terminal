@@ -3,11 +3,9 @@
  iniciar conexiones a sqlplus mediante el telnet.}
 
 unit FormPrincipal;
-
 {$mode objfpc}{$H+}
 
 interface
-
 uses
   Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
   Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds, SynEditMarkupHighAll,
@@ -82,13 +80,13 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
-    MenuItem14: TMenuItem;
-    MenuItem15: TMenuItem;
+    mnEdicion: TMenuItem;
+    mnVer: TMenuItem;
     MenuItem16: TMenuItem;
     MenuItem17: TMenuItem;
     MenuItem18: TMenuItem;
     MenuItem19: TMenuItem;
-    MenuItem2: TMenuItem;
+    mnArchivo: TMenuItem;
     MenuItem20: TMenuItem;
     MenuItem21: TMenuItem;
     MenuItem22: TMenuItem;
@@ -128,7 +126,7 @@ type
     MenuItem64: TMenuItem;
     MenuItem65: TMenuItem;
     MenuItem66: TMenuItem;
-    MenuItem67: TMenuItem;
+    mnTerSend: TMenuItem;
     MenuItem68: TMenuItem;
     MenuItem69: TMenuItem;
     MenuItem70: TMenuItem;
@@ -161,14 +159,14 @@ type
     MenuItem32: TMenuItem;
     MenuItem33: TMenuItem;
     MenuItem35: TMenuItem;
-    MenuItem36: TMenuItem;
+    mnAyuda: TMenuItem;
     MenuItem37: TMenuItem;
     MenuItem38: TMenuItem;
-    MenuItem39: TMenuItem;
+    mnHerram: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem40: TMenuItem;
     MenuItem5: TMenuItem;
-    MenuItem6: TMenuItem;
+    mnTerminal: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
@@ -319,6 +317,7 @@ type
     procedure ActualizarInfoPanel0;
     function ConexDisponible: boolean;
     function EnviarComando(com: string; var salida: TStringList): string;
+    procedure SetLanguage(lang: string);
   end;
 
 var
@@ -389,6 +388,11 @@ begin
 end;
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
+  TranslateMsgs := true;  //activa la traducción en los mensajes
+  SetLanguage('en');
+  Config.SetLanguage('en');
+  frmExpRemoto.SetLanguage('en');
+  frmEditRemoto.SetLanguage('en');
   Caption := NOM_PROG;
   //aquí ya sabemos que Config está creado. Lo configuramos
   Config.edTerm := edTerm;  //pasa referencia de editor.
@@ -458,10 +462,10 @@ begin
   Config.fcRutArc.UltScript := ePCom.NomArc;  //guarda archivo abierto
   //actualiza encabezado
   if SesAct = '' then begin
-    Caption := NOM_PROG + ' - Archivo: '+ ePCom.NomArc;
+    Caption := NOM_PROG + dic(' - Archivo: ')+ ePCom.NomArc;
   end else begin
     Caption := NOM_PROG + ' - Sesión: ' + ExtractFileName(SesAct) +
-                          ' - Archivo: '+ ePCom.NomArc;
+                          dic(' - Archivo: ')+ ePCom.NomArc;
   end;
 end;
 procedure TfrmPrincipal.edPComSpecialLineMarkup(Sender: TObject; Line: integer;
@@ -537,7 +541,7 @@ begin
     if FileExists(Config.fcRutArc.UltScript) then begin
       ePCom.LoadFile(Config.fcRutArc.UltScript);
     end else begin
-      msgExc('No se encuentra archivo: '+Config.fcRutArc.UltScript);
+      msgExc('No se encuentra archivo: %s', [Config.fcRutArc.UltScript]);
     end;
   end;
   //Verifica si debe ejecutar macro
@@ -545,7 +549,7 @@ begin
     if FileExists(Config.fcRutArc.MacroIni) then begin
       frmEditMacros.Ejecutar(Config.fcRutArc.MacroIni);
     end else begin
-      msgExc('No se encuentra archivo: '+Config.fcRutArc.MacroIni);
+      msgExc('No se encuentra archivo: %s', Config.fcRutArc.MacroIni);
     end;
   end;}
   ePComFileOpened; //para actualizar barra de título
@@ -739,14 +743,14 @@ begin
         StatusBar.Canvas.Pen.Color := clWhite;
         StatusBar.Canvas.Brush.Color := clWhite;
         StatusBar.Canvas.Rectangle(Rect);
-        StatusBar.Canvas.TextRect(Rect, 2 + Rect.Left, 2 + Rect.Top, 'Ejecutando macro');
+        StatusBar.Canvas.TextRect(Rect, 2 + Rect.Left, 2 + Rect.Top, dic('Ejecutando macro'));
       end else begin
 //        StatusBar.Canvas.Font.Bold := true;
         StatusBar.Canvas.Font.Color:=clWhite;
         StatusBar.Canvas.Pen.Color := clBlue;
         StatusBar.Canvas.Brush.Color := clBlue;
         StatusBar.Canvas.Rectangle(Rect);
-        StatusBar.Canvas.TextRect(Rect, 2 + Rect.Left, 2 + Rect.Top, 'Ejecutando macro');
+        StatusBar.Canvas.TextRect(Rect, 2 + Rect.Left, 2 + Rect.Top, dic('Ejecutando macro'));
       end;
     end else begin
       StatusBar.Canvas.Font.Color:=clBlack;
@@ -768,7 +772,7 @@ begin
       proc.SendLn(fcComRec.Comando);
   teArchivo: begin
       if not FileExists(fcComRec.archivo) then begin
-        msgErr('No se encuentra archivo: '+ fcComRec.archivo);
+        MsgErr('No se encuentra archivo: %s', [fcComRec.archivo]);
         exit;
       end;
       proc.SendLn(StringFromFile(fcComRec.archivo));
@@ -938,7 +942,7 @@ var
 begin
   Result := '';
   if not ConexDisponible then begin
-    Result := 'No hay conexión disponible';
+    Result := dic('No hay conexión disponible');
     MsgExc(Result);
     exit;
   end;
@@ -959,7 +963,7 @@ begin
     Inc(n);
   end;
   If n >= Config.fcExpRem.TpoMax*10 then begin    //Hubo desborde
-    Result := 'Tiempo de espera agotado';
+    Result := dic('Tiempo de espera agotado');
     MsgExc(Result);
     exit;
   end else begin
@@ -1138,7 +1142,7 @@ begin
   //muestra dirección IP actual
   ActualizarInfoPanel0;
 
-  Config.Configurar('Conexión');   //muesta para configurar
+  Config.Configurar('1,1');   //muesta para configurar
   SesAct:='';   //Sin nombre
   ePComFileOpened; //para actualizar barra de título
 end;
@@ -1338,7 +1342,7 @@ begin
 end;
 procedure TfrmPrincipal.AcPcmConfigExecute(Sender: TObject);
 begin
-  Config.Configurar('Panel de Comandos');
+  Config.Configurar('3.1');
 end;
 
 procedure TfrmPrincipal.AcHerCfgExecute(Sender: TObject);
@@ -1359,7 +1363,7 @@ begin
 end;
 procedure TfrmPrincipal.AcTerConfigExecute(Sender: TObject); //configurar
 begin
-   Config.Configurar('Terminal');
+   Config.Configurar('2.1');
 end;
 procedure TfrmPrincipal.AcTerCopPalExecute(Sender: TObject);
 const CARS = ['a'..'z','A'..'Z','0'..'9','_','-'];
@@ -1502,6 +1506,167 @@ begin
   end else begin
     edTerm.CaretXY := point(1,cy);
     edterm.SelectLine;
+  end;
+end;
+
+procedure TfrmPrincipal.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  case lowerCase(lang) of
+  'es': begin
+      mnArchivo.Caption:='&Archivo';
+      mnEdicion.Caption:='&Edición';
+      mnVer.Caption:='&Ver';
+      mnPanCom.Caption:='Panel de &Comandos';
+      mnTerminal.Caption:='&Terminal';
+      mnHerram.Caption:='&Herramientas';
+      mnAyuda.Caption:='Ay&uda';
+
+      mnSesionesAlm.Caption:='&Sesiones Almacenadas';
+      mnLenguajes.Caption:='&Lenguaje';
+      mnComandosAlm.Caption:='Comandos A&lmacenados';
+      mnEjecMacro.Caption:='&Ejecutar Macro';
+      mnAbrMacro.Caption:='&Abrir Macro';
+      mnGraMacro.Caption:='&Grabar Macro';
+      mnTerSend.Caption:='&Enviar';
+      MenuItem82.Caption:='Copiar Elemento';
+      MenuItem72.Caption:='&Enviar';
+
+      AcArcNueSes.Caption := '&Nueva Sesión';
+      AcArcAbrSes.Caption := '&Abrir Sesión ...';
+      AcArcGuaSes.Caption := '&Guardar Sesión';
+      AcArcGuaSesC.Caption := 'G&uardar Sesión Como ...';
+      AcArcDescon.Caption := '&Desconectar';
+      AcArcIniReg.Caption := '&Iniciar Registro...';
+      AcArcDetReg.Caption := 'De&tener Registro';
+      AcArcSalir.Caption := '&Salir';
+      AcArcConec.Caption := '&Conexión Rápida...';
+      AcArcNueVen.Caption := 'Nueva &Ventana...';
+      acEdUndo.Caption := '&Deshacer';
+      acEdRedo.Caption := '&Rehacer';
+      acEdCut.Caption := 'Cor&tar';
+      acEdCopy.Caption := '&Copiar';
+      acEdPaste.Caption := '&Pegar';
+      acEdSelecAll.Caption := 'Seleccionar &Todo';
+      acEdModCol.Caption := 'Modo Columna';
+      AcVerPanCom.Caption := '&Panel de Comandos';
+      AcVerBarEst.Caption := 'Barra de estado';
+      AcVerEdiMac.Caption := 'Editor de &Macros';
+      AcVerEdiRem.Caption := '&Editor Remoto';
+      AcVerExpRem.Caption := 'E&xplorador Remoto';
+      AcPcmNuevo.Caption := '&Nuevo';
+      AcPcmAbrir.Caption := '&Abrir...';
+      AcPcmGuardar.Caption := '&Guardar';
+      AcPcmGuaCom.Caption := 'G&uardar Como...';
+      AcPCmEnvLin.Caption := 'Enviar &Línea';
+      AcPCmEnvTod.Caption := 'Enviar &Todo';
+      acPCmEnvCtrC.Caption := 'Enviar Ct&rl+C';
+      AcPcmOcul.Caption := 'Ocultar';
+      AcPcmCamPos.Caption := 'Cambiar posición';
+      AcPcmVerBHer.Caption := 'Ver Barra de &Herramientas';
+      AcPcmConfig.Caption := 'Confi&gurar';
+      AcTerConec.Caption := '&Conectar';
+      AcTerDescon.Caption := '&Desconectar';
+      AcTerLimBuf.Caption := '&Limpiar Buffer';
+      AcTerDetPrm.Caption := 'Detectar &Prompt';
+      AcTerVerBHer.Caption := 'Ver Barra de &Herramientas';
+      AcTerPrmArr.Caption := '&Subir a prompt';
+      AcTerPrmAba.Caption := '&Bajar a prompt';
+      AcTerConfig.Caption := 'Confi&gurar';
+      AcTerEnvCtrlC.Caption := 'Enviar &Ctrl-C';
+      AcTerEnvEnter.Caption := 'Enviar &Enter';
+      AcTerEnvCR.Caption := 'Enviar &CR';
+      AcTerEnvCRLF.Caption := 'Enviar CR+&LF';
+      AcTerEnvLF.Caption := 'Enviar LF';
+      AcTerCopPal.Caption := 'Copiar &Palabra';
+      AcTerCopNom.Caption := '&Nombre de Archivo';
+      AcTerCopRut.Caption := 'R&uta de Archivo';
+      AcTerCopNomRut.Caption := 'Copiar N&ombre y Ruta';
+      AcHerCfg.Caption := 'Confi&guración...';
+      AcHerGraMac.Caption := '&Grabar Macro';
+      dicClear;  //los mensajes ya están en español
+    end;
+  'en': begin
+      mnArchivo.Caption:='&File';
+      mnEdicion.Caption:='&Edit';
+      mnVer.Caption:='&View';
+      mnPanCom.Caption:='&Command Panel';
+      mnTerminal.Caption:='&Terminal';
+      mnHerram.Caption:='&Tools';
+      mnAyuda.Caption:='&Help';
+
+      mnSesionesAlm.Caption:='&Stored Sesions';
+      mnLenguajes.Caption:='&Language';
+      mnComandosAlm.Caption:='Stored Commands';
+      mnEjecMacro.Caption:='&Execute Macro';
+      mnAbrMacro.Caption:='&Open Macro';
+      mnGraMacro.Caption:='&Record Macro';
+      mnTerSend.Caption:='&Send';
+      MenuItem82.Caption:='Copy Element';
+      MenuItem72.Caption:='&Send';
+
+      AcArcNueSes.Caption := '&New Sesion';
+      AcArcAbrSes.Caption := '&Open Sesion ...';
+      AcArcGuaSes.Caption := '&Save Sesion';
+      AcArcGuaSesC.Caption := 'Sa&ve Sesion as ...';
+      AcArcDescon.Caption := '&Disconnect';
+      AcArcIniReg.Caption := '&Start Log...';
+      AcArcDetReg.Caption := 'S&top Log';
+      AcArcSalir.Caption := '&Exit';
+      AcArcConec.Caption := '&Quick Connection...';
+      AcArcNueVen.Caption := 'New &Window...';
+      acEdUndo.Caption := '&Undo';
+      acEdRedo.Caption := '&Redo';
+      acEdCut.Caption := 'C&ut';
+      acEdCopy.Caption := '&Copy';
+      acEdPaste.Caption := '&Paste';
+      acEdSelecAll.Caption := 'Select &All';
+      acEdModCol.Caption := 'Column Mode';
+      AcVerPanCom.Caption := '&Comand Panel';
+      AcVerBarEst.Caption := 'Status Bar';
+      AcVerEdiMac.Caption := '&Macro Editor';
+      AcVerEdiRem.Caption := 'Remote &Editor';
+      AcVerExpRem.Caption := 'Remote E&xplorer';
+      AcPcmNuevo.Caption := '&New';
+      AcPcmAbrir.Caption := '&Open...';
+      AcPcmGuardar.Caption := '&Save';
+      AcPcmGuaCom.Caption := 'Sa&ve As...';
+      AcPCmEnvLin.Caption := 'Send &Line';
+      AcPCmEnvTod.Caption := 'Send &All';
+      acPCmEnvCtrC.Caption := 'Send Ct&rl+C';
+      AcPcmOcul.Caption := 'Hide';
+      AcPcmCamPos.Caption := 'Change position';
+      AcPcmVerBHer.Caption := 'Show &Toolbar';
+      AcPcmConfig.Caption := 'Confi&gure';
+      AcTerConec.Caption := '&Connect';
+      AcTerDescon.Caption := '&Disconnect';
+      AcTerLimBuf.Caption := '&Clean Buffer';
+      AcTerDetPrm.Caption := 'Detect &Prompt';
+      AcTerVerBHer.Caption := 'Show &Tollbar';
+      AcTerPrmArr.Caption := 'Move &Up to prompt';
+      AcTerPrmAba.Caption := 'Move &Down to prompt';
+      AcTerConfig.Caption := 'Confi&gure';
+      AcTerEnvCtrlC.Caption := 'Send &Ctrl-C';
+      AcTerEnvEnter.Caption := 'Send &Enter';
+      AcTerEnvCR.Caption := 'Send &CR';
+      AcTerEnvCRLF.Caption := 'Send CR+&LF';
+      AcTerEnvLF.Caption := 'Send LF';
+      AcTerCopPal.Caption := 'Copy &Word';
+      AcTerCopNom.Caption := '&File Name';
+      AcTerCopRut.Caption := 'File &Path';
+      AcTerCopNomRut.Caption := 'Copy Name and Path';
+      AcHerCfg.Caption := 'Confi&gure...';
+      AcHerGraMac.Caption := '&Record Macro';
+      //traducción
+      dicSet('Hay una conexión abierta. ¿Cerrarla?','There is an opened connection. Close?');
+      dicSet(' - Archivo: ', ' - File: ');
+      dicSet('No se encuentra archivo: %s','File not found: %s');
+      dicSet('En este momento, se está ejecutando una macro. ¿Detenerla?',
+             'There is a Macro runnig. Stop it?');
+      dicSet('Ejecutando macro','Running macro');
+      dicSet('No hay conexión disponible','No available connection');
+      dicSet('Tiempo de espera agotado','Timeout');
+    end;
   end;
 end;
 

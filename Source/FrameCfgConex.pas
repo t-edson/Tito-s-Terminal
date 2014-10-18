@@ -47,7 +47,6 @@ type
     { private declarations }
   public
     //parámetros
-    Nombre    : string;   //nombre de la conexión
     Tipo      : TTipCon;  //tipo de conexión
     IP        : String;   //Direción IP (solo válido con el tipo TCON_TELNET Y TCON_SSH)
     Port      : String;   //Puerto (solo válido con el tipo TCON_TELNET Y TCON_SSH)
@@ -59,6 +58,7 @@ type
     procedure PropToWindow; override;
     procedure WindowToProp; override;
     procedure Iniciar(secINI0: string; proc0: TConsoleProc);
+    procedure SetLanguage(lang: string);
   end;
 
 implementation
@@ -76,7 +76,6 @@ begin
   Asoc_Str_TEdit(@Other, txtOtro, 'Other', '');
   Asoc_Enum_TRadBut(@Tipo, SizeOf(TTipCon), [optTelnet,optSSH,optSerial,optOtro],'Tipo', 0);
   Asoc_Str_TCmbBox(@IP, cmbIP,'IP','192.168.1.1');
-  Asoc_Str(@Nombre,'Nombre','');
   Asoc_StrList(@ConRecientes, 'Recient');
   Asoc_Bol_TRadBut(@SendCRLF, [optLF, optCRLF], 'TipSalto', false);
 //  EjecMacro: boolean;
@@ -125,7 +124,6 @@ begin
   inherited Create(AOwner);
   ConRecientes := TStringList.Create;  //crea lista
   //valores por defecto de la conexión actual
-  Nombre:='Sesión1';
   Tipo := TCON_TELNET;
 end;
 destructor TfraConexion.Destroy;
@@ -214,15 +212,38 @@ procedure TfraConexion.WindowToProp;
 begin
   //Aquí podemos validar antes de grabar
   if cmbIP.Text = '' then begin
-    MsjErr:='No se ha definido al dirección IP de la conexión.';
+    MsjErr:=dic('No se ha definido al dirección IP de la conexión.');
     exit;
   end;
   if not MatchesMask(cmbIP.Text, '*.*.*.*') then begin
-    MsjErr:='Error en IP';
+    MsjErr:=dic('Error en IP');
     exit;
   end;
   //solo si no hay errores
   inherited WindowToProp;
+end;
+
+procedure TfraConexion.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  case lowerCase(lang) of
+  'es': begin
+      optOtro.Caption:='Otro';
+      lblPort.Caption:='Puerto';
+      lblOtro.Caption:='Aplicativo:';
+      GroupBox1.Caption:='Salto de Línea';
+      dicClear;  //ya está en español
+    end;
+  'en': begin
+      optOtro.Caption:='Other';
+      lblPort.Caption:='Port';
+      lblOtro.Caption:='Program:';
+      GroupBox1.Caption:='Line Delimiter';
+      //diccionario
+      dicSet('No se ha definido al dirección IP de la conexión.','No IP address has been defined');
+      dicSet('Error en IP','IP error');
+    end;
+  end;
 end;
 
 end.

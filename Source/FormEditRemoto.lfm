@@ -1,7 +1,7 @@
 object frmEditRemoto: TfrmEditRemoto
-  Left = 323
+  Left = 258
   Height = 325
-  Top = 243
+  Top = 196
   Width = 516
   AllowDropFiles = True
   Caption = 'Editor Remoto'
@@ -12,7 +12,8 @@ object frmEditRemoto: TfrmEditRemoto
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnDropFiles = FormDropFiles
-  LCLVersion = '1.2.0.3'
+  OnShow = FormShow
+  LCLVersion = '1.2.4.0'
   inline ed: TSynEdit
     Left = 0
     Height = 256
@@ -27,7 +28,7 @@ object frmEditRemoto: TfrmEditRemoto
     ParentFont = False
     PopupMenu = PopupMenu1
     TabOrder = 0
-    Gutter.Width = 57
+    Gutter.Width = 33
     Gutter.MouseActions = <>
     RightGutter.Width = 0
     RightGutter.MouseActions = <>
@@ -453,6 +454,7 @@ object frmEditRemoto: TfrmEditRemoto
         ShortCut = 57379
       end>
     MouseActions = <>
+    MouseTextActions = <>
     MouseSelActions = <>
     Lines.Strings = (
       'ed'
@@ -486,6 +488,7 @@ object frmEditRemoto: TfrmEditRemoto
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
         Width = 24
+        Visible = False
         MouseActions = <>
       end
       object SynGutterLineNumber1: TSynGutterLineNumber

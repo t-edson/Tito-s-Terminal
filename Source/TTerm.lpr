@@ -11,7 +11,7 @@ uses
   frameCfgDetPrompt, FrameCfgConex, uResaltTerm,
   FrameCfgEdit, FormSelFuente, frameCfgPantTerm, FormEditMacros,
   FrameCfgGener, XpresBas, XPresParser, FrameExpRemoto, FormExpRemoto,
-  frameConfExpRem, FrameConfMacros, FormEditRemoto, FormAbrirRemoto,
+  FrameCfgExpRem, FrameCfgMacros, FormEditRemoto, FormAbrirRemoto,
   FrameCfgComandRec, 
 FrameCfgRutasCnx, FrameCfgPanCom;
 
