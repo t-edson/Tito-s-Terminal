@@ -1,0 +1,10 @@
+// Sample of macro using Tito's Terminal 0.2b
+// Created: 20/10/2014 11:56:16
+disconnect    //Disconnect first, in case there was another connection
+connect "192.168.1.1"    //Connect to a new IP
+wait "login: "           //Wait for this text
+sendln "usuario"         //Send this text
+wait "password: "
+sendln "clave"
+pause 3                  //Wait for 3 seconds
+sendln "cd /carpeta_de_trabajo"
