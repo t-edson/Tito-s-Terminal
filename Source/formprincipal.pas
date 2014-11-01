@@ -67,6 +67,8 @@ type
     AcTerCopRut: TAction;
     AcTerCopNom: TAction;
     AcTerCopPal: TAction;
+    acAyuAyu: TAction;
+    acAyuAcer: TAction;
     AcVerBarEst: TAction;
     AcVerExpRem: TAction;
     AcVerEdiRem: TAction;
@@ -80,6 +82,7 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
+    mnAyuAyu: TMenuItem;
     mnEdicion: TMenuItem;
     mnVer: TMenuItem;
     MenuItem16: TMenuItem;
@@ -211,6 +214,7 @@ type
     procedure AcArcNueSesExecute(Sender: TObject);
     procedure AcArcNueVenExecute(Sender: TObject);
     procedure AcArcSalirExecute(Sender: TObject);
+    procedure acAyuAyuExecute(Sender: TObject);
     procedure acEdPasteExecute(Sender: TObject);
     procedure acEdRedoExecute(Sender: TObject);
     procedure acEdUndoExecute(Sender: TObject);
@@ -393,6 +397,7 @@ begin
   Config.SetLanguage('en');
   frmExpRemoto.SetLanguage('en');
   frmEditRemoto.SetLanguage('en');
+  frmEditMacros.SetLanguage('en');
   Caption := NOM_PROG;
   //aquí ya sabemos que Config está creado. Lo configuramos
   Config.edTerm := edTerm;  //pasa referencia de editor.
@@ -974,8 +979,8 @@ begin
     edTerm.CaretY:=y2;  //posiciona como ayuda para ver si lo hizo bien
     y1 := BuscaPromptArr;  //busca al prompt anterior
     if y1 = -1 then begin
-      Result := 'Error detectando el prompt del comando. ' +
-      'Probablemente deba ampliar la cantidad de líneas de la pantalla.';
+      Result := dic('Error detectando el prompt del comando. ') +
+      dic('Probablemente deba ampliar la cantidad de líneas de la pantalla.');
       MsgExc(Result);
       exit;
     end;
@@ -1112,7 +1117,7 @@ end;
 procedure TfrmPrincipal.AcArcNueVenExecute(Sender: TObject);
 //Abre una nueva ventana de la aplicación
 begin
-   Exec('TTelnet.exe');
+   Exec('TTerm.exe');
 end;
 procedure TfrmPrincipal.AcArcNueSesExecute(Sender: TObject);  //Genera una nueva sesión
 var F:textfile;
@@ -1148,7 +1153,7 @@ begin
 end;
 procedure TfrmPrincipal.AcArcAbrSesExecute(Sender: TObject); //Abrir sesión
 begin
-  OpenDialog1.Filter:='Archivo de sesión|*.ses|Todos los archivos|*.*';
+  OpenDialog1.Filter := dic('Archivo de sesión|*.ses|Todos los archivos|*.*');
   OpenDialog1.InitialDir:=rutSesiones;  //busca aquí por defecto
 //  if SaveQuery then Exit;   //Verifica cambios
 //  if Error<>'' then exit;  //hubo error
@@ -1168,7 +1173,7 @@ var
   arc0: String;
   NomArc: String;
 begin
-  SaveDialog1.Filter:='Archivo de sesión|*.ses|Todos los archivos|*.*';
+  SaveDialog1.Filter := dic('Archivo de sesión|*.ses|Todos los archivos|*.*');
   SaveDialog1.InitialDir:=rutSesiones;  //busca aquí por defecto
   if not SaveDialog1.Execute then begin  //se canceló
     exit;    //se canceló
@@ -1196,12 +1201,6 @@ begin
     ePCom.Undo;
   end;
 end;
-
-procedure TfrmPrincipal.AcHerGraMacExecute(Sender: TObject);
-begin
-  frmEditMacros.AcHerGrabExecute(self);
-end;
-
 procedure TfrmPrincipal.acEdRedoExecute(Sender: TObject);
 begin
   if edPCom.Focused then begin //El único editor que acepta Undo/Redo
@@ -1257,7 +1256,8 @@ procedure TfrmPrincipal.AcPcmNuevoExecute(Sender: TObject);
 begin
   if ePCom.SaveQuery then Exit;   //Verifica cambios
   ePCom.NewFile(false);
-  ePCom.Text:='#Archivo de comandos'+LineEnding;
+  ePComFileOpened;
+  ePCom.Text:=dic('#Archivo de comandos')+LineEnding;
 end;
 procedure TfrmPrincipal.AcPcmAbrirExecute(Sender: TObject);
 begin
@@ -1345,11 +1345,6 @@ begin
   Config.Configurar('3.1');
 end;
 
-procedure TfrmPrincipal.AcHerCfgExecute(Sender: TObject);
-begin
-  Config.Configurar;
-  ActualizarInfoPanel0;
-end;
 procedure TfrmPrincipal.AcTerConecExecute(Sender: TObject);
 var
   conAct: TfraConexion;
@@ -1509,6 +1504,21 @@ begin
   end;
 end;
 
+procedure TfrmPrincipal.AcHerGraMacExecute(Sender: TObject);
+begin
+  frmEditMacros.AcHerGrabExecute(self);
+end;
+procedure TfrmPrincipal.AcHerCfgExecute(Sender: TObject);
+begin
+  Config.Configurar;
+  ActualizarInfoPanel0;
+end;
+
+procedure TfrmPrincipal.acAyuAyuExecute(Sender: TObject);
+begin
+  OpenURL('https://github.com/t-edson/Tito-s-Terminal/tree/master/Docs');
+end;
+
 procedure TfrmPrincipal.SetLanguage(lang: string);
 //Rutina de traducción
 begin
@@ -1584,6 +1594,7 @@ begin
       AcTerCopNomRut.Caption := 'Copiar N&ombre y Ruta';
       AcHerCfg.Caption := 'Confi&guración...';
       AcHerGraMac.Caption := '&Grabar Macro';
+      acAyuAyu.Caption:='Ay&uda';
       dicClear;  //los mensajes ya están en español
     end;
   'en': begin
@@ -1657,6 +1668,7 @@ begin
       AcTerCopNomRut.Caption := 'Copy Name and Path';
       AcHerCfg.Caption := 'Confi&gure...';
       AcHerGraMac.Caption := '&Record Macro';
+      acAyuAyu.Caption:='&Help';
       //traducción
       dicSet('Hay una conexión abierta. ¿Cerrarla?','There is an opened connection. Close?');
       dicSet(' - Archivo: ', ' - File: ');
@@ -1666,6 +1678,13 @@ begin
       dicSet('Ejecutando macro','Running macro');
       dicSet('No hay conexión disponible','No available connection');
       dicSet('Tiempo de espera agotado','Timeout');
+      dicSet('Error detectando el prompt del comando. ','Error detecting prompt.');
+      dicSet('Probablemente deba ampliar la cantidad de líneas de la pantalla.',
+             'Probably you must increase the max number of lines in screen');
+      dicSet('Archivo de sesión|*.ses|Todos los archivos|*.*','Sesion file|*.ses|All files|*.*');
+      dicSet('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
+             'File % salready exists. Overwrite?');
+      dicSet('#Archivo de comandos','#Command file');
     end;
   end;
 end;

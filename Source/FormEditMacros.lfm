@@ -1,7 +1,7 @@
 object frmEditMacros: TfrmEditMacros
-  Left = 119
+  Left = 163
   Height = 368
-  Top = 204
+  Top = 206
   Width = 518
   Caption = 'frmEditMacros'
   ClientHeight = 348
@@ -10,7 +10,7 @@ object frmEditMacros: TfrmEditMacros
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.4.0'
   inline ed: TSynEdit
     Left = 0
     Height = 299
@@ -450,6 +450,7 @@ object frmEditMacros: TfrmEditMacros
         ShortCut = 57379
       end>
     MouseActions = <>
+    MouseTextActions = <>
     MouseSelActions = <>
     Lines.Strings = (
       ''
@@ -1692,7 +1693,7 @@ object frmEditMacros: TfrmEditMacros
     Images = ImageList1
     left = 96
     top = 104
-    object MenuItem1: TMenuItem
+    object mnArchivo: TMenuItem
       Caption = '&Archivo'
       object MenuItem3: TMenuItem
         Action = acArcNuevo
@@ -1851,7 +1852,7 @@ object frmEditMacros: TfrmEditMacros
         }
       end
       object mnRecientes: TMenuItem
-        Caption = 'Recientes'
+        Caption = '&Recientes'
       end
       object MenuItem7: TMenuItem
         Caption = '-'
@@ -1896,7 +1897,7 @@ object frmEditMacros: TfrmEditMacros
         }
       end
     end
-    object MenuItem2: TMenuItem
+    object mnEdicion: TMenuItem
       Caption = '&Edicion'
       object MenuItem9: TMenuItem
         Action = acEdiUndo
@@ -2103,7 +2104,7 @@ object frmEditMacros: TfrmEditMacros
         Action = acEdiSelecAll
       end
     end
-    object MenuItem17: TMenuItem
+    object mnHerram: TMenuItem
       Caption = '&Herramientas'
       object MenuItem18: TMenuItem
         Action = AcHerEjec

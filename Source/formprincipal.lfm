@@ -2661,6 +2661,9 @@ object frmPrincipal: TfrmPrincipal
     end
     object mnAyuda: TMenuItem
       Caption = 'Ay&uda'
+      object mnAyuAyu: TMenuItem
+        Action = acAyuAyu
+      end
     end
   end
   object ActionList1: TActionList
@@ -3006,6 +3009,15 @@ object frmPrincipal: TfrmPrincipal
       Caption = '&Grabar Macro'
       ImageIndex = 43
       OnExecute = AcHerGraMacExecute
+    end
+    object acAyuAyu: TAction
+      Category = 'Ayu'
+      Caption = 'Ay&uda'
+      OnExecute = acAyuAyuExecute
+    end
+    object acAyuAcer: TAction
+      Category = 'Ayu'
+      Caption = '&Acerca de'
     end
   end
   object ImageList1: TImageList

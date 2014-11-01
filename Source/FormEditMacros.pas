@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs, LCLProc,
-  Menus, ComCtrls, ActnList, StdActns, SynFacilUtils, XpresParser, Globales,
-  FrameCfgConex;
+  Menus, ComCtrls, ActnList, StdActns,
+  MisUtils, SynFacilUtils, XpresParser, Globales, FrameCfgConex;
 
 type
 
@@ -38,7 +38,7 @@ type
     acVerPanArc: TAction;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
-    MenuItem1: TMenuItem;
+    mnArchivo: TMenuItem;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
@@ -57,8 +57,8 @@ type
     MenuItem27: TMenuItem;
     MenuItem28: TMenuItem;
     mnRecientes: TMenuItem;
-    MenuItem17: TMenuItem;
-    MenuItem2: TMenuItem;
+    mnHerram: TMenuItem;
+    mnEdicion: TMenuItem;
     MenuItem23: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -115,6 +115,7 @@ type
     procedure Ejecutar(arc: string);
     procedure DetenerEjec;
     procedure Abrir(arc: string);
+    procedure SetLanguage(lang: string);
   end;
 
 var
@@ -180,16 +181,16 @@ end;
 procedure TfrmEditMacros.acArcNuevoExecute(Sender: TObject);
 begin
   edit.NewFile;
-  ed.Lines[0] := '// Macro de ejemplo para '+NOM_PROG;
-  ed.Lines.Add('// Creada: ' + DateTimeToStr(Now) );
-  ed.Lines.Add('disconnect    //Desconecta por si había alguna conexión');
-  ed.Lines.Add('connect "192.168.1.1"    //Conecta a nueva dirección');
+  ed.Lines[0] := dic('// Macro de ejemplo para ')+NOM_PROG;
+  ed.Lines.Add(dic('// Creada: ') + DateTimeToStr(Now) );
+  ed.Lines.Add('disconnect    '+dic('//Desconecta por si había alguna conexión'));
+  ed.Lines.Add('connect "192.168.1.1"    '+dic('//Conecta a nueva dirección'));
   ed.Lines.Add('wait "login: "');
   ed.Lines.Add('sendln "usuario"');
   ed.Lines.Add('wait "password: "');
   ed.Lines.Add('sendln "clave"');
-  ed.Lines.Add('pause 3    //genera una pausa');
-  ed.Lines.Add('sendln "cd /carpeta_de_trabajo"');
+  ed.Lines.Add('pause 3    '+dic('//espera 3 segundos'));
+  ed.Lines.Add('sendln "cd /folder"');
 end;
 procedure TfrmEditMacros.acArcAbrirExecute(Sender: TObject);
 begin
@@ -247,10 +248,10 @@ procedure TfrmEditMacros.AcHerGrabExecute(Sender: TObject);
 begin
   //Inicialización
   ed.ClearAll;
-  ed.Lines.Add('// Macro generada para '+NOM_PROG);
-  ed.Lines.Add('// Grabada: ' + DateTimeToStr(Now) );
-  ed.Lines.Add('DISCONNECT    //Desconecta por si había alguna conexión');
-  ed.Lines.Add('CLEAR         //limpia la pantalla');
+  ed.Lines.Add(dic('// Macro generada para ')+NOM_PROG);
+  ed.Lines.Add(dic('// Fecha: ') + DateTimeToStr(Now) );
+  ed.Lines.Add('DISCONNECT    '+dic('//Desconecta por si había alguna conexión'));
+  ed.Lines.Add('CLEAR         '+dic('//Limpia la pantalla'));
   //lee parámetros de la configuración actual
   case Config.fcConex.tipo of
   TCON_TELNET: begin
@@ -272,7 +273,7 @@ begin
   else
     ed.Lines.Add('curENDLINE := "LF"  //El tipo de salto de línea a enviar');
   //conecta
-  ed.Lines.Add('CONNECT               //Inicia conexión');
+  ed.Lines.Add('CONNECT               '+dic('//Inicia conexión'));
 //  PAUSE 3               //Espera unos segundos
 //  DETECT_PROMPT         //Configura la línea actual como el prompt
 
@@ -320,6 +321,84 @@ procedure TfrmEditMacros.Abrir(arc: string);
 begin
   if edit.SaveQuery then Exit;   //Verifica cambios
   edit.LoadFile(arc);
+end;
+
+procedure TfrmEditMacros.SetLanguage(lang: string);
+//Rutina de traducción
+begin
+  edit.SetLanguage(lang);
+  case lowerCase(lang) of
+  'es': begin
+    acArcNuevo.Caption := '&Nuevo';
+    acArcAbrir.Caption := '&Abrir...';
+    acArcGuardar.Caption := '&Guardar';
+    acArcGuaCom.Caption := 'G&uardar Como...';
+    acArcSalir.Caption := '&Salir';
+    acEdiUndo.Caption := '&Deshacer';
+    acEdiRedo.Caption := '&Rehacer';
+    acEdiCut.Caption := 'Cor&tar';
+    acEdiCopy.Caption := '&Copiar';
+    acEdiPaste.Caption := '&Pegar';
+    acEdiSelecAll.Caption := 'Seleccionar &Todo';
+    acEdiModCol.Caption := 'Modo Columna';
+    acVerNumLin.Caption := 'Ver &Núm. de Línea';
+    acVerBarEst.Caption := 'Ver Barra de &Estado';
+    acBusBuscar.Caption := 'Buscar...';
+    acBusBusSig.Caption := 'Buscar &Siguiente';
+    acBusRem.Caption := '&Remplazar...';
+    acVerPanArc.Caption := 'Panel de &Archivos';
+    AcHerEjec.Caption := '&Ejecutar';
+    AcHerDeten.Caption := '&Detener';
+    AcHerGrab.Caption := '&Grabar';
+    AcHerConfig.Caption := 'C&onfigurar';
+    //menús
+    mnArchivo.Caption := '&Archivo';
+    mnRecientes.Caption:='&Recientes';
+    mnEdicion.Caption:='&Edición';
+    mnHerram.Caption:='&Herramientas';
+    //textos
+    dicClear;  //ya está en español
+    end;
+  'en': begin
+    acArcNuevo.Caption := '&New';
+    acArcAbrir.Caption := '&Open...';
+    acArcGuardar.Caption := '&Save';
+    acArcGuaCom.Caption := 'Sa&ve As...';
+    acArcSalir.Caption := '&Quit';
+    acEdiUndo.Caption := '&Undo';
+    acEdiRedo.Caption := '&Redo';
+    acEdiCut.Caption := 'Cu&t';
+    acEdiCopy.Caption := '&Copy';
+    acEdiPaste.Caption := '&Paste';
+    acEdiSelecAll.Caption := 'Select &All';
+    acEdiModCol.Caption := 'Column Mode';
+    acVerNumLin.Caption := 'View Line &Number';
+    acVerBarEst.Caption := 'View &Statusbar';
+    acBusBuscar.Caption := 'Find...';
+    acBusBusSig.Caption := 'Find &Next';
+    acBusRem.Caption := '&Replace...';
+    acVerPanArc.Caption := '&File Panel';
+    AcHerEjec.Caption := '&Execute';
+    AcHerDeten.Caption := '&Stop';
+    AcHerGrab.Caption := '&Record';
+    AcHerConfig.Caption := '&Setup';
+    //menús
+    mnArchivo.Caption := '&File';
+    mnRecientes.Caption:='&Recents';
+    mnEdicion.Caption:='&Edit';
+    mnHerram.Caption:='&Tools';
+    //textos
+    dicSet('// Macro de ejemplo para ','// Sample of macro for ');
+    dicSet('// Creada: ','// Created: ');
+    dicSet('// Macro generada para ','// Macro generated for ');
+    dicSet('// Fecha: ','// Date: ');
+    dicSet('//Desconecta por si había alguna conexión','//Disconnect if it''s connected');
+    dicSet('//Conecta a nueva dirección','//Connect to a new IP');
+    dicSet('//espera 3 segundos','//wait for 3 seconds');
+    dicSet('//Limpia la pantalla','//Clear the terminal');
+    dicSet('//Inicia conexión','//Start connection');
+    end;
+  end;
 end;
 
 end.

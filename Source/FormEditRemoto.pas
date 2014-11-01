@@ -303,6 +303,7 @@ procedure TfrmEditRemoto.SetLanguage(lang: string);
 //Rutina de traducción
 begin
   frmAbrirRemoto.SetLanguage(lang);
+  edit.SetLanguage(lang);
 
   case lowerCase(lang) of
   'es': begin
