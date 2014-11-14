@@ -69,7 +69,7 @@ xargs zcat
 	</Langs>
   </Identifiers>
   <Token CharsStart="0..9" Content = '0..9' Attribute="NUMBER"> </Token>
-  <String Start='"' End='"'></String>
+  <String Start='"' End='"' Multiline="true"></String>
   <Token Start="'" End="'" Multiline = "true" Folding="true" Attribute="Awk"></Token>
   <Comment Start="#" ></Comment>
 
