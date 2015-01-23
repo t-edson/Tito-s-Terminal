@@ -119,6 +119,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object ToolButton16: TToolButton
         Left = 149
+        Hint = 'Enviar línea actual (Ctrl+Enter)'
         Top = 2
         Action = AcPCmEnvLin
       end
@@ -2850,7 +2851,6 @@ object frmPrincipal: TfrmPrincipal
       Hint = 'Enviar línea actual'
       ImageIndex = 31
       OnExecute = AcPCmEnvLinExecute
-      ShortCut = 120
     end
     object AcPCmEnvTod: TAction
       Category = 'Pcm'

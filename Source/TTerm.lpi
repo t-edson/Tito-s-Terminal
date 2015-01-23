@@ -28,7 +28,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2b;..\_Librerias\UnTerminal 0.6;..\_Librerias\SynFacilUtils 0.3b;..\_Librerias\SynFacilCompletion0.7b;..\_Librerias\SynFacilSyn 09.3b;..\_Librerias\ConfigFrame 0.4"/>
+            <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2b;..\_Librerias\UnTerminal 0.7;..\_Librerias\SynFacilUtils 0.3b;..\_Librerias\SynFacilCompletion0.7b;..\_Librerias\SynFacilSyn 09.3b;..\_Librerias\ConfigFrame 0.4;..\PreSQL 2.4b"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -263,7 +263,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2b;..\_Librerias\UnTerminal 0.6;..\_Librerias\SynFacilUtils 0.3b;..\_Librerias\SynFacilCompletion0.7b;..\_Librerias\SynFacilSyn 09.3b;..\_Librerias\ConfigFrame 0.4"/>
+      <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2;..\_Librerias\UnTerminal 0.6;..\_Librerias\SynFacilUtils 0.3;..\_Librerias\SynFacilCompletion0.7;..\_Librerias\SynFacilSyn 09.5;..\_Librerias\ConfigFrame 0.4"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

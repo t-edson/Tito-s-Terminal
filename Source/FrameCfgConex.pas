@@ -22,8 +22,11 @@ type
 
   TfraConexion = class(TFrame)
     cmbIP: TComboBox;
+    cmbSerPort: TComboBox;
     GroupBox1: TGroupBox;
     lblOtro: TLabel;
+    lblSerCfg: TLabel;
+    lblSerPort: TLabel;
     optSerial: TRadioButton;
     lblIP: TLabel;
     lblPort: TLabel;
@@ -33,6 +36,7 @@ type
     optLF: TRadioButton;
     optCRLF: TRadioButton;
     txtOtro: TEdit;
+    txtSerCfg: TEdit;
     txtPort: TEdit;
     procedure UpdateChanges;
     procedure optOtroChange(Sender: TObject);
@@ -117,6 +121,10 @@ begin
   lblOtro.Visible:=false;
   txtOtro.Visible:=false;
 //  GroupBox1.Visible:=false;
+  lblSerPort.Visible:=false;
+  cmbSerPort.Visible:=false;
+  lblSerCfg.Visible:=false;
+  txtSerCfg.Visible:=false;
 end;
 
 constructor TfraConexion.Create(AOwner: TComponent);
@@ -155,7 +163,10 @@ end;
 procedure TfraConexion.optSerialChange(Sender: TObject);
 begin
   Ocultar;
-//  GroupBox1.Visible:=true;
+  lblSerPort.Visible:=true;
+  cmbSerPort.Visible:=true;
+  lblSerCfg.Visible:=true;
+  txtSerCfg.Visible:=true;
 end;
 procedure TfraConexion.optOtroChange(Sender: TObject);
 begin
@@ -188,10 +199,11 @@ begin
         proc.progParam:='';
       end;
     end;
-//  TCON_SERIAL: begin
-//      proc.Open('plink -serial ' + IP,'');
+  TCON_SERIAL: begin
+      proc.Open('plink -serial ' + cmbSerPort.Text + ' -sercfg '+txtSerCfg.Text,'');
+      proc.progParam:='';
 //      edTerm.Lines[0] := 'Opening Serial ...';
-//    end;
+    end;
   TCON_OTHER: begin
       proc.progPath:=Other;
       proc.progParam:='';
@@ -232,6 +244,8 @@ begin
       lblPort.Caption:='Puerto';
       lblOtro.Caption:='Aplicativo:';
       GroupBox1.Caption:='Salto de Línea';
+      lblSerPort.Caption:='Puerto Serial:';
+      lblSerCfg.Caption:='Configuración';
       dicClear;  //ya está en español
     end;
   'en': begin
@@ -239,6 +253,8 @@ begin
       lblPort.Caption:='Port';
       lblOtro.Caption:='Program:';
       GroupBox1.Caption:='Line Delimiter';
+      lblSerPort.Caption:='Serial Port:';
+      lblSerCfg.Caption:='Configuration';
       //diccionario
       dicSet('No se ha definido al dirección IP de la conexión.','No IP address has been defined');
       dicSet('Error en IP','IP error');

@@ -11,8 +11,8 @@ uses
   Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds, SynEditMarkupHighAll,
   SynEditMiscClasses, LCLType, LCLProc, LCLIntf, StdActns, UnTerminal, Clipbrd,
   FormConexRapida, FormConfig, FormExpRemoto, FormEditMacros, MisUtils, Globales,
-  frameCfgDetPrompt, FrameCfgConex, FormSelFuente, FrameCfgComandRec,
-  TermVT, uResaltTerm, SynFacilUtils, FormEditRemoto;
+  FrameCfgConex, FormSelFuente, FrameCfgComandRec,
+  TermVT, uResaltTerm, SynFacilUtils, FormEditRemoto, uPreBasicos, uPreProces;
 
 type
 
@@ -282,7 +282,7 @@ type
     procedure procChangeState(info: string; pFinal: TPoint);
     procedure procInitScreen(const grilla: TtsGrid; fIni, fFin: integer);
     procedure procAddLine(HeightScr: integer);
-    procedure procLlegoPrompt(prompt: string; pIni: TPoint; HeightScr: integer);
+    procedure procLlegoPrompt(prmLine: string; pIni: TPoint; HeightScr: integer);
     procedure procRefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
     procedure procRefreshLines(const grilla: TtsGrid; fIni, fFin, HeightScr: integer);
     procedure StatusBar1DrawPanel(StatusBar: TStatusBar; Panel: TStatusPanel;
@@ -301,6 +301,7 @@ type
     function BuscaPromptArr: integer;
     procedure ConfiguraEntorno;
     procedure DistribuirPantalla;
+    procedure EnviarTxt(txt: string);
     procedure EnvioTemporizado;
     procedure InicTerminal;
     procedure itemAbreComando(Sender: TObject);
@@ -604,7 +605,7 @@ begin
   end;
 end;
 
-procedure TfrmPrincipal.procLlegoPrompt(prompt: string; pIni: TPoint; HeightScr: integer);
+procedure TfrmPrincipal.procLlegoPrompt(prmLine: string; pIni: TPoint; HeightScr: integer);
 begin
   LlegoPrompt := true;  //activa bandera
 //  yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
@@ -879,13 +880,13 @@ begin
    conAct := Config.fcConex;
    case conAct.Tipo of
    TCON_TELNET:
-       StatusBar1.Panels[0].Text:='Telnet: '+conAct.IP;
+      StatusBar1.Panels[0].Text:='Telnet: '+conAct.IP;
    TCON_SSH:
-       StatusBar1.Panels[0].Text:='SSH: '+conAct.IP;
- //  TCON_SERIAL:
- //    proc.Open('plink -serial ' + conAct.IP,'');
+      StatusBar1.Panels[0].Text:='SSH: '+conAct.IP;
+   TCON_SERIAL:
+      StatusBar1.Panels[0].Text:='Serial: '+conAct.cmbSerPort.Text;
    TCON_OTHER:
-       StatusBar1.Panels[0].Text:='Proc: '+Config.fcConex.Other;
+      StatusBar1.Panels[0].Text:='Proc: '+Config.fcConex.Other;
    end;
    //refresca para asegurarse, porque el panel 0 está en modo gráfico
    StatusBar1.InvalidatePanel(0,[ppText]);
@@ -936,7 +937,7 @@ begin
 end;
 
 function TfrmPrincipal.EnviarComando(com: string; var salida: TStringList): string;
-//Función para enviar un comando por el Terminal. Espera hasta que aparezca del
+//Función para enviar un comando por el Terminal. Espera hasta que aparezca de
 //nuevo el "prompt" y devuelve el texto generado, por el comando, en "salida".
 //Si hay error devuelve el mensaje de error.
 var
@@ -1283,16 +1284,34 @@ begin
   sAVEDialog1.InitialDir:=config.fcRutArc.scripts;  //busca aquí por defecto
   ePCom.SaveAsDialog(SaveDialog1);
 end;
+procedure TfrmPrincipal.EnviarTxt(txt: string);
+//Envía un tetxo al terminal, aplicando el preprocesamiento si es necesario
+var
+  usu: string;
+begin
+  if Config.fcPanCom.UsarPrep then begin
+    //se debe usar el preprocesador PreSQL
+    PreProcesar('',txt, usu);
+    if PErr.HayError Then begin
+      msgerr(Perr.GenTxtError);
+      exit;  //verificación
+    end;
+    proc.SendLn(PPro.TextSalida);
+  end else begin   //envío común
+    proc.SendLn(txt);
+  end;
+end;
 procedure TfrmPrincipal.AcPCmEnvLinExecute(Sender: TObject);
 var
   lin: String;
 begin
   if proc = nil then exit;
   if edPCom.SelAvail then begin  //hay selección
-    proc.SendLn(edPCom.SelText);
+    //envía texto seleccionado
+    EnviarTxt(edPCom.SelText);
   end else begin  //no hay selección, envía la línea actual
     lin := edPCom.LineText;  //línea actual
-    proc.SendLn(lin);
+    EnviarTxt(lin);
   end;
 end;
 procedure TfrmPrincipal.AcPCmEnvTodExecute(Sender: TObject);
@@ -1300,7 +1319,7 @@ procedure TfrmPrincipal.AcPCmEnvTodExecute(Sender: TObject);
 var
   tmp: String;
 begin
-  if proc = nil then exit;
+  if proc = nil then exit ;
   if Config.fcPanCom.SaveBefSend then
     AcPcmGuardarExecute(Self);
   if edPCom.SelAvail then begin
@@ -1311,21 +1330,15 @@ begin
     If frmSelFuente.cancelado Then Exit;  //cancelado
     //se eligió
     If frmSelFuente.optTod.Checked Then begin  //todo
-      proc.SendLn(edPCom.Text);
+      EnviarTxt(edPCom.Text);
     end else if frmSelFuente.optSel.Checked Then begin  //selección
-      proc.SendLn(edPCom.SelText);
+      EnviarTxt(edPCom.SelText);
     end Else begin   //solo la línea actual
-      proc.SendLn(edPCom.LineText);
+      EnviarTxt(edPCom.LineText);
     End;
   end else begin
     //no hay selección, envía todo
-    if Config.fcPanCom.UsarPrep then begin
-      //Se debe pre-procesar primero
-      tmp := StringReplace(Config.fcPanCom.LinCom,'%1',ePCom.NomArc,[rfReplaceAll]);
-      Exec(tmp);
-      proc.SendFile(Config.fcPanCom.ArcEnviar);
-    end else
-      proc.SendLn(edPCom.Text);
+    EnviarTxt(edPCom.Text);
   end;
 end;
 procedure TfrmPrincipal.acPCmEnvCtrCExecute(Sender: TObject); //Envía Ctrl+C
