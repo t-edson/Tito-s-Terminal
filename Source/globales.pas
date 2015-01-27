@@ -4,9 +4,9 @@ Unidad con declaraciones globales del proyecto
 }
 unit Globales; {$mode objfpc}{$H+}
 interface
-uses  Classes, SysUtils, Forms, Graphics, Dialogs, SynEdit, SynEditKeyCmds, MisUtils,
-      SynEditTypes, StrUtils, lclType, SynFacilCompletion, Process, FileUtil, StdCtrls,
-      ShellApi, types, dateutils, LazLogger, Menus ;
+uses  Classes, SysUtils, Forms, SynEdit, SynEditKeyCmds, MisUtils,
+      SynEditTypes, StrUtils, lclType, FileUtil,
+      types, LazLogger, Menus ;
 
 const
   NOM_PROG = 'Tito''s Terminal 0.2b';   //nombre de programa

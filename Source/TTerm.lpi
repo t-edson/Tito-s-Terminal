@@ -28,7 +28,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2b;..\_Librerias\UnTerminal 0.7;..\_Librerias\SynFacilUtils 0.3b;..\_Librerias\SynFacilCompletion0.7b;..\_Librerias\SynFacilSyn 09.3b;..\_Librerias\ConfigFrame 0.4;..\PreSQL 2.4b"/>
+            <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2;..\_Librerias\UnTerminal 0.7;..\_Librerias\SynFacilUtils 0.3;..\_Librerias\SynFacilCompletion0.7;..\_Librerias\SynFacilSyn 09.5;..\_Librerias\ConfigFrame 0.4;..\PreSQL 2.4"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -148,7 +148,7 @@
         <UnitName Value="FormSelFuente"/>
       </Unit9>
       <Unit10>
-        <Filename Value="framecfgpantterm.pas"/>
+        <Filename Value="FrameCfgPantTerm.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraPantTerm"/>
         <HasResources Value="True"/>
@@ -198,7 +198,7 @@
         <UnitName Value="FormExpRemoto"/>
       </Unit16>
       <Unit17>
-        <Filename Value="framecfgexprem.pas"/>
+        <Filename Value="FrameCfgExpRem.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fcExpRem"/>
         <HasResources Value="True"/>
@@ -206,7 +206,7 @@
         <UnitName Value="FrameCfgExpRem"/>
       </Unit17>
       <Unit18>
-        <Filename Value="framecfgmacros.pas"/>
+        <Filename Value="FrameCfgMacros.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fcMacros"/>
         <HasResources Value="True"/>
@@ -263,7 +263,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2;..\_Librerias\UnTerminal 0.6;..\_Librerias\SynFacilUtils 0.3;..\_Librerias\SynFacilCompletion0.7;..\_Librerias\SynFacilSyn 09.5;..\_Librerias\ConfigFrame 0.4"/>
+      <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2;..\_Librerias\UnTerminal 0.7;..\_Librerias\SynFacilUtils 0.3;..\_Librerias\SynFacilCompletion0.7;..\_Librerias\SynFacilSyn 09.5;..\_Librerias\ConfigFrame 0.4;..\PreSQL 2.4"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
