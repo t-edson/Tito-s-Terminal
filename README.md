@@ -3,11 +3,11 @@ Tito-s-Terminal 0.2b
 
 Terminal con Interfaz gráfica, coloreado de sintaxis y automatización para telnet, y ssh.
 
-![Tito's Terminal](http://blog.pucp.edu.pe/media/4946/20140905-tterm1red.png "Título de la imagen")
+![Tito's Terminal](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/1969/12/tterm1.png "Título de la imagen")
 
 Tito's Terminal empezó como una broma, pero ahora es una aplicación bastante completa y ha migrado recientemente a Lazarus.
 
-Este terminal puede hacer de cliente para Telnet, SSH, Serial (no disponible aún) y en general cualquier proceso que maneje consola.
+Este terminal puede hacer de cliente para Telnet, SSH, Serial y en general cualquier proceso que maneje consola.
 
 Para las conexiones Telnet y SSH, usa el conocido [PLink](http://the.earth.li/~sgtatham/putty/0.60/htmldoc/Chapter7.html), pero podría usarse cualquier otro cliente similar.
 
@@ -23,7 +23,7 @@ La detección del prompt, es útil visualmente y también es necesaria para algu
 
 El explorador de archivos remoto,  funciona interactuando con el terminal, mediante comandos, pero solo para las sesiones Telnet y SSH. De esta forma se puede emular un explorador de archivo en conexiones UNIX/Linux.
 
-![Tito's Terminal](http://blog.pucp.edu.pe/media/4946/20140908-tterm5.png "Título de la imagen")
+![Tito's Terminal](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/1969/12/tterm5.png "Título de la imagen")
 
 También se incluye un editor remoto, que interactuando, mediante comandos, con el "shell" permite realizar la edición de archivos pequeños, desde dentro del mismo "shell" UNIX/Linux.
 
@@ -31,7 +31,7 @@ Los editores del programa incluyen resaltado de sintaxis (para diversos lenguaje
 
 Tito's Terminal también permite la automatización de las conexiones con un lenguaje de macros similar al usado para TeraTerm. Se incluye además, un editor de código preparado exclusivamente para escribir y probar las macros.
 
-![Tito's Terminal](http://blog.pucp.edu.pe/media/4946/20140905-tterm3.png "Título de la imagen")
+![Tito's Terminal](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/1969/12/tterm3.png "Título de la imagen")
 
 Las funciones de ejecución de macros, así como otras comunes, tienen un acceso directo desde el menú principal o contextual del aplicativo.
 
