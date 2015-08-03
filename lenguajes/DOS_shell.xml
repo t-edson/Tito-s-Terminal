@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<Language name="DOS shell" ext="*.bat" CaseSensitive="false">
+  <Completion> 
+alias ar asa awk
+"awk '{}'"
+"awk -F. '{print $1}'"
+banner basename bash bc bdiff break bunzip2 bzip2 
+"case"
+"case $x in&#xD;
+ 1)&#xD;   echo ""uno"" &#xD;
+ ;;&#xD;
+ 2)&#xD;   echo ""dos"" &#xD;
+ ;;&#xD;
+ *)&#xD;   echo ""otro"" &#xD;
+ ;;&#xD;
+ esac"
+"cat " "cd " "cd .." "chgrp " 
+"chmod " "chmod 755" "chmod 777"
+"chown"
+"chown usuario directorio/archivo"
+"continue"
+"cp "
+"cp origen destino"
+"crontab "
+"crontab -l"
+"crontab -l | grep "
+"date"
+"date +%Y%m%d %H%M%S"
+"df"
+"df -k"
+"df -k | grep "
+"do"
+"done"
+"du"
+"du -k"
+"echo"
+"echo """""
+"elif "
+"else"
+"esac"
+"exit"
+"expr"
+"fcopy"
+"fi"
+"for "
+"for variable in $lista&#xD;do&#xD;done"
+"format"
+"ftp "
+"grep "
+"head "
+"id "
+"if "
+"if [ expresíon ]; then&#xD;fi"
+"if [ expresíon ]; then&#xD;else&#xD;fi"
+"in"
+"join "
+"kill"
+"kill -9 "
+"ln"
+"ls"
+"ls -l"
+"mail"
+"man"
+"mkdir"
+"mv "
+"mv origen destino"
+"nawk "
+"nawk -F. ""{print $1}"""
+"ping"
+"passwd"
+"passwd usuario"
+"pwd"
+"ps "
+"ps -fu"
+"rm "
+"rmdir "
+"sleep "
+"sort"
+"tail "
+"tar"
+"telnet"
+"then"
+"top "
+"tty "
+"uname"
+"uniq"
+"until"
+"useradd"
+"useradd usuario"
+"vi "
+"vmstat "
+"wc "
+"wc -l "
+"while "
+"while [ exprsion ]; do &#xD;done"
+"who "
+"write "
+ 
+  </Completion>
+  <Attribute name="Keyword" ForeCol="#00A000" Bold="true"></Attribute>
+  <Attribute name="Label" BackCol="#C8F7F7"></Attribute>
+  <Identifiers CharsStart= "A..Za..z_$" Content = "A..Za..z0..9_"> 
+    <Keyword>
+ANSI.SYS ATTRIB APPEND ASSIGN 
+BACKUP BASIC BAT BREAK BUFFERS 
+CHKDSK COPY CALL CD CHCP CHDIR CHKDSK CHKSTATE.SYS CHOICE CLS COMMAND CONFIG.SYS COUNTRY 
+DIR DATE DBLSPACE DBLSPACE.SYS DEBUG DEFRAG DEL DELOLDOS DELTREE DEVICE DEVICEHIGH DISKCOMP DISKCOPY DISPLAY.SYS DOS DOSKEY DOSSHELL DRIVER.SYS DRIVPARM DRIVESPACE 
+EDIT ECHO EMM386 EMM386.EXE ERASE ERROLEVEL EXE2BIN EXIT EXPAND 
+FDISK FORMAT FASTHELP FASTOPEN FC FCBS FILES FIND FOR GOTO 
+GRAFTABL GRAPHIC GWBASIC 
+HELP HIMEM.SYS 
+IF INCLUDE INTERLNK INTERLNK.EXE INTERSVR INSTALL
+JOIN 
+KEYB 
+LABEL LASTDRIVE LH LINK LOADFIX LOADHIGH 
+MD MSCDEX MACROS MEM MEMMAKER MENUCOLOR MENUDEFAULT MENUITEM MIRROR MKDIR MODE MORE MOVE MSAV MSBACKUP MSD 
+NLSFUNC NUMLOCK 
+PATH PAUSE POWER POWER.EXE PRINT PRINTER.SYS PROMPT 
+QBASIC 
+RAMDRIVE RD RECOVER REM REN RENAME REPLACE RESTORE RMDIR 
+SCANDISK SET SETVER SETVER.EXE SHARE SHELL SHIFT SHIPDISK SIZER.EXE SMARTDRV SMARTDRV.EXE SMARTMON SORT STACKS SUBMENU SUBST SWITCHES SYS 
+TEMP TIME TREE TYPE 
+UNDELETE UNFORMAT 
+VDISK VER VERIFY VOL VSAFE 
+XCOPY 
+    </Keyword>
+  </Identifiers>
+  <Token CharsStart="0..9" Content = '0..9' Attribute="NUMBER"> </Token>
+  <String Start='"' End='"'></String>
+  <Token Start="'" End="'" Multiline = "true" Folding="true" Attribute="Awk"></Token>
+  <Comment Start="REM" ></Comment>
+  <Token Start=":" Attribute="Label"></Token>
+
+  <Block Start="{" End="}" Name="blk_llaves" BackCol="#F7F7C8" Parent="Main"></Block>
+
+  <Block Start="if"   End="fi"   Name="blk_if" BackCol="transparent"></Block>
+  <Block Start="do"   End="done" Name="blk_do" BackCol="transparent"></Block>
+  <Block Start="case" End="esac" Name="blk_ca" BackCol="transparent"></Block>
+
+</Language>
