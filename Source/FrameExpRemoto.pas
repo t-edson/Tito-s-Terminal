@@ -407,8 +407,6 @@ begin
 end;
 
 procedure TfraExpRemoto.ListView1KeyPress(Sender: TObject; var Key: char);
-var
-  it: TListItem;
 begin
   if Key = #8 then begin  //backspace
     frmPrincipal.EnviarComando('cd ..', listmp);
@@ -445,12 +443,11 @@ end;
 procedure TfraExpRemoto.acArcRenomExecute(Sender: TObject);  //renombrar
 var
   it: TListItem;
-  anterior: String;
 begin
   it := ItemSeleccionado;
   if it = nil then exit;
   ListView1.ReadOnly:=false;  //para editar
-  anterior := it.Caption;
+//  anterior := it.Caption;
   it.EditCaption; //inicia edición
   ListView1.ReadOnly:=true;  //para que no se edite con doble click
 end;

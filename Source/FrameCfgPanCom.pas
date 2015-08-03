@@ -5,7 +5,7 @@ unit FrameCfgPanCom;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, EditBtn, SynFacilCompletion
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, SynFacilCompletion
   ,ConfigFrame;   //para interceptar TFrame
 
 type
@@ -50,10 +50,10 @@ begin
   hl := hl0;
   OnUpdateChanges:=@ConfigResalt;
   //manejador de cambios
-  Asoc_Bol_TChkB(@CompletCode,chkCompletCode,'CompletCode',true);
-  Asoc_Bol_TChkB(@CodFolding , chkCodFolding,'CodFolding',true);
-  Asoc_Bol_TChkB(@SaveBefSend,chkSaveBefSend,'SaveBefSend',false);
-  Asoc_Bol_TChkB(@UsarPrep  , chkUsarPrep ,'UsarPrep',false);
+  Asoc_Bol_TChkBox(@CompletCode,chkCompletCode,'CompletCode',true);
+  Asoc_Bol_TChkBox(@CodFolding , chkCodFolding,'CodFolding',true);
+  Asoc_Bol_TChkBox(@SaveBefSend,chkSaveBefSend,'SaveBefSend',false);
+  Asoc_Bol_TChkBox(@UsarPrep  , chkUsarPrep ,'UsarPrep',false);
 end;
 
 procedure TfraPanCom.PropToWindow;

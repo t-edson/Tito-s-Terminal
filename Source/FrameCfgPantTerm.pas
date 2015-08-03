@@ -48,8 +48,8 @@ begin
   Asoc_Int_TEdit(@maxLinTer ,txtMaxLinT,'maxLinTer',5000, 200,MAX_LIN_TER);  {menos de 200 líneas
                   puede causar problemas con la rutina de limitación de tamaño}
   Asoc_Int_TEdit(@maxColTer ,txtMaxColT,'maxColTer',1000, 80,10000);
-  Asoc_Bol_TChkB(@interDirec,chkInterDirec,'interDirec',true);
-  Asoc_Bol_TChkB(@curSigPrm,chkCurSigPrmpt,'curSigPrm',true);
+  Asoc_Bol_TChkBox(@interDirec,chkInterDirec,'interDirec',true);
+  Asoc_Bol_TChkBox(@curSigPrm,chkCurSigPrmpt,'curSigPrm',true);
 end;
 
 procedure TfraPantTerm.ConfigTerminal;

@@ -83,7 +83,7 @@ type
     procedure ProcV;
     procedure ProcW;
     procedure ProcZ;
-
+  public
     function GetRange: Pointer; override;
     procedure SetRange(Value: Pointer); override;
     procedure ResetRange; override;

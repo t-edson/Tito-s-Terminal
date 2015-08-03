@@ -1316,8 +1316,6 @@ begin
 end;
 procedure TfrmPrincipal.AcPCmEnvTodExecute(Sender: TObject);
 //Envía todo el texto
-var
-  tmp: String;
 begin
   if proc = nil then exit ;
   if Config.fcPanCom.SaveBefSend then
@@ -1359,8 +1357,6 @@ begin
 end;
 
 procedure TfrmPrincipal.AcTerConecExecute(Sender: TObject);
-var
-  conAct: TfraConexion;
 begin
   InicConect;   //inicia conexión
 end;

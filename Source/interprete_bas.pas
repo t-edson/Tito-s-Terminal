@@ -317,8 +317,6 @@ begin
 end;
 procedure fun_connectTelnet;
 //conecta con telnet
-var
-  conAct: TfraConexion;
 begin
   PopResult;  //saca parámetro 1
   frmPrincipal.InicConectTelnet(stack[sp].cons.valStr);   //inicia conexión
@@ -448,9 +446,8 @@ begin
   xLex.ClearMethodTables;           //limpìa tabla de métodos
   xLex.ClearSpecials;               //para empezar a definir tokens
   //crea tokens por contenido
-  xLex.DefTokIdentif('[$A..Za..z_]', 'A..Za..z0..9_');
-  xLex.DefTokContent('[0..9]', '0..9.', '', tkNumber);
-  if xLex.Err<>'' then ShowMessage(xLex.Err);
+  xLex.DefTokIdentif('[$A-Za-z_]', '[A-Za-z0-9_]*');
+  xLex.DefTokContent('[0-9]', '[0-9.]*', tkNumber);
   //define palabras claves
   xLex.AddIdentSpecList('var type program begin', tkKeyword);
   xLex.AddIdentSpecList('end else elsif', tkBlkDelim);
@@ -476,7 +473,7 @@ begin
   xLex.DefTokDelim('''','''', tkString);
   xLex.DefTokDelim('"','"', tkString);
   xLex.DefTokDelim('//','', xLex.tkComment);
-  xLex.DefTokDelim('/*','*/', xLex.tkComment, tdMulLin);
+  xLex.DefTokDelim('/\*','\*/', xLex.tkComment, tdMulLin);
   //define bloques de sintaxis
   xLex.AddBlock('{','}');
   xLex.Rebuild;   //es necesario para terminar la definición

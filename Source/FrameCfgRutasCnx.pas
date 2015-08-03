@@ -43,10 +43,10 @@ begin
   secINI := secINI0;  //sección INI
   //crea las relaciones variable-control
   Asoc_Str(@UltScript,'UltScript','');
-  Asoc_Bol_TChkB(@AbrirUltScr, chkAbrirUltScr, 'AbrirUltScr', true);
-  Asoc_Str_TEdit(@Scripts, DirectoryEdit1,'Scripts', rutScripts);
-  Asoc_Str_TEdit(@Macros, DirectoryEdit2,'Macros', rutMacros);
-  Asoc_Str_TEdit(@Lenguajes, DirectoryEdit3,'Lenguajes', rutLenguajes);
+  Asoc_Bol_TChkBox(@AbrirUltScr, chkAbrirUltScr, 'AbrirUltScr', true);
+  Asoc_Str_TEditButton(@Scripts, DirectoryEdit1,'Scripts', rutScripts);
+  Asoc_Str_TEditButton(@Macros, DirectoryEdit2,'Macros', rutMacros);
+  Asoc_Str_TEditButton(@Lenguajes, DirectoryEdit3,'Lenguajes', rutLenguajes);
 end;
 
 procedure TfraCfgRutArc.ReadFileToProp(var arcINI: TIniFile);

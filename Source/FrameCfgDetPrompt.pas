@@ -5,7 +5,7 @@ unit frameCfgDetPrompt;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, IniFiles, uResaltTerm,
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, uResaltTerm,
   SynEdit, SynEditHighlighter, UnTerminal
   ,ConfigFrame;   //para interceptar TFrame
 
@@ -53,7 +53,7 @@ begin
   proc := proc0;
   OnUpdateChanges := @ConfigCambios;  //manejador de cambios
   //crea las relaciones variable-control
-  Asoc_Bol_TChkB(@detecPrompt, chkDetecPrompt,'DetecPrompt', false);
+  Asoc_Bol_TChkBox(@detecPrompt, chkDetecPrompt,'DetecPrompt', false);
   Asoc_Str_TEdit(@prIni,txtCadIni,'cadIni','');
   Asoc_Str_TEdit(@prFin,txtCadFin,'cadFin','');
   Asoc_Enum_TRadBut(@TipDetec, SizeOf(TipDetec),

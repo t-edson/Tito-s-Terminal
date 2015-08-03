@@ -42,10 +42,10 @@ begin
   secINI := secINI0;  //sección INI
   //crea las relaciones variable-control
   Asoc_Int_TEdit(@TpoMax, edTpoMax, 'TpoMax', 10, 1, 180);
-  Asoc_Bol_TChkB(@MosRut, chkMosRut, 'MosRut',true);
-  Asoc_Bol_TChkB(@ListDet, chkListDet, 'ListDet',true);
-  Asoc_Bol_TChkB(@MosOcul, chkMosOcul, 'MosOcul',false);
-  Asoc_Bol_TChkB(@RefDesp, chkRefDesp, 'RefDesp',true);
+  Asoc_Bol_TChkBox(@MosRut, chkMosRut, 'MosRut',true);
+  Asoc_Bol_TChkBox(@ListDet, chkListDet, 'ListDet',true);
+  Asoc_Bol_TChkBox(@MosOcul, chkMosOcul, 'MosOcul',false);
+  Asoc_Bol_TChkBox(@RefDesp, chkRefDesp, 'RefDesp',true);
 end;
 
 procedure TfcExpRem.SetLanguage(lang: string);

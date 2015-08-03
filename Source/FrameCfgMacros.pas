@@ -34,7 +34,7 @@ begin
   secINI := secINI0;  //sección INI
   //crea las relaciones variable-control
   Asoc_Int_TEdit(@TpoMax, edTpoMax, 'TpoMax', 10, 1, 180);
-  Asoc_Bol_TChkB(@marLin, chkMarLin, 'MarLin', false);
+  Asoc_Bol_TChkBox(@marLin, chkMarLin, 'MarLin', false);
 end;
 
 procedure TfcMacros.SetLanguage(lang: string);

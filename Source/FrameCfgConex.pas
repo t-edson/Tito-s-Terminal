@@ -5,7 +5,7 @@ unit FrameCfgConex;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, Buttons, types, IniFiles,
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, Buttons,
   globales, Masks, UnTerminal, MisUtils
   ,ConfigFrame;   //para interceptar TFrame
 
@@ -43,8 +43,6 @@ type
     procedure optSerialChange(Sender: TObject);
     procedure optSSHChange(Sender: TObject);
     procedure optTelnetChange(Sender: TObject);
-    constructor Create(AOwner: TComponent) ; override;
-    destructor Destroy; override;
   private
     proc: TConsoleProc;
     procedure Ocultar;
@@ -63,6 +61,8 @@ type
     procedure WindowToProp; override;
     procedure Iniciar(secINI0: string; proc0: TConsoleProc);
     procedure SetLanguage(lang: string);
+    constructor Create(AOwner: TComponent) ; override;
+    destructor Destroy; override;
   end;
 
 implementation

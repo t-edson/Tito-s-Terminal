@@ -73,7 +73,7 @@ type
     intLines : TStringList; {Líneas de texto. Se usa como almacenamiento interno, cuando
                              no se especifica algún TStringList externo. Se crea siempre}
     curLines : TStrings;    //Referencia al StringList actual, el que se explora.
-    lex      : TSynFacilComplet;  //analizador léxico
+    lex      : TSynFacilSyn;  //analizador léxico
 //    tok      : string;        //token actual
 //    tokType  : TSynHighlighterAttributes;  //tipo de token actual
     //posición del cursor actual
@@ -92,7 +92,7 @@ type
 //    procedure CurPosFin;
     function ReadSource: string;         //Lee el contenido del contexto
     //Métodos de inicialización
-    procedure DefSyn(lex0: TSynFacilComplet);  //Fija la sintaxis del lexer con un archivo
+    procedure DefSyn(lex0: TSynFacilSyn);  //Fija la sintaxis del lexer con un archivo
     procedure SetSource(txt : string);   //Fija el contenido del contexto con cadena
     procedure SetSource(lins: Tstrings; MakeCopy: boolean = false);
     procedure SetSourceF(file0: string);  //Fija el contenido del contexto con archivo
@@ -108,7 +108,7 @@ type
   //Extructura para manejar diversas fuentes de datos de contexto
   TContexts = class
   private
-    lex    : TSynFacilComplet; //resaltador - lexer
+    lex    : TSynFacilSyn; //resaltador - lexer
     cEnt : TContext;       //referencia al contexto de entrada actual
     ctxList : TListaCont;     //Lista de contextos de entrada
     function LeePosContAct: TPosCont;
@@ -130,7 +130,7 @@ type
     Function SkipWhitesNoEOL:Boolean;
     procedure Next;           //Pasa al siguiente token
   public
-    constructor Create(Lex0: TSynFacilComplet);
+    constructor Create(Lex0: TSynFacilSyn);
     destructor Destroy; override;
   end;
 
@@ -263,7 +263,7 @@ begin
   Result := curLines.text;
 end;
 //Métodos de inicialización
-procedure TContext.DefSyn(lex0: TSynFacilComplet);
+procedure TContext.DefSyn(lex0: TSynFacilSyn);
 //Define el lexer a usar en el contexto
 begin
   lex := lex0;
@@ -441,7 +441,7 @@ function TContexts.tokL: string; inline;
 begin
   Result:=lowercase(tok);
 end;
-constructor TContexts.Create(Lex0 : TSynFacilComplet);
+constructor TContexts.Create(Lex0: TSynFacilSyn);
 begin
   Lex := Lex0;   //guarda referencia
   ctxList := TListaCont.Create(true);  //crea contenedor de Contextos, con control de objetos.

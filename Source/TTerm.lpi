@@ -24,11 +24,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="TTerm"/>
+            <Filename Value="..\TitoTerm"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2;..\_Librerias\UnTerminal 0.7;..\_Librerias\SynFacilUtils 0.3;..\_Librerias\SynFacilCompletion0.7;..\_Librerias\SynFacilSyn 09.5;..\_Librerias\ConfigFrame 0.4;..\PreSQL 2.4"/>
+            <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.2;..\..\_Librerias\UnTerminal 0.7;..\..\_Librerias\SynFacilUtils 0.4;..\..\_Librerias\ConfigFrame 0.51;..\..\PreSQL 2.4"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -45,12 +45,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item2>
     </BuildModes>
@@ -79,7 +73,6 @@
       <Unit0>
         <Filename Value="TTerm.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TTerm"/>
       </Unit0>
       <Unit1>
         <Filename Value="FormPrincipal.pas"/>
@@ -95,7 +88,6 @@
         <ComponentName Value="frmConexRap"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormConexRapida"/>
       </Unit2>
       <Unit3>
         <Filename Value="FormConfig.pas"/>
@@ -103,7 +95,6 @@
         <ComponentName Value="Config"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormConfig"/>
       </Unit3>
       <Unit4>
         <Filename Value="globales.pas"/>
@@ -137,7 +128,6 @@
         <ComponentName Value="fcEdit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameCfgEdit"/>
       </Unit8>
       <Unit9>
         <Filename Value="FormSelFuente.pas"/>
@@ -145,7 +135,6 @@
         <ComponentName Value="frmSelFuente"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormSelFuente"/>
       </Unit9>
       <Unit10>
         <Filename Value="FrameCfgPantTerm.pas"/>
@@ -153,7 +142,6 @@
         <ComponentName Value="fraPantTerm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="frameCfgPantTerm"/>
       </Unit10>
       <Unit11>
         <Filename Value="FormEditMacros.pas"/>
@@ -161,7 +149,6 @@
         <ComponentName Value="frmEditMacros"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormEditMacros"/>
       </Unit11>
       <Unit12>
         <Filename Value="FrameCfgGener.pas"/>
@@ -195,7 +182,6 @@
         <ComponentName Value="frmExpRemoto"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormExpRemoto"/>
       </Unit16>
       <Unit17>
         <Filename Value="FrameCfgExpRem.pas"/>
@@ -203,7 +189,6 @@
         <ComponentName Value="fcExpRem"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameCfgExpRem"/>
       </Unit17>
       <Unit18>
         <Filename Value="FrameCfgMacros.pas"/>
@@ -211,7 +196,6 @@
         <ComponentName Value="fcMacros"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameCfgMacros"/>
       </Unit18>
       <Unit19>
         <Filename Value="FormEditRemoto.pas"/>
@@ -227,7 +211,6 @@
         <ComponentName Value="frmAbrirRemoto"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormAbrirRemoto"/>
       </Unit20>
       <Unit21>
         <Filename Value="FrameCfgComandRec.pas"/>
@@ -235,7 +218,6 @@
         <ComponentName Value="fraComandRec"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameCfgComandRec"/>
       </Unit21>
       <Unit22>
         <Filename Value="FrameCfgRutasCnx.pas"/>
@@ -243,7 +225,6 @@
         <ComponentName Value="fraCfgRutArc"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameCfgRutasCnx"/>
       </Unit22>
       <Unit23>
         <Filename Value="FrameCfgPanCom.pas"/>
@@ -259,11 +240,11 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="TTerm"/>
+      <Filename Value="..\TitoTerm"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\_Librerias\MisUtils 0.2;..\_Librerias\UnTerminal 0.7;..\_Librerias\SynFacilUtils 0.3;..\_Librerias\SynFacilCompletion0.7;..\_Librerias\SynFacilSyn 09.5;..\_Librerias\ConfigFrame 0.4;..\PreSQL 2.4"/>
+      <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.2;..\..\_Librerias\UnTerminal 0.7;..\..\_Librerias\SynFacilUtils 0.4;..\..\_Librerias\ConfigFrame 0.51;..\..\PreSQL 2.4"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -288,9 +269,8 @@
     </Linking>
     <Other>
       <CompilerMessages>
-        <MsgFileName Value=""/>
+        <IgnoredMessages idx5057="True" idx5024="True"/>
       </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

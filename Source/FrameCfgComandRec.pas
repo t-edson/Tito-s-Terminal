@@ -75,8 +75,8 @@ procedure TfraComandRec.Iniciar(secINI0: string);
 begin
   secINI := secINI0;  //sección INI
   //crea las relaciones variable-control
-  Asoc_Bol_TChkB(@Activar, chkActivo, 'Activar', false);
-  Asoc_Int_TSpnEdi(@Tempo, speTempo, 'Tempo', 5, 1, 120);
+  Asoc_Bol_TChkBox(@Activar, chkActivo, 'Activar', false);
+  Asoc_Int_TSpinEdit(@Tempo, speTempo, 'Tempo', 5, 1, 120);
   Asoc_Enum_TRadBut(@tipEnvio, SizeOf(tipEnvio),[optComando,optScript],'tipEnvio',0);
   Asoc_Str_TEdit(@Comando, txtComando, 'Comando','');
   Asoc_Str_TEdit(@Archivo, txtArchivo, 'Archivo','');
