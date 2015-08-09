@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs, LCLProc,
   Menus, ComCtrls, ActnList, StdActns,
-  MisUtils, SynFacilUtils, XpresParser, Globales, FrameCfgConex;
+  MisUtils, SynFacilUtils, Parser, Globales, FrameCfgConex;
 
 type
 
@@ -237,10 +237,10 @@ end;
 //////////// Acciones de Herramientas  ////////////////
 procedure TfrmEditMacros.AcHerEjecExecute(Sender: TObject);
 begin
-  Compilar(edit.NomArc, ed.Lines);
-  if Perr.HayError then begin
-    MarcarError(Perr.nLinError,Perr.nColError);
-    Perr.Show;
+  cxp.Compilar(edit.NomArc, ed.Lines);
+  if cxp.HayError then begin
+    MarcarError(cxp.nLinError,cxp.nColError);
+    cxp.ShowError;
   end;
 end;
 procedure TfrmEditMacros.AcHerGrabExecute(Sender: TObject);
@@ -289,7 +289,7 @@ end;
 procedure TfrmEditMacros.DetenerEjec;
 //Detiene la ejecución de la macro en curso
 begin
-  if not ejecProg then exit;
+  if not cxp.ejecProg then exit;
   DetEjec := true;  //manda mensaje para detener la macro
 end;
 procedure TfrmEditMacros.Ejecutar(arc: string);
@@ -299,19 +299,19 @@ var
 begin
   larc := Tstringlist.Create;
   larc.LoadFromFile(UTF8toSys(arc));
-  Compilar(arc, larc);
-  if Perr.HayError then begin
+  cxp.Compilar(arc, larc);
+  if cxp.HayError then begin
     self.Show;   //por si no estaba visible
     //muestra error en el editor
     if edit.NomArc = arc then begin
       //lo tiene en el editor
-      MarcarError(Perr.nLinError,Perr.nColError);
-      Perr.Show;
+      MarcarError(cxp.nLinError,cxp.nColError);
+      cxp.ShowError;
     end else begin
       //no está abierto
       Abrir(arc);   //lo abre
-      MarcarError(Perr.nLinError,Perr.nColError);
-      Perr.Show;
+      MarcarError(cxp.nLinError,cxp.nColError);
+      cxp.ShowError;
     end;
   end;
   larc.Free;

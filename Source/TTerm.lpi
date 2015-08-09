@@ -45,6 +45,11 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerMessages>
+              <IgnoredMessages idx5057="True" idx5024="True"/>
+            </CompilerMessages>
+          </Other>
         </CompilerOptions>
       </Item2>
     </BuildModes>
@@ -69,7 +74,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="24">
+    <Units Count="11">
       <Unit0>
         <Filename Value="TTerm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -80,7 +85,6 @@
         <ComponentName Value="frmPrincipal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormPrincipal"/>
       </Unit1>
       <Unit2>
         <Filename Value="FormConexRapida.pas"/>
@@ -99,141 +103,46 @@
       <Unit4>
         <Filename Value="globales.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Globales"/>
       </Unit4>
       <Unit5>
-        <Filename Value="FrameCfgDetPrompt.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fraDetPrompt"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="frameCfgDetPrompt"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="FrameCfgConex.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fraConexion"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameCfgConex"/>
-      </Unit6>
-      <Unit7>
         <Filename Value="uResaltTerm.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uResaltTerm"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="FrameCfgEdit.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fcEdit"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="FormSelFuente.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmSelFuente"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit9>
-      <Unit10>
-        <Filename Value="FrameCfgPantTerm.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fraPantTerm"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit10>
-      <Unit11>
+      </Unit5>
+      <Unit6>
         <Filename Value="FormEditMacros.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEditMacros"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="FrameCfgGener.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fraCfgGener"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameCfgGener"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="XpresBas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="XpresBas"/>
-      </Unit13>
-      <Unit14>
-        <Filename Value="XPresParser.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="XpresParser"/>
-      </Unit14>
-      <Unit15>
+      </Unit6>
+      <Unit7>
         <Filename Value="FrameExpRemoto.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraExpRemoto"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameExpRemoto"/>
-      </Unit15>
-      <Unit16>
+      </Unit7>
+      <Unit8>
         <Filename Value="FormExpRemoto.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmExpRemoto"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit16>
-      <Unit17>
-        <Filename Value="FrameCfgExpRem.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fcExpRem"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit17>
-      <Unit18>
-        <Filename Value="FrameCfgMacros.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fcMacros"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit18>
-      <Unit19>
+      </Unit8>
+      <Unit9>
         <Filename Value="FormEditRemoto.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEditRemoto"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormEditRemoto"/>
-      </Unit19>
-      <Unit20>
+      </Unit9>
+      <Unit10>
         <Filename Value="FormAbrirRemoto.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAbrirRemoto"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="FrameCfgComandRec.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fraComandRec"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="FrameCfgRutasCnx.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fraCfgRutArc"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="FrameCfgPanCom.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fraPanCom"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="FrameCfgPanCom"/>
-      </Unit23>
+      </Unit10>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -244,7 +153,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.2;..\..\_Librerias\UnTerminal 0.7;..\..\_Librerias\SynFacilUtils 0.4;..\..\_Librerias\ConfigFrame 0.51;..\..\PreSQL 2.4"/>
+      <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.2;..\..\_Librerias\UnTerminal 0.7;..\..\_Librerias\SynFacilUtils 0.4;..\..\_Librerias\ConfigFrame 0.51;..\..\PreSQL 2.4;..\..\Xpres 0.6.7b;ConfigFrames"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

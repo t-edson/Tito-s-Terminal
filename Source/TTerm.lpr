@@ -8,12 +8,10 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, FormPrincipal, FormConexRapida, FormConfig, globales,
-  frameCfgDetPrompt, FrameCfgConex, uResaltTerm,
-  FrameCfgEdit, FormSelFuente, frameCfgPantTerm, FormEditMacros,
-  FrameCfgGener, XpresBas, XPresParser, FrameExpRemoto, FormExpRemoto,
-  FrameCfgExpRem, FrameCfgMacros, FormEditRemoto, FormAbrirRemoto,
-  FrameCfgComandRec, 
-FrameCfgRutasCnx, FrameCfgPanCom;
+  uResaltTerm,
+  FormEditMacros,
+  FrameExpRemoto, FormExpRemoto,
+  FormEditRemoto, FormAbrirRemoto;
 
 {$R *.res}
 
@@ -23,7 +21,6 @@ begin
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TfrmConexRap, frmConexRap);
   Application.CreateForm(TConfig, Config);
-  Application.CreateForm(TfrmSelFuente, frmSelFuente);
   Application.CreateForm(TfrmExpRemoto, frmExpRemoto);
   Application.CreateForm(TfrmEditRemoto, frmEditRemoto);
   Application.CreateForm(TfrmAbrirRemoto, frmAbrirRemoto);

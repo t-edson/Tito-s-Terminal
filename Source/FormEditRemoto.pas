@@ -221,7 +221,6 @@ end;
 procedure TfrmEditRemoto.acArcGuardarExecute(Sender: TObject);
 var
   txt: String;
-  MsjErr: String;
 begin
   txt := edit.Text;   //toma texto
   txt := StringReplace(txt, '\', '\\',[rfReplaceAll]);  //para proteger del comando
@@ -232,10 +231,10 @@ begin
   txt := StringReplace(txt, #9, '\t',[rfReplaceAll]);
 
   ed.Enabled := False;
-  MsjErr := frmPrincipal.EnviarComando('echo "' + txt + '" > "' + edit.NomArc+'"', lineas);
+  frmPrincipal.EnviarComando('echo "' + txt + '" > "' + edit.NomArc+'"', lineas);
   ed.Enabled := True;
   //para actualizar controles
-  edit.Modified:=false;  //Este método no es público en la librería original)
+  edit.Modified:=false;  //Este método no es público en la librería original
 //  edit.SaveFile;
 end;
 
