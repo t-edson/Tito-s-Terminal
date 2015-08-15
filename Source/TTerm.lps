@@ -3,8 +3,8 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Debug"/>
-    <Units Count="77">
+    <BuildModes Active="Release"/>
+    <Units Count="78">
       <Unit0>
         <Filename Value="TTerm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -17,8 +17,6 @@
         <ComponentName Value="frmPrincipal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="1522"/>
-        <CursorPos Y="1534"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="1">
           <Item0 X="7" Y="1093"/>
@@ -305,10 +303,9 @@
       </Unit33>
       <Unit34>
         <Filename Value="gencod.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="464"/>
-        <CursorPos X="26" Y="472"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="331"/>
+        <CursorPos X="27" Y="342"/>
         <UsageCount Value="72"/>
         <Bookmarks Count="1">
           <Item0 X="3" Y="398" ID="1"/>
@@ -368,7 +365,7 @@
         <Filename Value="..\_Librerias\UnTerminal 0.6\UnTerminal.pas"/>
         <TopLine Value="737"/>
         <CursorPos X="34" Y="763"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\_Librerias\SynFacilUtils 0.3b\SynFacilUtils.pas"/>
@@ -380,7 +377,7 @@
         <Filename Value="..\_Librerias\MisUtils 0.1b\MisUtils.pas"/>
         <TopLine Value="149"/>
         <CursorPos Y="165"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit45>
       <Unit46>
         <Filename Value="..\_Librerias\ConfigFrame 0.3.1b\ConfigFrame.pas"/>
@@ -395,7 +392,7 @@
       </Unit47>
       <Unit48>
         <Filename Value="..\_Librerias\MisUtils 0.1\MisUtils.pas"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\_Librerias\MisUtils 0.2b\MisUtils.pas"/>
@@ -408,7 +405,7 @@
         <Filename Value="FormPrincipal.lfm"/>
         <TopLine Value="2669"/>
         <CursorPos X="24" Y="2837"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit50>
       <Unit51>
@@ -535,10 +532,9 @@
       <Unit70>
         <Filename Value="parser.pas"/>
         <UnitName Value="Parser"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="74"/>
-        <CursorPos X="21" Y="116"/>
-        <FoldState Value=" T3iV040111311 T0jVZf071H"/>
+        <CursorPos X="35" Y="16"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -597,134 +593,136 @@
       <Unit76>
         <Filename Value="..\..\Xpres 0.6.7b\XpresParser.pas"/>
         <UnitName Value="XPresParser"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="55" Y="6"/>
-        <FoldState Value=" T4e03 T5ob05 TMj721021I1412481 TLiA01Q TCj07E]G7kSE32 T8jJ0Q12]x3p00EB piZjM036 pj5jI039]Iaj7093]I4jH0B311]BFkK0X]:6p101H T0pMP4N]jboTd8525]aJkLVIF]KdjHc36]KTHyN38[:40y72401],F:M4E1C"/>
         <UsageCount Value="20"/>
-        <Loaded Value="True"/>
       </Unit76>
+      <Unit77>
+        <Filename Value="..\..\_Librerias\Xpres 0.6.7b\XpresParser.pas"/>
+        <UnitName Value="XPresParser"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="146"/>
+        <CursorPos X="44" Y="161"/>
+        <UsageCount Value="10"/>
+      </Unit77>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="parser.pas"/>
-        <Caret Line="118" TopLine="110"/>
+        <Caret Line="171" TopLine="79"/>
       </Position1>
       <Position2>
         <Filename Value="parser.pas"/>
-        <Caret Line="160" TopLine="110"/>
+        <Caret Line="173" TopLine="79"/>
       </Position2>
       <Position3>
         <Filename Value="parser.pas"/>
-        <Caret Line="167" TopLine="110"/>
+        <Caret Line="174" TopLine="79"/>
       </Position3>
       <Position4>
         <Filename Value="parser.pas"/>
-        <Caret Line="168" TopLine="110"/>
+        <Caret Line="177" TopLine="79"/>
       </Position4>
       <Position5>
         <Filename Value="parser.pas"/>
-        <Caret Line="171" TopLine="110"/>
+        <Caret Line="75" Column="39" TopLine="67"/>
       </Position5>
       <Position6>
         <Filename Value="parser.pas"/>
-        <Caret Line="173" TopLine="110"/>
+        <Caret Line="116" TopLine="79"/>
       </Position6>
       <Position7>
         <Filename Value="parser.pas"/>
-        <Caret Line="174" TopLine="110"/>
+        <Caret Line="118" TopLine="79"/>
       </Position7>
       <Position8>
         <Filename Value="parser.pas"/>
-        <Caret Line="177" Column="24" TopLine="79"/>
+        <Caret Line="160" TopLine="79"/>
       </Position8>
       <Position9>
         <Filename Value="parser.pas"/>
-        <Caret Line="116" TopLine="79"/>
+        <Caret Line="167" TopLine="79"/>
       </Position9>
       <Position10>
         <Filename Value="parser.pas"/>
-        <Caret Line="118" TopLine="79"/>
+        <Caret Line="168" TopLine="79"/>
       </Position10>
       <Position11>
         <Filename Value="parser.pas"/>
-        <Caret Line="160" TopLine="79"/>
+        <Caret Line="171" TopLine="79"/>
       </Position11>
       <Position12>
         <Filename Value="parser.pas"/>
-        <Caret Line="167" TopLine="79"/>
+        <Caret Line="173" TopLine="79"/>
       </Position12>
       <Position13>
         <Filename Value="parser.pas"/>
-        <Caret Line="168" TopLine="79"/>
+        <Caret Line="174" TopLine="80"/>
       </Position13>
       <Position14>
         <Filename Value="parser.pas"/>
-        <Caret Line="171" TopLine="79"/>
+        <Caret Line="177" TopLine="80"/>
       </Position14>
       <Position15>
         <Filename Value="parser.pas"/>
-        <Caret Line="173" TopLine="79"/>
+        <Caret Line="73" TopLine="58"/>
       </Position15>
       <Position16>
-        <Filename Value="parser.pas"/>
-        <Caret Line="174" TopLine="79"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="14" Column="47"/>
       </Position16>
       <Position17>
         <Filename Value="parser.pas"/>
-        <Caret Line="177" TopLine="79"/>
+        <Caret Line="179" Column="56" TopLine="152"/>
       </Position17>
       <Position18>
         <Filename Value="parser.pas"/>
-        <Caret Line="75" Column="39" TopLine="67"/>
+        <Caret Line="82" Column="24" TopLine="73"/>
       </Position18>
       <Position19>
         <Filename Value="parser.pas"/>
-        <Caret Line="116" TopLine="79"/>
+        <Caret Line="9" Column="41"/>
       </Position19>
       <Position20>
-        <Filename Value="parser.pas"/>
-        <Caret Line="118" TopLine="79"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="479" Column="38" TopLine="461"/>
       </Position20>
       <Position21>
-        <Filename Value="parser.pas"/>
-        <Caret Line="160" TopLine="79"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="384" Column="10" TopLine="371"/>
       </Position21>
       <Position22>
-        <Filename Value="parser.pas"/>
-        <Caret Line="167" TopLine="79"/>
+        <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="1534" TopLine="1522"/>
       </Position22>
       <Position23>
-        <Filename Value="parser.pas"/>
-        <Caret Line="168" TopLine="79"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="384" Column="10" TopLine="371"/>
       </Position23>
       <Position24>
-        <Filename Value="parser.pas"/>
-        <Caret Line="171" TopLine="79"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="389" Column="11" TopLine="377"/>
       </Position24>
       <Position25>
-        <Filename Value="parser.pas"/>
-        <Caret Line="173" TopLine="79"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="468" Column="8" TopLine="453"/>
       </Position25>
       <Position26>
-        <Filename Value="parser.pas"/>
-        <Caret Line="174" TopLine="80"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="468" Column="48" TopLine="453"/>
       </Position26>
       <Position27>
-        <Filename Value="parser.pas"/>
-        <Caret Line="177" TopLine="80"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="319" Column="36" TopLine="300"/>
       </Position27>
       <Position28>
-        <Filename Value="parser.pas"/>
-        <Caret Line="73" TopLine="58"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="485" Column="62" TopLine="470"/>
       </Position28>
       <Position29>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="14" Column="47"/>
-      </Position29>
-      <Position30>
         <Filename Value="parser.pas"/>
-        <Caret Line="179" Column="56" TopLine="152"/>
-      </Position30>
+        <Caret Line="22" Column="44" TopLine="4"/>
+      </Position29>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

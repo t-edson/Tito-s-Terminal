@@ -28,7 +28,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.2;..\..\_Librerias\UnTerminal 0.7;..\..\_Librerias\SynFacilUtils 0.4;..\..\_Librerias\ConfigFrame 0.51;..\..\PreSQL 2.4"/>
+            <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.2;..\..\_Librerias\UnTerminal 0.7;..\..\_Librerias\SynFacilUtils 0.4;..\..\_Librerias\ConfigFrame 0.51;..\..\PreSQL 2.4;..\..\_Librerias\Xpres 0.6.7;ConfigFrames"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
