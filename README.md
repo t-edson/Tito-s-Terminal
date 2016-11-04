@@ -1,4 +1,4 @@
-Tito-s-Terminal 0.2
+Tito-s-Terminal 0.3
 ===================
 
 Terminal con Interfaz gráfica, coloreado de sintaxis y automatización para telnet, y ssh.
