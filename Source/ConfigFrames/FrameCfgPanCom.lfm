@@ -1,0 +1,39 @@
+inherited fraPanCom: TfraPanCom
+  DesignLeft = 428
+  DesignTop = 276
+  object chkCompletCode: TCheckBox[0]
+    Left = 16
+    Height = 19
+    Top = 16
+    Width = 210
+    Caption = 'Completado Automático de Código'
+    TabOrder = 0
+  end
+  object chkCodFolding: TCheckBox[1]
+    Left = 16
+    Height = 19
+    Top = 40
+    Width = 121
+    Caption = '&Plegado de Código'
+    Checked = True
+    Enabled = False
+    State = cbChecked
+    TabOrder = 1
+  end
+  object chkSaveBefSend: TCheckBox[2]
+    Left = 16
+    Height = 19
+    Top = 64
+    Width = 201
+    Caption = 'Guardar antes de enviar contenido'
+    TabOrder = 2
+  end
+  object chkUsarPrep: TCheckBox[3]
+    Left = 16
+    Height = 19
+    Top = 144
+    Width = 163
+    Caption = 'Usar Preprocesador PreSQL'
+    TabOrder = 3
+  end
+end
