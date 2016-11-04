@@ -239,7 +239,7 @@ procedure TfrmEditMacros.AcHerEjecExecute(Sender: TObject);
 begin
   cxp.Compilar(edit.NomArc, ed.Lines);
   if cxp.HayError then begin
-    MarcarError(cxp.nLinError,cxp.nColError);
+    MarcarError(cxp.ErrorLine, cxp.ErrorCol);
     cxp.ShowError;
   end;
 end;
@@ -305,12 +305,12 @@ begin
     //muestra error en el editor
     if edit.NomArc = arc then begin
       //lo tiene en el editor
-      MarcarError(cxp.nLinError,cxp.nColError);
+      MarcarError(cxp.ErrorLine,cxp.ErrorCol);
       cxp.ShowError;
     end else begin
       //no está abierto
       Abrir(arc);   //lo abre
-      MarcarError(cxp.nLinError,cxp.nColError);
+      MarcarError(cxp.ErrorLine,cxp.ErrorCol);
       cxp.ShowError;
     end;
   end;

@@ -11,9 +11,9 @@ interface
 uses
   SysUtils, Forms, Graphics, SynEdit, Buttons, ComCtrls,
   UnTerminal, MisUtils, SynFacilCompletion,
-  FrameCfgGener, FrameCfgDetPrompt, FrameCfgConex, FrameCfgEdit, frameCfgPantTerm,
+  FrameCfgConex, FrameCfgGener, frameCfgDetPrompt, FrameCfgEdit, frameCfgPantTerm,
   FrameCfgExpRem, FrameCfgMacros, FrameCfgComandRec, FrameCfgRutasCnx, FrameCfgPanCom
-  ,ConfigFrame;   //para interceptar TFrame
+  ,ConfigFrame;
 
 type
   TEvCambiaProp = procedure of object;  //evento para indicar que hay cambio
@@ -37,7 +37,7 @@ type
     procedure MostEnVentana;
     { private declarations }
   public
-    fraError: TFrame;
+    fraError: TCfgFrame;
     msjError: string;
     arIni   : String;      //Archivo de configuración
     edTerm  : TSynEdit;    //referencia al editor SynEdit

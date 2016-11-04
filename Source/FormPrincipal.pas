@@ -1118,7 +1118,7 @@ end;
 procedure TfrmPrincipal.AcArcNueVenExecute(Sender: TObject);
 //Abre una nueva ventana de la aplicación
 begin
-   Exec('TTerm.exe');
+   Exec('TTerm.exe','');
 end;
 procedure TfrmPrincipal.AcArcNueSesExecute(Sender: TObject);  //Genera una nueva sesión
 var F:textfile;

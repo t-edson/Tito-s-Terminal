@@ -8,10 +8,8 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, FormPrincipal, FormConexRapida, FormConfig, globales,
-  uResaltTerm,
-  FormEditMacros,
-  FrameExpRemoto, FormExpRemoto,
-  FormEditRemoto, FormAbrirRemoto;
+  uResaltTerm, FormEditMacros, FormExpRemoto, FormEditRemoto,
+  FormAbrirRemoto;
 
 {$R *.res}
 
