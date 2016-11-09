@@ -3,7 +3,7 @@ unit FrameCfgConex;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, Buttons,
-  globales, Masks, UnTerminal, MisUtils, Graphics, Dialogs,
+  globales, Masks, UnTerminal, MisUtils, Graphics, Dialogs, ExtCtrls,
   ConfigFrame;
 
 type
@@ -20,18 +20,16 @@ type
   TfraConexion = class(TCfgFrame)
     cmbIP: TComboBox;
     cmbSerPort: TComboBox;
-    GroupBox1: TGroupBox;
     lblIP: TLabel;
     lblOtro: TLabel;
     lblPort: TLabel;
     lblSerCfg: TLabel;
     lblSerPort: TLabel;
-    optCRLF: TRadioButton;
-    optLF: TRadioButton;
     optOtro: TRadioButton;
     optSerial: TRadioButton;
     optSSH: TRadioButton;
     optTelnet: TRadioButton;
+    RadioGroup1: TRadioGroup;
     txtOtro: TEdit;
     txtPort: TEdit;
     txtSerCfg: TEdit;
@@ -48,8 +46,9 @@ type
     Tipo      : TTipCon;  //tipo de conexión
     IP        : String;   //Direción IP (solo válido con el tipo TCON_TELNET Y TCON_SSH)
     Port      : String;   //Puerto (solo válido con el tipo TCON_TELNET Y TCON_SSH)
+    Command   : string;   //comando a ejecutar en el proceso
     Other     : String;   //Ruta del aplicativo (solo válido con el tipo TCON_OTHER)
-    SendCRLF  : boolean;  //tipo de salto de línea
+    LineDelim : TTypLineDel;  //Tipo de delimitaodr de línea
     ConRecientes: TStringList;  //Lista de conexiones recientes
     procedure AgregIPReciente(arch: string);
     procedure GrabarIP;
@@ -77,7 +76,7 @@ begin
   Asoc_Enum_TRadBut(@Tipo, SizeOf(TTipCon), [optTelnet,optSSH,optSerial,optOtro],'Tipo', 0);
   Asoc_Str_TCmbBox(@IP, cmbIP,'IP','192.168.1.1');
   Asoc_StrList(@ConRecientes, 'Recient');
-  Asoc_Bol_TRadBut(@SendCRLF, [optLF, optCRLF], 'TipSalto', false);
+  Asoc_Enum_TRadGroup(@LineDelim, SizeOf(LineDelim), RadioGroup1, 'LineDelim', 0);
 //  EjecMacro: boolean;
 //  MacroIni : string;
 //  Asoc_Bol_TChkB(@EjecMacro, chkEjecMacro, 'EjecMacro', false);
@@ -144,7 +143,7 @@ begin
   lblPort.Visible:=true;
   txtPort.Visible:=true;
   txtPort.Text:='23';
-  optLF.Checked:=true;  //por defecto
+  RadioGroup1.ItemIndex:=2;
 end;
 procedure TfraConexion.optSSHChange(Sender: TObject);
 begin
@@ -154,7 +153,7 @@ begin
   lblPort.Visible:=true;
   txtPort.Visible:=true;
   txtPort.Text:='22';
-  optLF.Checked:=true;  //por defecto
+  RadioGroup1.ItemIndex:=2;
 end;
 procedure TfraConexion.optSerialChange(Sender: TObject);
 begin
@@ -175,37 +174,31 @@ end;
 procedure TfraConexion.UpdateChanges;
 //Configura el proceso de acuerdo a los parámetros de la conexión.
 begin
-  proc.sendCRLF:=sendCRLF;   //configura salto de línea
   case Tipo of
   TCON_TELNET: begin
       if Port='' then begin
-        proc.progPath:='plink -telnet ' + IP;
-        proc.progParam:='';
+        Command:='plink -telnet ' + IP;
       end else begin
-        proc.progPath:='plink -telnet ' + ' -P '+ Port + ' ' + IP;
-        proc.progParam:='';
+        Command:='plink -telnet ' + ' -P '+ Port + ' ' + IP;
       end;
     end;
   TCON_SSH: begin
       if Port='' then begin
-        proc.progPath:='plink -ssh ' + IP;
-        proc.progParam:='';
+        Command:='plink -ssh ' + IP;
       end else begin
-        proc.progPath:='plink -ssh '+' -P '+ Port + ' ' + IP;
-        proc.progParam:='';
+        Command:='plink -ssh '+' -P '+ Port + ' ' + IP;
       end;
     end;
   TCON_SERIAL: begin
-      proc.Open('plink -serial ' + cmbSerPort.Text + ' -sercfg '+txtSerCfg.Text,'');
-      proc.progParam:='';
+      Command:='plink -serial ' + cmbSerPort.Text + ' -sercfg '+txtSerCfg.Text;
 //      edTerm.Lines[0] := 'Opening Serial ...';
     end;
   TCON_OTHER: begin
-      proc.progPath:=Other;
-      proc.progParam:='';
+      Command:=Other;
 //      edTerm.Lines[0] := 'Opening Process ...';
     end;
   end;
+  proc.LineDelim := LineDelim;   //configura salto de línea
 end;
 
 procedure TfraConexion.PropToWindow;
@@ -239,7 +232,7 @@ begin
       optOtro.Caption:='Otro';
       lblPort.Caption:='Puerto';
       lblOtro.Caption:='Aplicativo:';
-      GroupBox1.Caption:='Salto de Línea';
+      RadioGroup1.Caption:='Salto de Línea';
       lblSerPort.Caption:='Puerto Serial:';
       lblSerCfg.Caption:='Configuración';
       dicClear;  //ya está en español
@@ -248,7 +241,7 @@ begin
       optOtro.Caption:='Other';
       lblPort.Caption:='Port';
       lblOtro.Caption:='Program:';
-      GroupBox1.Caption:='Line Delimiter';
+      RadioGroup1.Caption:='Line Delimiter';
       lblSerPort.Caption:='Serial Port:';
       lblSerCfg.Caption:='Configuration';
       //diccionario
