@@ -6,10 +6,11 @@ unit Globales; {$mode objfpc}{$H+}
 interface
 uses  Classes, SysUtils, Forms, SynEdit, SynEditKeyCmds, MisUtils,
       SynEditTypes, StrUtils, lclType, FileUtil,
-      types, LazLogger, Menus ;
+      types, LazLogger, LazUTF8, Menus ;
 
 const
-  NOM_PROG = 'Tito''s Terminal 0.2b';   //nombre de programa
+  NOM_PROG = 'Tito''s Terminal';   //nombre de programa
+  {$I ../version.txt}   //versión del programa
 
 var
    //Variables globales

@@ -200,9 +200,11 @@ begin
   end else if Upcase(p1.rVar.nom) = 'CURENDLINE' then begin
     //variable interna
     if UpCase(p2.ReadStr) = 'CRLF' then
-      config.fcConex.SendCRLF := true
-    else
-      config.fcConex.SendCRLF := false;
+      config.fcConex.LineDelim := TTL_CRLF;
+    if UpCase(p2.ReadStr) = 'CR' then
+      config.fcConex.LineDelim := TTL_CR;
+    if UpCase(p2.ReadStr) = 'LF' then
+      config.fcConex.LineDelim := TTL_LF;
     config.fcConex.UpdateChanges;  //actualiza
   end else if Upcase(p1.rVar.nom) = 'CURAPP' then begin
     //indica aplicativo actual

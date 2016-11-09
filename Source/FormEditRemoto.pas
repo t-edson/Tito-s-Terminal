@@ -7,9 +7,9 @@ unit FormEditRemoto;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs, Menus,
-  ComCtrls, ActnList, StdActns, SynEditMiscClasses,
-  MisUtils, Globales, SynFacilUtils, FormAbrirRemoto;
+  Classes, SysUtils, FileUtil, LazUTF8, SynEdit, Forms, Controls, Graphics,
+  Dialogs, Menus, ComCtrls, ActnList, StdActns, SynEditMiscClasses, MisUtils,
+  Globales, SynFacilUtils, FormAbrirRemoto;
 
 type
 

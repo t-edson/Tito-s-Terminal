@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LCLType, Dialogs, lclProc, Graphics, Forms, Strutils,
   SynEditHighlighter, SynFacilBasic, XPresParser, XpresBas, XpresTypes, XpresElements,
-  FrameCfgConex,
+  FrameCfgConex, UnTerminal,
   MisUtils, FormConfig;
 
 type

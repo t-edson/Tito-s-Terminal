@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs, LCLProc,
   Menus, ComCtrls, ActnList, StdActns,
-  MisUtils, SynFacilUtils, Parser, Globales, FrameCfgConex;
+  MisUtils, SynFacilUtils, UnTerminal, Parser, Globales, FrameCfgConex;
 
 type
 
@@ -268,10 +268,14 @@ begin
       ed.Lines.Add('curAPP := "'+ Config.fcConex.Other +'"   //El proceso que vamoa a lanzar');
     end;
   end;
-  if Config.fcConex.SendCRLF then
-    ed.Lines.Add('curENDLINE := "CRLF"  //El tipo de salto de línea a enviar')
-  else
+  case Config.fcConex.LineDelim of
+  TTL_CRLF:
+    ed.Lines.Add('curENDLINE := "CRLF"  //El tipo de salto de línea a enviar');
+  TTL_CR:
+    ed.Lines.Add('curENDLINE := "CR"  //El tipo de salto de línea a enviar');
+  TTL_LF:
     ed.Lines.Add('curENDLINE := "LF"  //El tipo de salto de línea a enviar');
+  end;
   //conecta
   ed.Lines.Add('CONNECT               '+dic('//Inicia conexión'));
 //  PAUSE 3               //Espera unos segundos

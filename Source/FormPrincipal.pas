@@ -7,12 +7,13 @@ unit FormPrincipal;
 
 interface
 uses
-  Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
-  Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds, SynEditMarkupHighAll,
-  SynEditMiscClasses, LCLType, LCLProc, LCLIntf, StdActns, UnTerminal, Clipbrd,
-  FormConexRapida, FormConfig, FormExpRemoto, FormEditMacros, MisUtils, Globales,
-  FrameCfgConex, FormSelFuente, FrameCfgComandRec,
-  TermVT, uResaltTerm, SynFacilUtils, FormEditRemoto, uPreBasicos, uPreProces;
+  Classes, SysUtils, FileUtil, LazUTF8, SynEdit, Forms, Controls, Graphics,
+  Dialogs, Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds,
+  SynEditMarkupHighAll, SynEditMiscClasses, LCLType, LCLProc, LCLIntf, StdActns,
+  UnTerminal, Clipbrd, FormConexRapida, FormConfig, FormExpRemoto,
+  FormEditMacros, MisUtils, Globales, FrameCfgConex, FormSelFuente,
+  FrameCfgComandRec, TermVT, uResaltTerm, SynFacilUtils, FormEditRemoto,
+  uPreBasicos, uPreProces;
 
 type
 
@@ -399,7 +400,7 @@ begin
   frmExpRemoto.SetLanguage('en');
   frmEditRemoto.SetLanguage('en');
   frmEditMacros.SetLanguage('en');
-  Caption := NOM_PROG;
+  Caption := NOM_PROG + ' ' + VER_PROG;
   //aquí ya sabemos que Config está creado. Lo configuramos
   Config.edTerm := edTerm;  //pasa referencia de editor.
   Config.edPCom := edPCom;  //pasa referencia de Panel de comando
@@ -846,7 +847,7 @@ end;
 procedure TfrmPrincipal.InicConect;  //Inicia la conexión actual
 begin
   //se supone que el proceso ya está configurado y listo para abrir
-  proc.Open;  //lo abre
+  proc.Open(Config.fcConex.Command, '');  //lo abre
   if msjError<>'' then begin
     msgerr(msjError);
   end;
@@ -858,7 +859,7 @@ begin
   config.fcConex.tipo := TCON_TELNET;
   config.fcConex.ip := ip;
   config.fcConex.port := '23';
-  config.fcConex.SendCRLF:= false;
+  config.fcConex.LineDelim := TTL_LF;
   config.fcConex.UpdateChanges;  //actualiza
   InicConect;
 end;
@@ -868,7 +869,7 @@ begin
   config.fcConex.tipo := TCON_SSH;
   config.fcConex.ip := ip;
   config.fcConex.port := '22';
-  config.fcConex.SendCRLF:= false;
+  config.fcConex.LineDelim := TTL_LF;
   config.fcConex.UpdateChanges;  //actualiza
   InicConect;
 end;
@@ -1093,7 +1094,6 @@ end;
 /////////////////////// ACCIONES ////////////////////////
 procedure TfrmPrincipal.AcArcConecExecute(Sender: TObject);  //conexión rápida
 var
-  conAct: TfraConexion;
   rpta: Byte;
 begin
   if proc.state <> ECO_STOPPED then begin
