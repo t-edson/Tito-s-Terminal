@@ -497,22 +497,22 @@ end;
 procedure TfrmPrincipal.mnSesionesAlmClick(Sender: TObject);
 begin
   mnSesionesAlm.Clear;
-  LeeArchEnMenu(rutSesiones + '\*.ses', mnSesionesAlm,@itemAbreSesion);
+  LeeArchEnMenu(rutSesiones + DirectorySeparator +'*.ses', mnSesionesAlm,@itemAbreSesion);
 end;
 procedure TfrmPrincipal.mnComandosAlmClick(Sender: TObject);
 begin
   mnComandosAlm.Clear;
-  LeeArchEnMenu(config.fcRutArc.scripts + '\*.sh', mnComandosAlm,@itemAbreComando);
+  LeeArchEnMenu(config.fcRutArc.scripts + DirectorySeparator +'*.sh', mnComandosAlm,@itemAbreComando);
 end;
 procedure TfrmPrincipal.mnEjecMacroClick(Sender: TObject);
 begin
   mnEjecMacro.Clear;
-  LeeArchEnMenu(config.fcRutArc.macros + '\*.ttm', mnEjecMacro,@itemEjecMacro);
+  LeeArchEnMenu(config.fcRutArc.macros + DirectorySeparator +'*.ttm', mnEjecMacro,@itemEjecMacro);
 end;
 procedure TfrmPrincipal.mnAbrMacroClick(Sender: TObject);
 begin
   mnAbrMacro.Clear;
-  LeeArchEnMenu(config.fcRutArc.macros + '\*.ttm', mnAbrMacro,@itemAbreMacro);
+  LeeArchEnMenu(config.fcRutArc.macros + DirectorySeparator +'*.ttm', mnAbrMacro,@itemAbreMacro);
 end;
 
 procedure TfrmPrincipal.AbrirSesion(ses: string);
@@ -563,24 +563,24 @@ begin
 end;
 procedure TfrmPrincipal.itemAbreSesion(Sender: TObject);
 begin
-  AbrirSesion(rutSesiones + '\' + TMenuItem(Sender).Caption);
+  AbrirSesion(rutSesiones + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
 procedure TfrmPrincipal.itemAbreComando(Sender: TObject);
 var
   tmp: String;
 begin
-  tmp := config.fcRutArc.scripts + '\' + TMenuItem(Sender).Caption;
+  tmp := config.fcRutArc.scripts + DirectorySeparator + TMenuItem(Sender).Caption;
   ePCom.LoadFile(tmp);
 end;
 procedure TfrmPrincipal.itemEjecMacro(Sender: TObject);
 //Ejecuta la macro elegida
 begin
-  frmEditMacros.Ejecutar(config.fcRutArc.macros + '\' + TMenuItem(Sender).Caption);
+  frmEditMacros.Ejecutar(config.fcRutArc.macros + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
 procedure TfrmPrincipal.itemAbreMacro(Sender: TObject);
 begin
   frmEditMacros.Show;
-  frmEditMacros.Abrir(config.fcRutArc.macros + '\' + TMenuItem(Sender).Caption);
+  frmEditMacros.Abrir(config.fcRutArc.macros + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
 procedure TfrmPrincipal.ConfiguraEntorno;
 //Configura el entorno (IDE) usando variables globales
