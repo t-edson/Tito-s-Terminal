@@ -138,7 +138,7 @@ begin
 //  edit.PanForEndLin := StatusBar1.Panels[2];  //panel para el tipo de delimitador de línea
   edit.PanCodifFile := StatusBar1.Panels[3];  //panel para la codificación del archivo
   edit.NewFile;
-  edit.LoadSyntaxFromFile(rutLenguajes+'\Terminal Macro.xml');
+  edit.LoadSyntaxFromFile(rutLenguajes+DirectorySeparator+'Terminal Macro.xml');
   edit.InitMenuRecents(mnRecientes, nil);  //inicia el menú "Recientes"
   InicEditorC1(ed);     //inicia editor con configuraciones por defecto
 end;
