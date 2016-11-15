@@ -999,6 +999,9 @@ procedure TfrmPrincipal.edPComKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Shift = [ssCtrl] then begin  //Ctrl pulsado
+    if key = VK_RETURN then begin //envía línea actual
+       Key := 0;
+    end;
     if not CtrlPulsado then begin   //primera pulsación
       CtrlPulsado := true;    //activa
 {      if edPCom.LineHighlightColor.Background<>clNone then begin

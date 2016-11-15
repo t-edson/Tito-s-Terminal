@@ -19,12 +19,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="1010"/>
-        <CursorPos Y="1031"/>
-        <FoldState Value=" TL002 p0tc061 T4807 T5H0~v]E7LI~q T8M2~F2 T3oZ0h5 piak00B9]9ZjG06A]9d]9X[R4YjX0H8]9bjN0542]KjKn208E]KcjM0641[n4fkK0JC[.5S031 TMrI220G3O156 p0t101011H]Q0qZc3J]hbnHc2A[q4iLD4CBL]eu5QD9 pj2nT8{7 T6r201P THwS5K6 TF;8222X"/>
+        <TopLine Value="941"/>
+        <CursorPos Y="1003"/>
+        <FoldState Value=" TL002 p0tc061 T4807 T5H0~v]E7LI~q T8M2~F2 T3oZ0h5 piak00B9]9ZjG06A]9d]9X[R4YjX0H8]9bjN0542]KjKn508E]KcjM0641[n4fkK0JC[.5S031 TMrI220G3O156 p0t101011H]Q0qZc3J]hbnHc2A[q4iLD4CCL]eu8QD9 pj2nT8{7 T6r201P THwS5K6 TF;8222j"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="2">
-          <Item0 X="7" Y="1097"/>
+          <Item0 X="7" Y="1100"/>
           <Item1 X="35" Y="862" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
@@ -132,7 +132,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="32"/>
       </Unit11>
       <Unit12>
         <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
@@ -144,7 +144,7 @@
         <TopLine Value="127"/>
         <CursorPos X="21" Y="205"/>
         <FoldState Value=" T8f22 TMid03 T5iN0]E3j10H81]A6j301 T0jC73A1"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -156,7 +156,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos X="24" Y="20"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit13>
       <Unit14>
         <Filename Value="ConfigFrames\frameCfgDetPrompt.pas"/>
@@ -167,7 +167,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="90"/>
         <CursorPos Y="115"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit14>
       <Unit15>
         <Filename Value="ConfigFrames\frameCfgPantTerm.pas"/>
@@ -178,7 +178,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="51"/>
         <CursorPos Y="85"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit15>
       <Unit16>
         <Filename Value="ConfigFrames\FrameCfgExpRem.pas"/>
@@ -189,7 +189,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="38"/>
         <CursorPos Y="72"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit16>
       <Unit17>
         <Filename Value="ConfigFrames\FrameCfgMacros.pas"/>
@@ -200,7 +200,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
         <CursorPos X="3" Y="33"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit17>
       <Unit18>
         <Filename Value="ConfigFrames\FrameCfgComandRec.pas"/>
@@ -211,7 +211,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="40"/>
         <CursorPos X="3" Y="57"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit18>
       <Unit19>
         <Filename Value="ConfigFrames\FrameCfgRutasCnx.pas"/>
@@ -220,7 +220,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit19>
       <Unit20>
         <Filename Value="ConfigFrames\FrameCfgPanCom.pas"/>
@@ -229,7 +229,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit20>
       <Unit21>
         <Filename Value="FrameCfgDetPrompt.pas"/>
@@ -425,7 +425,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="183"/>
         <CursorPos X="39" Y="205"/>
-        <UsageCount Value="74"/>
+        <UsageCount Value="75"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
@@ -655,7 +655,7 @@
           <EditorIndex Value="-1"/>
           <CursorPos X="16" Y="10"/>
         </ExtraEditor1>
-        <UsageCount Value="43"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit80>
       <Unit81>
@@ -752,7 +752,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="95"/>
         <CursorPos X="21" Y="105"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit91>
       <Unit92>
@@ -831,7 +831,7 @@
         <Filename Value="..\..\_Librerias\UnTerminal-0.9\UnTerminal.pas"/>
         <EditorIndex Value="5"/>
         <CursorPos X="10" Y="34"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit102>
       <Unit103>
