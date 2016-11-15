@@ -10,7 +10,7 @@ object frmEditMacros: TfrmEditMacros
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.6.0.4'
   inline ed: TSynEdit
     Left = 0
     Height = 299

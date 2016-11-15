@@ -859,7 +859,8 @@ begin
   config.fcConex.tipo := TCON_TELNET;
   config.fcConex.ip := ip;
   config.fcConex.port := '23';
-  config.fcConex.LineDelim := TTL_LF;
+  config.fcConex.LineDelimSend := LDS_LF;
+  config.fcConex.LineDelimRecv := LDR_LF;
   config.fcConex.UpdateChanges;  //actualiza
   InicConect;
 end;
@@ -869,7 +870,8 @@ begin
   config.fcConex.tipo := TCON_SSH;
   config.fcConex.ip := ip;
   config.fcConex.port := '22';
-  config.fcConex.LineDelim := TTL_LF;
+  config.fcConex.LineDelimSend := LDS_LF;
+  config.fcConex.LineDelimRecv := LDR_LF;
   config.fcConex.UpdateChanges;  //actualiza
   InicConect;
 end;

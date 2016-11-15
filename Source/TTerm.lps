@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Release"/>
-    <Units Count="101">
+    <Units Count="104">
       <Unit0>
         <Filename Value="TTerm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -18,13 +18,12 @@
         <ComponentName Value="frmPrincipal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="518"/>
-        <CursorPos X="66" Y="583"/>
-        <FoldState Value=" TL002 p0tc062 T5H0~v1 T7LI~q T8M2~F]N3oZ0h5 piak00B34149 pjLmN075]91jI078]VXj9]V[9570F[94ZjD0M7[w4jO05E[R4]ICA]9fjM0JC[a5S031 TMrI220G3O156 p0sg0101141C]S0qZc3J]jbnHc2A[s4iLD4E piamcRIH[\6Q2N pk6s88{7 T6r201P THwS5K6 TF;6222C"/>
+        <TopLine Value="845"/>
+        <CursorPos X="31" Y="873"/>
         <UsageCount Value="201"/>
-        <Bookmarks Count="1">
-          <Item0 X="7" Y="1094"/>
+        <Bookmarks Count="2">
+          <Item0 X="7" Y="1096"/>
+          <Item1 X="35" Y="862" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -45,8 +44,9 @@
         <ComponentName Value="Config"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="48" Y="12"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="163"/>
+        <CursorPos X="44" Y="198"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -75,10 +75,13 @@
         <ComponentName Value="frmEditMacros"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="3"/>
-        <CursorPos X="40" Y="10"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="256"/>
+        <CursorPos X="10" Y="276"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
+        <Bookmarks Count="1">
+          <Item0 X="7" Y="276" ID="2"/>
+        </Bookmarks>
       </Unit6>
       <Unit7>
         <Filename Value="FrameExpRemoto.pas"/>
@@ -127,7 +130,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="30"/>
       </Unit11>
       <Unit12>
         <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
@@ -135,10 +138,12 @@
         <ComponentName Value="fraConexion"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="218"/>
-        <CursorPos X="18" Y="244"/>
-        <UsageCount Value="22"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="76"/>
+        <CursorPos X="21" Y="205"/>
+        <FoldState Value=" T8f22 TMid03 T5iN0]E3j10H81]A6j301 T0jC73A1"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit12>
@@ -151,7 +156,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos X="24" Y="20"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit13>
       <Unit14>
         <Filename Value="ConfigFrames\frameCfgDetPrompt.pas"/>
@@ -162,7 +167,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="90"/>
         <CursorPos Y="115"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit14>
       <Unit15>
         <Filename Value="ConfigFrames\frameCfgPantTerm.pas"/>
@@ -173,7 +178,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="51"/>
         <CursorPos Y="85"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit15>
       <Unit16>
         <Filename Value="ConfigFrames\FrameCfgExpRem.pas"/>
@@ -184,7 +189,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="38"/>
         <CursorPos Y="72"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit16>
       <Unit17>
         <Filename Value="ConfigFrames\FrameCfgMacros.pas"/>
@@ -195,7 +200,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
         <CursorPos X="3" Y="33"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit17>
       <Unit18>
         <Filename Value="ConfigFrames\FrameCfgComandRec.pas"/>
@@ -206,7 +211,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="40"/>
         <CursorPos X="3" Y="57"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit18>
       <Unit19>
         <Filename Value="ConfigFrames\FrameCfgRutasCnx.pas"/>
@@ -215,7 +220,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit19>
       <Unit20>
         <Filename Value="ConfigFrames\FrameCfgPanCom.pas"/>
@@ -224,7 +229,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit20>
       <Unit21>
         <Filename Value="FrameCfgDetPrompt.pas"/>
@@ -417,13 +422,11 @@
       </Unit43>
       <Unit44>
         <Filename Value="gencod.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="186"/>
-        <CursorPos X="33" Y="207"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="183"/>
+        <CursorPos X="39" Y="205"/>
         <UsageCount Value="74"/>
-        <Bookmarks Count="1">
-          <Item0 X="3" Y="409" ID="1"/>
-        </Bookmarks>
+        <Loaded Value="True"/>
       </Unit44>
       <Unit45>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\classes\classesh.inc"/>
@@ -644,7 +647,7 @@
       <Unit80>
         <Filename Value="parser.pas"/>
         <UnitName Value="Parser"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="2"/>
         <CursorPos X="5" Y="13"/>
         <ExtraEditorCount Value="1"/>
@@ -652,7 +655,7 @@
           <EditorIndex Value="-1"/>
           <CursorPos X="16" Y="10"/>
         </ExtraEditor1>
-        <UsageCount Value="42"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit80>
       <Unit81>
@@ -746,10 +749,11 @@
         <ComponentName Value="fcEdit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="10"/>
-        <CursorPos X="30" Y="23"/>
-        <UsageCount Value="11"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="95"/>
+        <CursorPos X="21" Y="105"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
       </Unit91>
       <Unit92>
         <Filename Value="..\..\_Librerias\Xpres 0.6.8\XpresParser.pas"/>
@@ -782,11 +786,10 @@
       </Unit95>
       <Unit96>
         <Filename Value="..\..\_Librerias\UnTerminal 0.9b\UnTerminal.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="34"/>
         <CursorPos X="12" Y="52"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="11"/>
       </Unit96>
       <Unit97>
         <Filename Value="C:\lazarus\fpc\3.0.0\source\rtl\objpas\sysutils\sysutilh.inc"/>
@@ -814,121 +817,152 @@
         <EditorIndex Value="-1"/>
         <UsageCount Value="10"/>
       </Unit100>
+      <Unit101>
+        <Filename Value="..\..\_Librerias\ConfigFrame 0.8b\ConfigFrame.pas"/>
+        <ComponentName Value="CfgFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="90"/>
+        <CursorPos X="79" Y="109"/>
+        <UsageCount Value="10"/>
+      </Unit101>
+      <Unit102>
+        <Filename Value="..\..\_Librerias\UnTerminal-0.9\UnTerminal.pas"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="10" Y="34"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit102>
+      <Unit103>
+        <Filename Value="..\..\_Librerias\UnTerminal-0.9\TermVT.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="274"/>
+        <CursorPos Y="275"/>
+        <UsageCount Value="10"/>
+      </Unit103>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="15" Column="45"/>
       </Position1>
       <Position2>
         <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="403" Column="14" TopLine="317"/>
+        <Caret Line="12" Column="16"/>
       </Position2>
       <Position3>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="500" Column="33" TopLine="410"/>
+        <Filename Value="FormConfig.pas"/>
+        <Caret Line="14" Column="52"/>
       </Position3>
       <Position4>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="461" Column="35" TopLine="461"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="174" Column="35" TopLine="148"/>
       </Position4>
       <Position5>
-        <Filename Value="FormPrincipal.pas"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="36" Column="28" TopLine="19"/>
       </Position5>
       <Position6>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="500" Column="33" TopLine="6"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="72" Column="34" TopLine="44"/>
       </Position6>
       <Position7>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="505" Column="45" TopLine="18"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="174" Column="37" TopLine="146"/>
       </Position7>
       <Position8>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="510" Column="44" TopLine="335"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="72" Column="16" TopLine="55"/>
       </Position8>
       <Position9>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="515" Column="44" TopLine="395"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="72" Column="21"/>
       </Position9>
       <Position10>
         <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="566" Column="31" TopLine="483"/>
+        <Caret Line="577" Column="6" TopLine="515"/>
       </Position10>
       <Position11>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="572" Column="38" TopLine="498"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="72" Column="22" TopLine="38"/>
       </Position11>
       <Position12>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="578" Column="53" TopLine="504"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="51" Column="17" TopLine="29"/>
       </Position12>
       <Position13>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="583" Column="50" TopLine="509"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="6" Column="20"/>
       </Position13>
       <Position14>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="1413" Column="52" TopLine="1221"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="51" Column="74" TopLine="35"/>
       </Position14>
       <Position15>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="1412" Column="52" TopLine="1304"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="201" Column="26" TopLine="80"/>
       </Position15>
       <Position16>
         <Filename Value="FormPrincipal.pas"/>
+        <Caret Line="13" Column="45"/>
       </Position16>
       <Position17>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="500" Column="33" TopLine="6"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="207" Column="33" TopLine="186"/>
       </Position17>
       <Position18>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="505" Column="45" TopLine="18"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="203" Column="43" TopLine="186"/>
       </Position18>
       <Position19>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="510" Column="44" TopLine="335"/>
+        <Filename Value="..\..\_Librerias\UnTerminal-0.9\UnTerminal.pas"/>
+        <Caret Line="90" Column="13" TopLine="71"/>
       </Position19>
       <Position20>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="515" Column="44" TopLine="395"/>
+        <Filename Value="..\..\_Librerias\UnTerminal-0.9\UnTerminal.pas"/>
+        <Caret Line="34" Column="10"/>
       </Position20>
       <Position21>
         <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="566" Column="31" TopLine="483"/>
+        <Caret Line="862" Column="35" TopLine="845"/>
       </Position21>
       <Position22>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="572" Column="38" TopLine="498"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="202" Column="24" TopLine="188"/>
       </Position22>
       <Position23>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="578" Column="53" TopLine="504"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="41" Column="10" TopLine="34"/>
       </Position23>
       <Position24>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="583" Column="50" TopLine="509"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="63" TopLine="34"/>
       </Position24>
       <Position25>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="1413" Column="52" TopLine="1221"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="81" TopLine="60"/>
       </Position25>
       <Position26>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="500" Column="36" TopLine="478"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="80" Column="36" TopLine="63"/>
       </Position26>
       <Position27>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="583" Column="69" TopLine="578"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="52" Column="18" TopLine="35"/>
       </Position27>
       <Position28>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="15" Column="45"/>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="82" TopLine="74"/>
       </Position28>
       <Position29>
         <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="12" Column="16"/>
+        <Caret Line="873" Column="31" TopLine="845"/>
       </Position29>
+      <Position30>
+        <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
+        <Caret Line="205" Column="22" TopLine="82"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

@@ -268,12 +268,12 @@ begin
       ed.Lines.Add('curAPP := "'+ Config.fcConex.Other +'"   //El proceso que vamoa a lanzar');
     end;
   end;
-  case Config.fcConex.LineDelim of
-  TTL_CRLF:
+  case Config.fcConex.LineDelimSend of
+  LDS_CRLF:
     ed.Lines.Add('curENDLINE := "CRLF"  //El tipo de salto de línea a enviar');
-  TTL_CR:
+  LDS_CR:
     ed.Lines.Add('curENDLINE := "CR"  //El tipo de salto de línea a enviar');
-  TTL_LF:
+  LDS_LF:
     ed.Lines.Add('curENDLINE := "LF"  //El tipo de salto de línea a enviar');
   end;
   //conecta
