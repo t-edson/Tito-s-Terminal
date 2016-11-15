@@ -1,6 +1,6 @@
 inherited fraConexion: TfraConexion
-  Height = 216
-  ClientHeight = 216
+  Height = 246
+  ClientHeight = 246
   DesignLeft = 371
   DesignTop = 212
   object lblIP: TLabel[0]
@@ -139,10 +139,10 @@ inherited fraConexion: TfraConexion
   object RadioGroup1: TRadioGroup[14]
     Left = 19
     Height = 48
-    Top = 144
+    Top = 136
     Width = 265
     AutoFill = True
-    Caption = 'Salto de línea'
+    Caption = 'Salto de línea (A enviar)'
     ChildSizing.LeftRightSpacing = 6
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
@@ -159,5 +159,30 @@ inherited fraConexion: TfraConexion
       'LF'
     )
     TabOrder = 9
+  end
+  object RadioGroup2: TRadioGroup[15]
+    Left = 19
+    Height = 48
+    Top = 192
+    Width = 260
+    AutoFill = True
+    Caption = 'Salto de Línea (A recibir)'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 4
+    ClientHeight = 28
+    ClientWidth = 256
+    Columns = 4
+    Items.Strings = (
+      'CRLF'
+      'CR'
+      'LF'
+      'CR or LF'
+    )
+    TabOrder = 10
   end
 end

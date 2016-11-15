@@ -30,6 +30,7 @@ type
     optSSH: TRadioButton;
     optTelnet: TRadioButton;
     RadioGroup1: TRadioGroup;
+    RadioGroup2: TRadioGroup;
     txtOtro: TEdit;
     txtPort: TEdit;
     txtSerCfg: TEdit;
@@ -48,7 +49,8 @@ type
     Port      : String;   //Puerto (solo válido con el tipo TCON_TELNET Y TCON_SSH)
     Command   : string;   //comando a ejecutar en el proceso
     Other     : String;   //Ruta del aplicativo (solo válido con el tipo TCON_OTHER)
-    LineDelim : TTypLineDel;  //Tipo de delimitaodr de línea
+    LineDelimSend : TUtLineDelSend;  //Tipo de delimitaodr de línea a enviar
+    LineDelimRecv : TUtLineDelRecv;  //Tipo de delimitaodr de línea a recibir
     ConRecientes: TStringList;  //Lista de conexiones recientes
     procedure AgregIPReciente(arch: string);
     procedure GrabarIP;
@@ -76,7 +78,8 @@ begin
   Asoc_Enum_TRadBut(@Tipo, SizeOf(TTipCon), [optTelnet,optSSH,optSerial,optOtro],'Tipo', 0);
   Asoc_Str_TCmbBox(@IP, cmbIP,'IP','192.168.1.1');
   Asoc_StrList(@ConRecientes, 'Recient');
-  Asoc_Enum_TRadGroup(@LineDelim, SizeOf(LineDelim), RadioGroup1, 'LineDelim', 0);
+  Asoc_Enum_TRadGroup(@LineDelimSend, SizeOf(LineDelimSend), RadioGroup1, 'LineDelimSnd', 0);
+  Asoc_Enum_TRadGroup(@LineDelimRecv, SizeOf(LineDelimRecv), RadioGroup2, 'LineDelimRcv', 2);
 //  EjecMacro: boolean;
 //  MacroIni : string;
 //  Asoc_Bol_TChkB(@EjecMacro, chkEjecMacro, 'EjecMacro', false);
@@ -198,7 +201,8 @@ begin
 //      edTerm.Lines[0] := 'Opening Process ...';
     end;
   end;
-  proc.LineDelim := LineDelim;   //configura salto de línea
+  proc.LineDelimSend := LineDelimSend;   //configura salto de línea
+  proc.LineDelimRecv := LineDelimRecv;
 end;
 
 procedure TfraConexion.PropToWindow;
@@ -232,7 +236,8 @@ begin
       optOtro.Caption:='Otro';
       lblPort.Caption:='Puerto';
       lblOtro.Caption:='Aplicativo:';
-      RadioGroup1.Caption:='Salto de Línea';
+      RadioGroup1.Caption:='Salto de Línea (A enviar)';
+      RadioGroup2.Caption:='Salto de Línea (A recibir)';
       lblSerPort.Caption:='Puerto Serial:';
       lblSerCfg.Caption:='Configuración';
       dicClear;  //ya está en español
@@ -241,7 +246,8 @@ begin
       optOtro.Caption:='Other';
       lblPort.Caption:='Port';
       lblOtro.Caption:='Program:';
-      RadioGroup1.Caption:='Line Delimiter';
+      RadioGroup1.Caption:='Line Delimiter (To Send)';
+      RadioGroup2.Caption:='Line Delimiter (To Receive)';
       lblSerPort.Caption:='Serial Port:';
       lblSerCfg.Caption:='Configuration';
       //diccionario
