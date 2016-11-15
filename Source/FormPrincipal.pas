@@ -1028,6 +1028,7 @@ begin
         //es una línea normal
         edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
       end;
+      Key := 0;  //para que ya no lo procese
     end else if key = VK_UP then begin
       AcTerPrmArrExecute(nil);
     end else if key = VK_DOWN then begin
