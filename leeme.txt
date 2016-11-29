@@ -1,1 +1,0 @@
-Se inicia la creación de la versión 0.3. Por el momento, solo se actualizan las librerías.
