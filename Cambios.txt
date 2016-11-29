@@ -1,8 +1,21 @@
-Se agregan más puertos al combo de puertos seriales.
-Se modifica el programa para usar la versión UnTerminal 0.9b, eso implica que se 
+* Se actualiza la dependendcia de la librería Xpres a la versión 0.9.
+* Se agregan más puertos al combo de puertos seriales.
+* Se modifica el programa para usar la versión UnTerminal 0.9b, eso implica que se 
 cambia la ventana de configuración de conexiones para incluir 3 casos de salto de 
 línea, para enviar y 4 casos de salto de línea para recibir.
-Se modifica la rutina TCompiler.CompileCurBlock, para mejorar la detección de errores
+* Se modifica la rutina TCompiler.CompileCurBlock, para mejorar la detección de errores
 cuando se llama a Asign_Identif_Descon().
-Se corrige al método TfrmEditMacros.MarcarError(), para que de la coordenada correcta
-cuando el texto fuente tiene tabulaciones.
+* Se corrige al método TfrmEditMacros.MarcarError(), para que de la coordenada correcta
+cuando el texto fuente tiene tabulaciones, además de llamar a edit.RefreshPanCursor.
+* Se elimina la propiedad CtrlPulsado de TfrmPrincipal.
+* Se agregan dos nuevas propiedades a la ventana de configuración del Panel de comandos.
+* Se mejora el envío de la línea actual, haciendo que cuando se pulse Ctrl+Enter, y no esté
+confgurado ese comando, se inserte una línea de forma normal.
+* Se asigna el atajo Ctrl+Q, para iniciar la conexión.
+* Se asigna el atajo Shift+Ctrl+Q, para detener la conexión.
+* Se revisa, simplifica, comenta y corrige el archivo XML, de sintaxis y autocompletado, 
+para el editor de macros.
+* Se habilita para enviar Ctrl+C, al terminal, desde el panel de comando.
+
+Pendientes: Queda por implementar la sentencia IF, en el lenguaje de macros. Actualmente
+reconoce la estrutura, pero ejecuta todo.
