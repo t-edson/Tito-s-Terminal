@@ -1,5 +1,5 @@
 object frmEditMacros: TfrmEditMacros
-  Left = 213
+  Left = 237
   Height = 368
   Top = 205
   Width = 518

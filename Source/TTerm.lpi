@@ -28,7 +28,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.4;..\..\_Librerias\UnTerminal-0.9;..\..\_Librerias\SynFacilUtils 0.8;..\..\_Librerias\ConfigFrame 0.8b;..\..\_Librerias\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_Librerias\Xpres 0.8b;ConfigFrames"/>
+            <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.4;..\..\_Librerias\UnTerminal-0.9;..\..\_Librerias\SynFacilUtils 0.9;..\..\_Librerias\ConfigFrame 0.8b;..\..\_Librerias\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_Librerias\Xpres 0.9;ConfigFrames"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -224,7 +224,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.4;..\..\_Librerias\UnTerminal 0.9b;..\..\_Librerias\SynFacilUtils 0.8;..\..\_Librerias\ConfigFrame 0.8b;..\..\_Librerias\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_Librerias\Xpres 0.8b;ConfigFrames"/>
+      <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.4;..\..\_Librerias\UnTerminal-0.9;..\..\_Librerias\SynFacilUtils 0.9;..\..\_Librerias\ConfigFrame 0.8b;..\..\_Librerias\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_Librerias\Xpres 0.9;ConfigFrames"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

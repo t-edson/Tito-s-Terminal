@@ -82,17 +82,18 @@ begin
 end;
 procedure TCompiler.CompileCurBlock;
 //Compila el bloque de código actual hasta encontrar un delimitador de bloque.
-  function Asign_Identif_Descon(var newvar: string; var vartipe: TType): boolean;
-  {Verifica si sigue una asignación a un identificador que no sea variable o función
-   declarada. Esta esla forma en que se asume la declaración de una variable}
+function Asign_Identif_Descon(var newvar: string; var vartipe: TType): boolean;
+  {Verifica si la instrucción actuak es una asignación a un identificador que no sea
+   variable o función declarada. Esta es la forma en que se asume la declaración de
+   una variable}
   var
     posc: TPosCont;
     ex: TOperand;
   begin
-    Asign_Identif_Descon := false;
+    Result := false;
     if cIn.tokType <> tkIdentif then exit;
     //verifica si ya ha sido declarado
-    if FindPredefName(cIn.tok) <> idtNone then exit;
+    if FindPredefName(cIn.tok) <> eltNone then exit;
     //Sigue un identificador desconocido. falta ver si es asignación.
     posc := cIn.PosAct;    //Guarda posición
     newvar := Cin.tok;
@@ -102,7 +103,8 @@ procedure TCompiler.CompileCurBlock;
       cIn.Next;   //toma operador
       cIn.SkipWhitesNoEOL;
       //deduce tipo
-      ex := GetOperand;
+      ex := GetOperand;  //puede generar error
+      if Perr.HayError then exit;   //sale con el puntero en la posición del error
       vartipe:=ex.typ;   //devuelve referencia a tipo
       cIn.PosAct := posc;  //retorna posición
       exit(true);        //si es asignación
@@ -113,12 +115,21 @@ procedure TCompiler.CompileCurBlock;
 var
   tmp: string;
   varType: TType;
+  EsAsignNueva: Boolean;
 begin
   cIn.SkipWhites;  //ignora comentarios inciales
   //if config.fcMacros.marLin then ;
   while not cIn.Eof and not EOBlock do begin
-    //se espera una expresión o estructura
-    if cIn.tokType = tkStruct then begin  //es una estructura
+    //Se espera una expresión o estructura
+    EsAsignNueva := Asign_Identif_Descon(tmp, varType);  //Verifica si es asignación
+    if Perr.HayError then exit;   //puede que se haya encontrado un error
+    if EsAsignNueva then begin  //hay identificador nuevo
+      //se asume que es la declaración de una variable
+  //      MsgBox('variable nueva: ' + tmp );
+      CreateVariable(tmp, varType);
+      if Perr.HayError then exit;
+      GetExpression(0);   //procesa la expresión
+    end else if cIn.tokType = tkStruct then begin  //es una estructura
       if cIn.tokL = 'if' then begin  //condicional
         cIn.Next;  //toma IF
         GetBoolExpression; //evalua expresión
@@ -160,12 +171,6 @@ begin
         GenError('Error de diseño. Estructura no implementada.');
         exit;
       end;
-    end else if Asign_Identif_Descon(tmp, varType) then begin  //hay identificador nuevo
-      //se asume que es la declaración de una variable
-//      MsgBox('variable nueva: ' + tmp );
-      CreateVariable(tmp, varType);
-      if Perr.HayError then exit;
-      GetExpression(0);   //procesa la expresión
     end else begin  //debe ser una expresión
       GetExpression(0);
       if perr.HayError then exit;   //aborta

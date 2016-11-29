@@ -214,8 +214,10 @@ end;
 procedure TfrmEditMacros.MarcarError(nLin, nCol: integer);
 begin
   //posiciona curosr
-  ed.CaretX := nCol;
-  ed.CaretY := nLin;
+//  ed.CaretX := nCol;
+//  ed.CaretY := nLin;
+  ed.LogicalCaretXY:=Point(nCol,nLin);
+  edit.RefreshPanCursor;   //Para actualizar la información del cursor
   //define línea con error
   edit.linErr := nLin;
   ed.Invalidate;  //refresca

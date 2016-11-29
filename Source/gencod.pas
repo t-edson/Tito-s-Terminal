@@ -137,11 +137,11 @@ begin
   //en la VM se puede mover directamente res memoria sin usar el registro res
   p1.rVar.valInt := p2.ReadInt;
 //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
-  if Upcase(p1.rVar.nom) = 'TIMEOUT' then begin
+  if Upcase(p1.rVar.name) = 'TIMEOUT' then begin
     //variable interna
     config.fcMacros.TpoMax := p2.ReadInt;
     config.fcConex.UpdateChanges;  //actualiza
-  end else if Upcase(p1.rVar.nom) = 'curPORT' then begin
+  end else if Upcase(p1.rVar.name) = 'curPORT' then begin
     //variable interna
     config.fcConex.Port := IntToStr(p2.ReadInt);
     config.fcConex.UpdateChanges;  //actualiza
@@ -184,11 +184,11 @@ begin
   //aquí se puede mover directamente res memoria sin usar el registro res
   p1.rVar.valStr := p2.ReadStr;
   //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
-  if Upcase(p1.rVar.nom) = 'CURIP' then begin
+  if Upcase(p1.rVar.name) = 'CURIP' then begin
     //variable interna
     config.fcConex.IP := p2.ReadStr;
     config.fcConex.UpdateChanges;  //actualiza
-  end else if Upcase(p1.rVar.nom) = 'CURTYPE' then begin
+  end else if Upcase(p1.rVar.name) = 'CURTYPE' then begin
     //variable interna
     case UpCase(p2.ReadStr) of
     'TELNET': config.fcConex.tipo := TCON_TELNET;  //Conexión telnet común
@@ -197,7 +197,7 @@ begin
     'OTHER' : config.fcConex.tipo := TCON_OTHER;   //Otro proceso
     end;
     config.fcConex.UpdateChanges;  //actualiza
-  end else if Upcase(p1.rVar.nom) = 'CURENDLINE' then begin
+  end else if Upcase(p1.rVar.name) = 'CURENDLINE' then begin
     //variable interna
     if UpCase(p2.ReadStr) = 'CRLF' then
       config.fcConex.LineDelimSend := LDS_CRLF;
@@ -206,16 +206,16 @@ begin
     if UpCase(p2.ReadStr) = 'LF' then
       config.fcConex.LineDelimSend := LDS_LF;
     config.fcConex.UpdateChanges;  //actualiza
-  end else if Upcase(p1.rVar.nom) = 'CURAPP' then begin
+  end else if Upcase(p1.rVar.name) = 'CURAPP' then begin
     //indica aplicativo actual
     config.fcConex.Other := p2.ReadStr;
     config.fcConex.UpdateChanges;  //actualiza
-  end else if Upcase(p1.rVar.nom) = 'PROMPTSTART' then begin
+  end else if Upcase(p1.rVar.name) = 'PROMPTSTART' then begin
     //indica aplicativo actual
     config.fcDetPrompt.prIni:= p2.ReadStr;
     config.fcDetPrompt.detecPrompt := true;  //por defecto
     config.fcDetPrompt.ConfigCambios;  //actualiza
-  end else if Upcase(p1.rVar.nom) = 'PROMPTEND' then begin
+  end else if Upcase(p1.rVar.name) = 'PROMPTEND' then begin
     //indica aplicativo actual
     config.fcDetPrompt.prFin:= p2.ReadStr;
     config.fcDetPrompt.detecPrompt := true;  //por defecto
@@ -245,7 +245,7 @@ begin
   //en la VM se puede mover directamente res memoria sin usar el registro res
   p1.rVar.valBool := p2.ReadBool;
 //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
-  if Upcase(p1.rVar.nom) = 'PROMPTDETECT' then begin
+  if Upcase(p1.rVar.name) = 'PROMPTDETECT' then begin
     //variable interna
     config.fcDetPrompt.detecPrompt := p2.ReadBool;
     config.fcDetPrompt.ConfigCambios;  //actualiza
