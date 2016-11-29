@@ -1,0 +1,8 @@
+Se agregan más puertos al combo de puertos seriales.
+Se modifica el programa para usar la versión UnTerminal 0.9b, eso implica que se 
+cambia la ventana de configuración de conexiones para incluir 3 casos de salto de 
+línea, para enviar y 4 casos de salto de línea para recibir.
+Se modifica la rutina TCompiler.CompileCurBlock, para mejorar la detección de errores
+cuando se llama a Asign_Identif_Descon().
+Se corrige al método TfrmEditMacros.MarcarError(), para que de la coordenada correcta
+cuando el texto fuente tiene tabulaciones.
