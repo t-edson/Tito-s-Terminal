@@ -19,3 +19,5 @@ para el editor de macros.
 
 Pendientes: Queda por implementar la sentencia IF, en el lenguaje de macros. Actualmente
 reconoce la estrutura, pero ejecuta todo.
+También hay que revisar la función Asign_Identif_Descon() ya que no se debe evaluar dos 
+veces la expresión a asignar.
