@@ -217,7 +217,7 @@ begin
 //  ed.CaretX := nCol;
 //  ed.CaretY := nLin;
   ed.LogicalCaretXY:=Point(nCol,nLin);
-  edit.RefreshPanCursor;   //Para actualizar la información del cursor
+  edit.RefreshPanCursor;   //Para actualizar la información del cursor en el panel
   //define línea con error
   edit.linErr := nLin;
   ed.Invalidate;  //refresca

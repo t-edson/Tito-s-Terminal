@@ -28,13 +28,15 @@ de código.
 
 Ceerado Por Tito Hinostroza  30/07/2014
 Modificado Por Tito Hinostroza  8/08/2015
+Modificado Por Tito Hinostroza  29/11/2016
 }
 
 const STACK_SIZE = 32;
 var
   /////// Tipos de datos del lenguaje ////////////
   tipInt : TType;   //entero flotante
-  tipStr : Ttype;
+  tipStr : Ttype;   //cadena
+  tipBol  : TType;  //booleano
   //pila virtual
   sp: integer;  //puntero de pila
   stack: array[0..STACK_SIZE-1] of TOperand;
@@ -52,6 +54,13 @@ procedure LoadResStr(val: string; catOp: TCatOperan);
 begin
     res.typ := tipStr;
     res.valStr:=val;
+    res.catOp:=catOp;
+end;
+procedure LoadResBol(val: Boolean; catOp: TCatOperan);
+//Carga en el resultado un valor string
+begin
+    res.typ := tipBol;
+    res.valBool:=val;
     res.catOp:=catOp;
 end;
 procedure PushResult;
@@ -165,7 +174,6 @@ begin
   LoadResInt(p1.ReadInt div p2.ReadInt, coExpres);
 end;
 
-
 ////////////operaciones con string
 procedure str_procLoad(const OpPtr: pointer);
 var
@@ -225,7 +233,11 @@ end;
 
 procedure str_concat_str;
 begin
-  LoadResStr(p1.ReadStr+p2.ReadStr, coExpres);
+  LoadResStr(p1.ReadStr + p2.ReadStr, coExpres);
+end;
+procedure str_igual_str;
+begin
+  LoadResBol(p1.ReadStr = p2.ReadStr, coExpres);
 end;
 ////////////operaciones con boolean
 procedure bol_procLoad(const OpPtr: pointer);
@@ -376,7 +388,6 @@ procedure TCompiler.StartSyntax;
 var
   opr: TOperator;
   f: TxpFun;
-  tipBol: TType;
 begin
   OnExprStart := @expr_start;
   OnExprEnd := @expr_End;
@@ -407,16 +418,17 @@ begin
   //crea tokens por contenido
   xLex.DefTokIdentif('[$A-Za-z_]', '[A-Za-z0-9_]*');
   xLex.DefTokContent('[0-9]', '[0-9.]*', tkNumber);
-  //define palabras claves
-  xLex.AddIdentSpecList('var type program begin', tkKeyword);
-  xLex.AddIdentSpecList('end else elsif', tkBlkDelim);
+  //Define palabras claves.
+  {Notar que si se modifica aquí, se debería también, actualizar el archivo XML de
+  sintaxis, para que el resaltado y completado sea consistente.}
+  xLex.AddIdentSpecList('ENDIF ELSE ELSEIF', tkBlkDelim);
   xLex.AddIdentSpecList('true false', tkBoolean);
-  xLex.AddIdentSpecList('int string', tkType);
-  xLex.AddIdentSpecList('CONNECT CONNECTSSH DISCONNECT SENDLN WAIT PAUSE STOP', tkSysFunct);
-//  xLex.AddIdentSpecList('END', tkSysFunct);
+  xLex.AddIdentSpecList('CLEAR CONNECT CONNECTSSH DISCONNECT SENDLN WAIT PAUSE STOP', tkSysFunct);
   xLex.AddIdentSpecList('LOGOPEN LOGWRITE LOGCLOSE LOGPAUSE LOGSTART', tkSysFunct);
   xLex.AddIdentSpecList('FILEOPEN FILECLOSE FILEWRITE', tkSysFunct);
   xLex.AddIdentSpecList('MESSAGEBOX CAPTURE ENDCAPTURE EDIT DETECT_PROMPT', tkSysFunct);
+  xLex.AddIdentSpecList('IF', tkStruct);
+  xLex.AddIdentSpecList('THEN', tkKeyword);
   //símbolos especiales
   xLex.AddSymbSpec(';',  tkExpDelim);
   xLex.AddSymbSpec(',',  tkExpDelim);
@@ -425,6 +437,7 @@ begin
   xLex.AddSymbSpec('*',  tkOperator);
   xLex.AddSymbSpec('/',  tkOperator);
   xLex.AddSymbSpec(':=', tkOperator);
+  xLex.AddSymbSpec('=', tkOperator);
   xLex.AddSymbSpec('(',  tkOthers);
   xLex.AddSymbSpec(')',  tkOthers);
   xLex.AddSymbSpec(':',  tkOthers);
@@ -453,6 +466,8 @@ begin
   opr.CreateOperation(tipStr,@str_asig_str);
   opr:=tipStr.CreateOperator('+',7,'concat');
   opr.CreateOperation(tipStr,@str_concat_str);
+  opr:=tipStr.CreateOperator('=',7,'igual');
+  opr.CreateOperation(tipStr,@str_igual_str);
 
   //////// Operaciones con Int ////////////
   {Los operadores deben crearse con su precedencia correcta}

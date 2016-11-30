@@ -291,7 +291,6 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     hlTerm    : TResaltTerm;
-    CtrlPulsado: boolean;
     ePCom     : TSynFacilEditor;  //ventana de editor
     eTerm     : TSynFacilEditor;  //ventana de terminal
     LlegoPrompt: boolean;   //bandera
@@ -894,14 +893,12 @@ begin
    //refresca para asegurarse, porque el panel 0 está en modo gráfico
    StatusBar1.InvalidatePanel(0,[ppText]);
 end;
-
 function TfrmPrincipal.ConexDisponible: boolean;
 //Indica si la conexión está en estado ECO_READY, es decir, que puede
 //recibir un comando
 begin
    Result := (proc.state = ECO_READY);
 end;
-
 function TfrmPrincipal.BuscaPromptArr: integer;
 //Busca el primer prompt desde la posición actual hacia arriba
 //Si no lo encuentra devuelve -1
@@ -997,52 +994,66 @@ end;
 
 procedure TfrmPrincipal.edPComKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+var
+  Enter, SendLnEnter, SendLnCtrEnter: Boolean;
 begin
-  if Shift = [ssCtrl] then begin  //Ctrl pulsado
-    if key = VK_RETURN then begin //envía línea actual
-       Key := 0;
-    end;
-    if not CtrlPulsado then begin   //primera pulsación
-      CtrlPulsado := true;    //activa
-{      if edPCom.LineHighlightColor.Background<>clNone then begin
-        coLFonLin := edPCom.LineHighlightColor.Background;  //guarda color actual
-        //calcula color aclarado
-        GetRGBIntValues(coLFonLin,r,g,b);
-        coLClaro := RGB(min(r+70,255), min(g+70,255), min(b+70,255));
-        edPCom.LineHighlightColor.Background:=colClaro;  //cambia
-      end;}
-    end;
+  Enter := (key = VK_RETURN);
+  SendLnEnter := Config.fcPanCom.SendLnEnter;
+  SendLnCtrEnter := Config.fcPanCom.SendLnCtrEnter;
+  //Verificaciones
+  if (Shift = []) and Enter and SendLnEnter then begin
+    //Envíará línea actual
+    Key := 0;
+  end else if (Shift = [ssCtrl]) and Enter and SendLnCtrEnter  then begin
+    //Envíará línea actual
+    Key := 0;
+  end else if (Shift = [ssCtrl]) and Enter and not SendLnCtrEnter then begin
+    Key := 0;
   end;
 end;
 procedure TfrmPrincipal.edPComKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+  procedure EnviarActual;  //Envía la línea actual y controla el cursor
+  begin
+    AcPCmEnvLinExecute(self);
+    if edPCom.SelAvail then begin  //había selección
+      //no se cambia la selección
+    end else if edPCom.CaretY = edPCom.Lines.Count then begin
+      //estamos en la última línea
+      if edPCom.LineText = '' then exit; //no hay nada que enviar ni agregar
+      edpCom.Lines.Add('');  //agrega una línea
+      edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
+    end else begin
+      //es una línea normal
+      edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
+    end;
+  end;
+var
+  Enter, SendLnEnter, SendLnCtrEnter: Boolean;
 begin
-  if Shift = [ssCtrl] then begin
-    if key = VK_RETURN then begin //envía línea actual
-      AcPCmEnvLinExecute(self);
-      if edPCom.SelAvail then begin  //había selección
-        //no se cambia la selección
-      end else if edPCom.CaretY = edPCom.Lines.Count then begin
-        //estamos en la última línea
-        if edPCom.LineText = '' then exit; //no hay nada que enviar ni agregar
-        edpCom.Lines.Add('');  //agrega una línea
-        edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
-      end else begin
-        //es una línea normal
-        edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
-      end;
-      Key := 0;  //para que ya no lo procese
-    end else if key = VK_UP then begin
-      AcTerPrmArrExecute(nil);
-    end else if key = VK_DOWN then begin
-      AcTerPrmAbaExecute(nil);
-    end;
-  end else begin  //Ctrl soltado
-    if CtrlPulsado then begin   //primera soltada
-      CtrlPulsado := false;    //activa
-//      if edPCom.LineHighlightColor.Background<>clNone then
-//        edPCom.LineHighlightColor.Background:=coLFonLin;  //restaura
-    end;
+  Enter := (key = VK_RETURN);
+  SendLnEnter := Config.fcPanCom.SendLnEnter;
+  SendLnCtrEnter := Config.fcPanCom.SendLnCtrEnter;
+  //Verificaciones
+  if (Shift = []) and Enter and SendLnEnter then begin
+    //Envía línea actual
+    EnviarActual;
+    Key := 0;  //para que ya no lo procese
+  end else if (Shift = [ssCtrl]) and Enter and SendLnCtrEnter then begin
+    //Envía línea actual
+    EnviarActual;
+    Key := 0;  //para que ya no lo procese
+  end else if (Shift = [ssCtrl]) and Enter and not SendLnCtrEnter then begin
+    //<Control>+<Enter>, pero no está configurado
+    edPCom.ExecuteCommand(ecInsertLine, '',nil);  //inserta salto
+    edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
+    Key := 0;  //para que ya no lo procese
+  end else if (Shift = [ssCtrl]) and (key = VK_UP) then begin
+    AcTerPrmArrExecute(nil);
+  end else if (Shift = [ssCtrl]) and (key = VK_DOWN) then begin
+    AcTerPrmAbaExecute(nil);
+  end else if (Shift = [ssCtrl]) and (key = VK_C) then begin  //Ctrl + C
+    AcTerEnvCtrlCExecute(nil)  //envía Ctrl+C al terminal
   end;
 end;
 
@@ -1094,7 +1105,6 @@ begin
     acEdRedo.Enabled:=false;
     acEdPaste.Enabled := true;   //para poder pegar lo que haya en el portapapeles
   end;
-
 
 end;
 /////////////////////// ACCIONES ////////////////////////

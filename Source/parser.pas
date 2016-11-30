@@ -163,8 +163,8 @@ begin
 //          Result := res;  //toma resultado
           if PErr.HayError then exit;
         end;
-        if cIn.tokL<> 'end' then begin
-          GenError('Se esperaba "end".');
+        if cIn.tokL<> 'endif' then begin
+          GenError('Se esperaba "endif".');
           exit;
         end;
       end else begin

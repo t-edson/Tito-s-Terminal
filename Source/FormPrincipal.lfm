@@ -2882,6 +2882,7 @@ object frmPrincipal: TfrmPrincipal
       Hint = 'Conectar con la conexión actual'
       ImageIndex = 26
       OnExecute = AcTerConecExecute
+      ShortCut = 16465
     end
     object AcTerDescon: TAction
       Category = 'Ter'
@@ -2889,6 +2890,7 @@ object frmPrincipal: TfrmPrincipal
       Hint = 'Desconecta la sesión actual'
       ImageIndex = 27
       OnExecute = AcTerDesconExecute
+      ShortCut = 24657
     end
     object AcTerLimBuf: TAction
       Category = 'Ter'
