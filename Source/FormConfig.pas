@@ -187,8 +187,7 @@ begin
   '4.2'  : fcEdMacr.ShowPos(145,0);
   '5',
   '5.1'  : fcEdRemo.ShowPos(145,0);
-  '6',
-  '6.1'  : fcExpRem.ShowPos(145,0);
+  '6'    : fcExpRem.ShowPos(145,0);
   end;
 end;
 
@@ -348,8 +347,7 @@ begin
       TTreeNodeFromId('4.2',TreeView1).Text:='Editor';
       TTreeNodeFromId('5',TreeView1).Text:='Editor Remoto';
       TTreeNodeFromId('5.1',TreeView1).Text:='Editor';
-      TTreeNodeFromId('6',TreeView1).Text:='Otros';
-      TTreeNodeFromId('6.1',TreeView1).Text:='Explorador Remoto';
+      TTreeNodeFromId('6',TreeView1).Text:='Explorador Remoto';
     end;
   'en': begin
       TTreeNodeFromId('1',TreeView1).Text:='Connection';
@@ -368,8 +366,7 @@ begin
       TTreeNodeFromId('4.2',TreeView1).Text:='Editor';
       TTreeNodeFromId('5',TreeView1).Text:='Remote Editor';
       TTreeNodeFromId('5.1',TreeView1).Text:='Editor';
-      TTreeNodeFromId('6',TreeView1).Text:='Others';
-      TTreeNodeFromId('6.1',TreeView1).Text:='Remote Explorer';
+      TTreeNodeFromId('6',TreeView1).Text:='Remote Explorer';
     end;
   end;
 end;

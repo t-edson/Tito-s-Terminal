@@ -937,9 +937,9 @@ begin
 end;
 
 function TfrmPrincipal.EnviarComando(com: string; var salida: TStringList): string;
-//Función para enviar un comando por el Terminal. Espera hasta que aparezca de
-//nuevo el "prompt" y devuelve el texto generado, por el comando, en "salida".
-//Si hay error devuelve el mensaje de error.
+{Función para enviar un comando por el Terminal. Espera hasta que aparezca de
+nuevo el "prompt" y devuelve el texto generado, por el comando, en "salida".
+Si hay error devuelve el mensaje de error.}
 var
   n: Integer;
   y1: Integer;
