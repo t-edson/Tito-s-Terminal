@@ -14,8 +14,8 @@ uses
   FormEditMacros, MisUtils, Globales, FrameCfgConex, FormSelFuente,
   FrameCfgComandRec, TermVT, uResaltTerm, SynFacilUtils, FormEditRemoto,
   uPreBasicos, uPreProces;
-
 type
+  TlogState = (logStopped, logRunning, logPaused);
 
   { TfrmPrincipal }
 
@@ -180,6 +180,7 @@ type
     PopupMenu1: TPopupMenu;
     PopupMenu2: TPopupMenu;
     SaveDialog1: TSaveDialog;
+    SaveDialog2: TSaveDialog;
     Splitter1: TSplitter;
     StatusBar1: TStatusBar;
     edTerm: TSynEdit;
@@ -209,9 +210,11 @@ type
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
     procedure AcArcAbrSesExecute(Sender: TObject);
+    procedure AcArcDetRegExecute(Sender: TObject);
     procedure AcArcGuaSesCExecute(Sender: TObject);
     procedure AcArcGuaSesExecute(Sender: TObject);
     procedure AcArcConecExecute(Sender: TObject);
+    procedure AcArcIniRegExecute(Sender: TObject);
     procedure AcArcNueSesExecute(Sender: TObject);
     procedure AcArcNueVenExecute(Sender: TObject);
     procedure AcArcSalirExecute(Sender: TObject);
@@ -280,12 +283,12 @@ type
     procedure mnEjecMacroClick(Sender: TObject);
     procedure mnSesionesAlmClick(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
-    procedure procChangeState(info: string; pFinal: TPoint);
-    procedure procInitScreen(const grilla: TtsGrid; fIni, fFin: integer);
-    procedure procAddLine(HeightScr: integer);
-    procedure procLlegoPrompt(prmLine: string; pIni: TPoint; HeightScr: integer);
-    procedure procRefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
-    procedure procRefreshLines(const grilla: TtsGrid; fIni, fFin, HeightScr: integer);
+    procedure proc_ChangeState(info: string; pFinal: TPoint);
+    procedure proc_InitScreen(const grilla: TtsGrid; fIni, fFin: integer);
+    procedure proc_AddLine(HeightScr: integer);
+    procedure proc_LlegoPrompt(prmLine: string; pIni: TPoint; HeightScr: integer);
+    procedure proc_RefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
+    procedure proc_RefreshLines(const grilla: TtsGrid; fIni, fFin, HeightScr: integer);
     procedure StatusBar1DrawPanel(StatusBar: TStatusBar; Panel: TStatusPanel;
       const Rect: TRect);
     procedure Timer1Timer(Sender: TObject);
@@ -311,6 +314,7 @@ type
     procedure MostrarBHerTerm(visibilidad: boolean);
     procedure MostrarPanCom(visibilidad: boolean);
     procedure PosicionarCursor(HeightScr: integer);
+    procedure proc_LineCompleted(const lin: string);
   public
     proc   : TConsoleProc; //referencia al proceso actual
     ejecMac: boolean;   //indica que está ejecutando una macro
@@ -323,6 +327,15 @@ type
     function ConexDisponible: boolean;
     function EnviarComando(com: string; var salida: TStringList): string;
     procedure SetLanguage(lang: string);
+  public  //Campos para manejo del registro
+    logState: TlogState;  //estado del registro
+    logFile : text;
+    logName : string;   //archvio de registro
+    function StartLog(logName0: string): boolean;
+    procedure PauseLog;
+    procedure StartLog;
+    procedure EndLog;
+    function WriteLog(txt: string): boolean;
   end;
 
 var
@@ -366,19 +379,21 @@ begin
   StatusBar1.OnDrawPanel:=@StatusBar1DrawPanel;
 
   //proc.OnRefreshAll:=@procRefreshEdit;
-  proc.OnInitScreen :=@procInitScreen;
-  proc.OnRefreshLine:=@procRefreshLine;
-  proc.OnRefreshLines:=@procRefreshLines;
-  proc.OnAddLine:=@procAddLine;
+  proc.OnInitScreen :=@proc_InitScreen;
+  proc.OnRefreshLine:=@proc_RefreshLine;
+  proc.OnRefreshLines:=@proc_RefreshLines;
+  proc.OnAddLine:=@proc_AddLine;
 
-  proc.OnGetPrompt:=@procLlegoPrompt;
-  proc.OnChangeState:=@procChangeState;
+  proc.OnGetPrompt:=@proc_LlegoPrompt;
+  proc.OnChangeState:=@proc_ChangeState;
 
+  proc.OnLineCompleted:=@proc_LineCompleted;  //usado para el registro
   AcTerDescon.Enabled:=false;  //Se supone que inicia siempre sin conectar
 
 end;
 procedure TfrmPrincipal.FormDestroy(Sender: TObject);
 begin
+  EndLog;  //por si se estaba registrando
   ePCom.Free;
   eTerm.Free;
   proc.Free;
@@ -604,20 +619,7 @@ begin
     edTErm.CaretXY := Point(proc.term.curX, yvt+proc.term.CurY+1);
   end;
 end;
-
-procedure TfrmPrincipal.procLlegoPrompt(prmLine: string; pIni: TPoint; HeightScr: integer);
-begin
-  LlegoPrompt := true;  //activa bandera
-//  yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
-//debugln('  llegoPrompt en:'+IntToStr(yvt + pIni.y+1));
-end;
-procedure TfrmPrincipal.procChangeState(info: string; pFinal: TPoint);
-//Hubo un cambio de estado
-begin
-  AcTerConec.Enabled := proc.state = ECO_STOPPED;
-  AcTerDescon.Enabled:= not (proc.state = ECO_STOPPED);
-end;
-procedure TfrmPrincipal.procInitScreen(const grilla: TtsGrid; fIni, fFin: integer);
+procedure TfrmPrincipal.proc_InitScreen(const grilla: TtsGrid; fIni, fFin: integer);
 var
   i: Integer;
 begin
@@ -625,7 +627,7 @@ begin
   for i:=fIni to fFin do
     edTerm.Lines.Add(grilla[i]);
 end;
-procedure TfrmPrincipal.procRefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
+procedure TfrmPrincipal.proc_RefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
 var
   yvt: Integer;
 begin
@@ -634,7 +636,7 @@ begin
   edTerm.Lines[yvt+fIni] := grilla[fIni];
   PosicionarCursor(HeightScr);
 end;
-procedure TfrmPrincipal.procRefreshLines(const grilla: TtsGrid; fIni, fFin, HeightScr: integer);
+procedure TfrmPrincipal.proc_RefreshLines(const grilla: TtsGrid; fIni, fFin, HeightScr: integer);
 var
   yvt: Integer;
   f: Integer;
@@ -648,7 +650,19 @@ begin
   edTerm.EndUpdate;
   edTerm.Refresh;  //para mostrar el cambio
 end;
-procedure TfrmPrincipal.procAddLine(HeightScr: integer);
+procedure TfrmPrincipal.proc_LlegoPrompt(prmLine: string; pIni: TPoint; HeightScr: integer);
+begin
+  LlegoPrompt := true;  //activa bandera
+//  yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
+//debugln('  llegoPrompt en:'+IntToStr(yvt + pIni.y+1));
+end;
+procedure TfrmPrincipal.proc_ChangeState(info: string; pFinal: TPoint);
+//Hubo un cambio de estado
+begin
+  AcTerConec.Enabled := proc.state = ECO_STOPPED;
+  AcTerDescon.Enabled:= not (proc.state = ECO_STOPPED);
+end;
+procedure TfrmPrincipal.proc_AddLine(HeightScr: integer);
 var
   i: Integer;
 begin
@@ -665,7 +679,12 @@ como para dejar menos líneas que la que tiene el VT100 }
   edTerm.EndUpdate;
   edTerm.ExecuteCommand(ecLineEnd,'', nil);  //mueve al final
 end;
-
+procedure TfrmPrincipal.proc_LineCompleted(const lin: string);
+begin
+  if logState = logRunning then begin
+    writeln(logFile, lin);
+  end;
+end;
 procedure TfrmPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -713,7 +732,6 @@ procedure TfrmPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction
 begin
   Config.escribirArchivoIni;  //guarda configuración
 end;
-
 procedure TfrmPrincipal.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 var
   rpta: Byte;
@@ -737,7 +755,6 @@ begin
     end;
   end;
 end;
-
 procedure TfrmPrincipal.StatusBar1DrawPanel(StatusBar: TStatusBar;
   Panel: TStatusPanel; const Rect: TRect);
 begin
@@ -766,7 +783,6 @@ begin
   end;
   if panel.Index = 1 then proc.DrawStatePanel(StatusBar.Canvas, Rect);
 end;
-
 procedure TfrmPrincipal.EnvioTemporizado;
 //Envía el comando o archivo que se ha programado
 var
@@ -803,7 +819,6 @@ begin
     end;
   end;
 end;
-
 procedure TfrmPrincipal.MostrarBHerPcom(visibilidad:boolean );
 //Solo por esta función se debe cambiar la visibilidad de la barra de herramientas
 begin
@@ -935,7 +950,6 @@ begin
   until (cy<1) or config.ContienePrompt(edTerm.Lines[cy-1]);
   if cy<1 then exit(-1) else exit(cy);
 end;
-
 function TfrmPrincipal.EnviarComando(com: string; var salida: TStringList): string;
 {Función para enviar un comando por el Terminal. Espera hasta que aparezca de
 nuevo el "prompt" y devuelve el texto generado, por el comando, en "salida".
@@ -991,7 +1005,6 @@ begin
   end;
   ejecCom := false;
 end;
-
 procedure TfrmPrincipal.edPComKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
@@ -1056,7 +1069,6 @@ begin
     AcTerEnvCtrlCExecute(nil)  //envía Ctrl+C al terminal
   end;
 end;
-
 procedure TfrmPrincipal.DistribuirPantalla;
 //Redistribuye los paneles de la pantalla
 begin
@@ -1106,6 +1118,57 @@ begin
     acEdPaste.Enabled := true;   //para poder pegar lo que haya en el portapapeles
   end;
 
+end;
+function TfrmPrincipal.StartLog(logName0: string): boolean;
+{Inicia el registro de la salida.
+Si encuentra errorm devuelve FALSE.}
+begin
+  if logState = logRunning then exit;  //verifica
+  logName := logName0;   //actualiza nombre de archivo
+  try
+    AssignFile(logFile, logName);
+    Rewrite(logFile);
+    logState:=logRunning;
+    exit(true);
+  except
+    logState:=logStopped;
+    exit(false);
+  end;
+end;
+procedure TfrmPrincipal.PauseLog;
+{Pausa el registro del terminal.}
+begin
+  if logState = logRunning then
+    logState := logPaused;
+end;
+procedure TfrmPrincipal.StartLog;
+{Reinicia el registro, después de haber sido pausado.}
+begin
+  if logState = logPaused then
+    logState := logRunning;
+end;
+procedure TfrmPrincipal.EndLog;
+begin
+  if logState=logStopped then
+    exit;
+  //Está abierto. Se debe cerrar.
+  if proc.LastLine<>'' then begin
+    //La última línea, siempre debe escribirse
+    WriteLog(proc.LastLine);
+  end;
+  CloseFile(logFile);
+  logState := logStopped;
+end;
+function TfrmPrincipal.WriteLog(txt: string): boolean;
+{Escribe una línea de texto en el registro. SI se genera error devuelve FALSE.}
+begin
+  if logState <> logRunning then exit(true);
+  try
+    write(logFile, txt);
+    exit(true);
+  except
+    exit(false);
+  end;
 end;
 /////////////////////// ACCIONES ////////////////////////
 procedure TfrmPrincipal.AcArcConecExecute(Sender: TObject);  //conexión rápida
@@ -1176,6 +1239,31 @@ begin
 //  if Error<>'' then exit;  //hubo error
   if not OpenDialog1.Execute then exit;    //se canceló
   AbrirSesion(OpenDialog1.FileName);
+end;
+procedure TfrmPrincipal.AcArcIniRegExecute(Sender: TObject);
+var
+  arc0: TComponentName;
+begin
+  if logName='' then begin
+    SaveDialog2.Filter := dic('Archivo de registro|*.log|Todos los archivos|*.*');
+    SaveDialog2.InitialDir:=rutApp;  //busca aquí por defecto
+    if not SaveDialog2.Execute then begin  //se canceló
+      exit;    //se canceló
+    end;
+    arc0:=SaveDialog2.FileName;
+    if FileExists(arc0) then begin
+      if MsgYesNoCancel('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
+                        [arc0]) in [2,3] then exit;
+    end;
+  end;
+  logName := arc0;
+  if not StartLog(logName) then begin
+    MsgErr('Error abriendo registro: ' + logName);
+  end;
+end;
+procedure TfrmPrincipal.AcArcDetRegExecute(Sender: TObject);
+begin
+  EndLog;
 end;
 procedure TfrmPrincipal.AcArcGuaSesExecute(Sender: TObject);  //guardar sesión
 begin

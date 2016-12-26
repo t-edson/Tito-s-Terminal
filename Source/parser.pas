@@ -2,13 +2,11 @@
 //{$DEFINE mode_inter}  //mode_inter->Modo intérprete  mode_comp->Modo compilador
 unit Parser;
 {$mode objfpc}{$H+}
-
 interface
 uses
   Classes, SysUtils, LCLType, Dialogs, lclProc, Graphics, Forms, Strutils,
   SynEditHighlighter, SynFacilBasic, XPresParser, XpresBas, XpresTypes, XpresElements,
-  FrameCfgConex, UnTerminal,
-  MisUtils, FormConfig;
+  FrameCfgConex, UnTerminal,  MisUtils, FormConfig;
 
 type
 
@@ -21,6 +19,7 @@ type
     tkExpDelim : TSynHighlighterAttributes;
     tkBlkDelim : TSynHighlighterAttributes;
     tkOthers   : TSynHighlighterAttributes;
+    procedure CompileBlockIF;
     procedure CompileCurBlockNoEjec;
     function ProcesaAsignacion(var newVar: string): boolean;
   protected
@@ -53,7 +52,7 @@ var
   cxp : TCompiler;
   {Banderas adicionales usadas para el intérprete. Se declaran fuera de la clase,
   para que se tenga acceso a ellas, desde el intérprete.}
-  DetEjec: boolean;   //Bandera general para detener la ejecución. No se usa la de TCompilerBase
+  stop: boolean;   //Bandera general para detener la ejecución. No se usa la de TCompilerBase
   ejec: boolean;       //permite poner al intérprete en modo "No Ejecución"
 //  SecAct: TSecAct = bloNormal;  //Indica, en qué tipo de sección estamos trabajando
 
@@ -121,12 +120,14 @@ begin
     cIn.Next;   //toma operador
     cIn.SkipWhitesNoEOL;
     //Evalua la expresión para deducir el tipo.
-    exp := GetOperand;  //puede generar error
-    posFin := cIn.PosAct;
+//    exp := GetOperand;  //puede generar error
+    GetExpression(0);
+    exp := res;   //guarda el resultado, para asignarlo luego
+    posFin := cIn.PosAct;   //guarda la posición final de la expresión.
     if Perr.HayError then exit(false);   //sale con el puntero en la posición del error
     //Se pudo ejecutar la expresión. Ya se sabe el tipo
     if nueva then begin
-debugln('Creando:'+newVar);
+//debugln('Creando:'+newVar);
       cIn.PosAct := posIni;  //Deja quí aquí, porque es un buen lugar en caso de error en CreateVariable().
       CreateVariable(newVar, exp.typ);   //crea la variable
       if Perr.HayError then begin
@@ -160,11 +161,80 @@ begin
   CompileCurBlock;  //procesa bloque else
   ejec := ejec0;    //retorna estado.
 end;
+procedure TCompiler.CompileBlockIF;
+var
+  valor, valor2: Boolean;
+begin
+  cIn.Next;  //toma IF
+  GetBoolExpression; //evalua expresión
+  if PErr.HayError then exit;
+  valor := res.valBool;
+  if cIn.tokL<> 'then' then begin
+    GenError('Se esperaba "then".');
+    exit;
+  end;
+  cIn.Next;  //toma el THEN
+  //Ejecuta el cuerpo del THEN
+  if valor then CompileCurBlock else CompileCurBlockNoEjec;
+  if PErr.HayError then exit;
+  //Debe terminar con ENDIF, ELSE o ELSEIF
+  if cIn.tokL = 'endif' then begin
+    //Termina sentencia
+    cIn.Next;  //coge delimitador y termina normal
+  end else if cIn.tokL = 'else' then begin
+    //Hay un bloque ELSE
+    cIn.Next;  //coge "else"
+    if valor then CompileCurBlockNoEjec else CompileCurBlock;
+    if PErr.HayError then exit;
+    //Debe seguir el delimitador de fin
+    if cIn.tokL <> 'endif' then begin
+      GenError('Se esperaba "ENDIF".');
+      exit;
+    end;
+    cIn.Next;  //coge delimitador y termina normal
+  end else if cIn.tokL = 'elseif' then begin
+    //Puede haber uno o varios 'elseif'
+    cIn.Next;  //coge "else"
+    repeat
+      GetBoolExpression; //evalua expresión
+      if PErr.HayError then exit;
+      valor2 := res.valBool;
+      if cIn.tokL<> 'then' then begin
+        GenError('Se esperaba "then".');
+        exit;
+      end;
+      cIn.Next;  //toma el THEN
+      //Ejecuta el cuerpo del THEN
+      if valor2 then CompileCurBlock else CompileCurBlockNoEjec;
+      if PErr.HayError then exit;
+      //Solo puede seguir ELSE, ELSEIF o ENDIF
+    until cIn.tokL <> 'ELSEIF';
+    //Solo puede seguir ELSE, o ENDIF
+    if cIn.tokL = 'endif' then begin
+      //Termina sentencia
+      cIn.Next;  //coge delimitador y termina normal
+    end else if cIn.tokL = 'else' then begin
+      //Hay un bloque ELSE en el ELSEIF
+      cIn.Next;  //coge "else"
+      if valor or valor2 then CompileCurBlockNoEjec else CompileCurBlock;
+      if PErr.HayError then exit;
+      //Debe seguir el delimitador de fin
+      if cIn.tokL <> 'endif' then begin
+        GenError('Se esperaba "ENDIF".');
+        exit;
+      end;
+      cIn.Next;  //coge delimitador y termina normal
+    end;
+  end else begin  //Debe ser error
+    GenError('Se esperaba "ENDIF", "ELSE" o "ELSEIF".');
+    exit;
+  end;
+end;
 procedure TCompiler.CompileCurBlock;
 //Compila el bloque de código actual hasta encontrar un delimitador de bloque.
 var
   tmp: string;
-  EsAsign, valor, valor2: Boolean;
+  EsAsign: Boolean;
 begin
   cIn.SkipWhites;  //ignora comentarios inciales
   //if config.fcMacros.marLin then ;
@@ -179,70 +249,8 @@ begin
       //No hay que hacer nada. Ya todo lo hizo "ProcesaAsignacion".
     end else if cIn.tokType = tkStruct then begin  //es una estructura
       if cIn.tokL = 'if' then begin  //condicional
-        cIn.Next;  //toma IF
-        GetBoolExpression; //evalua expresión
-        if PErr.HayError then exit;
-        valor := res.valBool;
-        if cIn.tokL<> 'then' then begin
-          GenError('Se esperaba "then".');
-          exit;
-        end;
-        cIn.Next;  //toma el THEN
-        //Ejecuta el cuerpo del THEN
-        if valor then CompileCurBlock else CompileCurBlockNoEjec;
-        if PErr.HayError then exit;
-        //Debe terminar con ENDIF, ELSE o ELSEIF
-        if cIn.tokL = 'endif' then begin
-          //Termina sentencia
-          cIn.Next;  //coge delimitador y termina normal
-        end else if cIn.tokL = 'else' then begin
-          //Hay un bloque ELSE
-          cIn.Next;  //coge "else"
-          if valor then CompileCurBlockNoEjec else CompileCurBlock;
-          if PErr.HayError then exit;
-          //Debe seguir el delimitador de fin
-          if cIn.tokL <> 'endif' then begin
-            GenError('Se esperaba "ENDIF".');
-            exit;
-          end;
-          cIn.Next;  //coge delimitador y termina normal
-        end else if cIn.tokL = 'elseif' then begin
-          //Puede haber uno o varios 'elseif'
-          cIn.Next;  //coge "else"
-          repeat
-            GetBoolExpression; //evalua expresión
-            if PErr.HayError then exit;
-            valor2 := res.valBool;
-            if cIn.tokL<> 'then' then begin
-              GenError('Se esperaba "then".');
-              exit;
-            end;
-            cIn.Next;  //toma el THEN
-            //Ejecuta el cuerpo del THEN
-            if valor2 then CompileCurBlock else CompileCurBlockNoEjec;
-            if PErr.HayError then exit;
-            //Solo puede seguir ELSE, ELSEIF o ENDIF
-          until cIn.tokL <> 'ELSEIF';
-          //Solo puede seguir ELSE, o ENDIF
-          if cIn.tokL = 'endif' then begin
-            //Termina sentencia
-            cIn.Next;  //coge delimitador y termina normal
-          end else if cIn.tokL = 'else' then begin
-            //Hay un bloque ELSE en el ELSEIF
-            cIn.Next;  //coge "else"
-            if valor or valor2 then CompileCurBlockNoEjec else CompileCurBlock;
-            if PErr.HayError then exit;
-            //Debe seguir el delimitador de fin
-            if cIn.tokL <> 'endif' then begin
-              GenError('Se esperaba "ENDIF".');
-              exit;
-            end;
-            cIn.Next;  //coge delimitador y termina normal
-          end;
-        end else begin  //Debe ser error
-          GenError('Se esperaba "ENDIF", "ELSE" o "ELSEIF".');
-          exit;
-        end;
+        CompileBlockIF;
+        if HayError then exit;
       end else begin
         GenError('Error de diseño. Estructura no implementada.');
         exit;
@@ -251,9 +259,10 @@ begin
       GetExpression(0);
       if perr.HayError then exit;   //aborta
     end;
+    if stop then exit;
     //Se espera delimitador
     if cIn.Eof then break;  //sale por fin de archivo
-    //Busca delimitador
+    //Busca delimitador de bloque
     cIn.SkipWhitesNoEOL;
     if cIn.tokType=tkEol then begin //encontró delimitador de expresión
       cIn.Next;   //lo toma
@@ -285,8 +294,10 @@ begin
   if Perr.HayError then exit;
   if not cIn.Eof then begin
     //Algo ha quedado sin proesar
-    GenError('Error de sintaxis: ' + cIn.tok);
-    exit;       //sale
+    if not stop then begin   //Si no se detuvo voluntariamente
+      GenError('Error de sintaxis: ' + cIn.tok);
+      exit;       //sale
+    end;
   end;
   cIn.Next;   //coge "end"
 end;

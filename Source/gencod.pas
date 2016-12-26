@@ -96,7 +96,7 @@ procedure Cod_StartProgram;
 begin
   sp := 0;  //inicia pila
   Timeout := config.fcMacros.tpoMax;   //inicia variable
-  DetEjec := false;
+  stop := false;
   //////// variables predefinidas ////////////
   CreateVariable('timeout', 'int');
   CreateVariable('curIP', 'string');
@@ -343,7 +343,7 @@ begin
   if not ejec then exit;
   lin := stack[sp].valStr;
   tic := 0;
-  while (tic<Timeout*10) and Not DetEjec do begin
+  while (tic<Timeout*10) and Not stop do begin
     Application.ProcessMessages;
     sleep(100);
     if AnsiEndsStr(lin, frmPrincipal.proc.LastLine) then break;
@@ -368,7 +368,7 @@ begin
   //lazo de espera
   if not ejec then exit;
   tic := 0;
-  while (tic<n10mil) and Not DetEjec do begin
+  while (tic<n10mil) and Not stop do begin
     Application.ProcessMessages;
     sleep(10);
     Inc(tic);
@@ -403,7 +403,42 @@ begin
   frmPrincipal.AcTerLimBufExecute(nil);
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
+procedure fun_stop(fun: TxpFun);
+begin
+  if not ejec then exit;
+  stop := true;  //manda mensaje para detener la macro
+  //el tipo devuelto lo fijará el framework, al tipo definido
+end;
+procedure fun_logopen(fun: TxpFun);
+begin
+  PopResult;  //saca parámetro 1
+  if not ejec then exit;
+  if not frmPrincipal.StartLog(stack[sp].valStr) then begin
+    GenError('Error abriendo registro: ' + stack[sp].valStr);
+  end;
+end;
+procedure fun_logwrite(fun: TxpFun);
+begin
+  PopResult;  //saca parámetro 1
+  if not ejec then exit;
+  if not frmPrincipal.WriteLog(stack[sp].valStr) then begin
+    GenError('Error escribiendo en registro: ' + frmPrincipal.logName);
+  end;
+end;
+procedure fun_logclose(fun: TxpFun);
+begin
+  if not ejec then exit;
+  frmPrincipal.EndLog;
+end;
+procedure fun_logpause(fun: TxpFun);
+begin
+  if not ejec then exit;
+  frmPrincipal.PauseLog;
+end;
+procedure fun_logstart(fun: TxpFun);
+begin
 
+end;
 procedure TCompiler.StartSyntax;
 //Se ejecuta solo una vez al inicio
 var
@@ -539,13 +574,15 @@ begin
   if FindDuplicFunction then exit;
   f := CreateSysFunction('detect_prompt', tipInt, @fun_detect_prompt);
   f := CreateSysFunction('clear', tipInt, @fun_clear);
-{  f := CreateSysFunction('stop', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logopen', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logwrite', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logclose', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logpause', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logstart', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('fileopen', tipInt, @fun_connectTelnet);
+  f := CreateSysFunction('stop', tipInt, @fun_stop);
+  f := CreateSysFunction('logopen', tipInt, @fun_logopen);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('logwrite', tipInt, @fun_logwrite);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('logclose', tipInt, @fun_logclose);
+  f := CreateSysFunction('logpause', tipInt, @fun_logpause);
+  f := CreateSysFunction('logstart', tipInt, @fun_logstart);
+{  f := CreateSysFunction('fileopen', tipInt, @fun_connectTelnet);
   f := CreateSysFunction('fileclose', tipInt, @fun_connectTelnet);
   f := CreateSysFunction('filewrite', tipInt, @fun_connectTelnet);
   f := CreateSysFunction('capture', tipInt, @fun_connectTelnet);
