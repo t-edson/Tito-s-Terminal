@@ -21,6 +21,7 @@ type
     tkExpDelim : TSynHighlighterAttributes;
     tkBlkDelim : TSynHighlighterAttributes;
     tkOthers   : TSynHighlighterAttributes;
+    procedure CompileCurBlockNoEjec;
     function ProcesaAsignacion(var newVar: string): boolean;
   protected
     //function GetOperand: TOperand; override;
@@ -149,12 +150,21 @@ debugln('Creando:'+newVar);
   //no sigue asignación
   cIn.PosAct := posIni;    //solo retorna posición
 end;
+procedure TCompiler.CompileCurBlockNoEjec;
+{Proecsa el bloque actual, sin ejecutar}
+var
+  ejec0: boolean;  //para guardar "ejec"
+begin
+  ejec0 := ejec;    //guarda estado actual (para permitir estructuras andiadas.)
+  ejec := false;    //deshabilita la ejecución
+  CompileCurBlock;  //procesa bloque else
+  ejec := ejec0;    //retorna estado.
+end;
 procedure TCompiler.CompileCurBlock;
 //Compila el bloque de código actual hasta encontrar un delimitador de bloque.
 var
   tmp: string;
-  EsAsign: Boolean;
-  ejec0: boolean;  //para guardar "ejec"
+  EsAsign, valor, valor2: Boolean;
 begin
   cIn.SkipWhites;  //ignora comentarios inciales
   //if config.fcMacros.marLin then ;
@@ -172,24 +182,55 @@ begin
         cIn.Next;  //toma IF
         GetBoolExpression; //evalua expresión
         if PErr.HayError then exit;
+        valor := res.valBool;
         if cIn.tokL<> 'then' then begin
           GenError('Se esperaba "then".');
           exit;
         end;
         cIn.Next;  //toma el THEN
-        if res.valBool then begin  /////////// es TRUE  /////////////////
-          //Dio TRUE
-          CompileCurBlock;  //procesa bloque THEN
+        //Ejecuta el cuerpo del THEN
+        if valor then CompileCurBlock else CompileCurBlockNoEjec;
+        if PErr.HayError then exit;
+        //Debe terminar con ENDIF, ELSE o ELSEIF
+        if cIn.tokL = 'endif' then begin
+          //Termina sentencia
+          cIn.Next;  //coge delimitador y termina normal
+        end else if cIn.tokL = 'else' then begin
+          //Hay un bloque ELSE
+          cIn.Next;  //coge "else"
+          if valor then CompileCurBlockNoEjec else CompileCurBlock;
           if PErr.HayError then exit;
-          //Debe terminar con ELSE o ELSEIF o ENDIF
+          //Debe seguir el delimitador de fin
+          if cIn.tokL <> 'endif' then begin
+            GenError('Se esperaba "ENDIF".');
+            exit;
+          end;
+          cIn.Next;  //coge delimitador y termina normal
+        end else if cIn.tokL = 'elseif' then begin
+          //Puede haber uno o varios 'elseif'
+          cIn.Next;  //coge "else"
+          repeat
+            GetBoolExpression; //evalua expresión
+            if PErr.HayError then exit;
+            valor2 := res.valBool;
+            if cIn.tokL<> 'then' then begin
+              GenError('Se esperaba "then".');
+              exit;
+            end;
+            cIn.Next;  //toma el THEN
+            //Ejecuta el cuerpo del THEN
+            if valor2 then CompileCurBlock else CompileCurBlockNoEjec;
+            if PErr.HayError then exit;
+            //Solo puede seguir ELSE, ELSEIF o ENDIF
+          until cIn.tokL <> 'ELSEIF';
+          //Solo puede seguir ELSE, o ENDIF
           if cIn.tokL = 'endif' then begin
+            //Termina sentencia
             cIn.Next;  //coge delimitador y termina normal
           end else if cIn.tokL = 'else' then begin
+            //Hay un bloque ELSE en el ELSEIF
             cIn.Next;  //coge "else"
-            ejec0 := ejec;  //guarda estado actual (para permitir estructuras andiadas.)
-            ejec := false;     //deshabilita la ejecución
-            CompileCurBlock;      //procesa bloque else
-            ejec := ejec0;  //retorna estado.
+            if valor or valor2 then CompileCurBlockNoEjec else CompileCurBlock;
             if PErr.HayError then exit;
             //Debe seguir el delimitador de fin
             if cIn.tokL <> 'endif' then begin
@@ -197,17 +238,10 @@ begin
               exit;
             end;
             cIn.Next;  //coge delimitador y termina normal
-          end else if cIn.tokL = 'elseif' then begin
-            //Puede haber uno o varios 'elseif'
-            while cIn.tokL = 'elseif' do begin
-{ TODO : POR IMPLEMENTAR }
-            end;
-          end else begin  //Debe ser error
-            GenError('Se esperaba "ENDIF", "ELSE" o "ELSEIF".');
-            exit;
           end;
-        end else begin             //////////// Es FALSE  ///////////////
-{ TODO : POR IMPLEMENTAR }
+        end else begin  //Debe ser error
+          GenError('Se esperaba "ENDIF", "ELSE" o "ELSEIF".');
+          exit;
         end;
       end else begin
         GenError('Error de diseño. Estructura no implementada.');
@@ -249,8 +283,9 @@ begin
   ejec := true;   //pome para ejecutar
   CompileCurBlock;   //compila el cuerpo
   if Perr.HayError then exit;
-  if cIn.Eof then begin
-//      GenError('Inesperado fin de archivo. Se esperaba "end".');
+  if not cIn.Eof then begin
+    //Algo ha quedado sin proesar
+    GenError('Error de sintaxis: ' + cIn.tok);
     exit;       //sale
   end;
   cIn.Next;   //coge "end"

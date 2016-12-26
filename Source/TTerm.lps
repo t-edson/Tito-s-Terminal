@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release"/>
+    <BuildModes Active="Debug"/>
     <Units Count="97">
       <Unit0>
         <Filename Value="TTerm.lpr"/>
@@ -120,7 +120,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="98"/>
       </Unit11>
       <Unit12>
         <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
@@ -132,7 +132,7 @@
         <TopLine Value="127"/>
         <CursorPos X="21" Y="205"/>
         <FoldState Value=" T8f22 TMid03 T5iN0]E3j10H81]A6j301 T0jC73A1"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit12>
       <Unit13>
         <Filename Value="ConfigFrames\FrameCfgGener.pas"/>
@@ -143,7 +143,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos X="24" Y="20"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit13>
       <Unit14>
         <Filename Value="ConfigFrames\frameCfgDetPrompt.pas"/>
@@ -154,7 +154,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="28" Y="68"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit14>
       <Unit15>
         <Filename Value="ConfigFrames\frameCfgPantTerm.pas"/>
@@ -165,7 +165,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="51"/>
         <CursorPos Y="85"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit15>
       <Unit16>
         <Filename Value="ConfigFrames\FrameCfgExpRem.pas"/>
@@ -176,7 +176,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="38"/>
         <CursorPos Y="72"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit16>
       <Unit17>
         <Filename Value="ConfigFrames\FrameCfgMacros.pas"/>
@@ -187,7 +187,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
         <CursorPos X="3" Y="33"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit17>
       <Unit18>
         <Filename Value="ConfigFrames\FrameCfgComandRec.pas"/>
@@ -198,7 +198,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="40"/>
         <CursorPos X="3" Y="57"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit18>
       <Unit19>
         <Filename Value="ConfigFrames\FrameCfgRutasCnx.pas"/>
@@ -207,7 +207,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit19>
       <Unit20>
         <Filename Value="ConfigFrames\FrameCfgPanCom.pas"/>
@@ -218,7 +218,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="59"/>
         <CursorPos X="58" Y="87"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="92"/>
       </Unit20>
       <Unit21>
         <Filename Value="FrameCfgDetPrompt.pas"/>
@@ -411,11 +411,10 @@
       </Unit43>
       <Unit44>
         <Filename Value="gencod.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="179"/>
-        <CursorPos X="50" Y="262"/>
-        <FoldState Value=" TL00V2 TMpA0107181 T0iPP333B T3i8069631[O5HiU23]86k30163"/>
+        <TopLine Value="521"/>
+        <CursorPos X="66" Y="537"/>
+        <FoldState Value=" T3i8069631181 TMpA0107[C50iPP333B THiU23]I6k3016X"/>
         <UsageCount Value="100"/>
         <Bookmarks Count="1">
           <Item0 X="16" Y="62" ID="3"/>
@@ -556,18 +555,19 @@
       <Unit65>
         <Filename Value="parser.pas"/>
         <UnitName Value="Parser"/>
-        <TopLine Value="185"/>
-        <CursorPos X="15" Y="217"/>
-        <FoldState Value=" T4604 TLiZ01051 T3iJ036212]M0l2Y3081441]QDn82R TEnU25A"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="198"/>
+        <CursorPos X="13" Y="212"/>
+        <FoldState Value=" T4604 TLia01051 T3iK036312]M0lDY311112[544[84]YDo02R TEoM25Y"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
           <TopLine Value="15"/>
           <CursorPos X="32" Y="17"/>
         </ExtraEditor1>
-        <UsageCount Value="71"/>
+        <UsageCount Value="72"/>
         <Bookmarks Count="1">
-          <Item0 X="40" Y="185" ID="1"/>
+          <Item0 Y="246" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit65>
@@ -757,8 +757,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="156"/>
         <CursorPos X="23" Y="156"/>
-        <FoldState Value=" TL00YK p0+K029 T4b03 TMj721031248181326161]awJ820N31151519]Ht7011 T7i3Br T8i40Q232 T3ld03A pj7jO0M]giY]9L3]9g]984]RekC0W213]B2nd0U13F]VXnV047 T6md02I T0n2U5L]Pam9IE8[?4k0c3[?4cGY2E[p4jPU17322[;5mDR3714 THtF3811 p0yZ243 TDua46 TEuc4]VFyH4E1P"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit89>
       <Unit90>
@@ -819,130 +818,130 @@
         <EditorIndex Value="3"/>
         <TopLine Value="1236"/>
         <CursorPos Y="2004"/>
-        <FoldState Value=" TL00HM piX!406C TMoH04141O1118 p0t0210Q25]Bsa011J16]Q314]463E]Nvd01222 T4iL03 T7iVJC3 pj4kfK71 T8iW26]%iYkT226 TCjbM4 T3pB0N4]fIj42B7]Xajg037]IOiP262]9DiD2I5[I4k72Q3 pjFiU[j6ZkF0V2[s5R0L[{F5jG036]aCjQ0S]jkDi22v1]I0m10m4]afk908[94Xj30{Z5]AglG0A3 T6pD02Y]Hc*a0C8 TDpH2G p0!32V T0pLy5E]VbkBU5C pjCm9D6A[%5cr3I[94k6B3H[I5fX4N[j4mOa9B[{.51lTK]IZjGB23 pj2dl8[^4cjAN6[Q5ldF9F]9YiBg2B TEpS[_d5!F28 THxe4a4 piaqM2O5v"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit96>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="30" HistoryIndex="28">
       <Position1>
-        <Filename Value="parser.pas"/>
-        <Caret Line="174" TopLine="164"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="370" Column="14" TopLine="258"/>
       </Position1>
       <Position2>
-        <Filename Value="..\..\_Librerias\Xpres 0.9\XpresParser.pas"/>
-        <Caret Line="1152" TopLine="1124"/>
+        <Filename Value="gencod.pas"/>
+        <Caret Line="320" Column="20" TopLine="258"/>
       </Position2>
       <Position3>
-        <Filename Value="..\..\_Librerias\Xpres 0.9\XpresParser.pas"/>
-        <Caret Line="1153" TopLine="1124"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="172" Column="29" TopLine="164"/>
       </Position3>
       <Position4>
         <Filename Value="parser.pas"/>
-        <Caret Line="174" Column="47" TopLine="164"/>
+        <Caret Line="180" TopLine="164"/>
       </Position4>
       <Position5>
         <Filename Value="parser.pas"/>
-        <Caret Line="175" TopLine="164"/>
+        <Caret Line="221" TopLine="195"/>
       </Position5>
       <Position6>
         <Filename Value="parser.pas"/>
-        <Caret Line="176" TopLine="164"/>
+        <Caret Line="223" TopLine="195"/>
       </Position6>
       <Position7>
         <Filename Value="parser.pas"/>
-        <Caret Line="180" TopLine="164"/>
+        <Caret Line="224" TopLine="195"/>
       </Position7>
       <Position8>
         <Filename Value="parser.pas"/>
-        <Caret Line="181" TopLine="164"/>
+        <Caret Line="225" TopLine="195"/>
       </Position8>
       <Position9>
         <Filename Value="parser.pas"/>
-        <Caret Line="183" TopLine="164"/>
+        <Caret Line="226" TopLine="195"/>
       </Position9>
       <Position10>
         <Filename Value="parser.pas"/>
-        <Caret Line="184" TopLine="164"/>
+        <Caret Line="161" TopLine="152"/>
       </Position10>
       <Position11>
         <Filename Value="parser.pas"/>
-        <Caret Line="186" TopLine="164"/>
+        <Caret Line="165" TopLine="152"/>
       </Position11>
       <Position12>
         <Filename Value="parser.pas"/>
-        <Caret Line="188" TopLine="164"/>
+        <Caret Line="166" TopLine="152"/>
       </Position12>
       <Position13>
         <Filename Value="parser.pas"/>
-        <Caret Line="189" TopLine="164"/>
+        <Caret Line="167" TopLine="152"/>
       </Position13>
       <Position14>
         <Filename Value="parser.pas"/>
-        <Caret Line="190" TopLine="164"/>
+        <Caret Line="170" TopLine="152"/>
       </Position14>
       <Position15>
         <Filename Value="parser.pas"/>
-        <Caret Line="191" TopLine="164"/>
+        <Caret Line="217" TopLine="195"/>
       </Position15>
       <Position16>
         <Filename Value="parser.pas"/>
-        <Caret Line="192" TopLine="164"/>
+        <Caret Line="152" Column="36" TopLine="75"/>
       </Position16>
       <Position17>
         <Filename Value="parser.pas"/>
-        <Caret Line="193" TopLine="164"/>
+        <Caret Line="163" Column="64" TopLine="75"/>
       </Position17>
       <Position18>
         <Filename Value="parser.pas"/>
-        <Caret Line="194" TopLine="164"/>
+        <Caret Line="182" Column="26" TopLine="93"/>
       </Position18>
       <Position19>
-        <Filename Value="..\..\_Librerias\Xpres 0.9\XpresParser.pas"/>
-        <Caret Line="1147" Column="37" TopLine="1124"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="191" Column="28" TopLine="160"/>
       </Position19>
       <Position20>
-        <Filename Value="gencod.pas"/>
-        <Caret Line="182" TopLine="166"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="254" Column="45" TopLine="238"/>
       </Position20>
       <Position21>
-        <Filename Value="..\..\_Librerias\SynFacilUtils 0.9\SynFacilCompletion.pas"/>
-        <Caret Line="2004" TopLine="1236"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="152" Column="42" TopLine="67"/>
       </Position21>
       <Position22>
         <Filename Value="parser.pas"/>
-        <Caret Line="217" Column="15" TopLine="185"/>
+        <Caret Line="153" Column="21" TopLine="83"/>
       </Position22>
       <Position23>
-        <Filename Value="..\..\_Librerias\Xpres 0.9\XpresParser.pas"/>
-        <Caret Line="1142" Column="10" TopLine="1069"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="192" TopLine="174"/>
       </Position23>
       <Position24>
-        <Filename Value="..\..\_Librerias\Xpres 0.9\XpresParser.pas"/>
-        <Caret Line="846" Column="33" TopLine="803"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="193" TopLine="174"/>
       </Position24>
       <Position25>
-        <Filename Value="gencod.pas"/>
-        <Caret Line="435" Column="49" TopLine="421"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="195" TopLine="174"/>
       </Position25>
       <Position26>
-        <Filename Value="gencod.pas"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="198" TopLine="174"/>
       </Position26>
       <Position27>
-        <Filename Value="gencod.pas"/>
-        <Caret Line="171" Column="14" TopLine="138"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="200" TopLine="177"/>
       </Position27>
       <Position28>
-        <Filename Value="gencod.pas"/>
-        <Caret Line="173" Column="14" TopLine="138"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="201" TopLine="177"/>
       </Position28>
       <Position29>
-        <Filename Value="gencod.pas"/>
-        <Caret Line="370" Column="14" TopLine="258"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="215" Column="19" TopLine="182"/>
       </Position29>
       <Position30>
-        <Filename Value="gencod.pas"/>
-        <Caret Line="320" Column="20" TopLine="258"/>
+        <Filename Value="parser.pas"/>
+        <Caret Line="167" Column="19" TopLine="94"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
