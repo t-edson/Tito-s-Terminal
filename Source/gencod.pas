@@ -37,9 +37,18 @@ var
   tipInt : TType;   //entero flotante
   tipStr : Ttype;   //cadena
   tipBol  : TType;  //booleano
-  //pila virtual
+  //Pila virtual
+  {La pila virtual se representa con una tabla. Cada vez que se agrega un valor con
+  pushResult, se incrementa "sp". Para retornar "sp" a su valor original, se debe llamar
+  a PopResult(). Luego de eso, se accede a la pila, de acuerdo al seguienet esquema:
+  Cuando se usa cpara almacenar los parámetros de las funciones, queda así:
+  stack[sp]   -> primer parámetro
+  stack[sp+1] -> segundo parámetro
+  ...
+  }
   sp: integer;  //puntero de pila
   stack: array[0..STACK_SIZE-1] of TOperand;
+  //variables auxiliares
   Timeout: integer; //variable de límite de cuenta de tiempo
 
 procedure LoadResInt(val: int64; catOp: TCatOperan);
@@ -273,7 +282,6 @@ begin
   end;
 end;
 
-
 //funciones básicas
 procedure fun_puts(fun :TxpFun);
 //envia un texto a consola
@@ -437,8 +445,53 @@ begin
 end;
 procedure fun_logstart(fun: TxpFun);
 begin
-
+  if not ejec then exit;
+  frmPrincipal.StartLog;
 end;
+procedure fun_fileopen(fun: TxpFun);
+var
+  nom: String;
+  modo: Int64;
+  n: THandle;
+begin
+  PopResult;
+  PopResult;
+  PopResult;
+  if not ejec then exit;
+//  AssignFile(filHand, stack[sp].valStr);
+//  Rewrite(filHand);
+  nom := stack[sp+1].valStr;
+  modo := stack[sp+2].valInt;
+  if modo = 0 then begin
+    if not FileExists(nom) then begin
+      //Si no existe. lo crea
+      n := FileCreate(nom);
+      FileClose(n);
+    end;
+    n := FileOpen(nom, fmOpenReadWrite);
+    stack[sp].valInt:= Int64(n);
+  end else begin
+    n := FileOpen(nom, fmOpenRead);
+    stack[sp].valInt:=Int64(n);
+  end;
+end;
+procedure fun_close(fun: TxpFun);
+begin
+  PopResult;  //manejador de archivo
+  if not ejec then exit;
+  fileclose(stack[sp].valInt);
+end;
+procedure fun_write(fun: TxpFun);
+var
+  cad: String;
+begin
+  PopResult;  //manejador de archivo
+  PopResult;  //cadena
+  if not ejec then exit;
+  cad := stack[sp+1].valStr;
+  filewrite(stack[sp].valInt, cad , length(cad));
+end;
+
 procedure TCompiler.StartSyntax;
 //Se ejecuta solo una vez al inicio
 var
@@ -582,11 +635,17 @@ begin
   f := CreateSysFunction('logclose', tipInt, @fun_logclose);
   f := CreateSysFunction('logpause', tipInt, @fun_logpause);
   f := CreateSysFunction('logstart', tipInt, @fun_logstart);
-{  f := CreateSysFunction('fileopen', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('fileclose', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('filewrite', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('capture', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('endcapture', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('edit', tipInt, @fun_connectTelnet);}
+  f := CreateSysFunction('fileopen', tipInt, @fun_fileopen);
+  f.CreateParam('',tipInt);
+  f.CreateParam('',tipStr);
+  f.CreateParam('',tipInt);
+  f := CreateSysFunction('fileclose', tipInt, @fun_close);
+  f.CreateParam('',tipInt);
+  f := CreateSysFunction('filewrite', tipInt, @fun_write);
+  f.CreateParam('',tipInt);
+  f.CreateParam('',tipStr);
+//  f := CreateSysFunction('capture', tipInt, @fun_connectTelnet);
+//  f := CreateSysFunction('endcapture', tipInt, @fun_connectTelnet);
+//  f := CreateSysFunction('edit', tipInt, @fun_connectTelnet);}
 end;
 
