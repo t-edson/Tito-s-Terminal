@@ -2,13 +2,11 @@
 //{$DEFINE mode_inter}  //mode_inter->Modo intérprete  mode_comp->Modo compilador
 unit Parser;
 {$mode objfpc}{$H+}
-
 interface
 uses
   Classes, SysUtils, LCLType, Dialogs, lclProc, Graphics, Forms, Strutils,
   SynEditHighlighter, SynFacilBasic, XPresParser, XpresBas, XpresTypes, XpresElements,
-  FrameCfgConex, UnTerminal,
-  MisUtils, FormConfig;
+  FrameCfgConex, UnTerminal,  MisUtils, FormConfig;
 
 type
 
@@ -21,6 +19,9 @@ type
     tkExpDelim : TSynHighlighterAttributes;
     tkBlkDelim : TSynHighlighterAttributes;
     tkOthers   : TSynHighlighterAttributes;
+    procedure CompileBlockIF;
+    procedure CompileCurBlockNoEjec;
+    function ProcesaAsignacion(var newVar: string): boolean;
   protected
     //function GetOperand: TOperand; override;
     procedure CaptureParams; override;
@@ -32,19 +33,28 @@ type
     procedure CompileCurBlock;
     procedure CompilarArc;
     procedure Compilar(NombArc: string; LinArc: Tstrings);
-    //estos métodos solo sirven para hacer públicos los métodos protegidos
+    //Estos métodos solo sirven para hacer públicos los métodos protegidos
     procedure CreateVariable(const varName: string; typ: ttype);
     procedure CreateVariable(varName, varType: string);
     procedure StartSyntax;
-  public
+  public  //Inicialización
     constructor Create; override;
     destructor Destroy; override;
   end;
 
+{  TSecAct = ( bloNormal,  {Bloque normal, como el programa principal o el cuerpo de alguna
+                           estructura "IF", lo que va entre THEN y ELSE.}
+              bloEvaluac  {BLoque en donde se espera un resultado booleand para tomar
+                          una decisiónm como la expresión que va entre el IF y el THEN.}
+            );}
 //procedure Compilar(NombArc: string; LinArc: Tstrings);
 var
   cxp : TCompiler;
-  DetEjec: boolean;   //Bander general para detener la ejecución. No se usa la de TCompilerBase
+  {Banderas adicionales usadas para el intérprete. Se declaran fuera de la clase,
+  para que se tenga acceso a ellas, desde el intérprete.}
+  stop: boolean;   //Bandera general para detener la ejecución. No se usa la de TCompilerBase
+  ejec: boolean;       //permite poner al intérprete en modo "No Ejecución"
+//  SecAct: TSecAct = bloNormal;  //Indica, en qué tipo de sección estamos trabajando
 
 implementation
 uses FormPrincipal;
@@ -80,93 +90,167 @@ function TCompiler.EOExpres: boolean;
 begin
   Result := (cIn.tokType = tkExpDelim) or (cIn.tokType = tkEol);
 end;
+function TCompiler.ProcesaAsignacion(var newVar: string): boolean;
+{Verifica si la instrucción actual es de tipo asignación. Si es así, ejecuta la
+ asignación. Si la variable a asignar no existe, se crea.
+ Las asignaciones, se porcesan de forma diferente a las expresiones normales,
+ porque, en este lenguaje, las asignaciones, también declaran variables y porque
+ además se está permitiendo usar las asignaciones con el operador "=", en lugar
+ del operador formal que es ":=".}
+var
+  posIni, posFin: TPosCont;
+  Op1: TOperand;   //para representar a la variable
+  opr: TOperator;  //para representar al operador de asignación
+  exp: TOperand;   //para representar la expresión a asignar
+  Nueva: Boolean;
+begin
+  Result := false;
+  if cIn.tokType <> tkIdentif then exit;
+  //Sigue un identificador, verifica si ya ha sido declarado.
+  if FindPredefName(cIn.tok) = eltNone then Nueva := true
+  else Nueva := false;
+  //Sigue un identificador desconocido. falta ver si es asignación.
+  posIni := cIn.PosAct;    //Guarda posición, por si acaso
+  newVar := Cin.tok;
+  cIn.Next;   //toma identificador
+  cIn.SkipWhitesNoEOL;
+  if (cIn.tokType = tkOperator) and
+     ( (cIn.tok = ':=') or (cIn.tok = '=')) then //Se acepta ambos operadores
+  begin
+    cIn.Next;   //toma operador
+    cIn.SkipWhitesNoEOL;
+    //Evalua la expresión para deducir el tipo.
+//    exp := GetOperand;  //puede generar error
+    GetExpression(0);
+    exp := res;   //guarda el resultado, para asignarlo luego
+    posFin := cIn.PosAct;   //guarda la posición final de la expresión.
+    if Perr.HayError then exit(false);   //sale con el puntero en la posición del error
+    //Se pudo ejecutar la expresión. Ya se sabe el tipo
+    if nueva then begin
+//debugln('Creando:'+newVar);
+      cIn.PosAct := posIni;  //Deja quí aquí, porque es un buen lugar en caso de error en CreateVariable().
+      CreateVariable(newVar, exp.typ);   //crea la variable
+      if Perr.HayError then begin
+        exit(false);
+      end;
+    end;
+    cIn.PosAct := posIni;  //retorna posición, para obtener fácilmente el operando
+    Op1 := GetOperand;   {Toma operando que puede ser la variable nueva creada, o algún
+                          identificador concoido, al que se le prentende asignar algo.}
+    if Perr.HayError then exit;
+    {Ya tenemos a los, dos operandos de la asignación. Lo más apropiado es usar
+     la función Evaluar, para que las cosas sigan su curso, normal.}
+    opr := Op1.FindOperator(':=');  //Ubica a su operador de asignación. Debe existir
+    cIn.PosAct := posFin;  {Deja el cursor aquí, porque es el mejor lugar para el cursor
+                            en caso de error, y también porque aquí se debe quedar el
+                            cursor después de evaluar.}
+    Evaluar(Op1, opr, exp);    //Evalua en "res". Puede geenera error.
+    if Perr.HayError then exit(false);
+    exit(true);        //si es asignación
+  end;
+  //no sigue asignación
+  cIn.PosAct := posIni;    //solo retorna posición
+end;
+procedure TCompiler.CompileCurBlockNoEjec;
+{Proecsa el bloque actual, sin ejecutar}
+var
+  ejec0: boolean;  //para guardar "ejec"
+begin
+  ejec0 := ejec;    //guarda estado actual (para permitir estructuras andiadas.)
+  ejec := false;    //deshabilita la ejecución
+  CompileCurBlock;  //procesa bloque else
+  ejec := ejec0;    //retorna estado.
+end;
+procedure TCompiler.CompileBlockIF;
+var
+  valor, valor2: Boolean;
+begin
+  cIn.Next;  //toma IF
+  GetBoolExpression; //evalua expresión
+  if PErr.HayError then exit;
+  valor := res.valBool;
+  if cIn.tokL<> 'then' then begin
+    GenError('Se esperaba "then".');
+    exit;
+  end;
+  cIn.Next;  //toma el THEN
+  //Ejecuta el cuerpo del THEN
+  if valor then CompileCurBlock else CompileCurBlockNoEjec;
+  if PErr.HayError then exit;
+  //Debe terminar con ENDIF, ELSE o ELSEIF
+  if cIn.tokL = 'endif' then begin
+    //Termina sentencia
+    cIn.Next;  //coge delimitador y termina normal
+  end else if cIn.tokL = 'else' then begin
+    //Hay un bloque ELSE
+    cIn.Next;  //coge "else"
+    if valor then CompileCurBlockNoEjec else CompileCurBlock;
+    if PErr.HayError then exit;
+    //Debe seguir el delimitador de fin
+    if cIn.tokL <> 'endif' then begin
+      GenError('Se esperaba "ENDIF".');
+      exit;
+    end;
+    cIn.Next;  //coge delimitador y termina normal
+  end else if cIn.tokL = 'elseif' then begin
+    //Puede haber uno o varios 'elseif'
+    cIn.Next;  //coge "else"
+    repeat
+      GetBoolExpression; //evalua expresión
+      if PErr.HayError then exit;
+      valor2 := res.valBool;
+      if cIn.tokL<> 'then' then begin
+        GenError('Se esperaba "then".');
+        exit;
+      end;
+      cIn.Next;  //toma el THEN
+      //Ejecuta el cuerpo del THEN
+      if valor2 then CompileCurBlock else CompileCurBlockNoEjec;
+      if PErr.HayError then exit;
+      //Solo puede seguir ELSE, ELSEIF o ENDIF
+    until cIn.tokL <> 'ELSEIF';
+    //Solo puede seguir ELSE, o ENDIF
+    if cIn.tokL = 'endif' then begin
+      //Termina sentencia
+      cIn.Next;  //coge delimitador y termina normal
+    end else if cIn.tokL = 'else' then begin
+      //Hay un bloque ELSE en el ELSEIF
+      cIn.Next;  //coge "else"
+      if valor or valor2 then CompileCurBlockNoEjec else CompileCurBlock;
+      if PErr.HayError then exit;
+      //Debe seguir el delimitador de fin
+      if cIn.tokL <> 'endif' then begin
+        GenError('Se esperaba "ENDIF".');
+        exit;
+      end;
+      cIn.Next;  //coge delimitador y termina normal
+    end;
+  end else begin  //Debe ser error
+    GenError('Se esperaba "ENDIF", "ELSE" o "ELSEIF".');
+    exit;
+  end;
+end;
 procedure TCompiler.CompileCurBlock;
 //Compila el bloque de código actual hasta encontrar un delimitador de bloque.
-  function Asign_Identif_Descon(var newvar: string; var vartipe: TType): boolean;
-  {Verifica si la instrucción actuak es una asignación a un identificador que no sea
-   variable o función declarada. Esta es la forma en que se asume la declaración de
-   una variable}
-  var
-    posc: TPosCont;
-    ex: TOperand;
-  begin
-    Result := false;
-    if cIn.tokType <> tkIdentif then exit;
-    //verifica si ya ha sido declarado
-    if FindPredefName(cIn.tok) <> eltNone then exit;
-    //Sigue un identificador desconocido. falta ver si es asignación.
-    posc := cIn.PosAct;    //Guarda posición
-    newvar := Cin.tok;
-    cIn.Next;   //toma identificador
-    cIn.SkipWhitesNoEOL;
-    if (cIn.tokType = tkOperator) and (cIn.tok = ':=') then begin
-      cIn.Next;   //toma operador
-      cIn.SkipWhitesNoEOL;
-      //deduce tipo
-      ex := GetOperand;  //puede generar error
-      if Perr.HayError then exit;   //sale con el puntero en la posición del error
-      vartipe:=ex.typ;   //devuelve referencia a tipo
-      cIn.PosAct := posc;  //retorna posición
-      exit(true);        //si es asignación
-    end;
-    //no sigue asignación
-    cIn.PosAct := posc;    //solo retorna posición
-  end;
 var
   tmp: string;
-  varType: TType;
-  EsAsignNueva: Boolean;
+  EsAsign: Boolean;
 begin
   cIn.SkipWhites;  //ignora comentarios inciales
   //if config.fcMacros.marLin then ;
   while not cIn.Eof and not EOBlock do begin
-    //Se espera una expresión o estructura
-    EsAsignNueva := Asign_Identif_Descon(tmp, varType);  //Verifica si es asignación
+    {Se espera una expresión o estructura. No hay problema en llamar a ProcesaAsignacion(),
+     para procesar asignaciones con "=", ya que CompileCurBlock(), no se ejecuta al
+     procesar las expresiones booleanas de un IF o un WHILE. }
+    EsAsign := ProcesaAsignacion(tmp);  //Verifica si es asignación
     if Perr.HayError then exit;   //puede que se haya encontrado un error
-    if EsAsignNueva then begin  //hay identificador nuevo
-      //se asume que es la declaración de una variable
-  //      MsgBox('variable nueva: ' + tmp );
-      CreateVariable(tmp, varType);
-      if Perr.HayError then exit;
-      GetExpression(0);   //procesa la expresión
+    if EsAsign then begin  //hay identificador nuevo
+      //Se asume que es la asignación a una variable
+      //No hay que hacer nada. Ya todo lo hizo "ProcesaAsignacion".
     end else if cIn.tokType = tkStruct then begin  //es una estructura
       if cIn.tokL = 'if' then begin  //condicional
-        cIn.Next;  //toma IF
-        GetBoolExpression; //evalua expresión
-        if PErr.HayError then exit;
-        if cIn.tokL<> 'then' then begin
-          GenError('Se esperaba "then".');
-          exit;
-        end;
-        cIn.Next;  //toma el THEN
-        //cuerpo del if
-        CompileCurBlock;  //procesa bloque
-//        Result := res;  //toma resultado
-        if PErr.HayError then exit;
-        while cIn.tokL = 'elsif' do begin
-          cIn.Next;  //toma ELSIF
-          GetBoolExpression; //evalua expresión
-          if PErr.HayError then exit;
-          if cIn.tokL<> 'then' then begin
-            GenError('Se esperaba "then".');
-            exit;
-          end;
-          cIn.Next;  //toma el THEN
-          //cuerpo del if
-          CompileCurBlock;  //evalua expresión
-//          Result := res;  //toma resultado
-          if PErr.HayError then exit;
-        end;
-        if cIn.tokL = 'else' then begin
-          cIn.Next;  //toma ELSE
-          CompileCurBlock;  //evalua expresión
-//          Result := res;  //toma resultado
-          if PErr.HayError then exit;
-        end;
-        if cIn.tokL<> 'endif' then begin
-          GenError('Se esperaba "endif".');
-          exit;
-        end;
+        CompileBlockIF;
+        if HayError then exit;
       end else begin
         GenError('Error de diseño. Estructura no implementada.');
         exit;
@@ -175,9 +259,10 @@ begin
       GetExpression(0);
       if perr.HayError then exit;   //aborta
     end;
-    //se espera delimitador
+    if stop then exit;
+    //Se espera delimitador
     if cIn.Eof then break;  //sale por fin de archivo
-    //busca delimitador
+    //Busca delimitador de bloque
     cIn.SkipWhitesNoEOL;
     if cIn.tokType=tkEol then begin //encontró delimitador de expresión
       cIn.Next;   //lo toma
@@ -204,11 +289,15 @@ begin
   Cod_StartData;
   Cod_StartProgram;
   //codifica el contenido
+  ejec := true;   //pome para ejecutar
   CompileCurBlock;   //compila el cuerpo
   if Perr.HayError then exit;
-  if cIn.Eof then begin
-//      GenError('Inesperado fin de archivo. Se esperaba "end".');
-    exit;       //sale
+  if not cIn.Eof then begin
+    //Algo ha quedado sin proesar
+    if not stop then begin   //Si no se detuvo voluntariamente
+      GenError('Error de sintaxis: ' + cIn.tok);
+      exit;       //sale
+    end;
   end;
   cIn.Next;   //coge "end"
 end;
@@ -284,14 +373,12 @@ begin
     until false;
   end;
 end;
-
 procedure TCompiler.SkipWhites;
 {En este lenguaje, se consideran delimitadores a los saltos de línea, así que no se
  deben saltar.}
 begin
   cIn.SkipWhitesNoEOL;
 end;
-
 //procedure TCompilerBase.ShowError
 constructor TCompiler.Create;
 begin
@@ -301,7 +388,6 @@ begin
   StartSyntax;   //Debe hacerse solo una vez al inicio
   if HayError then ShowError;
 end;
-
 destructor TCompiler.Destroy;
 begin
   mem.Free;  //libera

@@ -37,9 +37,18 @@ var
   tipInt : TType;   //entero flotante
   tipStr : Ttype;   //cadena
   tipBol  : TType;  //booleano
-  //pila virtual
+  //Pila virtual
+  {La pila virtual se representa con una tabla. Cada vez que se agrega un valor con
+  pushResult, se incrementa "sp". Para retornar "sp" a su valor original, se debe llamar
+  a PopResult(). Luego de eso, se accede a la pila, de acuerdo al seguienet esquema:
+  Cuando se usa cpara almacenar los parámetros de las funciones, queda así:
+  stack[sp]   -> primer parámetro
+  stack[sp+1] -> segundo parámetro
+  ...
+  }
   sp: integer;  //puntero de pila
   stack: array[0..STACK_SIZE-1] of TOperand;
+  //variables auxiliares
   Timeout: integer; //variable de límite de cuenta de tiempo
 
 procedure LoadResInt(val: int64; catOp: TCatOperan);
@@ -96,7 +105,7 @@ procedure Cod_StartProgram;
 begin
   sp := 0;  //inicia pila
   Timeout := config.fcMacros.tpoMax;   //inicia variable
-  DetEjec := false;
+  stop := false;
   //////// variables predefinidas ////////////
   CreateVariable('timeout', 'int');
   CreateVariable('curIP', 'string');
@@ -143,6 +152,7 @@ begin
   if p1.catOp <> coVariab then begin  //validación
     GenError('Solo se puede asignar a variable.'); exit;
   end;
+  if not ejec then exit;
   //en la VM se puede mover directamente res memoria sin usar el registro res
   p1.rVar.valInt := p2.ReadInt;
 //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
@@ -156,7 +166,6 @@ begin
     config.fcConex.UpdateChanges;  //actualiza
   end;
 end;
-
 procedure int_suma_int;
 begin
   LoadResInt(p1.ReadInt+p2.ReadInt, coExpres);
@@ -171,7 +180,14 @@ begin
 end;
 procedure int_idiv_int;
 begin
-  LoadResInt(p1.ReadInt div p2.ReadInt, coExpres);
+  if not ejec then  //evitamos evaluar en este modo, para no generar posibles errores
+    LoadResInt(0, coExpres)
+  else
+    LoadResInt(p1.ReadInt div p2.ReadInt, coExpres);
+end;
+procedure int_igual_int;
+begin
+  LoadResBol(p1.ReadInt = p2.ReadInt, coExpres);
 end;
 
 ////////////operaciones con string
@@ -189,6 +205,7 @@ begin
   if p1.catOp <> coVariab then begin  //validación
     GenError('Solo se puede asignar a variable.'); exit;
   end;
+  if not ejec then exit;
   //aquí se puede mover directamente res memoria sin usar el registro res
   p1.rVar.valStr := p2.ReadStr;
   //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
@@ -254,6 +271,7 @@ begin
   if p1.catOp <> coVariab then begin  //validación
     GenError('Solo se puede asignar a variable.'); exit;
   end;
+  if not ejec then exit;
   //en la VM se puede mover directamente res memoria sin usar el registro res
   p1.rVar.valBool := p2.ReadBool;
 //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
@@ -264,13 +282,13 @@ begin
   end;
 end;
 
-
 //funciones básicas
 procedure fun_puts(fun :TxpFun);
 //envia un texto a consola
 begin
   PopResult;  //saca parámetro 1
   if HayError then exit;
+  if not ejec then exit;
   msgbox(stack[sp].valStr);  //sabemos que debe ser String
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
@@ -279,6 +297,7 @@ procedure fun_putsI(fun :TxpFun);
 begin
   PopResult;  //saca parámetro 1
   if HayError then exit;
+  if not ejec then exit;
   msgbox(IntToStr(stack[sp].valInt));  //sabemos que debe ser Entero
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
@@ -286,23 +305,27 @@ procedure fun_disconnect(fun :TxpFun);
 //desconecta la conexión actual
 begin
 //  msgbox('desconectado');  //sabemos que debe ser String
+  if not ejec then exit;
   frmPrincipal.AcTerDesconExecute(nil);
 end;
 procedure fun_connectTelnet(fun :TxpFun);
 //conecta con telnet
 begin
   PopResult;  //saca parámetro 1
+  if not ejec then exit;
   frmPrincipal.InicConectTelnet(stack[sp].valStr);   //inicia conexión
 end;
 procedure fun_connect(fun :TxpFun);
 //Inicia la conexión actual
 begin
+  if not ejec then exit;
   frmPrincipal.InicConect;   //inicia conexión
 end;
 procedure fun_connectSSH(fun :TxpFun);
 //conecta con SSH
 begin
   PopResult;  //saca parámetro 1
+  if not ejec then exit;
   frmPrincipal.InicConectSSH(stack[sp].valStr);   //inicia conexión
 end;
 procedure fun_sendln(fun :TxpFun);
@@ -311,6 +334,7 @@ var
   lin: String;
 begin
   PopResult;  //saca parámetro 1
+  if not ejec then exit;
   if frmPrincipal.proc = nil then exit;
   lin := stack[sp].valStr;
   frmPrincipal.proc.SendLn(lin);
@@ -324,9 +348,10 @@ begin
   PopResult;  //saca parámetro 1
   if frmPrincipal.proc = nil then exit;
   //lazo de espera
+  if not ejec then exit;
   lin := stack[sp].valStr;
   tic := 0;
-  while (tic<Timeout*10) and Not DetEjec do begin
+  while (tic<Timeout*10) and Not stop do begin
     Application.ProcessMessages;
     sleep(100);
     if AnsiEndsStr(lin, frmPrincipal.proc.LastLine) then break;
@@ -349,8 +374,9 @@ begin
   if frmPrincipal.proc = nil then exit;
   n10mil := stack[sp].valInt * 100;
   //lazo de espera
+  if not ejec then exit;
   tic := 0;
-  while (tic<n10mil) and Not DetEjec do begin
+  while (tic<n10mil) and Not stop do begin
     Application.ProcessMessages;
     sleep(10);
     Inc(tic);
@@ -361,26 +387,109 @@ procedure fun_messagebox(fun :TxpFun);
 begin
   PopResult;  //saca parámetro 1
   if HayError then exit;
+  if not ejec then exit;
   msgbox(stack[sp].valStr);  //sabemos que debe ser String
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
-
 procedure fun_messageboxI(fun :TxpFun);
 begin
   PopResult;  //saca parámetro 1
   if HayError then exit;
+  if not ejec then exit;
   msgbox(IntToStr(stack[sp].valInt));  //sabemos que debe ser String
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
 procedure fun_detect_prompt(fun :TxpFun);
 begin
+  if not ejec then exit;
   frmPrincipal.AcTerDetPrmExecute(nil);
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
 procedure fun_clear(fun :TxpFun);
 begin
+  if not ejec then exit;
   frmPrincipal.AcTerLimBufExecute(nil);
   //el tipo devuelto lo fijará el framework, al tipo definido
+end;
+procedure fun_stop(fun: TxpFun);
+begin
+  if not ejec then exit;
+  stop := true;  //manda mensaje para detener la macro
+  //el tipo devuelto lo fijará el framework, al tipo definido
+end;
+procedure fun_logopen(fun: TxpFun);
+begin
+  PopResult;  //saca parámetro 1
+  if not ejec then exit;
+  if not frmPrincipal.StartLog(stack[sp].valStr) then begin
+    GenError('Error abriendo registro: ' + stack[sp].valStr);
+  end;
+end;
+procedure fun_logwrite(fun: TxpFun);
+begin
+  PopResult;  //saca parámetro 1
+  if not ejec then exit;
+  if not frmPrincipal.WriteLog(stack[sp].valStr) then begin
+    GenError('Error escribiendo en registro: ' + frmPrincipal.logName);
+  end;
+end;
+procedure fun_logclose(fun: TxpFun);
+begin
+  if not ejec then exit;
+  frmPrincipal.EndLog;
+end;
+procedure fun_logpause(fun: TxpFun);
+begin
+  if not ejec then exit;
+  frmPrincipal.PauseLog;
+end;
+procedure fun_logstart(fun: TxpFun);
+begin
+  if not ejec then exit;
+  frmPrincipal.StartLog;
+end;
+procedure fun_fileopen(fun: TxpFun);
+var
+  nom: String;
+  modo: Int64;
+  n: THandle;
+begin
+  PopResult;
+  PopResult;
+  PopResult;
+  if not ejec then exit;
+//  AssignFile(filHand, stack[sp].valStr);
+//  Rewrite(filHand);
+  nom := stack[sp+1].valStr;
+  modo := stack[sp+2].valInt;
+  if modo = 0 then begin
+    if not FileExists(nom) then begin
+      //Si no existe. lo crea
+      n := FileCreate(nom);
+      FileClose(n);
+    end;
+    n := FileOpen(nom, fmOpenReadWrite);
+    stack[sp].valInt:= Int64(n);
+  end else begin
+    n := FileOpen(nom, fmOpenRead);
+    stack[sp].valInt:=Int64(n);
+  end;
+end;
+procedure fun_close(fun: TxpFun);
+begin
+  PopResult;  //manejador de archivo
+  if not ejec then exit;
+  fileclose(stack[sp].valInt);
+end;
+procedure fun_write(fun: TxpFun);
+var
+  cad: String;
+begin
+  PopResult;  //manejador de archivo
+  PopResult;  //cadena
+  if not ejec then exit;
+  cad := stack[sp+1].valStr;
+  filewrite(stack[sp].valInt, cad , length(cad));
 end;
 
 procedure TCompiler.StartSyntax;
@@ -461,14 +570,6 @@ begin
   tipBol:=CreateType('boolean',t_boolean,1);
   tipBol.OnLoad:=@bol_procLoad;
 
-  //////// Operaciones con String ////////////
-  opr:=tipStr.CreateOperator(':=',2,'asig');  //asignación
-  opr.CreateOperation(tipStr,@str_asig_str);
-  opr:=tipStr.CreateOperator('+',7,'concat');
-  opr.CreateOperation(tipStr,@str_concat_str);
-  opr:=tipStr.CreateOperator('=',7,'igual');
-  opr.CreateOperation(tipStr,@str_igual_str);
-
   //////// Operaciones con Int ////////////
   {Los operadores deben crearse con su precedencia correcta}
   opr:=tipInt.CreateOperator(':=',2,'asig');  //asignación
@@ -485,6 +586,17 @@ begin
 
   opr:=tipInt.CreateOperator('/',6,'mult');
   opr.CreateOperation(tipInt,@int_idiv_int);
+
+  opr:=tipInt.CreateOperator('=',6,'mult');
+  opr.CreateOperation(tipInt,@int_igual_int);
+
+  //////// Operaciones con String ////////////
+  opr:=tipStr.CreateOperator(':=',2,'asig');  //asignación
+  opr.CreateOperation(tipStr,@str_asig_str);
+  opr:=tipStr.CreateOperator('+',7,'concat');
+  opr.CreateOperation(tipStr,@str_concat_str);
+  opr:=tipStr.CreateOperator('=',7,'igual');
+  opr.CreateOperation(tipStr,@str_igual_str);
 
   //////// Operaciones con Boolean ////////////
   opr:=tipBol.CreateOperator(':=',2,'asig');  //asignación
@@ -515,17 +627,25 @@ begin
   if FindDuplicFunction then exit;
   f := CreateSysFunction('detect_prompt', tipInt, @fun_detect_prompt);
   f := CreateSysFunction('clear', tipInt, @fun_clear);
-{  f := CreateSysFunction('stop', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logopen', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logwrite', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logclose', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logpause', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('logstart', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('fileopen', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('fileclose', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('filewrite', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('capture', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('endcapture', tipInt, @fun_connectTelnet);
-  f := CreateSysFunction('edit', tipInt, @fun_connectTelnet);}
+  f := CreateSysFunction('stop', tipInt, @fun_stop);
+  f := CreateSysFunction('logopen', tipInt, @fun_logopen);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('logwrite', tipInt, @fun_logwrite);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('logclose', tipInt, @fun_logclose);
+  f := CreateSysFunction('logpause', tipInt, @fun_logpause);
+  f := CreateSysFunction('logstart', tipInt, @fun_logstart);
+  f := CreateSysFunction('fileopen', tipInt, @fun_fileopen);
+  f.CreateParam('',tipInt);
+  f.CreateParam('',tipStr);
+  f.CreateParam('',tipInt);
+  f := CreateSysFunction('fileclose', tipInt, @fun_close);
+  f.CreateParam('',tipInt);
+  f := CreateSysFunction('filewrite', tipInt, @fun_write);
+  f.CreateParam('',tipInt);
+  f.CreateParam('',tipStr);
+//  f := CreateSysFunction('capture', tipInt, @fun_connectTelnet);
+//  f := CreateSysFunction('endcapture', tipInt, @fun_connectTelnet);
+//  f := CreateSysFunction('edit', tipInt, @fun_connectTelnet);}
 end;
 
