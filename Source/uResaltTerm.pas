@@ -37,7 +37,7 @@ type
     fAtriDirect  : TSynHighlighterAttributes;
   public
     detecPrompt : boolean;    //activa la detección del prompt
-    prIni, prFin: string;     //cadena inicial, y final del prompt { TODO : En teoría no deberían ser necesarias estas variables  }
+    prIni, prFin: string;  //cadena inicial, internedia y final del prompt
     procedure SetLine(const NewValue: String; LineNumber: Integer); override;
     procedure Next; override;
     function  GetEol: Boolean; override;
@@ -94,6 +94,7 @@ implementation
 uses FormConfig; //para la detección de prompt
 var
   Identifiers: array[#0..#255] of ByteBool;
+  mHashTable: array[#0..#255] of Integer;
 
 procedure CreaTablaIdentif;
 var  i, j: Char;
@@ -105,6 +106,11 @@ begin
     else Identifiers[i] := False;
     end;
     j := UpCase(i);
+    Case i in ['_', 'A'..'Z', 'a'..'z'] of
+      True: mHashTable[i] := Ord(j) - 64
+    else
+      mHashTable[i] := 0;
+    end;
   end;
 end;
 

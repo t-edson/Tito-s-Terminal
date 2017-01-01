@@ -223,23 +223,15 @@ var
   txt: String;
 begin
   txt := edit.Text;   //toma texto
-  { -- Esta sustitución antigua, falla cuando se usa el carcater !
   txt := StringReplace(txt, '\', '\\',[rfReplaceAll]);  //para proteger del comando
   txt := StringReplace(txt, '$', '\$',[rfReplaceAll]);
   txt := StringReplace(txt, '`', '\`',[rfReplaceAll]);
   txt := StringReplace(txt, '"', '\"',[rfReplaceAll]);
   txt := StringReplace(txt, '\\\\"', '\\\\\"',[rfReplaceAll]); //esta combinación debe ser así en ksh
   txt := StringReplace(txt, #9, '\t',[rfReplaceAll]);
+
   ed.Enabled := False;
   frmPrincipal.EnviarComando('echo "' + txt + '" > "' + edit.NomArc+'"', lineas);
-  ed.Enabled := True;
-  }
-  {Usa comillas simples para evitar sustitución, porque las comillas simples ponen todo
-  literalmente. El problema está cuando se quiere imprimir precisamente, comilla simple.
-  Para ello se debe hacer una sustitución}
-  ed.Enabled := False;
-  txt := StringReplace(txt, '''', '''"''"''',[rfReplaceAll]);
-  frmPrincipal.EnviarComando('echo ''' + txt + ''' > "' + edit.NomArc+'"', lineas);
   ed.Enabled := True;
   //para actualizar controles
   edit.Modified:=false;  //Este método no es público en la librería original

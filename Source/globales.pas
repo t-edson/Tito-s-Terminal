@@ -16,11 +16,11 @@ var
    //Variables globales
    MsjError    : String;    //Bandera - Mensaje de error
 
-   rutApp      : string;      //ruta de la aplicación
-   rutMacros   : string;      //ruta de la carpeta de macros
-   rutScripts  : string;      //ruta de la carpeta de scripts
+   rutApp     : string;      //ruta de la aplicación
+   rutMacros  : string;      //ruta de la carpeta de macros
+   rutScripts : string;      //ruta de la carpeta de scripts
    rutLenguajes: string;     //ruta para guardar las sintaxis
-   rutSesiones : string;     //ruta para guardar las sesiones
+   rutSesiones: string;     //ruta para guardar las sesiones
 
    archivoEnt  : string;    //archivo de entrada
    MostrarError: Boolean;   //Bandera para mostrar mensajesde error.

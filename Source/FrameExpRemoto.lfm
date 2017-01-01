@@ -880,7 +880,6 @@ object fraExpRemoto: TfraExpRemoto
       Caption = '&Renombrar'
       ImageIndex = 10
       OnExecute = acArcRenomExecute
-      ShortCut = 113
     end
     object acArcAcce: TAction
       Category = 'Arc'
