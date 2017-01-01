@@ -1,3 +1,8 @@
+Tito's Terminal 0.6
+===================
+Se actualiza la librería Xpres, a la versión 1.1. 
+
+
 Tito's Terminal 0.5
 ===================
 * Se modifica el editor remoto para poder escribir, correctamente, la mayoría de caracteres 
