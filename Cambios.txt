@@ -1,30 +1,29 @@
-CAMBIOS
+Tito's Terminal 0.5
+===================
+* Se modifica el editor remoto para poder escribir, correctamente, la mayoría de caracteres 
+alfabéticos con el comando "echo". 
+* Se elimina el nodo "Otros", pasando a ser directamente "Explorador remoto" en el árbol de 
+la ventana de configuración.
+* Se elimina la tabla HashTable[], que no se estaba usando en uResaltTerm
+* Se corrigió el problema que evaluaba dos veces las expresiones, en la primera asignación
+* Se implementó la posibilidad de hacer asignaciones, usando el operador "=".
+* Se creó la variable global "ejec" en la unidad "Parser", para permitir implementar 
+correctamente las estructuras condicionales.
+* Se implementó el procesamiento de la condicional IF en el lenguaje de macros.
+* Se corrigió un problema con la detención de macros, usando la bander "DetEjec".
+* Se agregaron las instrucción STOP, LOGOPEN, LOGWRITE, LOGCLOSE, LOGPAUSE, y LOGSTART 
+en el lenguaje de macros.
+* Se agregó las opciones para registrar la salida del terminal en un archivo.
 
-* Se actualiza la dependencia de la librería Xpres a la versión 0.9.
-* Se agregan más puertos al combo de puertos seriales.
-* Se modifica el programa para usar la versión UnTerminal 0.9b, eso implica que se 
-cambia la ventana de configuración de conexiones para incluir 3 casos de salto de 
-línea, para enviar y 4 casos de salto de línea para recibir.
-* Se modifica la rutina TCompiler.CompileCurBlock, para mejorar la detección de errores
-cuando se llama a Asign_Identif_Descon().
-* Se corrige al método TfrmEditMacros.MarcarError(), para que de la coordenada correcta
-cuando el texto fuente tiene tabulaciones, además de llamar a edit.RefreshPanCursor.
-* Se elimina la propiedad CtrlPulsado de TfrmPrincipal.
-* Se agregan dos nuevas propiedades a la ventana de configuración del Panel de comandos.
-* Se mejora el envío de la línea actual, haciendo que cuando se pulse Ctrl+Enter, y no esté
-confgurado ese comando, se inserte una línea de forma normal.
-* Se asigna el atajo Ctrl+Q, para iniciar la conexión.
-* Se asigna el atajo Shift+Ctrl+Q, para detener la conexión.
-* Se revisa, simplifica, comenta y corrige el archivo XML, de sintaxis y autocompletado, 
-para el editor de macros.
-* Se habilita para enviar Ctrl+C, al terminal, desde el panel de comando.
 
 PENDIENTES: 
 Que se permita escribir directamente en el terminal.
-Corregir el problema de la selección del lenguaje en el Pánel de comandos (siemrpe queda 
+Corregir el problema de la selección del lenguaje en el Pánel de comandos (siempre queda 
 marcada UNIX).
 
-Queda por implementar la sentencia IF, en el lenguaje de macros. Actualmente
-reconoce la estrutura, pero ejecuta todo.
-También hay que revisar la función Asign_Identif_Descon() ya que no se debe evaluar dos 
-veces la expresión a asignar.
+Revisar por qué, no se cierra completamente un archivo de registro abierto, si se tiene 
+abierto un proceso. Solo cuando se cierra el proceso, parece cerrarse también el archivo de
+registro. Este comportamiento se ve cuando se abre el registro, tanto con Macros, como
+manualmente.
+Revisar el funcionamiento de las funciones de macros FILEOPEN, FILEWRITE y FILECLOSE. Al 
+parecer no están funcionando correctamente.

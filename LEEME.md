@@ -1,5 +1,5 @@
-Tito-s-Terminal 0.4b
-====================
+Tito-s-Terminal 0.5
+===================
 
 Terminal con Interfaz gráfica, coloreado de sintaxis y automatización para telnet, y ssh.
 
