@@ -296,7 +296,7 @@ procedure TfrmEditMacros.DetenerEjec;
 //Detiene la ejecución de la macro en curso
 begin
   if not cxp.ejecProg then exit;
-  stop := true;  //manda mensaje para detener la macro
+  cxp.stop := true;  //manda mensaje para detener la macro
 end;
 procedure TfrmEditMacros.Ejecutar(arc: string);
 //Permite ejecutar una macro almacenada en un archivo externo

@@ -9,7 +9,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, FormPrincipal, FormConexRapida, FormConfig, globales,
   uResaltTerm, FormEditMacros, FormExpRemoto, FormEditRemoto,
-  FormAbrirRemoto;
+  FormAbrirRemoto, GenCod;
 
 {$R *.res}
 

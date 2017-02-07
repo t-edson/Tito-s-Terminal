@@ -4,21 +4,16 @@ unit Parser;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LCLType, Dialogs, lclProc, Graphics, Forms, Strutils,
+  Classes, SysUtils, LCLType, Dialogs, lclProc, Graphics, Forms,
   SynEditHighlighter, SynFacilBasic, XPresParser, XpresBas, XpresTypes, XpresElements,
-  FrameCfgConex, UnTerminal,  MisUtils, FormConfig;
+  MisUtils, GenCod;
 
 type
 
  { TCompiler }
 
-  TCompiler = class(TCompilerBase)
+  TCompiler = class(TgenCod)
   private
-    //referencias de tipos adicionales de tokens
-    tkStruct   : TSynHighlighterAttributes;
-    tkExpDelim : TSynHighlighterAttributes;
-    tkBlkDelim : TSynHighlighterAttributes;
-    tkOthers   : TSynHighlighterAttributes;
     procedure CompileBlockIF;
     procedure CompileCurBlockNoEjec;
     function ProcesaAsignacion(var newVar: string): boolean;
@@ -36,7 +31,6 @@ type
     //Estos métodos solo sirven para hacer públicos los métodos protegidos
     procedure CreateVariable(const varName: string; typ: ttype);
     procedure CreateVariable(varName, varType: string);
-    procedure StartSyntax;
   public  //Inicialización
     constructor Create; override;
     destructor Destroy; override;
@@ -50,11 +44,6 @@ type
 //procedure Compilar(NombArc: string; LinArc: Tstrings);
 var
   cxp : TCompiler;
-  {Banderas adicionales usadas para el intérprete. Se declaran fuera de la clase,
-  para que se tenga acceso a ellas, desde el intérprete.}
-  stop: boolean;   //Bandera general para detener la ejecución. No se usa la de TCompilerBase
-  ejec: boolean;       //permite poner al intérprete en modo "No Ejecución"
-//  SecAct: TSecAct = bloNormal;  //Indica, en qué tipo de sección estamos trabajando
 
 implementation
 uses FormPrincipal;
@@ -76,9 +65,6 @@ procedure CreateVariable(varName, varType: string);
 begin
   cxp.CreateVariable(varName, varType);
 end;
-{Incluye el código del compilador. Aquí tendrá acceso a todas las variables públicas
- de XPresParser}
-{$I GenCod.pas}
 //Métodos OVERRIDE
 function TCompiler.EOBlock: boolean;
 //Indica si se ha llegado el final de un bloque
@@ -100,7 +86,7 @@ function TCompiler.ProcesaAsignacion(var newVar: string): boolean;
 var
   posIni, posFin: TPosCont;
   Op1: TOperand;   //para representar a la variable
-  opr: TOperator;  //para representar al operador de asignación
+  opr: TxpOperator;  //para representar al operador de asignación
   exp: TOperand;   //para representar la expresión a asignar
   Nueva: Boolean;
 begin
@@ -326,7 +312,7 @@ begin
     if PErr.HayError then exit;
     CompilarArc;     //puede dar error
     Cod_EndProgram;  //da oportunidad de hacer verificaciones
-    cIn.QuitaContexEnt;   //es necesario por dejar limpio
+    cIn.RemoveContext;   //es necesario por dejar limpio
     if PErr.HayError then exit;   //sale
   //  PosAct := con;   //recupera el contenido actual
 
