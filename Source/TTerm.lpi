@@ -228,7 +228,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.4;..\..\_Librerias\UnTerminal-0.9;..\..\_Librerias\SynFacilUtils 0.9;..\..\_Librerias\ConfigFrame 0.8b;..\..\_Librerias\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_Librerias\Xpres-1.2;ConfigFrames"/>
+      <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.5;..\..\_Librerias\UnTerminal-0.9;..\..\_Librerias\SynFacilUtils 0.9;..\..\_Librerias\ConfigFrame 0.8b;..\..\_Librerias\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_Librerias\Xpres-1.2;ConfigFrames"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

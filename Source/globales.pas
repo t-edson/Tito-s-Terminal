@@ -9,7 +9,7 @@ uses  Classes, SysUtils, Forms, SynEdit, SynEditKeyCmds, MisUtils,
       types, LazLogger, LazUTF8, Menus ;
 
 const
-  NOM_PROG = 'Tito''s Terminal';   //nombre de programa
+  NOM_PROG ='Tito''s Terminal';   //nombre de programa
   {$I ../version.txt}   //versión del programa
 
 var

@@ -16,6 +16,8 @@ type
     chkCodFolding: TCheckBox;
     chkCompletCode: TCheckBox;
     chkSaveBefSend: TCheckBox;
+    chkSendLnEnter: TCheckBox;
+    chkSendLnCtrEnter: TCheckBox;
     chkUsarPrep: TCheckBox;
     procedure ConfigResalt;
   private
@@ -24,6 +26,8 @@ type
     CompletCode: boolean;  //habilita el completado de código
     CodFolding : boolean;  //habilita el plegado de código
     SaveBefSend: boolean;  //permite guardar antes de enviar el texto
+    SendLnEnter: boolean;  //enviar la línea actual con <Enter>
+    SendLnCtrEnter: boolean;//enviar la línea actual con <Ctrl>+<Enter>
     UsarPrep   : boolean;  //usar preprocesador
     LinCom     : string;   //línea de comando para preporcesador
     ArcEnviar  : string;   //tetxo a enviar
@@ -50,10 +54,12 @@ begin
   hl := hl0;
   OnUpdateChanges:=@ConfigResalt;
   //manejador de cambios
-  Asoc_Bol_TChkBox(@CompletCode,chkCompletCode,'CompletCode',true);
-  Asoc_Bol_TChkBox(@CodFolding , chkCodFolding,'CodFolding',true);
-  Asoc_Bol_TChkBox(@SaveBefSend,chkSaveBefSend,'SaveBefSend',false);
-  Asoc_Bol_TChkBox(@UsarPrep  , chkUsarPrep ,'UsarPrep',false);
+  Asoc_Bol_TChkBox(@CompletCode   , chkCompletCode  , 'CompletCode', true);
+  Asoc_Bol_TChkBox(@CodFolding    , chkCodFolding   , 'CodFolding' , true);
+  Asoc_Bol_TChkBox(@SaveBefSend   , chkSaveBefSend  , 'SaveBefSend', false);
+  Asoc_Bol_TChkBox(@SendLnEnter   , chkSendLnEnter  , 'SendLnEnter', false);
+  Asoc_Bol_TChkBox(@SendLnCtrEnter, chkSendLnCtrEnter,'SendLnCtrEnter',true);
+  Asoc_Bol_TChkBox(@UsarPrep      , chkUsarPrep     , 'UsarPrep'   , false);
 end;
 
 procedure TfraPanCom.PropToWindow;
@@ -70,12 +76,16 @@ begin
       chkCompletCode.Caption:='Completado Automático de Código';
       chkCodFolding.Caption:='&Plegado de Código';
       chkSaveBefSend.Caption:='Guardar antes de enviar contenido';
+      chkSendLnEnter.Caption:='Enviar línea actual con <Enter>';
+      chkSendLnCtrEnter.Caption := 'Enviar línea actual con <Ctrl>+<Enter>';
       chkUsarPrep.Caption:='Usar Preprocesador PreSQL';
     end;
   'en': begin
       chkCompletCode.Caption:='Automatic Code Completion';
       chkCodFolding.Caption:='Code &Folding';
       chkSaveBefSend.Caption:='Save before of send Content';
+      chkSendLnEnter.Caption:='Send current line with <Enter>';
+      chkSendLnCtrEnter.Caption := 'Send current line with <Ctrl>+<Enter>';
       chkUsarPrep.Caption:='Use PreSQL Preprocessor';
     end;
   end;

@@ -31,9 +31,25 @@ inherited fraPanCom: TfraPanCom
   object chkUsarPrep: TCheckBox[3]
     Left = 16
     Height = 19
-    Top = 144
+    Top = 200
     Width = 163
     Caption = 'Usar Preprocesador PreSQL'
     TabOrder = 3
+  end
+  object chkSendLnEnter: TCheckBox[4]
+    Left = 16
+    Height = 19
+    Top = 96
+    Width = 149
+    Caption = 'Enviar línea con <Enter>'
+    TabOrder = 4
+  end
+  object chkSendLnCtrEnter: TCheckBox[5]
+    Left = 16
+    Height = 19
+    Top = 128
+    Width = 192
+    Caption = 'Enviar línea con <Ctrl>+<Enter>'
+    TabOrder = 5
   end
 end
