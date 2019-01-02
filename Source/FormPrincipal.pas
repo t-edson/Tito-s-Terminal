@@ -342,7 +342,21 @@ var
   frmPrincipal: TfrmPrincipal;
 
 implementation
+
 {$R *.lfm}
+
+{$IFDEF WINDOWS}
+uses LConvEncoding;
+{$ENDIF}
+
+function IfThenConv(const st: string): string;
+begin
+{$IFDEF WINDOWS}
+  result := CP1252toUTF8(st);
+{$ELSE}
+  result := st;
+{$ENDIF}
+end;
 
 { TfrmPrincipal }
 
@@ -625,7 +639,7 @@ var
 begin
 //  debugln('procAddLastLins: '+IntToStr(fIni)+','+IntToSTr(fFin));
   for i:=fIni to fFin do
-    edTerm.Lines.Add(grilla[i]);
+    edTerm.Lines.Add(IfThenConv(grilla[i]));
 end;
 procedure TfrmPrincipal.proc_RefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
 var
@@ -633,7 +647,7 @@ var
 begin
 //  debugln('procRefreshLine: '+IntToStr(fIni));
   yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
-  edTerm.Lines[yvt+fIni] := grilla[fIni];
+  edTerm.Lines[yvt+fIni] := IfThenConv(grilla[fIni]);
   PosicionarCursor(HeightScr);
 end;
 procedure TfrmPrincipal.proc_RefreshLines(const grilla: TtsGrid; fIni, fFin, HeightScr: integer);
@@ -645,7 +659,7 @@ begin
   yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
   edTerm.BeginUpdate();
   for f:=fIni to fFin do
-    edTerm.Lines[yvt+ f] := grilla[f];
+    edTerm.Lines[yvt+ f] := IfThenConv(grilla[f]);
   PosicionarCursor(HeightScr);
   edTerm.EndUpdate;
   edTerm.Refresh;  //para mostrar el cambio
