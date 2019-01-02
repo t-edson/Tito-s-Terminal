@@ -69,12 +69,12 @@ end;
 function TCompiler.EOBlock: boolean;
 //Indica si se ha llegado el final de un bloque
 begin
-  Result := cIn.tokType = tkBlkDelim;
+  Result := cIn.tokType = tnBlkDelim;
 end;
 function TCompiler.EOExpres: boolean;
 //Indica si se ha llegado al final de una expresión
 begin
-  Result := (cIn.tokType = tkExpDelim) or (cIn.tokType = tkEol);
+  Result := (cIn.tokType = tnExpDelim) or (cIn.tokType = tnEol);
 end;
 function TCompiler.ProcesaAsignacion(var newVar: string): boolean;
 {Verifica si la instrucción actual es de tipo asignación. Si es así, ejecuta la
@@ -91,7 +91,7 @@ var
   Nueva: Boolean;
 begin
   Result := false;
-  if cIn.tokType <> tkIdentif then exit;
+  if cIn.tokType <> tnIdentif then exit;
   //Sigue un identificador, verifica si ya ha sido declarado.
   if FindPredefName(cIn.tok) = eltNone then Nueva := true
   else Nueva := false;
@@ -100,14 +100,14 @@ begin
   newVar := Cin.tok;
   cIn.Next;   //toma identificador
   cIn.SkipWhitesNoEOL;
-  if (cIn.tokType = tkOperator) and
+  if (cIn.tokType = tnOperator) and
      ( (cIn.tok = ':=') or (cIn.tok = '=')) then //Se acepta ambos operadores
   begin
     cIn.Next;   //toma operador
     cIn.SkipWhitesNoEOL;
     //Evalua la expresión para deducir el tipo.
 //    exp := GetOperand;  //puede generar error
-    GetExpression(0);
+    GetExpressionE(0);
     exp := res;   //guarda el resultado, para asignarlo luego
     posFin := cIn.PosAct;   //guarda la posición final de la expresión.
     if Perr.HayError then exit(false);   //sale con el puntero en la posición del error
@@ -130,7 +130,7 @@ begin
     cIn.PosAct := posFin;  {Deja el cursor aquí, porque es el mejor lugar para el cursor
                             en caso de error, y también porque aquí se debe quedar el
                             cursor después de evaluar.}
-    Evaluar(Op1, opr, exp);    //Evalua en "res". Puede geenera error.
+    Oper(Op1, opr, exp);    //Evalua en "res". Puede geenera error.
     if Perr.HayError then exit(false);
     exit(true);        //si es asignación
   end;
@@ -233,7 +233,7 @@ begin
     if EsAsign then begin  //hay identificador nuevo
       //Se asume que es la asignación a una variable
       //No hay que hacer nada. Ya todo lo hizo "ProcesaAsignacion".
-    end else if cIn.tokType = tkStruct then begin  //es una estructura
+    end else if cIn.tokType = tnStruct then begin  //es una estructura
       if cIn.tokL = 'if' then begin  //condicional
         CompileBlockIF;
         if HayError then exit;
@@ -242,7 +242,7 @@ begin
         exit;
       end;
     end else begin  //debe ser una expresión
-      GetExpression(0);
+      GetExpressionE(0);
       if perr.HayError then exit;   //aborta
     end;
     if stop then exit;
@@ -250,7 +250,7 @@ begin
     if cIn.Eof then break;  //sale por fin de archivo
     //Busca delimitador de bloque
     cIn.SkipWhitesNoEOL;
-    if cIn.tokType=tkEol then begin //encontró delimitador de expresión
+    if cIn.tokType=tnEol then begin //encontró delimitador de expresión
       cIn.Next;   //lo toma
       cIn.SkipWhites;  //quita espacios
     end else if EOBlock then begin  //hay delimitador de bloque
@@ -343,7 +343,7 @@ begin
   end else begin
     //debe haber parámetros
     repeat
-      GetExpression(0, true);  //captura parámetro
+      GetExpressionE(0, true);  //captura parámetro
       if perr.HayError then exit;   //aborta
       //guarda tipo de parámetro, para después comparar todos los parámetros leídos
       func0.CreateParam('', res.typ);

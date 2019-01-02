@@ -111,9 +111,12 @@ type
   protected
     //referencias de tipos adicionales de tokens
     tkStruct   : TSynHighlighterAttributes;
+    tnStruct   : integer;
     tkExpDelim : TSynHighlighterAttributes;
+    tnExpDelim : integer;
     tkBlkDelim : TSynHighlighterAttributes;
-    tkOthers   : TSynHighlighterAttributes;
+    tnBlkDelim : integer;
+    tnOthers   : integer;
     ejec: boolean;       //permite poner al intérprete en modo "No Ejecución"
     procedure Cod_StartData;
     procedure Cod_StartProgram;
@@ -587,10 +590,10 @@ begin
   OnExprEnd := @expr_End;
   ///////////define la sintaxis del compilador
   //Crea tipos de tokens personalizados
-  tkExpDelim := xLex.NewTokType('ExpDelim');//delimitador de expresión ";"
-  tkBlkDelim := xLex.NewTokType('BlkDelim'); //delimitador de bloque
-  tkStruct   := xLex.NewTokType('Struct');   //personalizado
-  tkOthers   := xLex.NewTokType('Others');   //personalizado
+  tnExpDelim := xLex.NewTokType('ExpDelim', tkExpDelim);//delimitador de expresión ";"
+  tnBlkDelim := xLex.NewTokType('BlkDelim', tkBlkDelim); //delimitador de bloque
+  tnStruct   := xLex.NewTokType('Struct', tkStruct);   //personalizado
+  tnOthers   := xLex.NewTokType('Others');   //personalizado
   //Configura apariencia
   tkKeyword.Style := [fsBold];     //en negrita
   tkBlkDelim.Foreground:=clGreen;
@@ -602,39 +605,39 @@ begin
   xLex.ClearSpecials;               //para empezar a definir tokens
   //crea tokens por contenido
   xLex.DefTokIdentif('[$A-Za-z_]', '[A-Za-z0-9_]*');
-  xLex.DefTokContent('[0-9]', '[0-9.]*', tkNumber);
+  xLex.DefTokContent('[0-9]', '[0-9.]*', tnNumber);
   //Define palabras claves.
   {Notar que si se modifica aquí, se debería también, actualizar el archivo XML de
   sintaxis, para que el resaltado y completado sea consistente.}
-  xLex.AddIdentSpecList('ENDIF ELSE ELSEIF', tkBlkDelim);
-  xLex.AddIdentSpecList('true false', tkBoolean);
-  xLex.AddIdentSpecList('CLEAR CONNECT CONNECTSSH DISCONNECT SENDLN WAIT PAUSE STOP', tkSysFunct);
-  xLex.AddIdentSpecList('LOGOPEN LOGWRITE LOGCLOSE LOGPAUSE LOGSTART', tkSysFunct);
-  xLex.AddIdentSpecList('FILEOPEN FILECLOSE FILEWRITE', tkSysFunct);
-  xLex.AddIdentSpecList('MESSAGEBOX CAPTURE ENDCAPTURE EDIT DETECT_PROMPT', tkSysFunct);
-  xLex.AddIdentSpecList('IF', tkStruct);
-  xLex.AddIdentSpecList('THEN', tkKeyword);
+  xLex.AddIdentSpecList('ENDIF ELSE ELSEIF', tnBlkDelim);
+  xLex.AddIdentSpecList('true false', tnBoolean);
+  xLex.AddIdentSpecList('CLEAR CONNECT CONNECTSSH DISCONNECT SENDLN WAIT PAUSE STOP', tnSysFunct);
+  xLex.AddIdentSpecList('LOGOPEN LOGWRITE LOGCLOSE LOGPAUSE LOGSTART', tnSysFunct);
+  xLex.AddIdentSpecList('FILEOPEN FILECLOSE FILEWRITE', tnSysFunct);
+  xLex.AddIdentSpecList('MESSAGEBOX CAPTURE ENDCAPTURE EDIT DETECT_PROMPT', tnSysFunct);
+  xLex.AddIdentSpecList('IF', tnStruct);
+  xLex.AddIdentSpecList('THEN', tnKeyword);
   //símbolos especiales
-  xLex.AddSymbSpec(';',  tkExpDelim);
-  xLex.AddSymbSpec(',',  tkExpDelim);
-  xLex.AddSymbSpec('+',  tkOperator);
-  xLex.AddSymbSpec('-',  tkOperator);
-  xLex.AddSymbSpec('*',  tkOperator);
-  xLex.AddSymbSpec('/',  tkOperator);
-  xLex.AddSymbSpec(':=', tkOperator);
-  xLex.AddSymbSpec('=', tkOperator);
-  xLex.AddSymbSpec('>', tkOperator);
-  xLex.AddSymbSpec('>=', tkOperator);
-  xLex.AddSymbSpec('<', tkOperator);
-  xLex.AddSymbSpec('<=', tkOperator);
-  xLex.AddSymbSpec('(',  tkOthers);
-  xLex.AddSymbSpec(')',  tkOthers);
-  xLex.AddSymbSpec(':',  tkOthers);
+  xLex.AddSymbSpec(';',  tnExpDelim);
+  xLex.AddSymbSpec(',',  tnExpDelim);
+  xLex.AddSymbSpec('+',  tnOperator);
+  xLex.AddSymbSpec('-',  tnOperator);
+  xLex.AddSymbSpec('*',  tnOperator);
+  xLex.AddSymbSpec('/',  tnOperator);
+  xLex.AddSymbSpec(':=', tnOperator);
+  xLex.AddSymbSpec('=', tnOperator);
+  xLex.AddSymbSpec('>', tnOperator);
+  xLex.AddSymbSpec('>=', tnOperator);
+  xLex.AddSymbSpec('<', tnOperator);
+  xLex.AddSymbSpec('<=', tnOperator);
+  xLex.AddSymbSpec('(',  tnOthers);
+  xLex.AddSymbSpec(')',  tnOthers);
+  xLex.AddSymbSpec(':',  tnOthers);
   //crea tokens delimitados
-  xLex.DefTokDelim('''','''', tkString);
-  xLex.DefTokDelim('"','"', tkString);
-  xLex.DefTokDelim('//','', xLex.tkComment);
-  xLex.DefTokDelim('/\*','\*/', xLex.tkComment, tdMulLin);
+  xLex.DefTokDelim('''','''', tnString);
+  xLex.DefTokDelim('"','"', tnString);
+  xLex.DefTokDelim('//','', xLex.tnComment);
+  xLex.DefTokDelim('/\*','\*/', xLex.tnComment, tdMulLin);
   //define bloques de sintaxis
   xLex.AddBlock('{','}');
   xLex.Rebuild;   //es necesario para terminar la definición

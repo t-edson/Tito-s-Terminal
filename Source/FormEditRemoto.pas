@@ -193,7 +193,7 @@ end;
 procedure TfrmEditRemoto.editChangeFileInform;
 begin
   //actualiza nombre de archivo
-  Caption := dic('Editor Remoto - ') + edit.NomArc;
+  Caption := dic('Editor Remoto - ') + edit.FileName;
 end;
 
 procedure TfrmEditRemoto.edSpecialLineMarkup(Sender: TObject; Line: integer;
@@ -239,7 +239,7 @@ begin
   Para ello se debe hacer una sustitución}
   ed.Enabled := False;
   txt := StringReplace(txt, '''', '''"''"''',[rfReplaceAll]);
-  frmPrincipal.EnviarComando('echo ''' + txt + ''' > "' + edit.NomArc+'"', lineas);
+  frmPrincipal.EnviarComando('echo ''' + txt + ''' > "' + edit.FileName+'"', lineas);
   ed.Enabled := True;
   //para actualizar controles
   edit.Modified:=false;  //Este método no es público en la librería original
@@ -298,7 +298,7 @@ begin
   MsjErr := frmPrincipal.EnviarComando('cat "'+arc+'"', lineas);
   ed.Lines.Clear;
   ed.Lines.AddStrings(lineas);
-  edit.NomArc:=arc;
+  edit.FileName:=arc;
   //para actualizar controles
   edit.Modified:=false;  //Este método no es público en la librería original)
    //para actualizar nombre

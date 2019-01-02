@@ -174,7 +174,7 @@ end;
 procedure TfrmEditMacros.editChangeFileInform;
 begin
   //actualiza nombre de archivo
-  Caption := 'Editor de Macros - ' + edit.NomArc;
+  Caption := 'Editor de Macros - ' + edit.FileName;
 end;
 
 /////////////////// Acciones de Archivo /////////////////////
@@ -239,7 +239,7 @@ end;
 //////////// Acciones de Herramientas  ////////////////
 procedure TfrmEditMacros.AcHerEjecExecute(Sender: TObject);
 begin
-  cxp.Compilar(edit.NomArc, ed.Lines);
+  cxp.Compilar(edit.FileName, ed.Lines);
   if cxp.HayError then begin
     MarcarError(cxp.ErrorLine, cxp.ErrorCol);
     cxp.ShowError;
@@ -304,12 +304,12 @@ var
   larc: TStringList;
 begin
   larc := Tstringlist.Create;
-  larc.LoadFromFile(UTF8toSys(arc));
+  larc.LoadFromFile(arc);
   cxp.Compilar(arc, larc);
   if cxp.HayError then begin
     self.Show;   //por si no estaba visible
     //muestra error en el editor
-    if edit.NomArc = arc then begin
+    if edit.FileName= arc then begin
       //lo tiene en el editor
       MarcarError(cxp.ErrorLine,cxp.ErrorCol);
       cxp.ShowError;

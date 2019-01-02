@@ -480,13 +480,13 @@ end;
 procedure TfrmPrincipal.ePComFileOpened;
 begin
   ePCom.LoadSyntaxFromPath;  //para que busque el archivo apropiado
-  Config.fcRutArc.UltScript := ePCom.NomArc;  //guarda archivo abierto
+  Config.fcRutArc.UltScript := ePCom.FileName;  //guarda archivo abierto
   //actualiza encabezado
   if SesAct = '' then begin
-    Caption := NOM_PROG + dic(' - Archivo: ')+ ePCom.NomArc;
+    Caption := NOM_PROG + dic(' - Archivo: ')+ ePCom.FileName;
   end else begin
     Caption := NOM_PROG + ' - Sesión: ' + ExtractFileName(SesAct) +
-                          dic(' - Archivo: ')+ ePCom.NomArc;
+                          dic(' - Archivo: ')+ ePCom.FileName;
   end;
 end;
 procedure TfrmPrincipal.edPComSpecialLineMarkup(Sender: TObject; Line: integer;
