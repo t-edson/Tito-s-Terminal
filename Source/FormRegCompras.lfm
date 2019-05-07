@@ -1,0 +1,198 @@
+object frmRegCompras: TfrmRegCompras
+  Left = 233
+  Height = 444
+  Top = 160
+  Width = 600
+  Caption = 'frmRegCompras'
+  ClientHeight = 444
+  ClientWidth = 600
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.6.2.0'
+  object Panel2: TPanel
+    Left = 0
+    Height = 240
+    Top = 152
+    Width = 600
+    Align = alClient
+    TabOrder = 1
+  end
+  object Panel3: TPanel
+    Left = 0
+    Height = 52
+    Top = 392
+    Width = 600
+    Align = alBottom
+    ClientHeight = 52
+    ClientWidth = 600
+    TabOrder = 2
+    object btnGuardar: TBitBtn
+      Left = 24
+      Height = 30
+      Top = 8
+      Width = 99
+      Caption = '&Guardar'
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0035352E826060
+        58F26B6B64F5979794FC93938FFC949491FC91918EFC8D8D8AFC868683FC6666
+        5EF66F6F65F678786FF575756CF346463D8BFFFFFF00FFFFFF005E5E56FF6364
+        5AFF7E7E77FF9B9B94FF727264FFDADADAFFD3D3D3FFCCCCCCFFB9B9B9FF7F7F
+        6DFF7A7A6AFF99998FFFA3A297FF6E6E65E555554606FFFFFF005A5A50FF5D5D
+        51FF787971FFA3A39AFF828272FFD6D6D6FFCFCFCFFFC8C8C8FFB5B5B5FF8787
+        75FF808070FF7F7F73FF858478FF6F6E65E755554625FFFFFF00595950FF5B5C
+        53FF787870FFA8A8A2FF858579FFD1D1D1FFCACACAFFC3C3C3FFB0B0B0FF8787
+        75FF80806FFF919086FF96968CFF6D6D63E7555546425555460456574DFF5F60
+        56FF606159FF8B8B85FF8B8B85FF898983FF878781FF868680FF7D7D75FF7B7B
+        6EFF7C7C6FFF96968BFF9C9B91FF6B6B62E7555546465555462053544BFF5A5A
+        51FF5F6056FF65655BFF6A6B61FF707066FF75766BFF7B7B71FF808076FF8686
+        7BFF8B8B81FF919186FF96968BFF696860E75555464655554637515148FF5455
+        4CFF6A6A5DFF87867BFF89887DFF8A897FFF8C8B80FF8D8C82FF8E8D83FF8F90
+        85FF919187FF7F7F75FF919186FF68685FDEFFFFFF00FFFFFF004E4E46FF4F50
+        46FFA8A69BFFFAF6EDFFFBF7EFFFFBF8F1FFFCF9F4FFFCFAF6FFFDFBF8FFFDFC
+        FAFFFEFEFDFF929289FF8C8B81FF66665DDEFFFFFF00FFFFFF004C4C43FF494B
+        41FFA9A79BFFFAF6EDFFFBF7EFFFFBF8F1FFFCF9F4FFFCFAF6FFFDFBF8FFFDFC
+        FAFFFEFEFDFF929288FF86867CFF64645BDEFFFFFF00FFFFFF00484941FF4445
+        3CFFA8A79AFFFAF6EDFFFBF7EFFFFBF8F1FFFCF9F4FFFCFAF6FFFDFBF8FFFDFC
+        FAFFFEFEFDFF909087FF818177FF626259DEFFFFFF00FFFFFF0046473DFF3E40
+        37FFA8A69AFFFAF6EDFFFBF7EFFFFBF8F1FFFCF9F4FFFCFAF6FFFDFBF8FFFDFC
+        FAFFFEFEFDFF8F8F86FF7B7C71FF606058DEFFFFFF00FFFFFF0043443BFF393B
+        31FF69BC60FF5DE858FF5DE959FF5DE959FF5DE95AFF5DEA5BFF5EEA5CFF5EEA
+        5DFF5EEB5EFF719E6AFF76766CFF5E5F55DEFFFFFF00FFFFFF004C4D47FF4343
+        3CFF43C93EFF00E100FF00E100FF00E100FF00E100FF00E100FF00E100FF00E1
+        00FF00E100FF60A759FF76756FFF585850DFFFFFFF00FFFFFF0035352EB34041
+        39F1518447FA4EA347FD4FA349FD4FA44AFD50A54AFD51A64BFD51A64CFD51A7
+        4CFD53A84EFD5B7652F8585850F03A3A337AFFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+      OnClick = btnGuardarClick
+      TabOrder = 0
+    end
+    object btnCancelar: TBitBtn
+      Left = 152
+      Height = 30
+      Top = 8
+      Width = 99
+      Cancel = True
+      Caption = '&Cancelar'
+      Kind = bkCancel
+      ModalResult = 2
+      OnClick = btnCancelarClick
+      TabOrder = 1
+    end
+    object Label6: TLabel
+      Left = 344
+      Height = 15
+      Top = 16
+      Width = 40
+      Caption = 'TOTAL:'
+      ParentColor = False
+    end
+    object txtTotal: TEdit
+      Left = 416
+      Height = 23
+      Top = 12
+      Width = 80
+      Alignment = taRightJustify
+      Enabled = False
+      TabOrder = 2
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 152
+    Top = 0
+    Width = 600
+    Align = alTop
+    ClientHeight = 152
+    ClientWidth = 600
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 312
+      Height = 15
+      Top = 24
+      Width = 96
+      Caption = 'Fecha de Compra:'
+      ParentColor = False
+    end
+    object Label2: TLabel
+      Left = 16
+      Height = 15
+      Top = 24
+      Width = 67
+      Caption = 'ID COMPRA:'
+      ParentColor = False
+    end
+    object txtID: TEdit
+      Left = 160
+      Height = 23
+      Top = 16
+      Width = 97
+      Alignment = taRightJustify
+      Enabled = False
+      TabOrder = 0
+      Text = 'txtID'
+    end
+    object datTecCompra: TDateEdit
+      Left = 456
+      Height = 23
+      Top = 16
+      Width = 103
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      DateOrder = doNone
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object Label3: TLabel
+      Left = 16
+      Height = 15
+      Top = 64
+      Width = 57
+      Caption = 'Proveedor:'
+      ParentColor = False
+    end
+    object txtProveed: TEdit
+      Left = 160
+      Height = 23
+      Top = 56
+      Width = 312
+      TabOrder = 2
+    end
+    object Label4: TLabel
+      Left = 16
+      Height = 15
+      Top = 128
+      Width = 129
+      Caption = 'Número de Documento:'
+      ParentColor = False
+    end
+    object txtNumDocum: TEdit
+      Left = 160
+      Height = 23
+      Top = 120
+      Width = 103
+      Alignment = taRightJustify
+      TabOrder = 4
+    end
+    object Label5: TLabel
+      Left = 16
+      Height = 15
+      Top = 96
+      Width = 54
+      Caption = 'Categoría:'
+      ParentColor = False
+    end
+    object txtCateg: TEdit
+      Left = 160
+      Height = 23
+      Top = 88
+      Width = 104
+      TabOrder = 3
+    end
+  end
+end

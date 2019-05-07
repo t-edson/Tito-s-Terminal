@@ -1,0 +1,32 @@
+object ModBD: TModBD
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  OldCreateOrder = False
+  Height = 343
+  HorizontalOffset = 200
+  VerticalOffset = 126
+  Width = 427
+  PPI = 96
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Database = SQLite3Connection1
+    left = 160
+    top = 32
+  end
+  object SQLite3Connection1: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = SQLTransaction1
+    left = 48
+    top = 32
+  end
+  object query: TSQLQuery
+    FieldDefs = <>
+    Database = SQLite3Connection1
+    Transaction = SQLTransaction1
+    Params = <>
+    left = 248
+    top = 32
+  end
+end

@@ -1,0 +1,303 @@
+digraph output {
+cpxserver [shape=box]
+cpxserver->interfaces
+interfaces [color=red]
+cpxserver->forms
+forms [color=red]
+cpxserver->formprincipal
+node [shape=ellipse]
+edge [style=dotted]
+formprincipal->classes
+classes [color=red]
+edge [style=dotted]
+formprincipal->sysutils
+sysutils [color=red]
+edge [style=dotted]
+formprincipal->forms
+edge [style=dotted]
+formprincipal->controls
+controls [color=red]
+edge [style=dotted]
+formprincipal->extctrls
+extctrls [color=red]
+edge [style=dotted]
+formprincipal->lclproc
+lclproc [color=red]
+edge [style=dotted]
+formprincipal->actnlist
+actnlist [color=red]
+edge [style=dotted]
+formprincipal->menus
+menus [color=red]
+edge [style=dotted]
+formprincipal->comctrls
+comctrls [color=red]
+edge [style=dotted]
+formprincipal->dialogs
+dialogs [color=red]
+edge [style=dotted]
+formprincipal->misutils
+misutils [color=red]
+edge [style=dotted]
+formprincipal->ogdefobjgraf
+ogdefobjgraf [color=red]
+edge [style=dotted]
+formprincipal->formingventas
+node [shape=ellipse]
+edge [style=dotted]
+formingventas->classes
+edge [style=dotted]
+formingventas->sysutils
+edge [style=dotted]
+formingventas->fileutil
+fileutil [color=red]
+edge [style=dotted]
+formingventas->forms
+edge [style=dotted]
+formingventas->controls
+edge [style=dotted]
+formingventas->graphics
+graphics [color=red]
+edge [style=dotted]
+formingventas->dialogs
+edge [style=dotted]
+formingventas->extctrls
+edge [style=dotted]
+formingventas->buttonpanel
+buttonpanel [color=red]
+edge [style=dotted]
+formingventas->stdctrls
+stdctrls [color=red]
+edge [style=dotted]
+formingventas->grids
+grids [color=red]
+edge [style=dotted]
+formingventas->actnlist
+edge [style=dotted]
+formingventas->menus
+edge [style=dotted]
+formingventas->buttons
+buttons [color=red]
+edge [style=dotted]
+formingventas->frameutilsgrilla
+frameutilsgrilla [color=red]
+edge [style=dotted]
+formingventas->utilsgrilla
+utilsgrilla [color=red]
+edge [style=dotted]
+formingventas->misutils
+edge [style=dotted]
+formingventas->cibfacturables
+cibfacturables [color=red]
+edge [style=dotted]
+formingventas->cpproductos
+cpproductos [color=red]
+edge [style=dotted]
+formingventas->formconfig
+node [shape=ellipse]
+edge [style=dotted]
+formconfig->classes
+edge [style=dotted]
+formconfig->sysutils
+edge [style=dotted]
+formconfig->forms
+edge [style=dotted]
+formconfig->controls
+edge [style=dotted]
+formconfig->buttons
+edge [style=dotted]
+formconfig->stdctrls
+edge [style=dotted]
+formconfig->comctrls
+edge [style=dotted]
+formconfig->extctrls
+edge [style=dotted]
+formconfig->miconfigbasic
+miconfigbasic [color=red]
+edge [style=dotted]
+formconfig->miconfigxml
+miconfigxml [color=red]
+edge [style=dotted]
+formconfig->framecfgusuarios
+framecfgusuarios [color=red]
+edge [style=dotted]
+formconfig->globales
+node [shape=ellipse]
+edge [style=dotted]
+globales->classes
+edge [style=dotted]
+globales->sysutils
+edge [style=dotted]
+globales->dos
+dos [color=red]
+edge [style=dotted]
+globales->forms
+edge [style=dotted]
+globales->misutils
+edge [style=dotted]
+globales->forminicio
+forminicio [color=red]
+edge [style=dotted]
+formconfig->misutils
+edge [style=dotted]
+formconfig->cpgrupfacturables
+cpgrupfacturables [color=red]
+edge [style=dotted]
+formprincipal->formconfig
+edge [style=dotted]
+formprincipal->framecfgusuarios
+edge [style=dotted]
+formprincipal->globales
+edge [style=dotted]
+formprincipal->frameviscplex
+frameviscplex [color=red]
+edge [style=dotted]
+formprincipal->objgraficos
+objgraficos [color=red]
+edge [style=dotted]
+formprincipal->formfijtiempo
+formfijtiempo [color=red]
+edge [style=dotted]
+formprincipal->formexplorcab
+formexplorcab [color=red]
+edge [style=dotted]
+formprincipal->formvisormsjred
+formvisormsjred [color=red]
+edge [style=dotted]
+formprincipal->formboleta
+node [shape=ellipse]
+edge [style=dotted]
+formboleta->classes
+edge [style=dotted]
+formboleta->sysutils
+edge [style=dotted]
+formboleta->strutils
+strutils [color=red]
+edge [style=dotted]
+formboleta->fileutil
+edge [style=dotted]
+formboleta->forms
+edge [style=dotted]
+formboleta->controls
+edge [style=dotted]
+formboleta->graphics
+edge [style=dotted]
+formboleta->dialogs
+edge [style=dotted]
+formboleta->extctrls
+edge [style=dotted]
+formboleta->buttons
+edge [style=dotted]
+formboleta->grids
+edge [style=dotted]
+formboleta->stdctrls
+edge [style=dotted]
+formboleta->actnlist
+edge [style=dotted]
+formboleta->menus
+edge [style=dotted]
+formboleta->lclproc
+edge [style=dotted]
+formboleta->utilsgrilla
+edge [style=dotted]
+formboleta->misutils
+edge [style=dotted]
+formboleta->cibfacturables
+edge [style=dotted]
+formboleta->formconfig
+edge [style=dotted]
+formboleta->formingventas
+edge [style=dotted]
+formprincipal->formrepingresos
+formrepingresos [color=red]
+edge [style=dotted]
+formprincipal->formbusproductos
+node [shape=ellipse]
+edge [style=dotted]
+formbusproductos->classes
+edge [style=dotted]
+formbusproductos->sysutils
+edge [style=dotted]
+formbusproductos->fileutil
+edge [style=dotted]
+formbusproductos->forms
+edge [style=dotted]
+formbusproductos->controls
+edge [style=dotted]
+formbusproductos->graphics
+edge [style=dotted]
+formbusproductos->dialogs
+edge [style=dotted]
+formbusproductos->grids
+edge [style=dotted]
+formbusproductos->extctrls
+edge [style=dotted]
+formbusproductos->buttons
+edge [style=dotted]
+formbusproductos->menus
+edge [style=dotted]
+formbusproductos->actnlist
+edge [style=dotted]
+formbusproductos->stdctrls
+edge [style=dotted]
+formbusproductos->utilsgrilla
+edge [style=dotted]
+formbusproductos->cpproductos
+edge [style=dotted]
+formbusproductos->formconfig
+edge [style=dotted]
+formbusproductos->frameutilsgrilla
+edge [style=dotted]
+formprincipal->forminicio
+edge [style=dotted]
+formprincipal->cibregistros
+cibregistros [color=red]
+edge [style=dotted]
+formprincipal->cibtramas
+cibtramas [color=red]
+edge [style=dotted]
+formprincipal->cibfacturables
+edge [style=dotted]
+formprincipal->cpproductos
+edge [style=dotted]
+formprincipal->cibgfaccabinas
+cibgfaccabinas [color=red]
+edge [style=dotted]
+formprincipal->cibgfacnilom
+cibgfacnilom [color=red]
+cpxserver->formconfig
+cpxserver->cibfacturables
+cpxserver->cibcabinatarifas
+cibcabinatarifas [color=red]
+cpxserver->formvisormsjred
+cpxserver->formboleta
+cpxserver->formrepingresos
+cpxserver->registrosventas
+node [shape=ellipse]
+edge [style=dotted]
+registrosventas->classes
+edge [style=dotted]
+registrosventas->sysutils
+edge [style=dotted]
+registrosventas->types
+types [color=red]
+edge [style=dotted]
+registrosventas->fgl
+fgl [color=red]
+edge [style=dotted]
+registrosventas->strutils
+edge [style=dotted]
+registrosventas->misutils
+cpxserver->formbusproductos
+cpxserver->formingventas
+cpxserver->formagrupvert
+formagrupvert [color=red]
+cpxserver->cibgfacnilom
+cpxserver->formnilomterminal
+formnilomterminal [color=red]
+cpxserver->formfijtiempo
+cpxserver->formadmincabinas
+formadmincabinas [color=red]
+cpxserver->formadmintarcab
+formadmintarcab [color=red]
+}
