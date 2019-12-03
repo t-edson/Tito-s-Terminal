@@ -1,23 +1,39 @@
-usuario
-ping 192.168.1.30
-fisql -S SILICIO1 -U sa -P sysman41 -i a.sql -n 
+76w8eryw98nW
+52.186.123.85
+22022
+azureuser
 
-fpc tisql.pas
-./tisql
+pwd
+cd /var/www/html
+sudo su -
+sudo apt-get install php7.2-gd
+sudo yum install php7.2-gd
+sudo yum install php-gd
 
-sudo find / -name libsybdb.so
+exit
 
-sudo ln -s /home/usuario/freetds-dev.1.00.106/src/dblib/.libs/libsybdb.so /usr/lib/libsybdb.so
+php7
+php
+ls /usr/bin/ph*
+cat /etc/php.ini | wc -l
+sudo find / -executable -type f -name "php*"
 
-su root
-sysman41
-tsql -C
-cd freetds-dev.1.00.106
-whoami
-./configure --prefix=/usr/local
-make
-make install
-cd ..
-fpc prueba.pas
-./prueba
+ls /var/lib/php  
+ls /usr/lib64/php
+ls /usr/share/php
+
+/var/lib/php
+whereis php
+/usr/lib64/php
+which php
+
+sudo find / -name "php.ini"
+ls -l /usr/share/locale/gd
+cat /etc/php.ini | wc -l
+y
+
+ls -l /etc/in*
+sudo systemctl restart httpd
+
+sudo restart apache2
 

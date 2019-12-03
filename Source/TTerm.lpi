@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
@@ -25,7 +25,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.4;..\..\_Librerias\UnTerminal-0.9;..\..\_Librerias\SynFacilUtils 0.9;..\..\_Librerias\ConfigFrame 0.8b;..\..\_Librerias\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_Librerias\Xpres-1.0;ConfigFrames"/>
+            <OtherUnitFiles Value="..\..\_libraries\MisUtils 0.5;..\..\_libraries\UnTerminal-0.9;..\..\_libraries\SynFacilUtils-1.21;..\..\_libraries\ConfigFrame 0.8b;..\..\_libraries\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_libraries\Xpres-1.3.2;ConfigFrames"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -52,13 +52,12 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
-      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="3">
       <Item1>
@@ -71,7 +70,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="22">
+    <Units Count="21">
       <Unit0>
         <Filename Value="TTerm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -142,79 +141,72 @@
         <ResourceBaseClass Value="Form"/>
       </Unit10>
       <Unit11>
-        <Filename Value="..\..\_Librerias\ConfigFrame 0.6\ConfigFrame.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="CfgFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit11>
-      <Unit12>
         <Filename Value="ConfigFrames\FrameCfgConex.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraConexion"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit12>
-      <Unit13>
+      </Unit11>
+      <Unit12>
         <Filename Value="ConfigFrames\FrameCfgGener.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraCfgGener"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit13>
-      <Unit14>
+      </Unit12>
+      <Unit13>
         <Filename Value="ConfigFrames\frameCfgDetPrompt.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraDetPrompt"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit14>
-      <Unit15>
+      </Unit13>
+      <Unit14>
         <Filename Value="ConfigFrames\frameCfgPantTerm.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraPantTerm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit15>
-      <Unit16>
+      </Unit14>
+      <Unit15>
         <Filename Value="ConfigFrames\FrameCfgExpRem.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fcExpRem"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit16>
-      <Unit17>
+      </Unit15>
+      <Unit16>
         <Filename Value="ConfigFrames\FrameCfgMacros.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fcMacros"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit17>
-      <Unit18>
+      </Unit16>
+      <Unit17>
         <Filename Value="ConfigFrames\FrameCfgComandRec.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraComandRec"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit18>
-      <Unit19>
+      </Unit17>
+      <Unit18>
         <Filename Value="ConfigFrames\FrameCfgRutasCnx.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraCfgRutArc"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit19>
-      <Unit20>
+      </Unit18>
+      <Unit19>
         <Filename Value="ConfigFrames\FrameCfgPanCom.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fraPanCom"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit20>
-      <Unit21>
+      </Unit19>
+      <Unit20>
         <Filename Value="GenCod.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit21>
+      </Unit20>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -225,7 +217,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\_Librerias\MisUtils 0.5;..\..\_Librerias\UnTerminal-0.9;..\..\_Librerias\SynFacilUtils-1.21;..\..\_Librerias\ConfigFrame 0.8b;..\..\_Librerias\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_Librerias\Xpres-1.3.2;ConfigFrames"/>
+      <OtherUnitFiles Value="..\..\_libraries\MisUtils 0.5;..\..\_libraries\UnTerminal-0.9;..\..\_libraries\SynFacilUtils-1.21;..\..\_libraries\ConfigFrame 0.8b;..\..\_libraries\ConfigFrame 0.8b\Predefined;..\..\PreSQL 2.4;..\..\_libraries\Xpres-1.3.2;ConfigFrames"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

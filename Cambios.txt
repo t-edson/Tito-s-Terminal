@@ -1,7 +1,21 @@
+Tito's Terminal 0.7
+===================
+Se actualiza la librería Xpres, a la versión 1.2.
+Se agregan operaciones de comparación de enteros, en el intérprete de macros.
+Se quita la acción "Modo columna" porque ya existe esta función en SynEdit.
+Se cambia la forma de mostrar el menú conextual de la ventana de scripts. Ahora se selecciona
+primero la línea, antes de mostrar el menú.
+Se incluye la opción "Enviar línea" en el menú contextual del panel de comandos.
+Se cambia el nombre del editor ePCom a eScript.
+Se corrige el archivo de sintaxis DOS_shell.xml
+Se agrega el archivo de sintaxis INI_file.ini
+Se corrige el problema del editor remoto, consistente en la carga múltiple del menú de 
+lenguajes.
+
+
 Tito's Terminal 0.6
 ===================
 Se actualiza la librería Xpres, a la versión 1.1. 
-
 
 Tito's Terminal 0.5
 ===================

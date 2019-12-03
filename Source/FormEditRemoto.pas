@@ -140,6 +140,7 @@ end;
 procedure TfrmEditRemoto.FormShow(Sender: TObject);
 begin
   edit.NewFile;        //para actualizar estado
+  mnLenguaje.Clear;
   edit.InitMenuLanguages(mnLenguaje, rutLenguajes);
   edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
   edit.InitMenuRecents(mnRecientes,nil);  //inicia el menú "Recientes"
@@ -365,7 +366,7 @@ begin
     acBusRem.Caption := '&Reeplace...';
     acVerPanArc.Caption := '&Files Panel';
     AcHerConfig.Caption := 'Se&tup';
-    //traducción
+    //Traducción
     dicSet('Editor Remoto - ','Remote Editor - ');
     dicSet('El archivo ha sido modificado. ¿Guardar en el servidor?', 'File modified. Save on Server?');
     dicSet('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
