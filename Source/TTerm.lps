@@ -21,7 +21,6 @@
         <EditorIndex Value="1"/>
         <TopLine Value="740"/>
         <CursorPos X="19" Y="821"/>
-        <FoldState Value=" T4807 T8M2~I012 T3qB075 pifjC049]9bjB[96Zj705]Rj7jI0H018 TMrb220G231N1]RT0rBc3J]iXnJZ6B[-4iLD423L T6rL0191J THx8EK6 TF;g222I"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="2">
           <Item0 X="7" Y="1195"/>
@@ -46,15 +45,17 @@
         <ComponentName Value="Config"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="54" Y="14"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="globales.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Globales"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="5"/>
         <CursorPos X="36" Y="19"/>
         <UsageCount Value="200"/>
@@ -104,13 +105,13 @@
         <ComponentName Value="frmEditRemoto"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="114"/>
-        <CursorPos X="20" Y="143"/>
-        <FoldState Value=" TL001022 T4803 T7HJ{D T8I2{4]L3ja0G019 piejf0G7 TMkX2201131 T6kK01]s0kNO9]SHoENx@"/>
+        <TopLine Value="113"/>
+        <CursorPos X="14" Y="118"/>
+        <FoldState Value=" T4803 T7HJ{D T8I2{42 T3ja0G019 TMkX2201131 T6kK01]j0kNO97-"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="FormAbrirRemoto.pas"/>
@@ -222,7 +223,7 @@
       <Unit20>
         <Filename Value="GenCod.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="620"/>
         <CursorPos X="26" Y="642"/>
         <UsageCount Value="162"/>
@@ -702,7 +703,7 @@
       <Unit79>
         <Filename Value="C:\lazarus\lcl\controls.pp"/>
         <UnitName Value="Controls"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="174"/>
         <CursorPos X="3" Y="187"/>
         <UsageCount Value="11"/>
