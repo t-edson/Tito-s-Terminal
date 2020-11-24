@@ -1,3 +1,10 @@
+Tito's Terminal 0.8
+===================
+Se actualiza la libería SynFacilUtils a la versión 1.22 para trabajar con la versión más 
+reciente de Lazarus.
+Se cambia la organización de la pantalla, creando una interfaz de lenguetas, asociando un
+terminal a un panel de comandos.
+
 Tito's Terminal 0.7
 ===================
 Se actualiza la librería Xpres, a la versión 1.2.
