@@ -7,13 +7,12 @@ unit FormPrincipal;
 
 interface
 uses
-  Classes, SysUtils, FileUtil, LazUTF8, SynEdit, Forms, Controls, Graphics,
-  Dialogs, Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds,
-  SynEditMarkupHighAll, SynEditMiscClasses, LCLType, LCLProc, LCLIntf, StdActns,
-  UnTerminal, Clipbrd, FormConexRapida, FormConfig, FormExpRemoto,
-  FormEditMacros, MisUtils, Globales, FrameCfgConex, FormSelFuente,
-  FrameCfgComandRec, TermVT, uResaltTerm, SynFacilUtils, FormEditRemoto,
-  uPreBasicos, uPreProces;
+  Classes, SysUtils, Types, FileUtil, LazUTF8, SynEdit, Forms, Controls,
+  Graphics, Dialogs, Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds,
+  SynEditMiscClasses, LCLType, LCLProc, LCLIntf, UnTerminal, Clipbrd,
+  FormConexRapida, FormConfig, FormExpRemoto, FormEditMacros, MisUtils,
+  Globales, FrameCfgComandRec, SynFacilUtils, FormEditRemoto,
+  FrameTabSessions, FrameTabSession, uPreBasicos, uPreProces, StrUtils;
 type
   TlogState = (logStopped, logRunning, logPaused);
 
@@ -21,52 +20,16 @@ type
 
   TfrmPrincipal = class(TForm)
   published
-    AcArcSalir: TAction;
-    AcArcConec: TAction;
-    AcArcNueVen: TAction;
-    AcArcDescon: TAction;
-    AcArcIniReg: TAction;
-    AcArcDetReg: TAction;
-    acEdCopy: TEditCopy;
-    acEdCut: TEditCut;
-    acEdRedo: TAction;
-    acEdSelecAll: TAction;
-    acEdUndo: TAction;
+    AcFilExit: TAction;
+    AcFilConec: TAction;
+    AcFilNewWin: TAction;
+    AcFilDescon: TAction;
     AcHerCfg: TAction;
-    AcTerDetPrm: TAction;
-    AcTerDescon: TAction;
-    AcTerConec: TAction;
-    AcTerLimBuf: TAction;
-    AcArcGuaSesC: TAction;
-    AcPcmOcul: TAction;
-    AcPcmCamPos: TAction;
-    AcPCmEnvLin: TAction;
-    AcPCmEnvTod: TAction;
-    AcPcmVerBHer: TAction;
-    AcTerVerBHer: TAction;
-    AcPcmAbrir: TAction;
-    AcPcmGuardar: TAction;
-    AcPcmNuevo: TAction;
-    AcPcmGuaCom: TAction;
-    AcTerPrmArr: TAction;
-    AcTerPrmAba: TAction;
-    AcPcmConfig: TAction;
-    AcTerConfig: TAction;
-    acPCmEnvCtrC: TAction;
-    AcArcAbrSes: TAction;
-    AcArcGuaSes: TAction;
-    AcArcNueSes: TAction;
-    AcTerEnvCtrlC: TAction;
-    AcTerEnvEnter: TAction;
-    AcTerEnvCR: TAction;
-    AcTerEnvCRLF: TAction;
-    AcTerEnvLF: TAction;
-    acEdPaste: TAction;
+    AcFilSavSesAs: TAction;
+    AcFIlOpeSes: TAction;
+    AcFilSavSes: TAction;
+    AcFilNewSes: TAction;
     AcHerGraMac: TAction;
-    AcTerCopNomRut: TAction;
-    AcTerCopRut: TAction;
-    AcTerCopNom: TAction;
-    AcTerCopPal: TAction;
     acAyuAyu: TAction;
     acAyuAcer: TAction;
     AcVerBarEst: TAction;
@@ -79,46 +42,20 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
-    MenuItem11: TMenuItem;
-    MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
-    MenuItem2: TMenuItem;
     mnAyuAyu: TMenuItem;
-    mnEdicion: TMenuItem;
     mnVer: TMenuItem;
-    MenuItem16: TMenuItem;
-    MenuItem17: TMenuItem;
-    MenuItem18: TMenuItem;
-    MenuItem19: TMenuItem;
     mnArchivo: TMenuItem;
-    MenuItem20: TMenuItem;
-    MenuItem21: TMenuItem;
-    MenuItem22: TMenuItem;
     MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
     MenuItem25: TMenuItem;
     MenuItem26: TMenuItem;
     MenuItem27: TMenuItem;
     MenuItem28: TMenuItem;
-    MenuItem29: TMenuItem;
     MenuItem3: TMenuItem;
-    MenuItem30: TMenuItem;
     MenuItem31: TMenuItem;
-    MenuItem34: TMenuItem;
-    MenuItem41: TMenuItem;
-    MenuItem42: TMenuItem;
-    MenuItem43: TMenuItem;
     MenuItem44: TMenuItem;
     MenuItem45: TMenuItem;
-    MenuItem46: TMenuItem;
-    MenuItem48: TMenuItem;
-    MenuItem49: TMenuItem;
-    MenuItem50: TMenuItem;
-    MenuItem51: TMenuItem;
-    MenuItem52: TMenuItem;
-    MenuItem53: TMenuItem;
-    MenuItem54: TMenuItem;
-    MenuItem55: TMenuItem;
     MenuItem56: TMenuItem;
     MenuItem57: TMenuItem;
     MenuItem58: TMenuItem;
@@ -150,124 +87,44 @@ type
     MenuItem84: TMenuItem;
     MenuItem85: TMenuItem;
     MenuItem86: TMenuItem;
-    mnPopComAlm: TMenuItem;
-    mnComandosAlm: TMenuItem;
     mnSesionesAlm: TMenuItem;
-    mnPopLeng: TMenuItem;
-    mnLenguajes: TMenuItem;
     mnGraMacro: TMenuItem;
     MenuItem47: TMenuItem;
     mnAbrMacro: TMenuItem;
     mnEjecMacro: TMenuItem;
-    mnPanCom: TMenuItem;
-    MenuItem32: TMenuItem;
-    MenuItem33: TMenuItem;
-    MenuItem35: TMenuItem;
     mnAyuda: TMenuItem;
     MenuItem37: TMenuItem;
-    MenuItem38: TMenuItem;
     mnHerram: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem40: TMenuItem;
     MenuItem5: TMenuItem;
     mnTerminal: TMenuItem;
-    MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
     OpenDialog1: TOpenDialog;
-    Panel1: TPanel;
-    Panel2: TPanel;
-    PopupMenu1: TPopupMenu;
     PopupMenu2: TPopupMenu;
     SaveDialog1: TSaveDialog;
-    SaveDialog2: TSaveDialog;
     Splitter1: TSplitter;
     StatusBar1: TStatusBar;
-    edTerm: TSynEdit;
-    edPCom: TSynEdit;
-    tbPCom: TToolBar;
-    tbTerm: TToolBar;
     Timer1: TTimer;
-    ToolButton1: TToolButton;
-    ToolButton10: TToolButton;
-    ToolButton11: TToolButton;
-    ToolButton12: TToolButton;
-    ToolButton13: TToolButton;
-    ToolButton14: TToolButton;
-    ToolButton15: TToolButton;
-    ToolButton16: TToolButton;
-    ToolButton17: TToolButton;
-    ToolButton18: TToolButton;
-    ToolButton19: TToolButton;
-    ToolButton2: TToolButton;
-    ToolButton20: TToolButton;
-    ToolButton21: TToolButton;
-    ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
-    ToolButton5: TToolButton;
-    ToolButton6: TToolButton;
-    ToolButton7: TToolButton;
-    ToolButton8: TToolButton;
-    ToolButton9: TToolButton;
-    procedure AcArcAbrSesExecute(Sender: TObject);
-    procedure AcArcDetRegExecute(Sender: TObject);
-    procedure AcArcGuaSesCExecute(Sender: TObject);
-    procedure AcArcGuaSesExecute(Sender: TObject);
-    procedure AcArcConecExecute(Sender: TObject);
-    procedure AcArcIniRegExecute(Sender: TObject);
-    procedure AcArcNueSesExecute(Sender: TObject);
-    procedure AcArcNueVenExecute(Sender: TObject);
-    procedure AcArcSalirExecute(Sender: TObject);
+    procedure AcFIlOpeSesExecute(Sender: TObject);
+    procedure AcFilSavSesAsExecute(Sender: TObject);
+    procedure AcFilSavSesExecute(Sender: TObject);
+    procedure AcFilConecExecute(Sender: TObject);
+    procedure AcFilNewSesExecute(Sender: TObject);
+    procedure AcFilNewWinExecute(Sender: TObject);
+    procedure AcFilExitExecute(Sender: TObject);
     procedure acAyuAyuExecute(Sender: TObject);
-    procedure acEdPasteExecute(Sender: TObject);
-    procedure acEdRedoExecute(Sender: TObject);
-    procedure acEdUndoExecute(Sender: TObject);
     procedure AcHerGraMacExecute(Sender: TObject);
-    procedure AcPcmAbrirExecute(Sender: TObject);
-    procedure AcPcmCamPosExecute(Sender: TObject);
-    procedure AcPcmConfigExecute(Sender: TObject);
-    procedure acPCmEnvCtrCExecute(Sender: TObject);
-    procedure AcPCmEnvLinExecute(Sender: TObject);
-    procedure AcPCmEnvTodExecute(Sender: TObject);
-    procedure AcPcmGuaComExecute(Sender: TObject);
-    procedure AcPcmGuardarExecute(Sender: TObject);
-    procedure AcPcmNuevoExecute(Sender: TObject);
-    procedure AcPcmOculExecute(Sender: TObject);
-    procedure AcPcmVerBHerExecute(Sender: TObject);
     procedure AcHerCfgExecute(Sender: TObject);
-    procedure AcTerConecExecute(Sender: TObject);
-    procedure AcTerConfigExecute(Sender: TObject);
-    procedure AcTerCopNomExecute(Sender: TObject);
-    procedure AcTerCopNomRutExecute(Sender: TObject);
-    procedure AcTerCopPalExecute(Sender: TObject);
-    procedure AcTerCopRutExecute(Sender: TObject);
-    procedure AcTerDesconExecute(Sender: TObject);
-    procedure AcTerDetPrmExecute(Sender: TObject);
-    procedure AcTerEnvCRExecute(Sender: TObject);
-    procedure AcTerEnvCRLFExecute(Sender: TObject);
-    procedure AcTerEnvCtrlCExecute(Sender: TObject);
-    procedure AcTerEnvEnterExecute(Sender: TObject);
-    procedure AcTerEnvLFExecute(Sender: TObject);
-    procedure AcTerLimBufExecute(Sender: TObject);
-    procedure AcTerPrmAbaExecute(Sender: TObject);
-    procedure AcTerPrmArrExecute(Sender: TObject);
     procedure AcVerEdiRemExecute(Sender: TObject);
-    function BuscaUltPrompt: integer;
     procedure AcVerBarEstExecute(Sender: TObject);
     procedure AcVerEdiMacExecute(Sender: TObject);
     procedure AcVerExpRemExecute(Sender: TObject);
     procedure AcVerPanComExecute(Sender: TObject);
-    procedure ChangeEditorState;
-    procedure edPComDropFiles(Sender: TObject; X, Y: integer; AFiles: TStrings);
-    procedure edPComEnter(Sender: TObject);
-    procedure edPComKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure edPComKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edPComSpecialLineMarkup(Sender: TObject; Line: integer;
       var Special: boolean; Markup: TSynSelectedColor);
-    procedure edTermEnter(Sender: TObject);
-    procedure edTermSpecialLineMarkup(Sender: TObject; Line: integer;
-      var Special: boolean; Markup: TSynSelectedColor);
-    procedure ePComFileOpened;
+    procedure UpdateHeader;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
@@ -279,65 +136,48 @@ type
     procedure itemEjecMacro(Sender: TObject);
     procedure itemAbreMacro(Sender: TObject);
     procedure mnAbrMacroClick(Sender: TObject);
-    procedure mnComandosAlmClick(Sender: TObject);
     procedure mnEjecMacroClick(Sender: TObject);
     procedure mnSesionesAlmClick(Sender: TObject);
-    procedure PopupMenu1Popup(Sender: TObject);
-    procedure proc_ChangeState(info: string; pFinal: TPoint);
-    procedure proc_InitScreen(const grilla: TtsGrid; fIni, fFin: integer);
-    procedure proc_AddLine(HeightScr: integer);
-    procedure proc_LlegoPrompt(prmLine: string; pIni: TPoint; HeightScr: integer);
-    procedure proc_RefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
-    procedure proc_RefreshLines(const grilla: TtsGrid; fIni, fFin, HeightScr: integer);
     procedure StatusBar1DrawPanel(StatusBar: TStatusBar; Panel: TStatusPanel;
       const Rect: TRect);
     procedure Timer1Timer(Sender: TObject);
   private
-    hlTerm    : TResaltTerm;
-    eScript  : TSynFacilEditor;  //ventana de editor
-    eTerm     : TSynFacilEditor;  //ventana de terminal
-    LlegoPrompt: boolean;   //bandera
     parpadPan0: boolean;   //para activar el parpadeo del panel0
     ticComRec : integer;   //contador para comando recurrente
-    procedure AbrirSesion(ses: string);
-    function BuscaPromptAba: integer;
-    function BuscaPromptArr: integer;
+    TabSessions: TfraTabSessions;   //Panel de editores
+    procedure AbrirSesion(fileSession: string);
     procedure ConfiguraEntorno;
-    procedure DistribuirPantalla;
-    procedure EnviarTxt(txt: string);
-    procedure EnvioTemporizado;
-    procedure eScript_MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure InicTerminal;
+    procedure TabSessionsPageEvent(event: string; page: TObject; out res: string);
+    procedure InitMenuLanguages(menLanguage0: TMenuItem; LangPath0: string);
     procedure itemAbreComando(Sender: TObject);
     procedure itemAbreSesion(Sender: TObject);
     procedure MostrarBarEst(visibilidad: boolean);
-    procedure MostrarBHerPcom(visibilidad: boolean);
     procedure MostrarBHerTerm(visibilidad: boolean);
-    procedure MostrarPanCom(visibilidad: boolean);
-    procedure PosicionarCursor(HeightScr: integer);
-    procedure proc_LineCompleted(const lin: string);
   public
-    proc   : TConsoleProc; //referencia al proceso actual
+//    proc   : TConsoleProc; //referencia al proceso actual
+    curProc: TConsoleProc2; //referencia al proceso actual
     ejecMac: boolean;   //indica que está ejecutando una macro
     ejecCom: boolean;   //indica que está ejecutando un comando (editor remoto, exp. remoto ...)
-    SesAct : string;    //nombre de la sesión actual
-    procedure InicConect;
-    procedure InicConectTelnet(ip: string);
-    procedure InicConectSSH(ip: string);
-    procedure ActualizarInfoPanel0;
     function ConexDisponible: boolean;
-    function EnviarComando(com: string; var salida: TStringList): string;
     procedure SetLanguage(lang: string);
-  public  //Campos para manejo del registro
-    logState: TlogState;  //estado del registro
-    logFile : text;
-    logName : string;   //archvio de registro
-    function StartLog(logName0: string): boolean;
-    procedure PauseLog;
-    procedure StartLog;
-    procedure EndLog;
-    function WriteLog(txt: string): boolean;
+  public  //Acciones sobre la session actual.
+    function GetCurSession(out pag: TfraTabSession): boolean;
+    procedure SetCurPort(port: integer);
+    procedure SetCurIP(ip: string);
+    procedure SetCurConnType(ctyp: TTipCon);
+    procedure SetCurLineDelimSend(delim: TUtLineDelSend);
+    procedure SetCurOther(txt: string);
+  private  //Manejo de menús recientes
+    mnRecents   : TMenuItem;  //Menú de archivos recientes
+    RecentFiles : TStringList;  //Lista de archivos recientes
+    MaxRecents  : integer;    //Máxima cantidad de archivos recientes
+    procedure RecentClick(Sender: TObject);
+    procedure ActualMenusReciente(Sender: TObject);
+    procedure AddRecentFile(arch: string);
+    procedure LoadLastFileEdited;
+    procedure LoadListFiles(lst: string);
+    procedure InitMenuRecents(menRecents0: TMenuItem; RecentList: TStringList;
+      MaxRecents0: integer = 5);
   end;
 
 var
@@ -345,71 +185,64 @@ var
 
 implementation
 {$R *.lfm}
+resourcestring
+  MSG_NOFILES  = 'No files';
+  MSG_FILE_EXT = '.ses';          //Extensión de archivo a usar.
+  MSG_FILE_DES = 'Session Files';  //Descripción de archivo
+  MSG_ALLFILES = 'All files';
 
 { TfrmPrincipal }
-
+procedure TfrmPrincipal.InitMenuLanguages(menLanguage0: TMenuItem; LangPath0: string);
+//Inicia un menú con la lista de archivos XML (que representan a lenguajes) que hay
+//en una carpeta en particular y les asigna un evento.
+var
+  Hay: Boolean;
+  SR : TSearchRec;
+  mnLanguages: TMenuItem;
+  LangPath: String;
+begin
+//  if menLanguage0 = nil then exit;
+//  mnLanguages := menLanguage0;  //guarda referencia a menú
+//  LangPath := LangPath0;        //guarda ruta
+//  if (LangPath<>'') and (LangPath[length(LangPath)] <> DirectorySeparator) then
+//     LangPath+=DirectorySeparator;
+//  //configura menú
+//  mnLanguages.Caption:= dic('&Lenguajes');
+//  //explora archivos
+//  Hay := FindFirst(LangPath + '*.xml', faAnyFile - faDirectory, SR) = 0;
+//  while Hay do begin
+//     //encontró archivo
+//    AddItemToMenu(mnLanguages, '&'+ChangeFileExt(SR.name,''), @DoSelectLanguage);
+//    Hay := FindNext(SR) = 0;
+//  end;
+end;
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
-  SesAct := '';
   ticComRec  := 0;
 
   ejecMac := false;
-  hlTerm := TResaltTerm.Create(Self);  //crea resaltador
 
-  //configura editor de terminal
-  eTerm := TSynFacilEditor.Create(edTerm,'SinNombre','sh');   //Crea Editor
-  eTerm.PanCursorPos := StatusBar1.Panels[2];  //panel para la posición del cursor
-  InicTerminal;  //configura ventana de terminal
-
-  //configura editor de Panel de comando
-  InicEditorC1(edPCom); //configura panel de comandos
-  edPCom.Options := edPCom.Options + [eoRightMouseMovesCursor];  //Para fijar el cursor con click derecho
-
-  edPCom.OnSpecialLineMarkup:=@edPComSpecialLineMarkup; //solo para corregir bug de SynEdit (falla de resaltado de línea actual)
-  eScript := TSynFacilEditor.Create(edPCom,'SinNombre','sh');   //Crea Editor
-  eScript.OnChangeEditorState:=@ChangeEditorState;
-  eScript.OnKeyUp      := @edPComKeyUp;    //evento
-  eScript.OnKeyDown    := @edPComKeyDown; //evento
-  eScript.OnMouseDown  := @eScript_MouseDown;
-  eScript.OnFileOpened := @ePComFileOpened;
-  eScript.PanCursorPos := StatusBar1.Panels[2];  //panel para la posición del cursor
-  eScript.PanLangName  := StatusBar1.Panels[4];  //lenguaje
-
-  eScript.NewFile;   //para actualizar estado
-  eScript.InitMenuLanguages(mnLenguajes, rutLenguajes);
-  eScript.LoadSyntaxFromPath;
-
-  //inicia proceso
-  proc := TConsoleProc.Create(StatusBar1.Panels[1]);
+  //Inicia proceso
   StatusBar1.OnDrawPanel:=@StatusBar1DrawPanel;
 
-  //proc.OnRefreshAll:=@procRefreshEdit;
-  proc.OnInitScreen :=@proc_InitScreen;
-  proc.OnRefreshLine:=@proc_RefreshLine;
-  proc.OnRefreshLines:=@proc_RefreshLines;
-  proc.OnAddLine:=@proc_AddLine;
-
-  proc.OnGetPrompt:=@proc_LlegoPrompt;
-  proc.OnChangeState:=@proc_ChangeState;
-
-  proc.OnLineCompleted:=@proc_LineCompleted;  //usado para el registro
-  AcTerDescon.Enabled:=false;  //Se supone que inicia siempre sin conectar
-
+  ///////////// Crea controlador de páginas
+  TabSessions := TfraTabSessions.Create(self);
+  TabSessions.Parent := self;
+  TabSessions.Left := 0;
+  TabSessions.Top := 0;
+  TabSessions.Align := alClient;
+  //Manejador de todos los eventos de una página
+  TabSessions.OnPageEvent := @TabSessionsPageEvent;
 end;
 procedure TfrmPrincipal.FormDestroy(Sender: TObject);
 begin
-  EndLog;  //por si se estaba registrando
-  eScript.Free;
-  eTerm.Free;
-  proc.Free;
-  hlTerm.Free;
 end;
 procedure TfrmPrincipal.FormDropFiles(Sender: TObject;
   const FileNames: array of String);
 begin
   //Carga archivo arrastrados
-  if eScript.SaveQuery then Exit;   //Verifica cambios
-  eScript.LoadFile(FileNames[0]);
+//  if ePCom.SaveQuery then Exit;   //Verifica cambios
+//  ePCom.LoadFile(FileNames[0]);
 end;
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
@@ -419,79 +252,35 @@ begin
   frmExpRemoto.SetLanguage('en');
   frmEditRemoto.SetLanguage('en');
   frmEditMacros.SetLanguage('en');
+  frmEditMacros.Init(TabSessions);
   Caption := NOM_PROG + ' ' + VER_PROG;
   //aquí ya sabemos que Config está creado. Lo configuramos
-  Config.edTerm := edTerm;  //pasa referencia de editor.
-  Config.edPCom := edPCom;  //pasa referencia de Panel de comando
+  //Config.edTerm := edTerm;  //pasa referencia de editor.
+//  Config.edPCom := edPCom;  //pasa referencia de Panel de comando
   Config.edMacr := frmEditMacros.ed;
   COnfig.edRemo := frmEditRemoto.ed;
-  Config.prTel := proc;     //pasa referencia a proceso
-  Config.fcComRec.OnProbar:=@EnvioTemporizado;
 
-  Config.Iniciar(eScript.hl);  //Inicia la configuración
+  Config.Iniciar();  //Inicia la configuración
   ConfiguraEntorno;
-  DistribuirPantalla; //ubica componentes
   //muestra dirección IP actual
-  ActualizarInfoPanel0;
+  //ActualizarInfoPanel0;
   //actualiza menús
   mnSesionesAlmClick(self);
-  mnComandosAlmClick(self);
   mnEjecMacroClick(self);
   mnAbrMacroClick(self);
-  //Verrifica si debe abrir archivo de script
-  if Config.fcRutArc.AbrirUltScr then begin
-    if FileExists(Config.fcRutArc.UltScript) then begin
-      eScript.LoadFile(Config.fcRutArc.UltScript);
-    end;
-  end else begin
-    ePComFileOpened; //para actualizar barra de título
-  end;
-end;
 
-procedure TfrmPrincipal.InicTerminal;
+  UpdateHeader; //para actualizar barra de título
+end;
+procedure TfrmPrincipal.UpdateHeader;
 var
-  SynMarkup: TSynEditMarkupHighlightAllCaret;  //para resaltar palabras iguales
+  pag: TfraTabSession;
 begin
-  edTerm.Highlighter := hlTerm;  //asigna resaltador
-
-  //Inicia resaltado de palabras iguales
-  SynMarkup := TSynEditMarkupHighlightAllCaret(edTerm.MarkupByClass[TSynEditMarkupHighlightAllCaret]);
-  SynMarkup.MarkupInfo.FrameColor := clSilver;
-  SynMarkup.MarkupInfo.Background := clBlack;
-  SynMarkup.MarkupInfo.StoredName:='ResPalAct';  //para poder identificarlo
-
-  SynMarkup.WaitTime := 250; // millisec
-  SynMarkup.Trim := True;     // no spaces, if using selection
-  SynMarkup.FullWord := True; // only full words If "Foo" is under caret, do not mark it in "FooBar"
-  SynMarkup.IgnoreKeywords := False;
-
-  //  edTerm.Font.Name:='Courier New';
- //  edTerm.Font.Size:=10;
- //resalta
-  edTerm.Options:=[eoBracketHighlight];
-  //Limita posición X del cursor para que no escape de la línea
-  edTerm.Options := edTerm.Options + [eoKeepCaretX];
-  //permite indentar con <Tab>
-  edTerm.Options := edTerm.Options + [eoTabIndent];
-  //trata a las tabulaciones como un caracter
-  edTerm.Options2 := edTerm.Options2 + [eoCaretSkipTab];
-  edTerm.OnSpecialLineMarkup:=@edTermSpecialLineMarkup;  //solo para corregir falla de resaltado de línea actual
-end;
-procedure TfrmPrincipal.edTermSpecialLineMarkup(Sender: TObject; Line: integer;
-  var Special: boolean; Markup: TSynSelectedColor);
-begin
-//vacío
-end;
-procedure TfrmPrincipal.ePComFileOpened;
-begin
-  eScript.LoadSyntaxFromPath;  //para que busque el archivo apropiado
-  Config.fcRutArc.UltScript := eScript.FileName;  //guarda archivo abierto
-  //actualiza encabezado
-  if SesAct = '' then begin
-    Caption := NOM_PROG + dic(' - Archivo: ')+ eScript.FileName;
+  //Actualiza encabezado
+  if GetCurSession(pag) then begin
+    Caption := NOM_PROG + ' - Sesión: ' + ExtractFileName(pag.FileName) +
+                          ' - Archivo: ' + pag.FileName;
   end else begin
-    Caption := NOM_PROG + ' - Sesión: ' + ExtractFileName(SesAct) +
-                          dic(' - Archivo: ')+ eScript.FileName;
+    Caption := NOM_PROG;
   end;
 end;
 procedure TfrmPrincipal.edPComSpecialLineMarkup(Sender: TObject; Line: integer;
@@ -499,29 +288,17 @@ procedure TfrmPrincipal.edPComSpecialLineMarkup(Sender: TObject; Line: integer;
 begin
 //vacío
 end;
-procedure TfrmPrincipal.edTermEnter(Sender: TObject);
-begin
-  ChangeEditorState;  //para actualizar los menús
-  eTerm.PanCursorPos := nil; //para forzar a actualiazr la posición del cursor
-  eTerm.PanCursorPos := StatusBar1.Panels[2];
-end;
-procedure TfrmPrincipal.PopupMenu1Popup(Sender: TObject);  //abre menú contextual
-//prepara el menú de "lenguajes", en el menú contextual
-begin
-  CopiarMemu(mnLenguajes, mnPopLeng);
-  CopiarMemu(mnComandosAlm, mnPopComAlm)
-end;
+//procedure TfrmPrincipal.PopupMenu1Popup(Sender: TObject);  //abre menú contextual
+////prepara el menú de "lenguajes", en el menú contextual
+//begin
+//  CopiarMemu(mnLenguajes, mnPopLeng);
+//end;
 
 /////////////// Funciones para manejo de macros///////////////
 procedure TfrmPrincipal.mnSesionesAlmClick(Sender: TObject);
 begin
   mnSesionesAlm.Clear;
-  LeeArchEnMenu(rutSesiones + DirectorySeparator +'*.ses', mnSesionesAlm,@itemAbreSesion);
-end;
-procedure TfrmPrincipal.mnComandosAlmClick(Sender: TObject);
-begin
-  mnComandosAlm.Clear;
-  LeeArchEnMenu(config.fcRutArc.scripts + DirectorySeparator +'*.sh', mnComandosAlm,@itemAbreComando);
+  LeeArchEnMenu(patSesiones + DirectorySeparator +'*.ses', mnSesionesAlm,@itemAbreSesion);
 end;
 procedure TfrmPrincipal.mnEjecMacroClick(Sender: TObject);
 begin
@@ -533,63 +310,49 @@ begin
   mnAbrMacro.Clear;
   LeeArchEnMenu(config.fcRutArc.macros + DirectorySeparator +'*.ttm', mnAbrMacro,@itemAbreMacro);
 end;
-
-procedure TfrmPrincipal.AbrirSesion(ses: string);
+procedure TfrmPrincipal.AbrirSesion(fileSession: string);
 //Abre una sesión
 var
-  arc0: String;
-  rpta: Byte;
+  pag: TfraTabSession;
+  i: Integer;
 begin
-  if proc.state <> ECO_STOPPED then begin
-    rpta := MsgYesNoCancel('Hay una conexión abierta. ¿Cerrarla?');
-    if rpta in [2,3] then begin  //cancelar
-      exit;    //sale
-    end;
-    if rpta = 1 then begin  //detener primero
-      AcTerDesconExecute(nil);
-    end;
-  end;
-  SesAct := ses;  //actualiza sesión actual
-  arc0 := SesAct;    //el archivo de sesión debe incluir el contendio además de la ocnfig.
-  config.LeerArchivoIni(arc0);  //carga configuración
-  //actualiza menús
-  mnSesionesAlmClick(self);
-  mnComandosAlmClick(self);
-  mnEjecMacroClick(self);
-  mnAbrMacroClick(self);
+//  //Actualiza menús
+//  mnSesionesAlmClick(self);  //Actualiza menú "Sesiones almacenadas"
+//  mnEjecMacroClick(self);
+//  mnAbrMacroClick(self);
+//  ConfiguraEntorno;
 
-  ConfiguraEntorno;
-  DistribuirPantalla; //ubica componentes
-  //muestra dirección IP actual
-  ActualizarInfoPanel0;
-  //Verifica si debe abrir archivo de script
-  if Config.fcRutArc.AbrirUltScr then begin
-    if FileExists(Config.fcRutArc.UltScript) then begin
-      eScript.LoadFile(Config.fcRutArc.UltScript);
-    end else begin
-      msgExc('No se encuentra archivo: %s', [Config.fcRutArc.UltScript]);
+  //Si es ruta relativa, la vuelve absoluta.
+  if Pos(DirectorySeparator, fileSession) = 0 then begin
+    fileSession := patApp + fileSession;
+  end;
+  //Verifica si ya está abierto
+  for i:=0 to TabSessions.pages.Count-1 do begin
+    pag := TabSessions.pages[i];
+    if UpCase(pag.fileName) = fileSession then begin
+      //Ya está abierto
+      TabSessions.TabIndex := i;  //Selecciona
+      exit;
     end;
   end;
-  //Verifica si debe ejecutar macro
-{  if Config.fcRutArc.EjecMacro then begin
-    if FileExists(Config.fcRutArc.MacroIni) then begin
-      frmEditMacros.Ejecutar(Config.fcRutArc.MacroIni);
-    end else begin
-      msgExc('No se encuentra archivo: %s', Config.fcRutArc.MacroIni);
-    end;
-  end;}
-  ePComFileOpened; //para actualizar barra de título
+  //Crea nueva página
+  pag := TabSessions.AddPage(MSG_FILE_EXT);
+  pag.fileName := fileSession;
+  //Carga archivo
+  pag.LoadFromFile;  //Podría generar error.
+  //Actualiza la barra de título.
+  UpdateHeader;
 end;
 procedure TfrmPrincipal.itemAbreSesion(Sender: TObject);
 begin
-  AbrirSesion(rutSesiones + DirectorySeparator + TMenuItem(Sender).Caption);
+  AbrirSesion(patSesiones + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
 procedure TfrmPrincipal.itemAbreComando(Sender: TObject);
 var
   tmp: String;
 begin
   tmp := config.fcRutArc.scripts + DirectorySeparator + TMenuItem(Sender).Caption;
-  eScript.LoadFile(tmp);
+  //ePCom.LoadFile(tmp);
 end;
 procedure TfrmPrincipal.itemEjecMacro(Sender: TObject);
 //Ejecuta la macro elegida
@@ -605,132 +368,28 @@ procedure TfrmPrincipal.ConfiguraEntorno;
 //Configura el entorno (IDE) usando variables globales
 begin
   //Inicia visibilidad de paneles. Estas son propiedades del entrono, no de un editor en particular
-  MostrarBHerPcom(Config.VerBHerPcom);
   MostrarBHerTerm(Config.VerBHerTerm);
   MostrarBarEst(Config.VerBarEst);
-  MostrarPanCom(Config.VerPanCom);
+//  MostrarPanCom(Config.VerPanCom);
 //  MostrarPanBD(VerPanBD);
 //  MostrarVEnSes(VerVenSes);
-end;
-
-procedure TfrmPrincipal.PosicionarCursor(HeightScr: integer);
-//Coloca el cursor del editor, en la misma posición que tiene el cursor del
-//terminal VT100 virtual.
-var
-  yvt: Integer;
-begin
-  if Config.fcPantTerm.curSigPrm then begin
-    yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
-    edTErm.CaretXY := Point(proc.term.curX, yvt+proc.term.CurY+1);
-  end;
-end;
-procedure TfrmPrincipal.proc_InitScreen(const grilla: TtsGrid; fIni, fFin: integer);
-var
-  i: Integer;
-begin
-//  debugln('procAddLastLins: '+IntToStr(fIni)+','+IntToSTr(fFin));
-  for i:=fIni to fFin do
-    edTerm.Lines.Add(grilla[i]);
-end;
-procedure TfrmPrincipal.proc_RefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
-var
-  yvt: Integer;
-begin
-//  debugln('procRefreshLine: '+IntToStr(fIni));
-  yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
-  edTerm.Lines[yvt+fIni] := grilla[fIni];
-  PosicionarCursor(HeightScr);
-end;
-procedure TfrmPrincipal.proc_RefreshLines(const grilla: TtsGrid; fIni, fFin, HeightScr: integer);
-var
-  yvt: Integer;
-  f: Integer;
-begin
-//  debugln('procRefreshLines: '+IntToStr(fIni)+','+IntToSTr(fFin));
-  yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
-  edTerm.BeginUpdate();
-  for f:=fIni to fFin do
-    edTerm.Lines[yvt+ f] := grilla[f];
-  PosicionarCursor(HeightScr);
-  edTerm.EndUpdate;
-  edTerm.Refresh;  //para mostrar el cambio
-end;
-procedure TfrmPrincipal.proc_LlegoPrompt(prmLine: string; pIni: TPoint; HeightScr: integer);
-begin
-  LlegoPrompt := true;  //activa bandera
-//  yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
-//debugln('  llegoPrompt en:'+IntToStr(yvt + pIni.y+1));
-end;
-procedure TfrmPrincipal.proc_ChangeState(info: string; pFinal: TPoint);
-//Hubo un cambio de estado
-begin
-  AcTerConec.Enabled := proc.state = ECO_STOPPED;
-  AcTerDescon.Enabled:= not (proc.state = ECO_STOPPED);
-end;
-procedure TfrmPrincipal.proc_AddLine(HeightScr: integer);
-var
-  i: Integer;
-begin
-//  debugln('procAddLine: ');
-  edTerm.BeginUpdate();
-  if edTerm.Lines.Count> Config.fcPantTerm.maxLinTer then begin
-    //hace espacio
-    for i:= 1 to 100 do
-      edTerm.Lines.Delete(0);   { TODO : Debe verificarse que no se deba eliminar tanto
-como para dejar menos líneas que la que tiene el VT100 }
-  end;
-  edTerm.Lines.Add('');
-//  edTerm.ExecuteCommand(ecEditorBottom,'', nil);  //mueve al final
-  edTerm.EndUpdate;
-  edTerm.ExecuteCommand(ecLineEnd,'', nil);  //mueve al final
-end;
-procedure TfrmPrincipal.proc_LineCompleted(const lin: string);
-begin
-  if logState = logRunning then begin
-    writeln(logFile, lin);
-  end;
 end;
 procedure TfrmPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-   if edTerm.Focused then begin
-     case Key of
-     VK_RETURN:
-       proc.Sendln('');  //se envía con la configuración de saltos
-     VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, VK_HOME, VK_END : begin
-         //teclas direccionales
-         if Config.fcPantTerm.interDirec then begin
-           //se interceptan, no se envían
-         end else begin  //se envían como secuencias de escape
-           proc.SendVT100Key(Key, Shift);
-           Key := 0;  //para que nos e procesen
-         end;
-       end;
-     VK_TAB:
-       if Shift = [ssCtrl] then begin  //Ctrl+Tab
-         edPCom.SetFocus;  //pasa el enfoque
-       end else begin
-         proc.SendVT100Key(Key, Shift);  //envía
-       end;
-     else
-       proc.SendVT100Key(Key, Shift);
-     end;
-//     debugln('KeyDown:');
-   end else if edPCom.Focused then begin
      case Key of
      VK_TAB: if Shift = [ssCtrl] then begin  //Ctrl+Tab
-         edterm.SetFocus;  //pasa el enfoque
+         //edterm.SetFocus;  //pasa el enfoque
        end;
      end;
-   end;
 end;
 procedure TfrmPrincipal.FormKeyPress(Sender: TObject; var Key: char);
 //Aaquí se interceptan el teclado a los controles
 begin
-  if edTerm.Focused then begin
-    proc.Send(Key);
-//    debugln('KeyPress:'+Key);
-  end;
+//  if edTerm.Focused then begin
+//    proc.Send(Key);
+////    debugln('KeyPress:'+Key);
+//  end;
 end;
 procedure TfrmPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction
   );
@@ -740,6 +399,7 @@ end;
 procedure TfrmPrincipal.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 var
   rpta: Byte;
+  lstClosedFiles: string;
 begin
   if ejecMac then begin
     if MsgYesNo('En este momento, se está ejecutando una macro. ¿Detenerla?') = 1 then begin
@@ -748,16 +408,9 @@ begin
     end;
     canClose := false;  //cancela el cierre
   end;
-  if proc.state <> ECO_STOPPED then begin
-    rpta := MsgYesNoCancel('Hay una conexión abierta. ¿Cerrarla?');
-    if rpta in [2,3] then begin  //cancelar
-      canClose := false;  //cancela el cierre
-      exit;    //sale
-    end;
-    if rpta = 1 then begin  //detener primero
-      AcTerDesconExecute(nil);
-      exit;
-    end;
+  //Prueba cerrando todas las ventanas
+  if not TabSessions.CloseAll(lstClosedFiles) then begin
+    canClose := false;  //Se canceló
   end;
 end;
 procedure TfrmPrincipal.StatusBar1DrawPanel(StatusBar: TStatusBar;
@@ -786,74 +439,73 @@ begin
       StatusBar.Canvas.TextRect(Rect, 2 + Rect.Left, 2 + Rect.Top, StatusBar1.Panels[0].Text);
     end;
   end;
-  if panel.Index = 1 then proc.DrawStatePanel(StatusBar.Canvas, Rect);
-end;
-procedure TfrmPrincipal.EnvioTemporizado;
-//Envía el comando o archivo que se ha programado
-var
-  fcComRec: TfraComandRec;
-begin
-  fcComRec := config.fcComRec;  //parac facilidad de acceso
-  case fcComRec.tipEnvio of
-  teComando:
-      proc.SendLn(fcComRec.Comando);
-  teArchivo: begin
-      if not FileExists(fcComRec.archivo) then begin
-        MsgErr('No se encuentra archivo: %s', [fcComRec.archivo]);
-        exit;
-      end;
-      proc.SendLn(StringFromFile(fcComRec.archivo));
+  if panel.Index = 1 then begin
+    if curProc<>nil then begin
+      curProc.DrawStatePanel(StatusBar.Canvas, Rect);
     end;
   end;
 end;
-procedure TfrmPrincipal.eScript_MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
+procedure TfrmPrincipal.TabSessionsPageEvent(event: string; page: TObject; out res: string);
 var
-  caret: TPoint;
+  pag: TfraTabSession;
 begin
-  //Obtiene coordenada donde cae el puntero del mouse.
-  if edPCom.SelAvail then begin
-    PopupMenu1.PopUp;
-  end else begin
-    if (Button = mbRight) then begin
-      caret := edPCom.PixelsToRowColumn(Point(X,Y));
-      edPCom.CaretY := caret.y;
-      //MsgBox('Eureka %d', [ caret.Y ] );
-      PopupMenu1.PopUp;
+  pag := TfraTabSession(page);
+  res := '';  //Por defecto
+  case event of
+  'req_init': begin  //Solicitud de inicialización de página
+    pag.Init();
+  end;
+  'req_activate': begin //Solicita activar la página
+    pag.Activate();
+  end;
+  'req_conn_gui': begin  //Una sesión requiere conectarse a la GUI, para mostrar información o su estado.
+    curProc := pag.proc;  //Apunta al proceso actual. Usado para refrescar StatusBar1
+    pag.proc.panelState    := StatusBar1.Panels[1];
+    pag.PanInfoConn        := StatusBar1.Panels[0];
+    pag.ePCom.PanCursorPos := StatusBar1.Panels[2];
+    pag.ePCom.PanLangName  := StatusBar1.Panels[4];
+    UpdateHeader;  //Actualiza encabezado.
+  end;
+  'query_close': begin  //Se consulta antes de cerrar una ventana
+    if pag.queryClose then begin
+      //SE va a cerrar.
+      res := 'Y';
+      //Verfica si se va a eliminar al que apuntamos con "curProc".
+      if curProc = pag.proc then curProc := nil;
+    end  else begin
+      res := 'N';
     end;
+  end;
+  'reg_def_ext': begin  //Se pide extensión por defecto para archivos.
+    res := MSG_FILE_EXT;
+  end;
+  'req_filt_save': begin  //Se pide el filtro del diálogo "Save as...".
+     res := MSG_FILE_DES + '|*' + MSG_FILE_EXT + '|' +
+            MSG_ALLFILES + '|*.*'
+  end;
+  'reg_rec_file': begin  //Se pide registrar archivo en el histórico
+    //AddRecentFile(pag.FileName);
+  end;
+  'req_new_page': begin  //Se pide agregar una nueva página. Desde el menú de las lenguetas.
+     AcFilNewSesExecute(self);
+  end;
   end;
 end;
 procedure TfrmPrincipal.Timer1Timer(Sender: TObject);
 //Temporizador cada de 0.5 segundos
 begin
-  //muestra mensaje de ejecución
+  //Muestra mensaje de ejecución
   if ejecMac then begin
     //fuerza refresco del panel
     parpadPan0 := not parpadPan0;  //para el parpadeo
     StatusBar1.InvalidatePanel(0,[ppText]);
   end;
-  if (config<>nil) and  //por si se dispara antes (Ya pasó una vez)
-      config.fcComRec.Activar then begin
-    inc(ticComRec);
-    if ticComRec mod (config.fcComRec.Tempo * 2 * 60) = 0 then begin
-      //hay envío recurrente de comando
-      EnvioTemporizado;
-    end;
-  end;
-end;
-procedure TfrmPrincipal.MostrarBHerPcom(visibilidad:boolean );
-//Solo por esta función se debe cambiar la visibilidad de la barra de herramientas
-begin
-   tbPCom.Visible:=visibilidad;
-   AcPcmVerBHer.Checked:=visibilidad;
-   Config.VerBHerPcom :=visibilidad; //Actualiza variable global}
-   Config.escribirArchivoIni; //guarda cambio
 end;
 procedure TfrmPrincipal.MostrarBHerTerm(visibilidad: boolean);
 //Solo por esta función se debe cambiar la visibilidad de la barra de herramientas
 begin
-  tbTerm.Visible:=visibilidad;
-  AcTerVerBHer.Checked:=visibilidad;
+  //tbTerm.Visible:=visibilidad;
+  //AcTerVerBHer.Checked:=visibilidad;
   Config.VerBHerTerm :=visibilidad; //Actualiza variable global}
   Config.escribirArchivoIni; //guarda cambio
 end;
@@ -865,483 +517,223 @@ begin
    Config.VerBarEst :=visibilidad; //Actualiza variable global
    Config.escribirArchivoIni; //guarda cambio
 end;
-procedure TfrmPrincipal.MostrarPanCom(visibilidad:boolean);
-//Solo por esta función se debe cambiar la visibilidad del panel
-begin
-   if not Panel1.Visible and visibilidad then begin
-     //se hace visible
-//     edPCom.UbicarArchivoArbol(e.NomArc);  //ubica archivo actual
-   end;
-   Panel1.Visible := visibilidad;
-   Splitter1.Visible := visibilidad;
-   AcVerPanCom.Checked := visibilidad;
-   mnPanCom.Visible:=visibilidad;
-   Config.VerPanCom :=visibilidad; //Actualiza variable global
-   Config.escribirArchivoIni; //guarda cambio
-end;
-
-procedure TfrmPrincipal.InicConect;  //Inicia la conexión actual
-begin
-  //se supone que el proceso ya está configurado y listo para abrir
-  proc.Open(Config.fcConex.Command, '');  //lo abre
-  if msjError<>'' then begin
-    msgerr(msjError);
-  end;
-  ActualizarInfoPanel0;  //por si ha cambiado la conexión
-end;
-procedure TfrmPrincipal.InicConectTelnet(ip: string);  //Inicia una conexión telnet
-begin
-  //configura conexión rápida Telnet
-  config.fcConex.tipo := TCON_TELNET;
-  config.fcConex.ip := ip;
-  config.fcConex.port := '23';
-  config.fcConex.LineDelimSend := LDS_LF;
-  config.fcConex.LineDelimRecv := LDR_LF;
-  config.fcConex.UpdateChanges;  //actualiza
-  InicConect;
-end;
-procedure TfrmPrincipal.InicConectSSH(ip: string);  //Inicia una conexión SSH
-begin
-  //configura conexión rápida Telnet
-  config.fcConex.tipo := TCON_SSH;
-  config.fcConex.ip := ip;
-  config.fcConex.port := '22';
-  config.fcConex.LineDelimSend := LDS_LF;
-  config.fcConex.LineDelimRecv := LDR_LF;
-  config.fcConex.UpdateChanges;  //actualiza
-  InicConect;
-end;
-procedure TfrmPrincipal.ActualizarInfoPanel0;
-//Actualiza el panel 0, con información de la conexión o de la ejecución de macros
-var
-  conAct: TfraConexion;
-begin
-   conAct := Config.fcConex;
-   case conAct.Tipo of
-   TCON_TELNET:
-      StatusBar1.Panels[0].Text:='Telnet: '+conAct.IP;
-   TCON_SSH:
-      StatusBar1.Panels[0].Text:='SSH: '+conAct.IP;
-   TCON_SERIAL:
-      StatusBar1.Panels[0].Text:='Serial: '+conAct.cmbSerPort.Text;
-   TCON_OTHER:
-      StatusBar1.Panels[0].Text:='Proc: '+Config.fcConex.Other;
-   end;
-   //refresca para asegurarse, porque el panel 0 está en modo gráfico
-   StatusBar1.InvalidatePanel(0,[ppText]);
-end;
 function TfrmPrincipal.ConexDisponible: boolean;
 //Indica si la conexión está en estado ECO_READY, es decir, que puede
 //recibir un comando
-begin
-   Result := (proc.state = ECO_READY);
-end;
-function TfrmPrincipal.BuscaPromptArr: integer;
-//Busca el primer prompt desde la posición actual hacia arriba
-//Si no lo encuentra devuelve -1
 var
-  cy: Integer;
+  pag: TfraTabSession;
 begin
-  cy := edterm.CaretY;
-  repeat
-    dec(cy)
-  until (cy<1) or config.ContienePrompt(edTerm.Lines[cy-1]);
-  if cy<1 then exit(-1) else exit(cy);
+  if not GetCurSession(pag) then exit(false);
+  Result := (pag.proc.state = ECO_READY);
 end;
-function TfrmPrincipal.BuscaPromptAba: integer;
-//Busca el primer prompt desde la posición actual hacia abajo
-//Si no lo encuentra devuelve -1
-var
-  cy: Integer;
+//Acciones sobre la session actual.
+function TfrmPrincipal.GetCurSession(out pag: TfraTabSession): boolean;
+{Devuelve en "pag" la referencia a la sesión actual. Si no hay sesión actual,
+devuelve FALSE.}
 begin
-  cy := edterm.CaretY;
-  repeat
-    inc(cy)
-  until (cy>edTerm.Lines.Count) or config.ContienePrompt(edTerm.Lines[cy-1]);
-  if cy>edTerm.Lines.Count then exit(-1) else exit(cy);
+  if TabSessions.TabIndex = -1 then exit(false);
+  pag := TabSessions.ActivePage;
+  exit(true);
 end;
-function TfrmPrincipal.BuscaUltPrompt: integer;
-//Busca el último prompt de todo el terminal
-//Si no lo encuentra devuelve -1
-var
-  cy: Integer;
+procedure TfrmPrincipal.SetCurPort(port: integer);
 begin
-  cy := edterm.Lines.Count+1;
-  repeat
-    dec(cy)
-  until (cy<1) or config.ContienePrompt(edTerm.Lines[cy-1]);
-  if cy<1 then exit(-1) else exit(cy);
+  if TabSessions.TabIndex = -1 then exit;
+  TabSessions.ActivePage.Port := IntToStr(port);
+  TabSessions.ActivePage.UpdateCommand;
 end;
-function TfrmPrincipal.EnviarComando(com: string; var salida: TStringList): string;
-{Función para enviar un comando por el Terminal. Espera hasta que aparezca de
-nuevo el "prompt" y devuelve el texto generado, por el comando, en "salida".
-Si hay error devuelve el mensaje de error.}
+procedure TfrmPrincipal.SetCurIP(ip: string);
+begin
+  if TabSessions.TabIndex = -1 then exit;
+  TabSessions.ActivePage.IP := ip;
+  TabSessions.ActivePage.UpdateCommand;
+end;
+procedure TfrmPrincipal.SetCurConnType(ctyp: TTipCon);
+begin
+  if TabSessions.TabIndex = -1 then exit;
+  TabSessions.ActivePage.Tipo := ctyp;
+  TabSessions.ActivePage.UpdateCommand;
+end;
+procedure TfrmPrincipal.SetCurLineDelimSend(delim: TUtLineDelSend);
+begin
+  if TabSessions.TabIndex = -1 then exit;
+  TabSessions.ActivePage.LineDelimSend := delim;
+  TabSessions.ActivePage.UpdateCommand;  { TODO : ¿Es necesario? }
+end;
+procedure TfrmPrincipal.SetCurOther(txt: string);
+begin
+  if TabSessions.TabIndex = -1 then exit;
+  TabSessions.ActivePage.Other := txt;
+  TabSessions.ActivePage.UpdateCommand;
+end;
+procedure TfrmPrincipal.RecentClick(Sender: TObject);
+//Se selecciona un archivo de la lista de recientes
 var
-  n: Integer;
-  y1: Integer;
-  y2: Integer;
+  cap, recFile: string;
+begin
+  cap := TMenuItem(Sender).Caption;
+  recFile := MidStr(cap, 4,150);
+  if not FileExists(recFile) then exit;
+  AbrirSesion(recFile);
+end;
+procedure TfrmPrincipal.ActualMenusReciente(Sender: TObject);
+{Actualiza el menú de archivos recientes con la lista de los archivos abiertos
+recientemente. }
+var
   i: Integer;
 begin
-  Result := '';
-  if not ConexDisponible then begin
-    Result := dic('No hay conexión disponible');
-    MsgExc(Result);
-    exit;
-  end;
-//  if config.fcDetPrompt then begin
-//    msgExc('Para ejecutar comandos se debe tener la detección de prompt configurada');
-//  end;
-  ejecCom := true;  //marca estado
-  LlegoPrompt := False;
-  salida.Clear;   //por defecto limpia la lista
-//debugln('Inicio envío comando: '+ com);
-  proc.SendLn(com);
-//debugln('Fin envío comando: '+ com);
-  //Espera hasta la aparición del "prompt"
-  n := 0;
-  While Not LlegoPrompt And (n < Config.fcExpRem.TpoMax*10) do begin
-    Sleep(100);
-    Application.ProcessMessages;
-    Inc(n);
-  end;
-  If n >= Config.fcExpRem.TpoMax*10 then begin    //Hubo desborde
-    Result := dic('Tiempo de espera agotado');
-    MsgExc(Result);
-    exit;
-  end else begin
-    //llegó el promt (normalmente es por que hay datos)
-    y2 := BuscaUltPrompt;  //por si el cursor estaba fuera de foco
-//debugln('Fin comando con prompt en: '+ IntToStr(y2));
-//debugln('');
-    edTerm.CaretY:=y2;  //posiciona como ayuda para ver si lo hizo bien
-    y1 := BuscaPromptArr;  //busca al prompt anterior
-    if y1 = -1 then begin
-      Result := dic('Error detectando el prompt del comando. ') +
-      dic('Probablemente deba ampliar la cantidad de líneas de la pantalla.');
-      MsgExc(Result);
-      exit;
+  if mnRecents = nil then exit;
+  if RecentFiles = nil then exit;
+  //proteciión
+  if RecentFiles.Count = 0 then begin
+    mnRecents[0].Caption := MSG_NOFILES;
+    mnRecents[0].Enabled:=false;
+    for i:= 1 to mnRecents.Count-1 do begin
+      mnRecents[i].Visible:=false;
     end;
-    //copia la salida
-    for i:= y1+1 to y2-1 do  //sin contar los prompt
-       salida.Add(edTerm.Lines[i-1]);
+    exit;
   end;
-  ejecCom := false;
+  //hace visible los ítems
+  mnRecents[0].Enabled:=true;
+  for i:= 0 to mnRecents.Count-1 do begin
+    if i<RecentFiles.Count then
+      mnRecents[i].Visible:=true
+    else
+      mnRecents[i].Visible:=false;
+  end;
+  //pone etiquetas a los menús, incluyendo un atajo numérico
+  for i:=0 to RecentFiles.Count-1 do begin
+    mnRecents[i].Caption := '&'+IntToStr(i+1)+' '+RecentFiles[i];
+  end;
 end;
-procedure TfrmPrincipal.edPComKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TfrmPrincipal.AddRecentFile(arch: string);
+//Agrega el nombre de un archivo reciente
+var hay: integer; //bandera-índice
+    i: integer;
+begin
+  if RecentFiles = nil then exit;
+  //verifica si ya existe
+  hay := -1;   //valor inicial
+  for i:= 0 to RecentFiles.Count-1 do
+    if RecentFiles[i] = arch then hay := i;
+  if hay = -1 then  //no existe
+    RecentFiles.Insert(0,arch)  //agrega al inicio
+  else begin //ya existe
+    RecentFiles.Delete(hay);     //lo elimina
+    RecentFiles.Insert(0,arch);  //lo agrega al inicio
+  end;
+  while RecentFiles.Count>MaxRecents do  //mantiene tamaño máximo
+    RecentFiles.Delete(MaxRecents);
+end;
+procedure TfrmPrincipal.LoadLastFileEdited;
+{Carga el último archivo de la lista de recientes}
+begin
+  if mnRecents.Count = 0 then exit;
+  ActualMenusReciente(self);
+  mnRecents.Items[0].Click;
+end;
+procedure TfrmPrincipal.LoadListFiles(lst: string);
 var
-  Enter, SendLnEnter, SendLnCtrEnter: Boolean;
+  a: TStringDynArray;
+  i: Integer;
+  filName: String;
 begin
-  Enter := (key = VK_RETURN);
-  SendLnEnter := Config.fcPanCom.SendLnEnter;
-  SendLnCtrEnter := Config.fcPanCom.SendLnCtrEnter;
-  //Verificaciones
-  if (Shift = []) and Enter and SendLnEnter then begin
-    //Envíará línea actual
-    Key := 0;
-  end else if (Shift = [ssCtrl]) and Enter and SendLnCtrEnter  then begin
-    //Envíará línea actual
-    Key := 0;
-  end else if (Shift = [ssCtrl]) and Enter and not SendLnCtrEnter then begin
-    Key := 0;
+  a := Explode(LineEnding, lst);
+  for i:=0 to high(a) do begin
+     filName := trim(a[i]);
+     if filName = '' then continue;
+     AbrirSesion(filName);
   end;
 end;
-procedure TfrmPrincipal.edPComKeyUp(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-  procedure EnviarActual;  //Envía la línea actual y controla el cursor
-  begin
-    AcPCmEnvLinExecute(self);
-    if edPCom.SelAvail then begin  //había selección
-      //no se cambia la selección
-    end else if edPCom.CaretY = edPCom.Lines.Count then begin
-      //estamos en la última línea
-      if edPCom.LineText = '' then exit; //no hay nada que enviar ni agregar
-      edpCom.Lines.Add('');  //agrega una línea
-      edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
-    end else begin
-      //es una línea normal
-      edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
-    end;
-  end;
+procedure TfrmPrincipal.InitMenuRecents(menRecents0: TMenuItem; RecentList: TStringList;
+      MaxRecents0: integer=5);
+//Configura un menú, con el historial de los archivos abiertos recientemente
+//"nRecents", es el número de archivos recientes que se guardará
 var
-  Enter, SendLnEnter, SendLnCtrEnter: Boolean;
+  i: Integer;
 begin
-  Enter := (key = VK_RETURN);
-  SendLnEnter := Config.fcPanCom.SendLnEnter;
-  SendLnCtrEnter := Config.fcPanCom.SendLnCtrEnter;
-  //Verificaciones
-  if (Shift = []) and Enter and SendLnEnter then begin
-    //Envía línea actual
-    EnviarActual;
-    Key := 0;  //para que ya no lo procese
-  end else if (Shift = [ssCtrl]) and Enter and SendLnCtrEnter then begin
-    //Envía línea actual
-    EnviarActual;
-    Key := 0;  //para que ya no lo procese
-  end else if (Shift = [ssCtrl]) and Enter and not SendLnCtrEnter then begin
-    //<Control>+<Enter>, pero no está configurado
-    edPCom.ExecuteCommand(ecInsertLine, '',nil);  //inserta salto
-    edPCom.ExecuteCommand(ecDown, '',nil);  //baja cursor
-    Key := 0;  //para que ya no lo procese
-  end else if (Shift = [ssCtrl]) and (key = VK_UP) then begin
-    AcTerPrmArrExecute(nil);
-  end else if (Shift = [ssCtrl]) and (key = VK_DOWN) then begin
-    AcTerPrmAbaExecute(nil);
-  end else if (Shift = [ssCtrl]) and (key = VK_C) then begin  //Ctrl + C
-    AcTerEnvCtrlCExecute(nil)  //envía Ctrl+C al terminal
-  end;
-end;
-procedure TfrmPrincipal.DistribuirPantalla;
-//Redistribuye los paneles de la pantalla
-begin
-  //primero quita alineamiento de componentes móviles
-  PAnel2.Align:=alNone;
-  Panel1.Align:=alNone;
-  Splitter1.Align:=alNone;
-  //alinea de acuerdo a TipAlineam
-  case Config.TipAlineam of
-  0: begin  //panel a la izquierda
-      Panel1.Align:=alLeft;
-      Splitter1.Align:=alLeft;
-      Panel2.Align:=alClient;
-      if Panel1.Width > Trunc(0.9*self.Width) then Panel1.Width := Trunc(0.5*self.Width);
-    end;
-  1: begin  //panel a la derecha
-      Panel1.Align:=alRight;
-      Splitter1.Align:=alRight;
-      PAnel2.Align:=alClient;
-      if Panel1.Width > Trunc(0.9*self.Width) then Panel1.Width := Trunc(0.5*self.Width);
-    end;
-  2: begin  //panel abajo
-      Panel1.Align:=alBottom;
-      Splitter1.Align:=alBottom;
-      PAnel2.Align:=alClient;
-      if Panel1.Height > Trunc(0.9*self.Height) then Panel1.Height := Trunc(0.5*self.Height);
-    end;
-  else  //por defecto
-    Panel1.Align:=alLeft;
-    Splitter1.Align:=alLeft;
-    PAnel2.Align:=alClient;
-  end;
-end;
-procedure TfrmPrincipal.ChangeEditorState;
-//Si llega aquí es porque cambia el estado del editor. Actualiza los menús:
-begin
-  if edPCom.Focused then begin
-    AcPcmGuardar.Enabled:=eScript.Modified;
-    //este es el único editor que acepta Undo/Redo
-    acEdUndo.Enabled:=eScript.CanUndo;
-    acEdRedo.Enabled:=eScript.CanRedo;
-    acEdPaste.Enabled := eScript.CanPaste;
-    //Cut Copy son acciones predefinidas, se activan solas.
-  end else begin
-    acEdUndo.Enabled:=false;
-    acEdRedo.Enabled:=false;
-    acEdPaste.Enabled := true;   //para poder pegar lo que haya en el portapapeles
-  end;
-
-end;
-function TfrmPrincipal.StartLog(logName0: string): boolean;
-{Inicia el registro de la salida.
-Si encuentra errorm devuelve FALSE.}
-begin
-  if logState = logRunning then exit;  //verifica
-  logName := logName0;   //actualiza nombre de archivo
-  try
-    AssignFile(logFile, logName);
-    Rewrite(logFile);
-    logState:=logRunning;
-    exit(true);
-  except
-    logState:=logStopped;
-    exit(false);
-  end;
-end;
-procedure TfrmPrincipal.PauseLog;
-{Pausa el registro del terminal.}
-begin
-  if logState = logRunning then
-    logState := logPaused;
-end;
-procedure TfrmPrincipal.StartLog;
-{Reinicia el registro, después de haber sido pausado.}
-begin
-  if logState = logPaused then
-    logState := logRunning;
-end;
-procedure TfrmPrincipal.EndLog;
-begin
-  if logState=logStopped then
-    exit;
-  //Está abierto. Se debe cerrar.
-  if proc.LastLine<>'' then begin
-    //La última línea, siempre debe escribirse
-    WriteLog(proc.LastLine);
-  end;
-  CloseFile(logFile);
-  logState := logStopped;
-end;
-function TfrmPrincipal.WriteLog(txt: string): boolean;
-{Escribe una línea de texto en el registro. SI se genera error devuelve FALSE.}
-begin
-  if logState <> logRunning then exit(true);
-  try
-    write(logFile, txt);
-    exit(true);
-  except
-    exit(false);
+  mnRecents := menRecents0;
+  RecentFiles := RecentList;  //gaurda referencia a lista
+  MaxRecents := MaxRecents0;
+  //configura menú
+  mnRecents.OnClick:=@ActualMenusReciente;
+  for i:= 1 to MaxRecents do begin
+    AddItemToMenu(mnRecents, '&'+IntToStr(i), @RecentClick);
   end;
 end;
 /////////////////////// ACCIONES ////////////////////////
-procedure TfrmPrincipal.AcArcConecExecute(Sender: TObject);  //conexión rápida
+procedure TfrmPrincipal.AcFilConecExecute(Sender: TObject);  //conexión rápida
 var
-  rpta: Byte;
+  ses: TfraTabSession;
 begin
-  if proc.state <> ECO_STOPPED then begin
-    rpta := MsgYesNoCancel('Hay una conexión abierta. ¿Cerrarla?');
-    if rpta in [2,3] then begin  //cancelar
-      exit;    //sale
-    end;
-    if rpta = 1 then begin  //detener primero
-      AcTerDesconExecute(nil);
-    end;
-  end;
   frmConexRap.ShowModal;
   if frmConexRap.Cancel then exit;
   case frmConexRap.tipo of
-  TCON_TELNET: InicConectTelnet(frmConexRap.ip);
-  TCON_SSH   : InicConectSSH(frmConexRap.ip);
+  TCON_TELNET: begin
+     ses := TabSessions.AddPage(MSG_FILE_EXT);
+     ses.InicConectTelnet(frmConexRap.ip);
   end;
-  InicConect;   //inicia conexión
-  //almacena conexión
+  TCON_SSH   : begin
+     ses := TabSessions.AddPage(MSG_FILE_EXT);
+     ses.InicConectSSH(frmConexRap.ip);
+  end;
+  end;
+  //InicConect;   //inicia conexión
+  //Almacena conexión
   Config.escribirArchivoIni;  //guarda en configuración}
 end;
-procedure TfrmPrincipal.AcArcNueVenExecute(Sender: TObject);
+procedure TfrmPrincipal.AcFilNewWinExecute(Sender: TObject);
 //Abre una nueva ventana de la aplicación
 begin
    Exec('TTerm.exe','');
 end;
-procedure TfrmPrincipal.AcArcNueSesExecute(Sender: TObject);  //Genera una nueva sesión
-var F:textfile;
-  rpta: Byte;
+procedure TfrmPrincipal.AcFilNewSesExecute(Sender: TObject);  //Genera una nueva sesión
+var
+  ses: TfraTabSession;
+  l: TStrings;
 begin
-  if proc.state <> ECO_STOPPED then begin
-    rpta := MsgYesNoCancel('Hay una conexión abierta. ¿Cerrarla?');
-    if rpta in [2,3] then begin  //cancelar
-      exit;    //sale
-    end;
-    if rpta = 1 then begin  //detener primero
-      AcTerDesconExecute(nil);
-    end;
+  ses := TabSessions.AddPage(MSG_FILE_EXT);
+  TabSessions.SetFocus;
+  ses.ExecSettings;  //Muestra ventana de configuración
+  l := ses.edPCom.Lines;
+  case ses.Tipo of
+  TCON_SSH: begin
+     l.Add('###########################################');
+     l.Add('## New SSH session created ' + DateTimeToStr(now));
+     l.Add('###########################################');
+     l.Add('IP: ' + ses.IP);
+     l.Add('Port: ' + ses.Port);
   end;
-  AcTerLimBufExecute(self);  //limpia pantalla
-  //Limpia archivo ini, para que cargue opciones por defecto
-  AssignFile(F, Config.arIni);
-  Rewrite(F);
-  CloseFile(F);
-  //lo lee de nuevo
-  Config.LeerArchivoIni;
-  frmEditMacros.acArcNuevoExecute(self);   //limpia ventana de macros
-  AcPcmNuevoExecute(self);                 //limpìa panel de comandos
-
-  ConfiguraEntorno;
-  DistribuirPantalla; //ubica componentes
-  //muestra dirección IP actual
-  ActualizarInfoPanel0;
-
-  Config.Configurar('1,1');   //muesta para configurar
-  SesAct:='';   //Sin nombre
-  ePComFileOpened; //para actualizar barra de título
+  end;
+  ses.setModified(true);  //Marca como modificado
 end;
-procedure TfrmPrincipal.AcArcAbrSesExecute(Sender: TObject); //Abrir sesión
+procedure TfrmPrincipal.AcFIlOpeSesExecute(Sender: TObject); //Abrir sesión
 begin
-  OpenDialog1.Filter := dic('Archivo de sesión|*.ses|Todos los archivos|*.*');
-  OpenDialog1.InitialDir:=rutSesiones;  //busca aquí por defecto
-//  if SaveQuery then Exit;   //Verifica cambios
-//  if Error<>'' then exit;  //hubo error
+  OpenDialog1.Filter := MSG_FILE_DES + '|*' + MSG_FILE_EXT + '|' +
+                        MSG_ALLFILES + '|*.*';
+  //OpenDialog1.InitialDir:=patSesiones;  //busca aquí por defecto
   if not OpenDialog1.Execute then exit;    //se canceló
   AbrirSesion(OpenDialog1.FileName);
 end;
-procedure TfrmPrincipal.AcArcIniRegExecute(Sender: TObject);
+procedure TfrmPrincipal.AcFilSavSesExecute(Sender: TObject);  //guardar sesión
 var
-  arc0: TComponentName;
+  ses: TfraTabSession;
 begin
-  if logName='' then begin
-    SaveDialog2.Filter := dic('Archivo de registro|*.log|Todos los archivos|*.*');
-    SaveDialog2.InitialDir:=rutApp;  //busca aquí por defecto
-    if not SaveDialog2.Execute then begin  //se canceló
-      exit;    //se canceló
-    end;
-    arc0:=SaveDialog2.FileName;
-    if FileExists(arc0) then begin
-      if MsgYesNoCancel('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
-                        [arc0]) in [2,3] then exit;
-    end;
-  end;
-  logName := arc0;
-  if not StartLog(logName) then begin
-    MsgErr('Error abriendo registro: ' + logName);
+  if GetCurSession(ses) then begin
+    ses.SaveToFile;
   end;
 end;
-procedure TfrmPrincipal.AcArcDetRegExecute(Sender: TObject);
-begin
-  EndLog;
-end;
-procedure TfrmPrincipal.AcArcGuaSesExecute(Sender: TObject);  //guardar sesión
-begin
-  if SesAct = '' then
-    AcArcGuaSesCExecute(self)
-  else begin
-    config.escribirArchivoIni(SesAct);
-  end;
-end;
-procedure TfrmPrincipal.AcArcGuaSesCExecute(Sender: TObject); //guarda sesión como
+procedure TfrmPrincipal.AcFilSavSesAsExecute(Sender: TObject); //guarda sesión como
 var
-  arc0: String;
-  NomArc: String;
+  ses: TfraTabSession;
 begin
-  SaveDialog1.Filter := dic('Archivo de sesión|*.ses|Todos los archivos|*.*');
-  SaveDialog1.InitialDir:=rutSesiones;  //busca aquí por defecto
-  if not SaveDialog1.Execute then begin  //se canceló
-    exit;    //se canceló
+  if GetCurSession(ses) then begin
+    ses.SaveAsDialog;
+    UpdateHeader;   //Actualiza barra de título
   end;
-  arc0 := SaveDialog1.FileName;
-  if FileExists(arc0) then begin
-    if MsgYesNoCancel('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
-                      [arc0]) in [2,3] then exit;
-  end;
-  NomArc := UTF8ToSys(arc0);   //asigna nuevo nombre
-  if ExtractFileExt(NomArc) = '' then NomArc += '.'+'ses';  //completa extensión
-//  SaveFile;   //lo guarda
-  SesAct := NomArc;
-  config.escribirArchivoIni(SesAct);
-  ePComFileOpened; //para actualizar barra de título
 end;
-procedure TfrmPrincipal.AcArcSalirExecute(Sender: TObject);
+procedure TfrmPrincipal.AcFilExitExecute(Sender: TObject);
 begin
   Close;
-end;
-
-procedure TfrmPrincipal.acEdUndoExecute(Sender: TObject);
-begin
-  if edPCom.Focused then begin //El único editor que acepta Undo/Redo
-    eScript.Undo;
-  end;
-end;
-procedure TfrmPrincipal.acEdRedoExecute(Sender: TObject);
-begin
-  if edPCom.Focused then begin //El único editor que acepta Undo/Redo
-    eScript.Redo;
-  end;
-end;
-procedure TfrmPrincipal.acEdPasteExecute(Sender: TObject);
-begin
-  if edpCom.Focused then begin
-    eScript.Paste;  //pega en el editor
-  end;
-  if edTerm.Focused then begin
-    proc.SendLn(ClipBoard.AsText);  //envía al terminal
-  end;
 end;
 
 procedure TfrmPrincipal.AcVerBarEstExecute(Sender: TObject);
@@ -1350,20 +742,7 @@ begin
 end;
 procedure TfrmPrincipal.AcVerPanComExecute(Sender: TObject);
 begin
-  MostrarPanCom(not AcVerPanCom.Checked);
-end;
-procedure TfrmPrincipal.edPComDropFiles(Sender: TObject; X, Y: integer;
-  AFiles: TStrings);
-begin
-  //Carga archivo arrastrados
-  if eScript.SaveQuery then Exit;   //Verifica cambios
-  eScript.LoadFile(AFiles[0]);
-end;
-procedure TfrmPrincipal.edPComEnter(Sender: TObject);  //Toma el enfoque
-begin
-  ChangeEditorState;  //para actualizar los menús
-  eScript.PanCursorPos := nil; //para forzar a actualiazr la posición del cursor
-  eScript.PanCursorPos := StatusBar1.Panels[2];
+//  MostrarPanCom(not AcVerPanCom.Checked);
 end;
 
 procedure TfrmPrincipal.AcVerEdiMacExecute(Sender: TObject);
@@ -1379,266 +758,6 @@ begin
   frmEditRemoto.Show;
 end;
 
-procedure TfrmPrincipal.AcPcmNuevoExecute(Sender: TObject);
-begin
-  if eScript.SaveQuery then Exit;   //Verifica cambios
-  eScript.NewFile(false);
-  ePComFileOpened;
-  eScript.Text:=dic('#Archivo de comandos')+LineEnding;
-end;
-procedure TfrmPrincipal.AcPcmAbrirExecute(Sender: TObject);
-begin
-  //Pone como primera opción todos los archivos, porque no se restringe solo a *.sh
-  OpenDialog1.Filter:='Todos los archivos|*.*|Archivo de comandos|*.sh|Archivos de texto|*.txt';
-  OpenDialog1.InitialDir:=config.fcRutArc.scripts;  //busca aquí por defecto
-  eScript.OpenDialog(OpenDialog1);
-end;
-procedure TfrmPrincipal.AcPcmCamPosExecute(Sender: TObject);  //cambia posición
-begin
-  if not panel1.Visible then exit;
-  if Config.TipAlineam < 2 then inc(Config.TipAlineam) else Config.TipAlineam := 0;
-  DistribuirPantalla;
-  Config.escribirArchivoIni;  //para mantener cambios
-end;
-procedure TfrmPrincipal.AcPcmGuardarExecute(Sender: TObject);
-begin
-  eScript.SaveFile;
-end;
-procedure TfrmPrincipal.AcPcmGuaComExecute(Sender: TObject);
-begin
-  SaveDialog1.Filter:='Archivo de comandos|*.sh|Todos los archivos|*.*';
-  sAVEDialog1.InitialDir:=config.fcRutArc.scripts;  //busca aquí por defecto
-  eScript.SaveAsDialog(SaveDialog1);
-end;
-procedure TfrmPrincipal.EnviarTxt(txt: string);
-//Envía un tetxo al terminal, aplicando el preprocesamiento si es necesario
-var
-  usu: string;
-begin
-  if Config.fcPanCom.UsarPrep then begin
-    //se debe usar el preprocesador PreSQL
-    PreProcesar('',txt, usu);
-    if PErr.HayError Then begin
-      msgerr(Perr.GenTxtError);
-      exit;  //verificación
-    end;
-    proc.SendLn(PPro.TextSalida);
-  end else begin   //envío común
-    proc.SendLn(txt);
-  end;
-end;
-procedure TfrmPrincipal.AcPCmEnvLinExecute(Sender: TObject);
-var
-  lin: String;
-begin
-  if proc = nil then exit;
-  if edPCom.SelAvail then begin  //hay selección
-    //envía texto seleccionado
-    EnviarTxt(edPCom.SelText);
-  end else begin  //no hay selección, envía la línea actual
-    lin := edPCom.LineText;  //línea actual
-    EnviarTxt(lin);
-  end;
-end;
-procedure TfrmPrincipal.AcPCmEnvTodExecute(Sender: TObject);
-//Envía todo el texto
-begin
-  if proc = nil then exit ;
-  if Config.fcPanCom.SaveBefSend then
-    AcPcmGuardarExecute(Self);
-  if edPCom.SelAvail then begin
-    //hay selección
-    frmSelFuente.optSel.Checked := true;
-    frmSelFuente.optLin.Enabled := false;
-    frmSelFuente.ShowModal;
-    If frmSelFuente.cancelado Then Exit;  //cancelado
-    //se eligió
-    If frmSelFuente.optTod.Checked Then begin  //todo
-      EnviarTxt(edPCom.Text);
-    end else if frmSelFuente.optSel.Checked Then begin  //selección
-      EnviarTxt(edPCom.SelText);
-    end Else begin   //solo la línea actual
-      EnviarTxt(edPCom.LineText);
-    End;
-  end else begin
-    //no hay selección, envía todo
-    EnviarTxt(edPCom.Text);
-  end;
-end;
-procedure TfrmPrincipal.acPCmEnvCtrCExecute(Sender: TObject); //Envía Ctrl+C
-begin
-  proc.Send(#3);
-end;
-procedure TfrmPrincipal.AcPcmOculExecute(Sender: TObject);
-begin
-  MostrarPanCom(false);
-end;
-procedure TfrmPrincipal.AcPcmVerBHerExecute(Sender: TObject);
-begin
-  MostrarBHerPcom(not AcPcmVerBHer.Checked);
-end;
-procedure TfrmPrincipal.AcPcmConfigExecute(Sender: TObject);
-begin
-  Config.Configurar('3.1');
-end;
-
-procedure TfrmPrincipal.AcTerConecExecute(Sender: TObject);
-begin
-  InicConect;   //inicia conexión
-end;
-procedure TfrmPrincipal.AcTerDesconExecute(Sender: TObject); //desconectar
-begin
-   if not proc.Close then
-     msgerr('No se puede cerrar el proceso actual.');
-end;
-procedure TfrmPrincipal.AcTerConfigExecute(Sender: TObject); //configurar
-begin
-   Config.Configurar('2.1');
-end;
-procedure TfrmPrincipal.AcTerCopPalExecute(Sender: TObject);
-const CARS = ['a'..'z','A'..'Z','0'..'9','_','-'];
-var
-  p, q: Integer;
-  linAct: String;
-  CurX: Integer;
-begin
-  CurX := edTerm.CaretX;
-  linAct := edTerm.LineText;
-  p := CurX; if p>length(linact) then exit;
-  while (p>1) and (linAct[p] in CARS) do
-    dec(p);
-  if not (linAct[p] in CARS) then inc(p); //corrige
-  q := CurX;
-  while (q<=length(linAct)) and (linAct[q] in CARS) do
-    inc(q);
-  edTerm.BlockBegin:=Point(p,edTerm.CaretY);
-  edTerm.BlockEnd :=Point(q,edTerm.CaretY);
-  edTerm.CopyToClipboard;
-end;
-procedure TfrmPrincipal.AcTerCopNomExecute(Sender: TObject); //copia nombre
-const CARS = ['a'..'z','A'..'Z','0'..'9','-','_','.'];
-var
-  p, q: Integer;
-  linAct: String;
-  CurX: Integer;
-begin
-  CurX := edTerm.CaretX;
-  linAct := edTerm.LineText;
-  p := CurX; if p>length(linact) then exit;
-  while (p>1) and (linAct[p] in CARS) do
-    dec(p);
-  if not (linAct[p] in CARS) then inc(p); //corrige
-  q := CurX;
-  while (q<=length(linAct)) and (linAct[q] in CARS) do
-    inc(q);
-  edTerm.BlockBegin:=Point(p,edTerm.CaretY);
-  edTerm.BlockEnd :=Point(q,edTerm.CaretY);
-  edTerm.CopyToClipboard;
-end;
-procedure TfrmPrincipal.AcTerCopRutExecute(Sender: TObject); //copia ruta
-const CARS = ['a'..'z','A'..'Z','0'..'9','-','_','\','/','.'];
-var
-  p, q: Integer;
-  linAct: String;
-  CurX: Integer;
-begin
-  CurX := edTerm.CaretX;
-  linAct := edTerm.LineText;
-  p := CurX; if p>length(linact) then exit;
-  while (p>1) and (linAct[p] in CARS) do
-    dec(p);
-  if not (linAct[p] in CARS) then inc(p); //corrige
-  q := CurX;
-  while (q<=length(linAct)) and (linAct[q] in CARS) do
-    inc(q);
-  edTerm.BlockBegin:=Point(p,edTerm.CaretY);
-  edTerm.BlockEnd :=Point(q,edTerm.CaretY);
-  edTerm.CopyToClipboard;
-end;
-procedure TfrmPrincipal.AcTerCopNomRutExecute(Sender: TObject); //copia ruta y nombre
-const CARS = ['a'..'z','A'..'Z','0'..'9','-','_','\','/','.'];
-var
-  p, q: Integer;
-  linAct: String;
-  CurX: Integer;
-begin
-  CurX := edTerm.CaretX;
-  linAct := edTerm.LineText;
-  p := CurX; if p>length(linact) then exit;
-  while (p>1) and (linAct[p] in CARS) do
-    dec(p);
-  if not (linAct[p] in CARS) then inc(p); //corrige
-  q := CurX;
-  while (q<=length(linAct)) and (linAct[q] in CARS) do
-    inc(q);
-  edTerm.BlockBegin:=Point(p,edTerm.CaretY);
-  edTerm.BlockEnd :=Point(q,edTerm.CaretY);
-  edTerm.CopyToClipboard;
-end;
-
-procedure TfrmPrincipal.AcTerDetPrmExecute(Sender: TObject); //Detecta prompt
-begin
-  proc.AutoConfigPrompt;  //auto-detección
-  config.fcDetPrompt.DetecPrompt := proc.detecPrompt;
-  config.fcDetPrompt.prIni := proc.promptIni;
-  config.fcDetPrompt.prFin := proc.promptFin;
-  config.fcDetPrompt.TipDetec:=proc.promptMatch;
-  config.fcDetPrompt.OnUpdateChanges;  //actualiza resaltador y al mismo proceso
-end;
-procedure TfrmPrincipal.AcTerEnvCtrlCExecute(Sender: TObject);  //Ctrl+C
-begin
-  proc.Send(#3);
-end;
-procedure TfrmPrincipal.AcTerEnvEnterExecute(Sender: TObject);  //Enter
-begin
-  proc.SendLn('');
-end;
-procedure TfrmPrincipal.AcTerEnvCRExecute(Sender: TObject);
-begin
-  proc.Send(#13);
-end;
-procedure TfrmPrincipal.AcTerEnvLFExecute(Sender: TObject);
-begin
-  proc.Send(#10);
-end;
-procedure TfrmPrincipal.AcTerEnvCRLFExecute(Sender: TObject);
-begin
-  proc.Send(#13#10);
-end;
-procedure TfrmPrincipal.AcTerLimBufExecute(Sender: TObject);
-//limpia la salida
-begin
-  edterm.ClearAll;
-  proc.ClearTerminal;  //generará el evento OnInitLines()
-end;
-
-procedure TfrmPrincipal.AcTerPrmArrExecute(Sender: TObject);
-//Mueve al prompt anterior
-var
-  cy: Integer;
-begin
-  cy := BuscaPromptArr;
-  if cy = -1 then begin
-//    msgexc('No se encuentra el prompt anterior');
-  end else begin
-    edTerm.CaretXY := point(1,cy);
-    edterm.SelectLine;
-  end;
-end;
-procedure TfrmPrincipal.AcTerPrmAbaExecute(Sender: TObject);
-//Mueve al prompt siguiente
-var
-  cy: Integer;
-begin
-  cy := BuscaPromptAba;
-  if cy = -1 then begin
-//    msgexc('No se encuentra el prompt siguiente');
-  end else begin
-    edTerm.CaretXY := point(1,cy);
-    edterm.SelectLine;
-  end;
-end;
-
 procedure TfrmPrincipal.AcHerGraMacExecute(Sender: TObject);
 begin
   frmEditMacros.AcHerGrabExecute(self);
@@ -1646,7 +765,6 @@ end;
 procedure TfrmPrincipal.AcHerCfgExecute(Sender: TObject);
 begin
   Config.Configurar;
-  ActualizarInfoPanel0;
 end;
 
 procedure TfrmPrincipal.acAyuAyuExecute(Sender: TObject);
@@ -1661,16 +779,12 @@ begin
   case lowerCase(lang) of
   'es': begin
       mnArchivo.Caption:='&Archivo';
-      mnEdicion.Caption:='&Edición';
       mnVer.Caption:='&Ver';
-      mnPanCom.Caption:='Panel de &Comandos';
       mnTerminal.Caption:='&Terminal';
       mnHerram.Caption:='&Herramientas';
       mnAyuda.Caption:='Ay&uda';
 
       mnSesionesAlm.Caption:='&Sesiones Almacenadas';
-      mnLenguajes.Caption:='&Lenguaje';
-      mnComandosAlm.Caption:='Comandos A&lmacenados';
       mnEjecMacro.Caption:='&Ejecutar Macro';
       mnAbrMacro.Caption:='&Abrir Macro';
       mnGraMacro.Caption:='&Grabar Macro';
@@ -1678,55 +792,19 @@ begin
       MenuItem82.Caption:='Copiar Elemento';
       MenuItem72.Caption:='&Enviar';
 
-      AcArcNueSes.Caption := '&Nueva Sesión';
-      AcArcAbrSes.Caption := '&Abrir Sesión ...';
-      AcArcGuaSes.Caption := '&Guardar Sesión';
-      AcArcGuaSesC.Caption := 'G&uardar Sesión Como ...';
-      AcArcDescon.Caption := '&Desconectar';
-      AcArcIniReg.Caption := '&Iniciar Registro...';
-      AcArcDetReg.Caption := 'De&tener Registro';
-      AcArcSalir.Caption := '&Salir';
-      AcArcConec.Caption := '&Conexión Rápida...';
-      AcArcNueVen.Caption := 'Nueva &Ventana...';
-      acEdUndo.Caption := '&Deshacer';
-      acEdRedo.Caption := '&Rehacer';
-      acEdCut.Caption := 'Cor&tar';
-      acEdCopy.Caption := '&Copiar';
-      acEdPaste.Caption := '&Pegar';
-      acEdSelecAll.Caption := 'Seleccionar &Todo';
+      AcFilNewSes.Caption := '&Nueva Sesión';
+      AcFIlOpeSes.Caption := '&Abrir Sesión ...';
+      AcFilSavSes.Caption := '&Guardar Sesión';
+      AcFilSavSesAs.Caption := 'G&uardar Sesión Como ...';
+      AcFilDescon.Caption := '&Desconectar';
+      AcFilExit.Caption := '&Salir';
+      AcFilConec.Caption := '&Conexión Rápida...';
+      AcFilNewWin.Caption := 'Nueva &Ventana...';
       AcVerPanCom.Caption := '&Panel de Comandos';
       AcVerBarEst.Caption := 'Barra de estado';
       AcVerEdiMac.Caption := 'Editor de &Macros';
       AcVerEdiRem.Caption := '&Editor Remoto';
       AcVerExpRem.Caption := 'E&xplorador Remoto';
-      AcPcmNuevo.Caption := '&Nuevo';
-      AcPcmAbrir.Caption := '&Abrir...';
-      AcPcmGuardar.Caption := '&Guardar';
-      AcPcmGuaCom.Caption := 'G&uardar Como...';
-      AcPCmEnvLin.Caption := 'Enviar &Línea';
-      AcPCmEnvTod.Caption := 'Enviar &Todo';
-      acPCmEnvCtrC.Caption := 'Enviar Ct&rl+C';
-      AcPcmOcul.Caption := 'Ocultar';
-      AcPcmCamPos.Caption := 'Cambiar posición';
-      AcPcmVerBHer.Caption := 'Ver Barra de &Herramientas';
-      AcPcmConfig.Caption := 'Confi&gurar';
-      AcTerConec.Caption := '&Conectar';
-      AcTerDescon.Caption := '&Desconectar';
-      AcTerLimBuf.Caption := '&Limpiar Buffer';
-      AcTerDetPrm.Caption := 'Detectar &Prompt';
-      AcTerVerBHer.Caption := 'Ver Barra de &Herramientas';
-      AcTerPrmArr.Caption := '&Subir a prompt';
-      AcTerPrmAba.Caption := '&Bajar a prompt';
-      AcTerConfig.Caption := 'Confi&gurar';
-      AcTerEnvCtrlC.Caption := 'Enviar &Ctrl-C';
-      AcTerEnvEnter.Caption := 'Enviar &Enter';
-      AcTerEnvCR.Caption := 'Enviar &CR';
-      AcTerEnvCRLF.Caption := 'Enviar CR+&LF';
-      AcTerEnvLF.Caption := 'Enviar LF';
-      AcTerCopPal.Caption := 'Copiar &Palabra';
-      AcTerCopNom.Caption := '&Nombre de Archivo';
-      AcTerCopRut.Caption := 'R&uta de Archivo';
-      AcTerCopNomRut.Caption := 'Copiar N&ombre y Ruta';
       AcHerCfg.Caption := 'Confi&guración...';
       AcHerGraMac.Caption := '&Grabar Macro';
       acAyuAyu.Caption:='Ay&uda';
@@ -1734,16 +812,12 @@ begin
     end;
   'en': begin
       mnArchivo.Caption:='&File';
-      mnEdicion.Caption:='&Edit';
       mnVer.Caption:='&View';
-      mnPanCom.Caption:='&Command Panel';
       mnTerminal.Caption:='&Terminal';
       mnHerram.Caption:='&Tools';
       mnAyuda.Caption:='&Help';
 
       mnSesionesAlm.Caption:='&Stored Sesions';
-      mnLenguajes.Caption:='&Language';
-      mnComandosAlm.Caption:='Stored Commands';
       mnEjecMacro.Caption:='&Execute Macro';
       mnAbrMacro.Caption:='&Open Macro';
       mnGraMacro.Caption:='&Record Macro';
@@ -1751,55 +825,19 @@ begin
       MenuItem82.Caption:='Copy Element';
       MenuItem72.Caption:='&Send';
 
-      AcArcNueSes.Caption := '&New Sesion';
-      AcArcAbrSes.Caption := '&Open Sesion ...';
-      AcArcGuaSes.Caption := '&Save Sesion';
-      AcArcGuaSesC.Caption := 'Sa&ve Sesion as ...';
-      AcArcDescon.Caption := '&Disconnect';
-      AcArcIniReg.Caption := '&Start Log...';
-      AcArcDetReg.Caption := 'S&top Log';
-      AcArcSalir.Caption := '&Exit';
-      AcArcConec.Caption := '&Quick Connection...';
-      AcArcNueVen.Caption := 'New &Window...';
-      acEdUndo.Caption := '&Undo';
-      acEdRedo.Caption := '&Redo';
-      acEdCut.Caption := 'C&ut';
-      acEdCopy.Caption := '&Copy';
-      acEdPaste.Caption := '&Paste';
-      acEdSelecAll.Caption := 'Select &All';
+      AcFilNewSes.Caption := '&New Sesion';
+      AcFIlOpeSes.Caption := '&Open Sesion ...';
+      AcFilSavSes.Caption := '&Save Sesion';
+      AcFilSavSesAs.Caption := 'Sa&ve Sesion as ...';
+      AcFilDescon.Caption := '&Disconnect';
+      AcFilExit.Caption := '&Exit';
+      AcFilConec.Caption := '&Quick Connection...';
+      AcFilNewWin.Caption := 'New &Window...';
       AcVerPanCom.Caption := '&Comand Panel';
       AcVerBarEst.Caption := 'Status Bar';
       AcVerEdiMac.Caption := '&Macro Editor';
       AcVerEdiRem.Caption := 'Remote &Editor';
       AcVerExpRem.Caption := 'Remote E&xplorer';
-      AcPcmNuevo.Caption := '&New';
-      AcPcmAbrir.Caption := '&Open...';
-      AcPcmGuardar.Caption := '&Save';
-      AcPcmGuaCom.Caption := 'Sa&ve As...';
-      AcPCmEnvLin.Caption := 'Send &Line';
-      AcPCmEnvTod.Caption := 'Send &All';
-      acPCmEnvCtrC.Caption := 'Send Ct&rl+C';
-      AcPcmOcul.Caption := 'Hide';
-      AcPcmCamPos.Caption := 'Change position';
-      AcPcmVerBHer.Caption := 'Show &Toolbar';
-      AcPcmConfig.Caption := 'Confi&gure';
-      AcTerConec.Caption := '&Connect';
-      AcTerDescon.Caption := '&Disconnect';
-      AcTerLimBuf.Caption := '&Clean Buffer';
-      AcTerDetPrm.Caption := 'Detect &Prompt';
-      AcTerVerBHer.Caption := 'Show &Tollbar';
-      AcTerPrmArr.Caption := 'Move &Up to prompt';
-      AcTerPrmAba.Caption := 'Move &Down to prompt';
-      AcTerConfig.Caption := 'Confi&gure';
-      AcTerEnvCtrlC.Caption := 'Send &Ctrl-C';
-      AcTerEnvEnter.Caption := 'Send &Enter';
-      AcTerEnvCR.Caption := 'Send &CR';
-      AcTerEnvCRLF.Caption := 'Send CR+&LF';
-      AcTerEnvLF.Caption := 'Send LF';
-      AcTerCopPal.Caption := 'Copy &Word';
-      AcTerCopNom.Caption := '&File Name';
-      AcTerCopRut.Caption := 'File &Path';
-      AcTerCopNomRut.Caption := 'Copy Name and Path';
       AcHerCfg.Caption := 'Confi&gure...';
       AcHerGraMac.Caption := '&Record Macro';
       acAyuAyu.Caption:='&Help';
@@ -1824,4 +862,4 @@ begin
 end;
 
 end.
-
+//1810

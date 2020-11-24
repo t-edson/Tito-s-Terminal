@@ -2,8 +2,9 @@ unit GenCod;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, Graphics, Forms, SynEditHighlighter,
-  MisUtils, SynFacilBasic, XpresParser, XpresTypes, XpresElements, strutils;
+  Classes, SysUtils, Graphics, Forms, Globales, FrameTabSession,
+  SynEditHighlighter, MisUtils, SynFacilBasic, XpresParser, XpresTypes,
+  XpresElements, strutils;
 
 {Implementación de un interprete sencillo para el lenguaje Xpres.
 Este módulo no generará código sino que lo ejecutará directamente.
@@ -238,11 +239,9 @@ begin
   if Upcase(p1^.rVar.name) = 'TIMEOUT' then begin
     //variable interna
     config.fcMacros.TpoMax := p2^.ReadInt;
-    config.fcConex.UpdateChanges;  //actualiza
   end else if Upcase(p1^.rVar.name) = 'curPORT' then begin
-    //variable interna
-    config.fcConex.Port := IntToStr(p2^.ReadInt);
-    config.fcConex.UpdateChanges;  //actualiza
+    //Variable interna
+    frmPrincipal.SetCurPort(p2^.ReadInt);
   end;
 end;
 procedure TGenCod.int_suma_int;
@@ -293,6 +292,8 @@ begin
   res.valStr := p1^.ReadStr;
 end;
 procedure TGenCod.str_asig_str;
+var
+  ses: TfraTabSession;
 begin
   if p1^.catOp <> coVariab then begin  //validación
     GenError('Solo se puede asignar a variable.'); exit;
@@ -303,40 +304,38 @@ begin
   //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
   if Upcase(p1^.rVar.name) = 'CURIP' then begin
     //variable interna
-    config.fcConex.IP := p2^.ReadStr;
-    config.fcConex.UpdateChanges;  //actualiza
+    frmPrincipal.SetCurIP(p2^.ReadStr);
   end else if Upcase(p1^.rVar.name) = 'CURTYPE' then begin
     //variable interna
     case UpCase(p2^.ReadStr) of
-    'TELNET': config.fcConex.tipo := TCON_TELNET;  //Conexión telnet común
-    'SSH'   : config.fcConex.tipo := TCON_SSH;     //Conexión ssh
-    'SERIAL': config.fcConex.tipo := TCON_SERIAL;  //Serial
-    'OTHER' : config.fcConex.tipo := TCON_OTHER;   //Otro proceso
+    'TELNET': frmPrincipal.SetCurConnType(TCON_TELNET);  //Conexión telnet común
+    'SSH'   : frmPrincipal.SetCurConnType(TCON_SSH);     //Conexión ssh
+    'SERIAL': frmPrincipal.SetCurConnType(TCON_SERIAL);  //Serial
+    'OTHER' : frmPrincipal.SetCurConnType(TCON_OTHER);   //Otro proceso
     end;
-    config.fcConex.UpdateChanges;  //actualiza
   end else if Upcase(p1^.rVar.name) = 'CURENDLINE' then begin
     //variable interna
     if UpCase(p2^.ReadStr) = 'CRLF' then
-      config.fcConex.LineDelimSend := LDS_CRLF;
+      frmPrincipal.SetCurLineDelimSend(LDS_CRLF);
     if UpCase(p2^.ReadStr) = 'CR' then
-      config.fcConex.LineDelimSend := LDS_CR;
+      frmPrincipal.SetCurLineDelimSend(LDS_CR);
     if UpCase(p2^.ReadStr) = 'LF' then
-      config.fcConex.LineDelimSend := LDS_LF;
-    config.fcConex.UpdateChanges;  //actualiza
+      frmPrincipal.SetCurLineDelimSend(LDS_LF);
   end else if Upcase(p1^.rVar.name) = 'CURAPP' then begin
     //indica aplicativo actual
-    config.fcConex.Other := p2^.ReadStr;
-    config.fcConex.UpdateChanges;  //actualiza
+    frmPrincipal.SetCurOther(p2^.ReadStr);
   end else if Upcase(p1^.rVar.name) = 'PROMPTSTART' then begin
-    //indica aplicativo actual
-    config.fcDetPrompt.prIni:= p2^.ReadStr;
-    config.fcDetPrompt.detecPrompt := true;  //por defecto
-    config.fcDetPrompt.ConfigCambios;  //actualiza
+    if frmPrincipal.GetCurSession(ses) then begin
+      ses.prIni:= p2^.ReadStr;
+      ses.detecPrompt := true;  //por defecto
+      ses.UpdatePromptProc;  //actualiza
+    end;
   end else if Upcase(p1^.rVar.name) = 'PROMPTEND' then begin
-    //indica aplicativo actual
-    config.fcDetPrompt.prFin:= p2^.ReadStr;
-    config.fcDetPrompt.detecPrompt := true;  //por defecto
-    config.fcDetPrompt.ConfigCambios;  //actualiza
+    if frmPrincipal.GetCurSession(ses) then begin
+      ses.prFin:= p2^.ReadStr;
+      ses.detecPrompt := true;  //por defecto
+      ses.UpdatePromptProc;  //actualiza
+    end;
   end;
 end;
 
@@ -356,6 +355,8 @@ begin
   res.valBool := p1^.ReadBool;
 end;
 procedure TGenCod.bol_asig_bol;
+var
+  ses: TfraTabSession;
 begin
   if p1^.catOp <> coVariab then begin  //validación
     GenError('Solo se puede asignar a variable.'); exit;
@@ -365,9 +366,11 @@ begin
   p1^.rVar.valBool := p2^.ReadBool;
 //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
   if Upcase(p1^.rVar.name) = 'PROMPTDETECT' then begin
-    //variable interna
-    config.fcDetPrompt.detecPrompt := p2^.ReadBool;
-    config.fcDetPrompt.ConfigCambios;  //actualiza
+    //Variable interna
+    if frmPrincipal.GetCurSession(ses) then begin
+      ses.detecPrompt := p2^.ReadBool;
+      ses.UpdatePromptProc;  //actualiza
+    end;
   end;
 end;
 
@@ -392,50 +395,70 @@ begin
 end;
 procedure TGenCod.fun_disconnect(fun :TxpEleFun);
 //desconecta la conexión actual
+var
+  ses: TfraTabSession;
 begin
 //  msgbox('desconectado');  //sabemos que debe ser String
   if not ejec then exit;
-  frmPrincipal.AcTerDesconExecute(nil);
-end;
-procedure TGenCod.fun_connectTelnet(fun :TxpEleFun);
-//conecta con telnet
-begin
-  PopResult;  //saca parámetro 1
-  if not ejec then exit;
-  frmPrincipal.InicConectTelnet(stack[sp].valStr);   //inicia conexión
+  if frmPrincipal.GetCurSession(ses) then begin
+    if not ses.proc.Close then begin
+      msgerr('No se puede cerrar el proceso actual.');
+    end;
+  end;
 end;
 procedure TGenCod.fun_connect(fun :TxpEleFun);
 //Inicia la conexión actual
+var
+  ses: TfraTabSession;
 begin
   if not ejec then exit;
-  frmPrincipal.InicConect;   //inicia conexión
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.InicConect;   //inicia conexión
+  end;
 end;
-procedure TGenCod.fun_connectSSH(fun :TxpEleFun);
-//conecta con SSH
+procedure TGenCod.fun_connectTelnet(fun :TxpEleFun);
+//conecta con telnet
+var
+  ses: TfraTabSession;
 begin
   PopResult;  //saca parámetro 1
   if not ejec then exit;
-  frmPrincipal.InicConectSSH(stack[sp].valStr);   //inicia conexión
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.InicConectTelnet(stack[sp].valStr);   //inicia conexión
+  end;
+end;
+procedure TGenCod.fun_connectSSH(fun :TxpEleFun);
+//conecta con SSH
+var
+  ses: TfraTabSession;
+begin
+  PopResult;  //saca parámetro 1
+  if not ejec then exit;
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.InicConectSSH(stack[sp].valStr);   //inicia conexión
+  end;
 end;
 procedure TGenCod.fun_sendln(fun :TxpEleFun);
 //desconecta la conexión actual
 var
   lin: String;
+  pag: TfraTabSession;
 begin
   PopResult;  //saca parámetro 1
   if not ejec then exit;
-  if frmPrincipal.proc = nil then exit;
+  if not frmPrincipal.GetCurSession(pag) then exit;
   lin := stack[sp].valStr;
-  frmPrincipal.proc.SendLn(lin);
+  pag.proc.SendLn(lin);
 end;
 procedure TGenCod.fun_wait(fun :TxpEleFun);
 //espera por una cadena
 var
   lin: String;
   tic: Integer;
+  pag: TfraTabSession;
 begin
   PopResult;  //saca parámetro 1
-  if frmPrincipal.proc = nil then exit;
+  if not frmPrincipal.GetCurSession(pag) then exit;
   //lazo de espera
   if not ejec then exit;
   lin := stack[sp].valStr;
@@ -443,7 +466,7 @@ begin
   while (tic<Timeout*10) and Not stop do begin
     Application.ProcessMessages;
     sleep(100);
-    if AnsiEndsStr(lin, frmPrincipal.proc.LastLine) then break;
+    if AnsiEndsStr(lin, pag.proc.LastLine) then break;
     Inc(tic);
   end;
   if tic>=Timeout*10 then begin
@@ -458,9 +481,10 @@ procedure TGenCod.fun_pause(fun :TxpEleFun);
 var
   tic: Integer;
   n10mil: Integer;
+  pag: TfraTabSession;
 begin
   PopResult;  //saca parámetro 1
-  if frmPrincipal.proc = nil then exit;
+  if not frmPrincipal.GetCurSession(pag) then exit;
   n10mil := stack[sp].valInt * 100;
   //lazo de espera
   if not ejec then exit;
@@ -489,15 +513,23 @@ begin
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
 procedure TGenCod.fun_detect_prompt(fun :TxpEleFun);
+var
+  ses: TfraTabSession;
 begin
   if not ejec then exit;
-  frmPrincipal.AcTerDetPrmExecute(nil);
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.AcTerDetPrmExecute(nil);
+  end;
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
 procedure TGenCod.fun_clear(fun :TxpEleFun);
+var
+  ses: TfraTabSession;
 begin
   if not ejec then exit;
-  frmPrincipal.AcTerLimBufExecute(nil);
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.AcTerLimBufExecute(nil);
+  end;
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
 procedure TGenCod.fun_stop(fun: TxpEleFun);
@@ -507,35 +539,55 @@ begin
   //el tipo devuelto lo fijará el framework, al tipo definido
 end;
 procedure TGenCod.fun_logopen(fun: TxpEleFun);
+var
+  ses: TfraTabSession;
 begin
   PopResult;  //saca parámetro 1
   if not ejec then exit;
-  if not frmPrincipal.StartLog(stack[sp].valStr) then begin
-    GenError('Error abriendo registro: ' + stack[sp].valStr);
+  if frmPrincipal.GetCurSession(ses) then begin
+    if not ses.StartLog(stack[sp].valStr) then begin
+      GenError('Error abriendo registro: ' + stack[sp].valStr);
+    end;
   end;
 end;
 procedure TGenCod.fun_logwrite(fun: TxpEleFun);
+var
+  ses: TfraTabSession;
 begin
   PopResult;  //saca parámetro 1
   if not ejec then exit;
-  if not frmPrincipal.WriteLog(stack[sp].valStr) then begin
-    GenError('Error escribiendo en registro: ' + frmPrincipal.logName);
+  if frmPrincipal.GetCurSession(ses) then begin
+    if not ses.WriteLog(stack[sp].valStr) then begin
+      GenError('Error escribiendo en registro: ' + ses.logName);
+    end;
   end;
 end;
 procedure TGenCod.fun_logclose(fun: TxpEleFun);
+var
+  ses: TfraTabSession;
 begin
   if not ejec then exit;
-  frmPrincipal.EndLog;
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.EndLog;
+  end;
 end;
 procedure TGenCod.fun_logpause(fun: TxpEleFun);
+var
+  ses: TfraTabSession;
 begin
   if not ejec then exit;
-  frmPrincipal.PauseLog;
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.PauseLog;
+  end;
 end;
 procedure TGenCod.fun_logstart(fun: TxpEleFun);
+var
+  ses: TfraTabSession;
 begin
   if not ejec then exit;
-  frmPrincipal.StartLog;
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.StartLog;
+  end;
 end;
 procedure TGenCod.fun_fileopen(fun: TxpEleFun);
 var

@@ -44,9 +44,9 @@ begin
   //crea las relaciones variable-control
   Asoc_Str(@UltScript,'UltScript','');
   Asoc_Bol_TChkBox(@AbrirUltScr, chkAbrirUltScr, 'AbrirUltScr', true);
-  Asoc_Str_TEditButton(@Scripts, DirectoryEdit1,'Scripts', rutScripts);
-  Asoc_Str_TEditButton(@Macros, DirectoryEdit2,'Macros', rutMacros);
-  Asoc_Str_TEditButton(@Lenguajes, DirectoryEdit3,'Lenguajes', rutLenguajes);
+  Asoc_Str_TEditButton(@Scripts, DirectoryEdit1,'Scripts', patScripts);
+  Asoc_Str_TEditButton(@Macros, DirectoryEdit2,'Macros', patMacros);
+  Asoc_Str_TEditButton(@Lenguajes, DirectoryEdit3,'Lenguajes', patSyntax);
 end;
 
 procedure TfraCfgRutArc.ReadFileToProp(var arcINI: TIniFile);
@@ -55,15 +55,15 @@ begin
   //valida las rutas leidas
   if not DirectoryExists(Scripts) then begin
     MsgExc('No se encuentra carpeta: %s',[Scripts]);
-    Scripts := rutScripts;
+    Scripts := patScripts;
   end;
   if not DirectoryExists(Macros) then begin
     MsgExc('No se encuentra carpeta: %s', [Macros]);
-    Macros := rutMacros;
+    Macros := patMacros;
   end;
   if not DirectoryExists(Lenguajes) then begin
     MsgExc('No se encuentra carpeta: %s', [Lenguajes]);
-    Lenguajes := rutLenguajes;
+    Lenguajes := patSyntax;
   end;
 end;
 

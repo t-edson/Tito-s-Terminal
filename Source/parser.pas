@@ -6,7 +6,7 @@ interface
 uses
   Classes, SysUtils, LCLType, Dialogs, lclProc, Graphics, Forms,
   SynEditHighlighter, SynFacilBasic, XPresParser, XpresBas, XpresTypes, XpresElements,
-  MisUtils, GenCod;
+  MisUtils, GenCod, FrameTabSession;
 
 type
 
@@ -289,6 +289,8 @@ begin
 end;
 procedure TCompiler.Compilar(NombArc: string; LinArc: Tstrings);
 //Ejecuta el contenido de un archivo
+var
+  ses: TfraTabSession;
 begin
   //se pone en un "try" para capturar errores y para tener un punto salida de salida
   //único
@@ -322,7 +324,9 @@ begin
     ejecProg := false;
     //tareas de finalización
     frmPrincipal.ejecMac := false;
-    frmPRincipal.ActualizarInfoPanel0;
+    if frmPrincipal.GetCurSession(ses) then begin
+      ses.UpdatePanInfoConn;
+    end;
   end;
 end;
 procedure TCompiler.CreateVariable(const varName: string; typ: ttype);

@@ -12,19 +12,28 @@ const
   NOM_PROG ='Tito''s Terminal';   //nombre de programa
   {$I ../version.txt}   //versión del programa
 
+type
+  //Tipos de conexiones
+  TTipCon = (
+     TCON_TELNET,    //Conexión telnet común
+     TCON_SSH,       //Conexión ssh
+     TCON_SERIAL,    //Serial
+     TCON_OTHER      //Otro proceso
+  );
+
 var
    //Variables globales
-   MsjError    : String;    //Bandera - Mensaje de error
+   MsjError    : String;    // Bandera - Mensaje de error.
 
-   rutApp      : string;      //ruta de la aplicación
-   rutMacros   : string;      //ruta de la carpeta de macros
-   rutScripts  : string;      //ruta de la carpeta de scripts
-   rutLenguajes: string;     //ruta para guardar las sintaxis
-   rutSesiones : string;     //ruta para guardar las sesiones
+   patApp      : string;    // Ruta de la aplicación.
+   patMacros   : string;    // Ruta de la carpeta de macros.
+   patScripts  : string;    // Ruta de la carpeta de scripts.
+   patSyntax   : string;    // Ruta para guardar las sintaxis.
+   patSesiones : string;    // Ruta para guardar las sesiones.
 
-   archivoEnt  : string;    //archivo de entrada
-   MostrarError: Boolean;   //Bandera para mostrar mensajesde error.
-   ActConsSeg  : Boolean;   //Activa consultas en segundo plano
+   archivoEnt  : string;    // Archivo de entrada.
+   MostrarError: Boolean;   // Bandera para mostrar mensajesde error.
+   ActConsSeg  : Boolean;   // Activa consultas en segundo plano.
 
 //Funciones para control del editor
 procedure SubirCursorBloque(ed: TSynEdit; Shift: TShiftState);
@@ -320,31 +329,31 @@ end;
 
 initialization
   //inicia directorios de la aplicación
-  rutApp :=  ExtractFilePath(Application.ExeName);  //incluye el '\' final
-  rutMacros := rutApp + 'macros';
-  rutScripts := rutApp + 'scripts';
-  rutLenguajes := rutApp + 'lenguajes';
-  rutSesiones := rutApp + 'sesiones';
+  patApp     :=  ExtractFilePath(Application.ExeName);  //incluye el '\' final
+  patMacros  := patApp + 'macros';
+  patScripts := patApp + 'scripts';
+  patSyntax  := patApp + 'lenguajes';
+  patSesiones:= patApp + 'sesiones';
   archivoEnt := '';    //archivo de entrada
   //verifica existencia de carpetas de trabajo
   try
-    if not DirectoryExists(rutScripts) then begin
+    if not DirectoryExists(patScripts) then begin
       msgexc('No se encuentra carpeta /scripts. Se creará.');
-      CreateDir(rutScripts);
+      CreateDir(patScripts);
     end;
-    if not DirectoryExists(rutMacros) then begin
+    if not DirectoryExists(patMacros) then begin
       msgexc('No se encuentra carpeta /macros. Se creará.');
-      CreateDir(rutMacros);
+      CreateDir(patMacros);
     end;
-    if not DirectoryExists(rutLenguajes) then begin
+    if not DirectoryExists(patSyntax) then begin
       msgexc('No se encuentra carpeta /lenguajes. Se creará.');
-      CreateDir(rutLenguajes);
+      CreateDir(patSyntax);
     end;
-    if not DirectoryExists(rutSesiones) then begin
+    if not DirectoryExists(patSesiones) then begin
       msgexc('No se encuentra carpeta /sesiones. Se creará.');
-      CreateDir(rutSesiones);
+      CreateDir(patSesiones);
     end;
-    if not FileExists(rutApp+'plink.exe') then begin
+    if not FileExists(patApp+'plink.exe') then begin
       msgErr('No se encuentra archivo plink.exe');
     end;
   except
@@ -354,10 +363,10 @@ initialization
 finalization
   //Por algún motivo, la unidad HeapTrc indica que hay gotera de memoria si no se liberan
   //estas cadenas:
-  rutApp :=  '';
-  rutMacros := '';
-  rutScripts := '';
-  rutLenguajes := '';
-  rutSesiones := '';
+  patApp :=  '';
+  patMacros := '';
+  patScripts := '';
+  patSyntax := '';
+  patSesiones := '';
 end.
 

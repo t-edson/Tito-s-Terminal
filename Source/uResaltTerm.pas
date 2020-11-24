@@ -7,7 +7,8 @@ unit uResaltTerm;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, Graphics, SynEditHighlighter, SynEditHighlighterFoldBase;
+  Classes, SysUtils, Graphics, SynEditHighlighter,
+  SynEditHighlighterFoldBase;
 type
   {Clase para la creación de un resaltador}
   TRangeState = (rsUnknown, rsComment);
@@ -36,8 +37,11 @@ type
     fAtriPrompt  : TSynHighlighterAttributes;
     fAtriDirect  : TSynHighlighterAttributes;
   public
-    detecPrompt : boolean;    //activa la detección del prompt
-    prIni, prFin: string;     //cadena inicial, y final del prompt { TODO : En teoría no deberían ser necesarias estas variables  }
+    //detecPrompt : boolean;    //Activa la detección del prompt
+    //prIni, prFin: string;     //Cadena inicial, y final del prompt { TODO : En teoría no deberían ser necesarias estas variables  }
+    curSesObj   : Tobject;    {Referencia a la sesión. Se requiere la sesión, porque cada sesión
+                              mantiene su propia configuración de prompt. Se define como
+                              TObject para no crear referencias circulares entre las unidades. }
     procedure SetLine(const NewValue: String; LineNumber: Integer); override;
     procedure Next; override;
     function  GetEol: Boolean; override;
@@ -91,9 +95,10 @@ type
 
 
 implementation
-uses FormConfig; //para la detección de prompt
+uses FrameTabSession; //para la detección de prompt
 var
   Identifiers: array[#0..#255] of ByteBool;
+  curSes: TfraTabSession;
 
 procedure CreaTablaIdentif;
 var  i, j: Char;
@@ -554,8 +559,8 @@ begin
   if (posTok=1) then begin
     //Estamos al inicio
     //verifica si hay prompt
-    if detecPrompt then begin
-      l:=Config.ContienePrompt(linAct, prIni, prFin);
+    if TfraTabSession(curSesObj).detecPrompt then begin
+      l:= TfraTabSession(curSesObj).ContienePrompt(linAct);
       if l>0 then begin
         posFin += l;   //pasa a siguiente token
         fTokenID := tkPrompt;  //de tipo prompt

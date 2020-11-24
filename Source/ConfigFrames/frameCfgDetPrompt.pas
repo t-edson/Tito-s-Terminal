@@ -64,28 +64,28 @@ procedure TfraDetPrompt.ConfigCambios;
 var
   hlTerm: TResaltTerm;
 begin
-  //configura el resaltador con la detección del prompt
-  if ed.Highlighter.ClassName='TResaltTerm' then begin
-    //Solo se aplica, a 'TResaltTerm'
-    hlTerm := TResaltTerm(ed.Highlighter);
-    if DetecPrompt then begin  //hay detección
-      hlTerm.detecPrompt:=true;
-      hlTerm.prIni:=prIni;
-      hlTerm.prFin:=prFin;
-    end else begin //sin detección
-      hlTerm.detecPrompt:=false;
-    end;
-    ed.Invalidate;  //para actualizar
-  end;
-  //configura detección en proceso
-  if DetecPrompt then begin  //hay detección
-    proc.detecPrompt:=true;
-    proc.promptIni:= prIni;
-    proc.promptFin:= prFin;
-    proc.promptMatch := TipDetec;
-  end else begin //sin detección
-    proc.detecPrompt:=false;
-  end;
+//  //configura el resaltador con la detección del prompt
+//  if ed.Highlighter.ClassName='TResaltTerm' then begin
+//    //Solo se aplica, a 'TResaltTerm'
+//    hlTerm := TResaltTerm(ed.Highlighter);
+//    if DetecPrompt then begin  //hay detección
+//      hlTerm.detecPrompt:=true;
+//      hlTerm.prIni:=prIni;
+//      hlTerm.prFin:=prFin;
+//    end else begin //sin detección
+//      hlTerm.detecPrompt:=false;
+//    end;
+//    ed.Invalidate;  //para actualizar
+//  end;
+//  //configura detección en proceso
+//  if DetecPrompt then begin  //hay detección
+//    proc.detecPrompt:=true;
+//    proc.promptIni:= prIni;
+//    proc.promptFin:= prFin;
+//    proc.promptMatch := TipDetec;
+//  end else begin //sin detección
+//    proc.detecPrompt:=false;
+//  end;
 end;
 
 procedure TfraDetPrompt.chkDetecPromptChange(Sender: TObject);

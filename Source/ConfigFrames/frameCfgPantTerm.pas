@@ -44,7 +44,7 @@ begin
   //asigna referencia necesarias
   p := p0;
   OnUpdateChanges := @ConfigTerminal;  //manejador de cambios
-  //crea las relaciones variable-control
+  //Crea las relaciones variable-control
   Asoc_Int_TEdit(@maxLinTer ,txtMaxLinT,'maxLinTer',5000, 200,MAX_LIN_TER);  {menos de 200 líneas
                   puede causar problemas con la rutina de limitación de tamaño}
   Asoc_Int_TEdit(@maxColTer ,txtMaxColT,'maxColTer',1000, 80,10000);

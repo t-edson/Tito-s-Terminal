@@ -9,7 +9,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, FormPrincipal, FormConexRapida, FormConfig, globales,
   uResaltTerm, FormEditMacros, FormExpRemoto, FormEditRemoto,
-  FormAbrirRemoto, GenCod;
+  FormAbrirRemoto, GenCod, FrameTabSession, FormSesProperty;
 
 {$R *.res}
 
@@ -23,6 +23,7 @@ begin
   Application.CreateForm(TfrmEditRemoto, frmEditRemoto);
   Application.CreateForm(TfrmAbrirRemoto, frmAbrirRemoto);
   Application.CreateForm(TfrmEditMacros, frmEditMacros);
+  Application.CreateForm(TfrmSesProperty, frmSesProperty);
   Application.Run ;
 end.
 

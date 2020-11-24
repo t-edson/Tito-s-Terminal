@@ -9,7 +9,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LazUTF8, SynEdit, Forms, Controls, Graphics,
   Dialogs, Menus, ComCtrls, ActnList, StdActns, SynEditMiscClasses, MisUtils,
-  Globales, SynFacilUtils, FormAbrirRemoto;
+  Globales, SynFacilUtils, FormAbrirRemoto, FrameTabSession;
 
 type
 
@@ -141,7 +141,7 @@ procedure TfrmEditRemoto.FormShow(Sender: TObject);
 begin
   edit.NewFile;        //para actualizar estado
   mnLenguaje.Clear;
-  edit.InitMenuLanguages(mnLenguaje, rutLenguajes);
+  edit.InitMenuLanguages(mnLenguaje, patSyntax);
   edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
   edit.InitMenuRecents(mnRecientes,nil);  //inicia el menú "Recientes"
 end;
@@ -222,6 +222,7 @@ end;
 procedure TfrmEditRemoto.acArcGuardarExecute(Sender: TObject);
 var
   txt: String;
+  ses: TfraTabSession;
 begin
   txt := edit.Text;   //toma texto
   { -- Esta sustitución antigua, falla cuando se usa el carcater !
@@ -240,7 +241,9 @@ begin
   Para ello se debe hacer una sustitución}
   ed.Enabled := False;
   txt := StringReplace(txt, '''', '''"''"''',[rfReplaceAll]);
-  frmPrincipal.EnviarComando('echo ''' + txt + ''' > "' + edit.FileName+'"', lineas);
+  if frmPrincipal.GetCurSession(ses) then begin
+    ses.EnviarComando('echo ''' + txt + ''' > "' + edit.FileName+'"', lineas);
+  end;
   ed.Enabled := True;
   //para actualizar controles
   edit.Modified:=false;  //Este método no es público en la librería original
@@ -293,10 +296,13 @@ procedure TfrmEditRemoto.AbrirRemoto(arc: string);
 //Permite editar un archivo almacenado en un archivo externo
 var
   MsjErr: String;
+  ses: TfraTabSession;
 begin
   if self.Visible and edit.SaveQuery then Exit;   //Verifica cambios
   if not self.Visible then self.Show;
-  MsjErr := frmPrincipal.EnviarComando('cat "'+arc+'"', lineas);
+  if frmPrincipal.GetCurSession(ses) then begin
+    MsjErr := ses.EnviarComando('cat "'+arc+'"', lineas);
+  end;
   ed.Lines.Clear;
   ed.Lines.AddStrings(lineas);
   edit.FileName:=arc;

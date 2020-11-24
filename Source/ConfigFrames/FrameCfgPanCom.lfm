@@ -3,17 +3,17 @@ inherited fraPanCom: TfraPanCom
   DesignTop = 276
   object chkCompletCode: TCheckBox[0]
     Left = 16
-    Height = 19
+    Height = 24
     Top = 16
-    Width = 210
+    Width = 263
     Caption = 'Completado Automático de Código'
     TabOrder = 0
   end
   object chkCodFolding: TCheckBox[1]
     Left = 16
-    Height = 19
+    Height = 24
     Top = 40
-    Width = 121
+    Width = 153
     Caption = '&Plegado de Código'
     Checked = True
     Enabled = False
@@ -22,33 +22,33 @@ inherited fraPanCom: TfraPanCom
   end
   object chkSaveBefSend: TCheckBox[2]
     Left = 16
-    Height = 19
+    Height = 24
     Top = 64
-    Width = 201
+    Width = 252
     Caption = 'Guardar antes de enviar contenido'
     TabOrder = 2
   end
   object chkUsarPrep: TCheckBox[3]
     Left = 16
-    Height = 19
+    Height = 24
     Top = 200
-    Width = 163
+    Width = 204
     Caption = 'Usar Preprocesador PreSQL'
     TabOrder = 3
   end
   object chkSendLnEnter: TCheckBox[4]
     Left = 16
-    Height = 19
+    Height = 24
     Top = 96
-    Width = 149
+    Width = 186
     Caption = 'Enviar línea con <Enter>'
     TabOrder = 4
   end
   object chkSendLnCtrEnter: TCheckBox[5]
     Left = 16
-    Height = 19
+    Height = 24
     Top = 128
-    Width = 192
+    Width = 239
     Caption = 'Enviar línea con <Ctrl>+<Enter>'
     TabOrder = 5
   end

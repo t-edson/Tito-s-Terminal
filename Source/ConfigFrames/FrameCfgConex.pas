@@ -7,13 +7,6 @@ uses
   ConfigFrame;
 
 type
-  //Tipos de conexiones
-  TTipCon = (
-     TCON_TELNET,    //Conexión telnet común
-     TCON_SSH,       //Conexión ssh
-     TCON_SERIAL,    //Serial
-     TCON_OTHER      //Otro proceso
-  );
 
   { TfraConexion }
 

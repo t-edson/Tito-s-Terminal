@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, IDEWindowIntf, Forms, Controls, ComCtrls, LCLType,
-  Menus, ActnList, ExtCtrls, StdCtrls, RegExpr, MisUtils;
+  Menus, ActnList, ExtCtrls, StdCtrls, FrameTabSession, RegExpr, MisUtils;
 const
   //índice a las imágenes
   IMG_ARCHIVO = 0;
@@ -74,6 +74,7 @@ type
 //    procedure BuscaPosicionCampos;
     procedure ConfigurarColumnasDetalladas;
     procedure ConfigurarColumnasSimple;
+    function EnviarComando(com: string; var salida: TStringList): string;
   public
     OnDblClickArch: procedure of object;  //doble click en archivo
     procedure Actualizar;
@@ -260,6 +261,17 @@ begin
     if it.Selected then  inc(Result);
   end;
 end;
+function TfraExpRemoto.EnviarComando(com: string; var salida: TStringList): string;
+{Envía un comando a la sesión actual.}
+var
+  ses: TfraTabSession;
+begin
+  if frmPrincipal.GetCurSession(ses) then begin
+    Result := ses.EnviarComando(com, salida);
+  end else begin
+    Result := '';
+  end;
+end;
 
 procedure TfraExpRemoto.Actualizar;
 //actualiza la lista de archivos de la ruta actual
@@ -282,7 +294,7 @@ begin
   AgregarMensajeEspera(dic('Leyendo...'));   //sería bueno mostrar una animación
   //actualiza lista de archivos
   if config.fcExpRem.MosRut then begin  //debe actualizar ruta
-    frmPrincipal.EnviarComando('pwd',listmp); //lee ruta
+    EnviarComando('pwd',listmp); //lee ruta
     txtRuta.Text:= listmp.Text;
     Panel1.Visible:=true;  //muestra panel de ruta
   end else begin
@@ -290,12 +302,12 @@ begin
   end;
   if ListDet then begin
     ConfigurarColumnasDetalladas;
-    if MosOcul then MsjErr := frmPrincipal.EnviarComando('ls -la',lisArc)
-    else MsjErr := frmPrincipal.EnviarComando('ls -l',lisArc);
+    if MosOcul then MsjErr := EnviarComando('ls -la',lisArc)
+    else MsjErr := EnviarComando('ls -l',lisArc);
   end else begin
     ConfigurarColumnasSimple;
-    if MosOcul then MsjErr := frmPrincipal.EnviarComando('ls -1a',lisArc)
-    else MsjErr := frmPrincipal.EnviarComando('ls -1',lisArc);
+    if MosOcul then MsjErr := EnviarComando('ls -1a',lisArc)
+    else MsjErr := EnviarComando('ls -1',lisArc);
   end;
   if MsjErr <> '' then begin
     ListView1.Items.Clear;
@@ -342,7 +354,7 @@ end;
 constructor TfraExpRemoto.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  //prepara lista
+  //Prepara lista.
   ListView1.RowSelect:=true;
   ListView1.MultiSelect:=true;
   ListView1.ViewStyle:=vsReport;
@@ -352,7 +364,7 @@ begin
   lisArc := TStringlist.Create;  //crea lista de archivos
   listmp := TStringlist.Create;  //crea lista de archivos
   re := TRegExpr.Create;
-  //define expresión regular para extraer campos de la lista de archivos
+  //Define expresión regular para extraer campos de la lista de archivos
   re.Expression := '^(\S+)\x20+(\d+)\x20+(\w+)\x20+(\w+)\x20+(\d+)\x20+'+  //primeros campos
   '(\w{3}\x20+\d+\x20+\S+|\d+\x20+\w{3}\x20+\S+)\x20+(.+)';  //fecha y nombre
 
@@ -378,7 +390,7 @@ begin
     //doble click en ítem
     it := listView1.Items[ListView1.ItemIndex];
     if it.ImageIndex = IMG_CARPETA then begin //es carpeta
-      frmPrincipal.EnviarComando('cd "'+it.Caption+'"', listmp);
+      EnviarComando('cd "'+it.Caption+'"', listmp);
       if trim(listmp.Text)<>'' then msgErr(listmp.Text);
       ActualizarSel('..');
     end else begin  //es archivo
@@ -392,7 +404,7 @@ procedure TfraExpRemoto.ListView1Edited(Sender: TObject; Item: TListItem;
 //Evento porducido después de editar un nombre
 begin
   if Item.Caption <> Avalue then begin
-    frmPrincipal.EnviarComando('mv "'+ Item.Caption + '" "'+ Avalue+'"', listmp);
+    EnviarComando('mv "'+ Item.Caption + '" "'+ Avalue+'"', listmp);
     if trim(listmp.Text)<>'' then msgErr(listmp.Text);
     if config.fcExpRem.RefDesp then ActualizarSel(Avalue);
   end;
@@ -409,7 +421,7 @@ end;
 procedure TfraExpRemoto.ListView1KeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #8 then begin  //backspace
-    frmPrincipal.EnviarComando('cd ..', listmp);
+    EnviarComando('cd ..', listmp);
     if trim(listmp.Text)<>'' then msgErr(listmp.Text);
     ActualizarSel('..');
   end;
@@ -436,7 +448,7 @@ begin
     begin
       inc(n); nom := dic('NuevoArchivo') + IntToStr(n);
     end;
-  frmPrincipal.EnviarComando('echo "" >'+ nom, listmp);
+  EnviarComando('echo "" >'+ nom, listmp);
   if config.fcExpRem.RefDesp then ActualizarSel(nom);
   self.SetFocus;
 end;
@@ -463,7 +475,7 @@ begin
     begin
       inc(n); nom := dic('NuevaCarpeta') + IntToStr(n);
     end;
-  frmPrincipal.EnviarComando('mkdir '+nom, listmp);
+  EnviarComando('mkdir '+nom, listmp);
   if config.fcExpRem.RefDesp then ActualizarSel(nom);
 end;
 procedure TfraExpRemoto.acEdElimExecute(Sender: TObject);  //eliminar
@@ -476,7 +488,7 @@ begin
     if SelecMulTodArchivos then begin //todos son archivos
       if MsgYesNo('¿Eliminar %d archivos?',[NumSeleccionados]) = 1 then begin
         for it in ListView1.Items do if it.Selected then begin
-          frmPrincipal.EnviarComando('rm "' + it.Caption+'"', listmp);
+          EnviarComando('rm "' + it.Caption+'"', listmp);
         end;
         if config.fcExpRem.RefDesp then Actualizar;
       end;
@@ -486,13 +498,13 @@ begin
   end else begin  //selección simple
     if it.ImageIndex = IMG_CARPETA then begin //es carpeta
       if MsgYesNo('¿Eliminar carpeta: %s ?',[it.Caption]) = 1 then begin
-        frmPrincipal.EnviarComando('rmdir '+it.Caption, listmp);
+        EnviarComando('rmdir '+it.Caption, listmp);
         if trim(listmp.Text)<>'' then msgErr(listmp.Text);
         if config.fcExpRem.RefDesp then Actualizar;
       end;
     end else begin  //es archivo
       if MsgYesNo('¿Eliminar archivo: %s ?', [it.Caption]) = 1 then begin
-        frmPrincipal.EnviarComando('rm "' + it.Caption+'"', listmp);
+        EnviarComando('rm "' + it.Caption+'"', listmp);
         if trim(listmp.Text)<>'' then msgErr(listmp.Text);
         if config.fcExpRem.RefDesp then Actualizar;
       end;
@@ -505,7 +517,7 @@ var
 begin
   it := ItemSeleccionado;
   if it = nil then exit;
-  frmPrincipal.EnviarComando(it.Caption, listmp);
+  EnviarComando(it.Caption, listmp);
 end;
 procedure TfraExpRemoto.acEdEditExecute(Sender: TObject);  //editar archivo
 var
@@ -514,7 +526,7 @@ begin
   it := ItemSeleccionado;
   if it = nil then exit;
   if it.ImageIndex = IMG_CARPETA then begin //es carpeta
-//    frmPrincipal.EnviarComando('cd '+it.Caption, listmp);
+//    EnviarComando('cd '+it.Caption, listmp);
 //    if config.fcExpRem.RefDesp then Actualizar;
   end else begin  //es archivo
     frmEditRemoto.AbrirRemoto(it.Caption);

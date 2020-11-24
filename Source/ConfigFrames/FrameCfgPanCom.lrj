@@ -1,0 +1,8 @@
+{"version":1,"strings":[
+{"hash":201625263,"name":"tfrapancom.chkcompletcode.caption","sourcebytes":[67,111,109,112,108,101,116,97,100,111,32,65,117,116,111,109,195,161,116,105,99,111,32,100,101,32,67,195,179,100,105,103,111],"value":"Completado Autom\u00E1tico de C\u00F3digo"},
+{"hash":227390927,"name":"tfrapancom.chkcodfolding.caption","sourcebytes":[38,80,108,101,103,97,100,111,32,100,101,32,67,195,179,100,105,103,111],"value":"&Plegado de C\u00F3digo"},
+{"hash":9104271,"name":"tfrapancom.chksavebefsend.caption","sourcebytes":[71,117,97,114,100,97,114,32,97,110,116,101,115,32,100,101,32,101,110,118,105,97,114,32,99,111,110,116,101,110,105,100,111],"value":"Guardar antes de enviar contenido"},
+{"hash":229650092,"name":"tfrapancom.chkusarprep.caption","sourcebytes":[85,115,97,114,32,80,114,101,112,114,111,99,101,115,97,100,111,114,32,80,114,101,83,81,76],"value":"Usar Preprocesador PreSQL"},
+{"hash":135868622,"name":"tfrapancom.chksendlnenter.caption","sourcebytes":[69,110,118,105,97,114,32,108,195,173,110,101,97,32,99,111,110,32,60,69,110,116,101,114,62],"value":"Enviar l\u00EDnea con <Enter>"},
+{"hash":30729518,"name":"tfrapancom.chksendlnctrenter.caption","sourcebytes":[69,110,118,105,97,114,32,108,195,173,110,101,97,32,99,111,110,32,60,67,116,114,108,62,43,60,69,110,116,101,114,62],"value":"Enviar l\u00EDnea con <Ctrl>+<Enter>"}
+]}

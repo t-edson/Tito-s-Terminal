@@ -5,9 +5,9 @@ unit FormEditMacros;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs, LCLProc,
-  Menus, ComCtrls, ActnList, StdActns,
-  MisUtils, SynFacilUtils, UnTerminal, Parser, Globales, FrameCfgConex;
+  Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
+  LCLProc, Menus, ComCtrls, ActnList, StdActns, MisUtils, SynFacilUtils,
+  UnTerminal, Parser, Globales, FrameTabSessions, FrameCfgConex;
 
 type
 
@@ -111,11 +111,12 @@ type
     edit: TSynFacilEditor;
     procedure MarcarError(nLin, nCol: integer);
   public
-    { public declarations }
+    sessions: TfraTabSessions;
     procedure Ejecutar(arc: string);
     procedure DetenerEjec;
     procedure Abrir(arc: string);
     procedure SetLanguage(lang: string);
+    procedure Init(sessions0: TfraTabSessions);
   end;
 
 var
@@ -138,7 +139,7 @@ begin
 //  edit.PanForEndLin := StatusBar1.Panels[2];  //panel para el tipo de delimitador de línea
   edit.PanCodifFile := StatusBar1.Panels[3];  //panel para la codificación del archivo
   edit.NewFile;
-  edit.LoadSyntaxFromFile(rutLenguajes+DirectorySeparator+'Terminal Macro.xml');
+  edit.LoadSyntaxFromFile(patSyntax+DirectorySeparator+'Terminal Macro.xml');
   edit.InitMenuRecents(mnRecientes, nil);  //inicia el menú "Recientes"
   InicEditorC1(ed);     //inicia editor con configuraciones por defecto
 end;
@@ -255,7 +256,8 @@ begin
   ed.Lines.Add('DISCONNECT    '+dic('//Desconecta por si había alguna conexión'));
   ed.Lines.Add('CLEAR         '+dic('//Limpia la pantalla'));
   //lee parámetros de la configuración actual
-  case Config.fcConex.tipo of
+  if sessions.TabIndex = -1 then exit;
+  case  sessions.ActivePage.Tipo of
   TCON_TELNET: begin
       ed.Lines.Add('curTYPE := "Telnet"');
     end;
@@ -267,10 +269,10 @@ begin
     end;
   TCON_OTHER : begin
       ed.Lines.Add('curTYPE := "Other"    //Este es el tipo para otros procesos');
-      ed.Lines.Add('curAPP := "'+ Config.fcConex.Other +'"   //El proceso que vamoa a lanzar');
+      ed.Lines.Add('curAPP := "'+ sessions.ActivePage.Other +'"   //El proceso que vamoa a lanzar');
     end;
   end;
-  case Config.fcConex.LineDelimSend of
+  case sessions.ActivePage.LineDelimSend of
   LDS_CRLF:
     ed.Lines.Add('curENDLINE := "CRLF"  //El tipo de salto de línea a enviar');
   LDS_CR:
@@ -405,6 +407,12 @@ begin
     dicSet('//Inicia conexión','//Start connection');
     end;
   end;
+end;
+
+procedure TfrmEditMacros.Init(sessions0: TfraTabSessions);
+begin
+  //Guarda referencia a las sesiones para controlarlas.
+  sessions := sessions0;
 end;
 
 end.

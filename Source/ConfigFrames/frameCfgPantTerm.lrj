@@ -1,0 +1,10 @@
+{"version":1,"strings":[
+{"hash":80969274,"name":"tfrapantterm.label1.caption","sourcebytes":[77,195,161,120,105,109,111,32,78,195,186,109,46,32,76,195,173,110,101,97,115,32,58],"value":"M\u00E1ximo N\u00FAm. L\u00EDneas :"},
+{"hash":5993520,"name":"tfrapantterm.combobox1.text","sourcebytes":[86,84,49,48,48],"value":"VT100"},
+{"hash":3878229,"name":"tfrapantterm.combobox2.text","sourcebytes":[56,48,42,50,53],"value":"80*25"},
+{"hash":264518186,"name":"tfrapantterm.label2.caption","sourcebytes":[84,105,112,111,32,100,101,32,116,101,114,109,105,110,97,108,58],"value":"Tipo de terminal:"},
+{"hash":128376458,"name":"tfrapantterm.label3.caption","sourcebytes":[84,97,109,97,195,177,111,32,100,101,32,116,101,114,109,105,110,97,108,58],"value":"Tama\u00F1o de terminal:"},
+{"hash":54306026,"name":"tfrapantterm.label4.caption","sourcebytes":[77,195,161,120,105,109,111,32,78,195,186,109,46,32,67,111,108,117,109,110,97,115,58],"value":"M\u00E1ximo N\u00FAm. Columnas:"},
+{"hash":218807123,"name":"tfrapantterm.chkinterdirec.caption","sourcebytes":[38,73,110,116,101,114,99,101,112,116,97,114,32,116,101,99,108,97,115,32,100,105,114,101,99,99,105,111,110,97,108,101,115],"value":"&Interceptar teclas direccionales"},
+{"hash":136908932,"name":"tfrapantterm.chkcursigprmpt.caption","sourcebytes":[67,117,114,115,111,114,32,100,101,32,84,101,114,109,105,110,97,108,32,115,105,103,117,101,32,97,32,80,114,111,109,112,116],"value":"Cursor de Terminal sigue a Prompt"}
+]}

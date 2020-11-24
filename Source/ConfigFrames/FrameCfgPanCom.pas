@@ -23,14 +23,12 @@ type
   private
     hl    : TSynFacilComplet;  //referencia al resaltador
   public
-    CompletCode: boolean;  //habilita el completado de código
-    CodFolding : boolean;  //habilita el plegado de código
-    SaveBefSend: boolean;  //permite guardar antes de enviar el texto
-    SendLnEnter: boolean;  //enviar la línea actual con <Enter>
-    SendLnCtrEnter: boolean;//enviar la línea actual con <Ctrl>+<Enter>
-    UsarPrep   : boolean;  //usar preprocesador
-    LinCom     : string;   //línea de comando para preporcesador
-    ArcEnviar  : string;   //tetxo a enviar
+    CompletCode: boolean;   // Habilita el completado de código.
+    CodFolding : boolean;   // Habilita el plegado de código.
+    SaveBefSend: boolean;   // Permite guardar antes de enviar el texto.
+    SendLnEnter: boolean;   // Enviar la línea actual con <Enter>.
+    SendLnCtrEnter: boolean;// Enviar la línea actual con <Ctrl>+<Enter>.
+    UsarPrep   : boolean;   // Usar preprocesador.
     procedure Iniciar(secINI0: string; hl0: TSynFacilComplet); //Inicia el frame
     procedure PropToWindow; override;
     procedure SetLanguage(lang: string);

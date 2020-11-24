@@ -1,0 +1,10 @@
+{"version":1,"strings":[
+{"hash":139808,"name":"tfradetprompt.groupbox1.caption","sourcebytes":[32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32],"value":"                            "},
+{"hash":59786026,"name":"tfradetprompt.label1.caption","sourcebytes":[73,110,105,99,105,111,32,80,114,111,109,112,116,58],"value":"Inicio Prompt:"},
+{"hash":131680042,"name":"tfradetprompt.label2.caption","sourcebytes":[70,105,110,32,80,114,111,109,112,116,58],"value":"Fin Prompt:"},
+{"hash":120893684,"name":"tfradetprompt.chkdetecprompt.caption","sourcebytes":[68,101,116,101,99,99,105,195,179,110,32,100,101,32,80,114,111,109,112,116],"value":"Detecci\u00F3n de Prompt"},
+{"hash":105132353,"name":"tfradetprompt.radiobutton1.caption","sourcebytes":[67,111,114,114,101,115,112,111,110,100,101,110,99,105,97,32,69,120,97,99,116,97],"value":"Correspondencia Exacta"},
+{"hash":103501358,"name":"tfradetprompt.radiobutton2.caption","sourcebytes":[65,108,32,105,110,105,99,105,111,32,100,101,32,108,97,32,108,195,173,110,101,97,46],"value":"Al inicio de la l\u00EDnea."},
+{"hash":263546958,"name":"tfradetprompt.radiobutton3.caption","sourcebytes":[65,108,32,102,105,110,97,108,32,100,101,32,108,97,32,108,195,173,110,101,97,46],"value":"Al final de la l\u00EDnea."},
+{"hash":218742702,"name":"tfradetprompt.radiobutton4.caption","sourcebytes":[69,110,32,99,117,97,108,113,117,105,101,114,32,112,97,114,116,101,32,100,101,32,108,97,32,108,195,173,110,101,97,46],"value":"En cualquier parte de la l\u00EDnea."}
+]}
