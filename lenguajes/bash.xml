@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Language name="Unix shell" ext="*.sh" CaseSensitive="true" ColorBlock="Block">
+<Language name="Bash shell" ext="*.sh" CaseSensitive="true" ColorBlock="Block">
   <Completion> 
 alias ar asa awk
 "awk '{}'"
