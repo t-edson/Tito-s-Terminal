@@ -4,7 +4,7 @@ object Config: TConfig
   Top = 180
   Width = 581
   BorderStyle = bsDialog
-  Caption = 'Configuración'
+  Caption = 'Settings'
   ClientHeight = 361
   ClientWidth = 581
   DesignTimePPI = 120

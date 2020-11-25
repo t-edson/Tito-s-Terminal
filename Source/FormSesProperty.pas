@@ -200,17 +200,15 @@ begin
   '1.1'  : TabGeneral.Show;
   '1.2'  : TabPromptDet.Show;
   '2',
-  '2.1'  : TabTermPant.Show;
-  '2.2'  : TabTermEdit.Show;
-  '2.3'  : TabComRec.Show;
+  '2.1'  : TabPComEdit.Show;
+  //'2.2'  : fcPanCom.ShowPos(145,0);
   '3',
-  '3.1'  : TabPComEdit.Show;
-  //'3.2'  : fcPanCom.ShowPos(145,0);
+  '3.1'  : TabTermPant.Show;
+  '3.2'  : TabTermEdit.Show;
+  '3.3'  : TabComRec.Show;
 //  '4',
 //  '4.1'  : fcMacros.ShowPos(145,0);
 //  '4.2'  : fcEdMacr.ShowPos(145,0);
-//  '5',
-//  '5.1'  : fcEdRemo.ShowPos(145,0);
   end;
   //Visibilidad de botón
   bitOK_conn.Visible := (PageControl1.TabIndex = 0);

@@ -1,4 +1,4 @@
 {"version":1,"strings":[
-{"hash":238462206,"name":"tconfig.caption","sourcebytes":[67,111,110,102,105,103,117,114,97,99,105,195,179,110],"value":"Configuraci\u00F3n"},
+{"hash":213582195,"name":"tconfig.caption","sourcebytes":[83,101,116,116,105,110,103,115],"value":"Settings"},
 {"hash":225639858,"name":"tconfig.bitaplicar.caption","sourcebytes":[65,38,112,108,105,99,97,114],"value":"A&plicar"}
 ]}

@@ -1,26 +1,27 @@
 object frmEditRemoto: TfrmEditRemoto
   Left = 258
-  Height = 325
+  Height = 406
   Top = 196
-  Width = 516
+  Width = 645
   AllowDropFiles = True
   Caption = 'Editor Remoto'
-  ClientHeight = 305
-  ClientWidth = 516
+  ClientHeight = 381
+  ClientWidth = 645
+  DesignTimePPI = 120
   Menu = MainMenu1
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnDropFiles = FormDropFiles
   OnShow = FormShow
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '2.0.10.0'
   inline ed: TSynEdit
     Left = 0
-    Height = 256
-    Top = 26
-    Width = 516
+    Height = 321
+    Top = 32
+    Width = 645
     Align = alClient
-    Font.Height = -13
+    Font.Height = -16
     Font.Name = 'Courier New'
     Font.Pitch = fpFixed
     Font.Quality = fqNonAntialiased
@@ -28,7 +29,7 @@ object frmEditRemoto: TfrmEditRemoto
     ParentFont = False
     PopupMenu = PopupMenu1
     TabOrder = 0
-    Gutter.Width = 33
+    Gutter.Width = 42
     Gutter.MouseActions = <>
     RightGutter.Width = 0
     RightGutter.MouseActions = <>
@@ -480,12 +481,12 @@ object frmEditRemoto: TfrmEditRemoto
     LineHighlightColor.Foreground = clNone
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
-        Width = 24
+        Width = 30
         Visible = False
         MouseActions = <>
       end
       object SynGutterLineNumber1: TSynGutterLineNumber
-        Width = 17
+        Width = 21
         MouseActions = <>
         MarkupInfo.Background = clBtnFace
         MarkupInfo.Foreground = clNone
@@ -495,18 +496,19 @@ object frmEditRemoto: TfrmEditRemoto
         LeadingZeros = False
       end
       object SynGutterChanges1: TSynGutterChanges
-        Width = 4
+        Width = 5
         MouseActions = <>
         ModifiedColor = 59900
         SavedColor = clGreen
       end
       object SynGutterSeparator1: TSynGutterSeparator
-        Width = 2
+        Width = 3
         MouseActions = <>
         MarkupInfo.Background = clWhite
         MarkupInfo.Foreground = clGray
       end
       object SynGutterCodeFolding1: TSynGutterCodeFolding
+        Width = 13
         MouseActions = <>
         MarkupInfo.Background = clNone
         MarkupInfo.Foreground = clGray
@@ -517,145 +519,146 @@ object frmEditRemoto: TfrmEditRemoto
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 282
-    Width = 516
+    Height = 28
+    Top = 353
+    Width = 645
     Panels = <    
       item
-        Width = 70
+        Width = 88
       end    
       item
-        Width = 80
+        Width = 100
       end    
       item
-        Width = 70
+        Width = 88
       end    
       item
-        Width = 70
+        Width = 88
       end    
       item
-        Width = 50
+        Width = 62
       end>
+    ParentFont = False
     SimplePanel = False
   end
   object ToolBar1: TToolBar
     Left = 0
-    Height = 26
     Top = 0
-    Width = 516
+    Width = 645
     Caption = 'ToolBar1'
     Images = ImageList1
+    ParentFont = False
     TabOrder = 2
     object ToolButton1: TToolButton
       Left = 1
       Top = 2
-      Action = acArcNuevo
+      Action = acFilNew
     end
     object ToolButton2: TToolButton
-      Left = 24
+      Left = 30
       Top = 2
-      Action = acArcAbrir
+      Action = acFilOpen
     end
     object ToolButton3: TToolButton
-      Left = 47
+      Left = 59
       Top = 2
-      Action = acArcGuardar
+      Action = acFilSave
     end
     object ToolButton4: TToolButton
-      Left = 70
+      Left = 88
       Top = 2
-      Action = acArcGuaCom
+      Action = acFilSaveAs
     end
     object ToolButton5: TToolButton
-      Left = 93
-      Height = 22
+      Left = 117
+      Height = 28
       Top = 2
       Caption = 'ToolButton5'
       Style = tbsSeparator
     end
     object ToolButton6: TToolButton
-      Left = 101
+      Left = 127
       Top = 2
       Action = acEdiUndo
     end
     object ToolButton7: TToolButton
-      Left = 124
+      Left = 156
       Top = 2
       Action = acEdiRedo
     end
     object ToolButton8: TToolButton
-      Left = 147
+      Left = 185
       Top = 2
       Action = acEdiCut
     end
     object ToolButton9: TToolButton
-      Left = 170
+      Left = 214
       Top = 2
       Action = acEdiCopy
     end
     object ToolButton10: TToolButton
-      Left = 193
+      Left = 243
       Top = 2
       Action = acEdiPaste
     end
     object ToolButton11: TToolButton
-      Left = 216
+      Left = 272
       Top = 2
-      Action = AcHerConfig
+      Action = AcToolSettings
     end
   end
   object OpenDialog1: TOpenDialog
-    left = 136
-    top = 32
+    Left = 170
+    Top = 40
   end
   object SaveDialog1: TSaveDialog
-    left = 200
-    top = 32
+    Left = 250
+    Top = 40
   end
   object ActionList: TActionList
     Images = ImageList1
-    left = 196
-    top = 76
-    object acArcNuevo: TAction
+    Left = 245
+    Top = 95
+    object acFilNew: TAction
       Category = 'Arc'
-      Caption = '&Nuevo'
+      Caption = '&New'
       Hint = 'Nuevo Archivo'
       ImageIndex = 13
-      OnExecute = acArcNuevoExecute
+      OnExecute = acFilNewExecute
     end
-    object acArcAbrir: TAction
+    object acFilOpen: TAction
       Category = 'Arc'
-      Caption = '&Abrir...'
+      Caption = '&Open..'
       Hint = 'Abrir Archivo'
       ImageIndex = 9
-      OnExecute = acArcAbrirExecute
+      OnExecute = acFilOpenExecute
       ShortCut = 16449
     end
-    object acArcGuardar: TAction
+    object acFilSave: TAction
       Category = 'Arc'
-      Caption = '&Guardar'
+      Caption = '&Save'
       Hint = 'Guardar Archivo'
       ImageIndex = 6
-      OnExecute = acArcGuardarExecute
+      OnExecute = acFilSaveExecute
       ShortCut = 16455
     end
-    object acArcGuaCom: TAction
+    object acFilSaveAs: TAction
       Category = 'Arc'
-      Caption = 'G&uardar Como...'
+      Caption = 'Save a&s ...'
       Hint = 'Guardar como...'
       ImageIndex = 12
-      OnExecute = acArcGuaComExecute
+      OnExecute = acFilSaveAsExecute
     end
-    object acArcSalir: TAction
+    object acFilExit: TAction
       Category = 'Arc'
-      Caption = '&Salir'
+      Caption = '&Exit'
       Hint = 'Salir'
       ImageIndex = 7
-      OnExecute = acArcSalirExecute
+      OnExecute = acFilExitExecute
     end
     object acEdiUndo: TAction
       Category = 'Edit'
-      Caption = '&Deshacer'
+      Caption = '&Undo'
       Hint = 'Deshacer'
       ImageIndex = 1
       OnExecute = acEdiUndoExecute
@@ -663,7 +666,7 @@ object frmEditRemoto: TfrmEditRemoto
     end
     object acEdiRedo: TAction
       Category = 'Edit'
-      Caption = '&Rehacer'
+      Caption = '&Redo'
       Hint = 'Rehacer'
       ImageIndex = 2
       OnExecute = acEdiRedoExecute
@@ -671,79 +674,73 @@ object frmEditRemoto: TfrmEditRemoto
     end
     object acEdiCut: TEditCut
       Category = 'Edit'
-      Caption = 'Cor&tar'
+      Caption = 'Cu&t'
       Hint = 'Cortar'
       ImageIndex = 3
       ShortCut = 16472
     end
     object acEdiCopy: TEditCopy
       Category = 'Edit'
-      Caption = '&Copiar'
+      Caption = '&Copy'
       Hint = 'Copiar'
       ImageIndex = 10
       ShortCut = 16451
     end
     object acEdiPaste: TEditPaste
       Category = 'Edit'
-      Caption = '&Pegar'
+      Caption = '&Paste'
       Hint = 'Pegar'
       ImageIndex = 11
       ShortCut = 16470
     end
     object acEdiSelecAll: TAction
       Category = 'Edit'
-      Caption = 'Seleccionar &Todo'
+      Caption = 'Select &All'
       Hint = 'Selecciona todo el texto'
       OnExecute = acEdiSelecAllExecute
       ShortCut = 16453
     end
-    object acEdiModCol: TAction
-      Category = 'Edit'
-      Caption = 'Modo Columna'
-      Hint = 'Entra al modo columna'
-      ImageIndex = 15
-    end
-    object acVerNumLin: TAction
+    object acViewLinNum: TAction
       Category = 'Ver'
-      Caption = 'Ver &Núm. de Línea'
+      Caption = 'Line &Number'
     end
-    object acVerBarEst: TAction
+    object acViewStaBar: TAction
       Category = 'Ver'
-      Caption = 'Ver Barra de &Estado'
+      Caption = '&Status bar'
     end
-    object acBusBuscar: TAction
+    object acSrchSearch: TAction
       Category = 'Search'
-      Caption = 'Buscar...'
+      Caption = 'Search...'
       ImageIndex = 17
       ShortCut = 16450
     end
-    object acBusBusSig: TAction
+    object acSrchSearchNext: TAction
       Category = 'Search'
-      Caption = 'Buscar &Siguiente'
+      Caption = 'Search &Next'
       ImageIndex = 18
       ShortCut = 114
     end
-    object acBusRem: TAction
+    object acSrchReplace: TAction
       Category = 'Search'
-      Caption = '&Remplazar...'
+      Caption = '&Replace ...'
       ShortCut = 16466
     end
-    object acVerPanArc: TAction
+    object acViewFilPanel: TAction
       Category = 'Ver'
-      Caption = 'Panel de &Archivos'
+      Caption = '&FIle Panel'
       ShortCut = 113
     end
-    object AcHerConfig: TAction
-      Category = 'Her'
-      Caption = 'Confi&guración'
+    object AcToolSettings: TAction
+      Category = 'Tool'
+      Caption = 'Se&ttings'
       Hint = 'Configurar la edición remota'
       ImageIndex = 16
-      OnExecute = AcHerConfigExecute
+      OnExecute = AcToolSettingsExecute
     end
   end
   object ImageList1: TImageList
-    left = 132
-    top = 76
+    Left = 165
+    Top = 95
     Bitmap = {
       4C691B0000001000000010000000A9715152DDB18DBCDCA67AC4DAA47AC4D8A2
       79C4D49E75C4D29D73C4CF9A72C4CE9970C4CB966FC4C9946CC4C49A7ABCA971
@@ -1614,34 +1611,34 @@ object frmEditRemoto: TfrmEditRemoto
   end
   object MainMenu1: TMainMenu
     Images = ImageList1
-    left = 68
-    top = 76
+    Left = 85
+    Top = 95
     object MenuItem1: TMenuItem
-      Caption = '&Archivo'
+      Caption = '&File'
       object MenuItem3: TMenuItem
-        Action = acArcNuevo
+        Action = acFilNew
       end
       object MenuItem4: TMenuItem
-        Action = acArcAbrir
+        Action = acFilOpen
       end
       object MenuItem5: TMenuItem
-        Action = acArcGuardar
+        Action = acFilSave
       end
       object MenuItem6: TMenuItem
-        Action = acArcGuaCom
+        Action = acFilSaveAs
       end
-      object mnRecientes: TMenuItem
-        Caption = 'Recientes'
+      object mnRecents: TMenuItem
+        Caption = 'Recents'
       end
       object MenuItem7: TMenuItem
         Caption = '-'
       end
       object MenuItem8: TMenuItem
-        Action = acArcSalir
+        Action = acFilExit
       end
     end
     object MenuItem2: TMenuItem
-      Caption = '&Edicion'
+      Caption = '&Edit'
       object MenuItem9: TMenuItem
         Action = acEdiUndo
       end
@@ -1668,19 +1665,19 @@ object frmEditRemoto: TfrmEditRemoto
       end
     end
     object MenuItem17: TMenuItem
-      Caption = '&Herramientas'
+      Caption = '&Tools'
       object MenuItem23: TMenuItem
-        Action = AcHerConfig
+        Action = AcToolSettings
       end
     end
     object mnLenguaje: TMenuItem
-      Caption = '&Lenguaje'
+      Caption = '&Language'
     end
   end
   object PopupMenu1: TPopupMenu
     Images = ImageList1
-    left = 176
-    top = 152
+    Left = 220
+    Top = 190
     object MenuItem26: TMenuItem
       Action = acEdiUndo
     end

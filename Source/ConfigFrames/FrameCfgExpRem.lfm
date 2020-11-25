@@ -16,7 +16,7 @@ inherited fcExpRem: TfcExpRem
     Top = 24
     Width = 160
     AutoSize = False
-    Caption = 'Tiempo máximo de espera al terminal (seg):'
+    Caption = 'Time for waiting terminal (seconds):'
     ParentColor = False
     WordWrap = True
   end
@@ -24,32 +24,32 @@ inherited fcExpRem: TfcExpRem
     Left = 32
     Height = 24
     Top = 120
-    Width = 255
-    Caption = 'Mostrar lista detallada de archivos.'
+    Width = 194
+    Caption = 'Show detailed list of files.'
     TabOrder = 1
   end
   object chkMosOcul: TCheckBox[3]
     Left = 32
     Height = 24
     Top = 152
-    Width = 188
-    Caption = 'Mostrar archivos ocultos.'
+    Width = 141
+    Caption = 'Show hidden files'
     TabOrder = 2
   end
   object chkRefDesp: TCheckBox[4]
     Left = 32
     Height = 24
     Top = 184
-    Width = 308
-    Caption = 'Refrescar lista, después de cada operación.'
+    Width = 230
+    Caption = 'Refresh list, after any operation'
     TabOrder = 3
   end
   object chkMosRut: TCheckBox[5]
     Left = 32
     Height = 24
     Top = 88
-    Width = 260
-    Caption = 'Mostrar Información de Ruta Actual'
+    Width = 152
+    Caption = 'Show currente path'
     TabOrder = 4
   end
 end

@@ -207,8 +207,6 @@ end;
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
   TranslateMsgs := true;  //activa la traducción en los mensajes
-  Config.SetLanguage('en');
-  frmEditRemoto.SetLanguage('en');
   frmEditMacros.Init(TabSessions);
   Caption := NOM_PROG + ' ' + VER_PROG;
   //aquí ya sabemos que Config está creado. Lo configuramos

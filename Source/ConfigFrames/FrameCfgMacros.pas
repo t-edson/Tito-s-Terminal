@@ -22,7 +22,6 @@ type
     TpoMax : integer;
     marLin : boolean;
     procedure Iniciar(secINI0: string);
-    procedure SetLanguage(lang: string);
   end;
 
 implementation
@@ -35,21 +34,6 @@ begin
   //crea las relaciones variable-control
   Asoc_Int_TEdit(@TpoMax, edTpoMax, 'TpoMax', 10, 1, 180);
   Asoc_Bol_TChkBox(@marLin, chkMarLin, 'MarLin', false);
-end;
-
-procedure TfcMacros.SetLanguage(lang: string);
-//Rutina de traducción
-begin
-  case lowerCase(lang) of
-  'es': begin
-      chkMarLin.Caption:='Marcar línea que se está ejecutando.';
-      Label1.Caption:='Tiempo de espera máx. (seg)';
-    end;
-  'en': begin
-      chkMarLin.Caption:='Highlight line that is running.';
-      Label1.Caption:='Timeout. (seconds)';
-    end;
-  end;
 end;
 
 end.

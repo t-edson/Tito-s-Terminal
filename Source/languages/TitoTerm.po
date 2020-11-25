@@ -55,31 +55,45 @@ msgid "A&plicar"
 msgstr ""
 
 #: tconfig.caption
-msgid "Configuración"
+msgid "Settings"
 msgstr ""
 
 #: tfcexprem.chklistdet.caption
-msgid "Mostrar lista detallada de archivos."
+msgid "Show detailed list of files."
 msgstr ""
 
 #: tfcexprem.chkmosocul.caption
-msgid "Mostrar archivos ocultos."
+msgid "Show hidden files"
 msgstr ""
 
 #: tfcexprem.chkmosrut.caption
-msgid "Mostrar Información de Ruta Actual"
+msgid "Show currente path"
 msgstr ""
 
 #: tfcexprem.chkrefdesp.caption
-msgid "Refrescar lista, después de cada operación."
+msgid "Refresh list, after any operation"
 msgstr ""
 
 #: tfcexprem.edtpomax.text
+msgctxt "tfcexprem.edtpomax.text"
 msgid "edTpoMax"
 msgstr ""
 
 #: tfcexprem.label1.caption
-msgid "Tiempo máximo de espera al terminal (seg):"
+msgid "Time for waiting terminal (seconds):"
+msgstr ""
+
+#: tfcmacros.chkmarlin.caption
+msgid "Highlight line that is running."
+msgstr ""
+
+#: tfcmacros.edtpomax.text
+msgctxt "tfcmacros.edtpomax.text"
+msgid "edTpoMax"
+msgstr ""
+
+#: tfcmacros.label1.caption
+msgid "Timeout. (seconds)"
 msgstr ""
 
 #: tfracfgrutarc.chkopenlast.caption
@@ -206,6 +220,78 @@ msgstr ""
 #: tfradetprompt.radiobutton4.caption
 msgctxt "tfradetprompt.radiobutton4.caption"
 msgid "En cualquier parte de la línea."
+msgstr ""
+
+#: tfraexpremoto.acconfig.caption
+msgctxt "tfraexpremoto.acconfig.caption"
+msgid "&Settings"
+msgstr ""
+
+#: tfraexpremoto.acconfig.hint
+msgid "Configurar el explorador"
+msgstr ""
+
+#: tfraexpremoto.aceddelete.caption
+msgid "&Delete"
+msgstr ""
+
+#: tfraexpremoto.acededit.caption
+msgctxt "tfraexpremoto.acededit.caption"
+msgid "&Edit"
+msgstr ""
+
+#: tfraexpremoto.acfileaccess.caption
+msgid "&Enter"
+msgstr ""
+
+#: tfraexpremoto.acfilnewfile.caption
+msgid "&New file"
+msgstr ""
+
+#: tfraexpremoto.acfilnewfile.hint
+msgid "Crea un nuevo archivo"
+msgstr ""
+
+#: tfraexpremoto.acfilnewfold.caption
+msgid "New folder"
+msgstr ""
+
+#: tfraexpremoto.acfilrename.caption
+msgid "&Rename"
+msgstr ""
+
+#: tfraexpremoto.acherejec.caption
+msgid "E&xecute"
+msgstr ""
+
+#: tfraexpremoto.acverrefres.caption
+msgid "&Refresh All"
+msgstr ""
+
+#: tfraexpremoto.acverrefres.hint
+msgctxt "tfraexpremoto.acverrefres.hint"
+msgid "Refresca la lista"
+msgstr ""
+
+#: tfraexpremoto.label1.caption
+msgid "Current path:"
+msgstr ""
+
+#: tfraexpremoto.listview1.columns[0].caption
+msgid "Nombre"
+msgstr ""
+
+#: tfraexpremoto.listview1.columns[1].caption
+msgid "Fecha"
+msgstr ""
+
+#: tfraexpremoto.listview1.columns[2].caption
+msgid "Tamaño"
+msgstr ""
+
+#: tfraexpremoto.menuitem4.hint
+msgctxt "tfraexpremoto.menuitem4.hint"
+msgid "Refresca la lista"
 msgstr ""
 
 #: tfrapancom.chkcodfolding.caption
@@ -625,6 +711,10 @@ msgstr ""
 msgid "<<No pages>>"
 msgstr ""
 
+#: tfrmabrirremoto.caption
+msgid "Abrir Remoto ..."
+msgstr ""
+
 #: tfrmconexrap.btnaceptar.caption
 msgctxt "tfrmconexrap.btnaceptar.caption"
 msgid "&OK"
@@ -687,6 +777,7 @@ msgid "&Redo"
 msgstr ""
 
 #: tfrmeditmacros.acediredo.hint
+msgctxt "tfrmeditmacros.acediredo.hint"
 msgid "Rehacer"
 msgstr ""
 
@@ -696,6 +787,7 @@ msgid "Select &All"
 msgstr ""
 
 #: tfrmeditmacros.acediselecall.hint
+msgctxt "tfrmeditmacros.acediselecall.hint"
 msgid "Selecciona todo el texto"
 msgstr ""
 
@@ -739,6 +831,7 @@ msgid "Abrir Archivo"
 msgstr ""
 
 #: tfrmeditmacros.acfilsave.caption
+msgctxt "tfrmeditmacros.acfilsave.caption"
 msgid "&Save"
 msgstr ""
 
@@ -782,22 +875,27 @@ msgid "&Replace..."
 msgstr ""
 
 #: tfrmeditmacros.acsrchsearch.caption
+msgctxt "tfrmeditmacros.acsrchsearch.caption"
 msgid "Search..."
 msgstr ""
 
 #: tfrmeditmacros.acsrchsearchnext.caption
+msgctxt "tfrmeditmacros.acsrchsearchnext.caption"
 msgid "Search &Next"
 msgstr ""
 
 #: tfrmeditmacros.acverbarest.caption
+msgctxt "tfrmeditmacros.acverbarest.caption"
 msgid "Ver Barra de &Estado"
 msgstr ""
 
 #: tfrmeditmacros.acvernumlin.caption
+msgctxt "tfrmeditmacros.acvernumlin.caption"
 msgid "Ver &Núm. de Línea"
 msgstr ""
 
 #: tfrmeditmacros.acverpanarc.caption
+msgctxt "tfrmeditmacros.acverpanarc.caption"
 msgid "Panel de &Archivos"
 msgstr ""
 
@@ -811,6 +909,7 @@ msgid "&File"
 msgstr ""
 
 #: tfrmeditmacros.mnedicion.caption
+msgctxt "tfrmeditmacros.mnedicion.caption"
 msgid "&Edit"
 msgstr ""
 
@@ -833,6 +932,187 @@ msgid "ToolButton11"
 msgstr ""
 
 #: tfrmeditmacros.toolbutton5.caption
+msgctxt "tfrmeditmacros.toolbutton5.caption"
+msgid "ToolButton5"
+msgstr ""
+
+#: tfrmeditremoto.acedicopy.caption
+msgctxt "tfrmeditremoto.acedicopy.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tfrmeditremoto.acedicopy.hint
+msgctxt "tfrmeditremoto.acedicopy.hint"
+msgid "Copiar"
+msgstr ""
+
+#: tfrmeditremoto.acedicut.caption
+msgctxt "tfrmeditremoto.acedicut.caption"
+msgid "Cu&t"
+msgstr ""
+
+#: tfrmeditremoto.acedicut.hint
+msgctxt "tfrmeditremoto.acedicut.hint"
+msgid "Cortar"
+msgstr ""
+
+#: tfrmeditremoto.acedipaste.caption
+msgctxt "tfrmeditremoto.acedipaste.caption"
+msgid "&Paste"
+msgstr ""
+
+#: tfrmeditremoto.acedipaste.hint
+msgctxt "tfrmeditremoto.acedipaste.hint"
+msgid "Pegar"
+msgstr ""
+
+#: tfrmeditremoto.acediredo.caption
+msgctxt "tfrmeditremoto.acediredo.caption"
+msgid "&Redo"
+msgstr ""
+
+#: tfrmeditremoto.acediredo.hint
+msgctxt "tfrmeditremoto.acediredo.hint"
+msgid "Rehacer"
+msgstr ""
+
+#: tfrmeditremoto.acediselecall.caption
+msgctxt "tfrmeditremoto.acediselecall.caption"
+msgid "Select &All"
+msgstr ""
+
+#: tfrmeditremoto.acediselecall.hint
+msgctxt "tfrmeditremoto.acediselecall.hint"
+msgid "Selecciona todo el texto"
+msgstr ""
+
+#: tfrmeditremoto.acediundo.caption
+msgctxt "tfrmeditremoto.acediundo.caption"
+msgid "&Undo"
+msgstr ""
+
+#: tfrmeditremoto.acediundo.hint
+msgctxt "tfrmeditremoto.acediundo.hint"
+msgid "Deshacer"
+msgstr ""
+
+#: tfrmeditremoto.acfilexit.caption
+msgid "&Exit"
+msgstr ""
+
+#: tfrmeditremoto.acfilexit.hint
+msgctxt "tfrmeditremoto.acfilexit.hint"
+msgid "Salir"
+msgstr ""
+
+#: tfrmeditremoto.acfilnew.caption
+msgctxt "tfrmeditremoto.acfilnew.caption"
+msgid "&New"
+msgstr ""
+
+#: tfrmeditremoto.acfilnew.hint
+msgctxt "tfrmeditremoto.acfilnew.hint"
+msgid "Nuevo Archivo"
+msgstr ""
+
+#: tfrmeditremoto.acfilopen.caption
+msgid "&Open.."
+msgstr ""
+
+#: tfrmeditremoto.acfilopen.hint
+msgctxt "tfrmeditremoto.acfilopen.hint"
+msgid "Abrir Archivo"
+msgstr ""
+
+#: tfrmeditremoto.acfilsave.caption
+msgctxt "tfrmeditremoto.acfilsave.caption"
+msgid "&Save"
+msgstr ""
+
+#: tfrmeditremoto.acfilsave.hint
+msgctxt "tfrmeditremoto.acfilsave.hint"
+msgid "Guardar Archivo"
+msgstr ""
+
+#: tfrmeditremoto.acfilsaveas.caption
+msgid "Save a&s ..."
+msgstr ""
+
+#: tfrmeditremoto.acfilsaveas.hint
+msgctxt "tfrmeditremoto.acfilsaveas.hint"
+msgid "Guardar como..."
+msgstr ""
+
+#: tfrmeditremoto.acsrchreplace.caption
+msgid "&Replace ..."
+msgstr ""
+
+#: tfrmeditremoto.acsrchsearch.caption
+msgctxt "tfrmeditremoto.acsrchsearch.caption"
+msgid "Search..."
+msgstr ""
+
+#: tfrmeditremoto.acsrchsearchnext.caption
+msgctxt "tfrmeditremoto.acsrchsearchnext.caption"
+msgid "Search &Next"
+msgstr ""
+
+#: tfrmeditremoto.actoolsettings.caption
+msgid "Se&ttings"
+msgstr ""
+
+#: tfrmeditremoto.actoolsettings.hint
+msgctxt "tfrmeditremoto.actoolsettings.hint"
+msgid "Configurar la edición remota"
+msgstr ""
+
+#: tfrmeditremoto.acviewfilpanel.caption
+msgid "&FIle Panel"
+msgstr ""
+
+#: tfrmeditremoto.acviewlinnum.caption
+msgid "Line &Number"
+msgstr ""
+
+#: tfrmeditremoto.acviewstabar.caption
+msgid "&Status bar"
+msgstr ""
+
+#: tfrmeditremoto.caption
+msgid "Editor Remoto"
+msgstr ""
+
+#: tfrmeditremoto.menuitem1.caption
+msgctxt "tfrmeditremoto.menuitem1.caption"
+msgid "&File"
+msgstr ""
+
+#: tfrmeditremoto.menuitem17.caption
+msgctxt "tfrmeditremoto.menuitem17.caption"
+msgid "&Tools"
+msgstr ""
+
+#: tfrmeditremoto.menuitem2.caption
+msgctxt "tfrmeditremoto.menuitem2.caption"
+msgid "&Edit"
+msgstr ""
+
+#: tfrmeditremoto.mnlenguaje.caption
+msgctxt "tfrmeditremoto.mnlenguaje.caption"
+msgid "&Language"
+msgstr ""
+
+#: tfrmeditremoto.mnrecents.caption
+msgid "Recents"
+msgstr ""
+
+#: tfrmeditremoto.toolbar1.caption
+msgctxt "tfrmeditremoto.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfrmeditremoto.toolbutton5.caption
+msgctxt "tfrmeditremoto.toolbutton5.caption"
 msgid "ToolButton5"
 msgstr ""
 

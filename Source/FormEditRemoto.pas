@@ -17,24 +17,23 @@ type
 
   TfrmEditRemoto = class(TForm)
   published
-    acArcAbrir: TAction;
-    acArcGuaCom: TAction;
-    acArcGuardar: TAction;
-    acArcNuevo: TAction;
-    acArcSalir: TAction;
-    acBusBuscar: TAction;
-    acBusBusSig: TAction;
-    acBusRem: TAction;
+    acFilOpen: TAction;
+    acFilSaveAs: TAction;
+    acFilSave: TAction;
+    acFilNew: TAction;
+    acFilExit: TAction;
+    acSrchSearch: TAction;
+    acSrchSearchNext: TAction;
+    acSrchReplace: TAction;
     acEdiCopy: TEditCopy;
     acEdiCut: TEditCut;
-    acEdiModCol: TAction;
     acEdiPaste: TEditPaste;
     acEdiRedo: TAction;
     acEdiSelecAll: TAction;
     acEdiUndo: TAction;
-    AcHerConfig: TAction;
+    AcToolSettings: TAction;
     ActionList: TActionList;
-    acVerPanArc: TAction;
+    acViewFilPanel: TAction;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
@@ -54,7 +53,7 @@ type
     MenuItem25: TMenuItem;
     MenuItem26: TMenuItem;
     mnLenguaje: TMenuItem;
-    mnRecientes: TMenuItem;
+    mnRecents: TMenuItem;
     MenuItem17: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem23: TMenuItem;
@@ -82,17 +81,17 @@ type
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
-    acVerBarEst: TAction;
-    acVerNumLin: TAction;
-    procedure acArcAbrirExecute(Sender: TObject);
-    procedure acArcGuaComExecute(Sender: TObject);
-    procedure acArcGuardarExecute(Sender: TObject);
-    procedure acArcNuevoExecute(Sender: TObject);
-    procedure acArcSalirExecute(Sender: TObject);
+    acViewStaBar: TAction;
+    acViewLinNum: TAction;
+    procedure acFilOpenExecute(Sender: TObject);
+    procedure acFilSaveAsExecute(Sender: TObject);
+    procedure acFilSaveExecute(Sender: TObject);
+    procedure acFilNewExecute(Sender: TObject);
+    procedure acFilExitExecute(Sender: TObject);
     procedure acEdiRedoExecute(Sender: TObject);
     procedure acEdiSelecAllExecute(Sender: TObject);
     procedure acEdiUndoExecute(Sender: TObject);
-    procedure AcHerConfigExecute(Sender: TObject);
+    procedure AcToolSettingsExecute(Sender: TObject);
     procedure ChangeEditorState;
     procedure editChangeFileInform;
     procedure edSpecialLineMarkup(Sender: TObject; Line: integer;
@@ -108,7 +107,6 @@ type
   public
     NomArcLocal: string;  //nombre de archivo local
     procedure AbrirRemoto(arc: string);
-    procedure SetLanguage(lang: string);
   end;
 
 var
@@ -143,7 +141,7 @@ begin
   mnLenguaje.Clear;
   edit.InitMenuLanguages(mnLenguaje, patSyntax);
   edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
-  edit.InitMenuRecents(mnRecientes,nil);  //inicia el menú "Recientes"
+  edit.InitMenuRecents(mnRecents,nil);  //inicia el menú "Recientes"
 end;
 
 procedure TfrmEditRemoto.FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -151,13 +149,13 @@ var
   rpta: Byte;
 begin
   if edit.Modified then begin  //primero pregunta
-    rpta := MsgYesNoCancel('El archivo ha sido modificado. ¿Guardar en el servidor?');
+    rpta := MsgYesNoCancel('File modified. Save on Server?');
     if rpta = 3 then begin  //Cancel
       CanClose := false;  //no deja cerrar
       exit;
     end;
     if rpta = 1 then begin //Yes
-      acArcGuardarExecute(self);  //primero guarda
+      acFilSaveExecute(self);  //Primero guarda
     end;
   end;
   //se debe cerrar.
@@ -182,7 +180,7 @@ end;
 
 procedure TfrmEditRemoto.ChangeEditorState;
 begin
-  acArcGuardar.Enabled:=edit.Modified;
+  acFilSave.Enabled:=edit.Modified;
   acEdiUndo.Enabled:=edit.CanUndo;
   acEdiRedo.Enabled:=edit.CanRedo;
   //Para estas acciones no es necesario controlarlas, porque son acciones pre-determinadas
@@ -194,7 +192,7 @@ end;
 procedure TfrmEditRemoto.editChangeFileInform;
 begin
   //actualiza nombre de archivo
-  Caption := dic('Editor Remoto - ') + edit.FileName;
+  Caption := 'Remote Editor - ' + edit.FileName;
 end;
 
 procedure TfrmEditRemoto.edSpecialLineMarkup(Sender: TObject; Line: integer;
@@ -204,12 +202,12 @@ begin
 end;
 
 /////////////////// Acciones de Archivo /////////////////////
-procedure TfrmEditRemoto.acArcNuevoExecute(Sender: TObject);
+procedure TfrmEditRemoto.acFilNewExecute(Sender: TObject);
 begin
   edit.NewFile;
   edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
 end;
-procedure TfrmEditRemoto.acArcAbrirExecute(Sender: TObject);
+procedure TfrmEditRemoto.acFilOpenExecute(Sender: TObject);
 begin
 //  OpenDialog1.Filter:='Text files|*.txt|All files|*.*';
 //  edit.OpenDialog(OpenDialog1);
@@ -219,7 +217,7 @@ begin
   end;
 end;
 
-procedure TfrmEditRemoto.acArcGuardarExecute(Sender: TObject);
+procedure TfrmEditRemoto.acFilSaveExecute(Sender: TObject);
 var
   txt: String;
   ses: TfraTabSession;
@@ -250,7 +248,7 @@ begin
 //  edit.SaveFile;
 end;
 
-procedure TfrmEditRemoto.acArcGuaComExecute(Sender: TObject);
+procedure TfrmEditRemoto.acFilSaveAsExecute(Sender: TObject);
 var
   arc0: String;
 begin
@@ -260,15 +258,14 @@ begin
   end;
   arc0 := SaveDialog1.FileName;
   if FileExists(arc0) then begin
-    if MsgYesNoCancel('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
-                      [arc0]) in [2,3] then exit;
+    if MsgYesNoCancel('File already exists. Overwrite?',[arc0]) in [2,3] then exit;
   end;
   NomArcLocal := UTF8ToSys(arc0);   //asigna nuevo nombre
 //  if ExtractFileExt(NomArc) = '' then NomArc += '.'+extDef;  //completa extensión
   edit.SaveFile;   //lo guarda
 end;
 
-procedure TfrmEditRemoto.acArcSalirExecute(Sender: TObject);
+procedure TfrmEditRemoto.acFilExitExecute(Sender: TObject);
 begin
   frmEditRemoto.Close;
 end;
@@ -278,7 +275,7 @@ begin
   edit.Undo;
 end;
 
-procedure TfrmEditRemoto.AcHerConfigExecute(Sender: TObject);
+procedure TfrmEditRemoto.AcToolSettingsExecute(Sender: TObject);
 begin
   config.Configurar('5.1');
 end;
@@ -311,74 +308,6 @@ begin
    //para actualizar nombre
   edit.ChangeFileInform;   //Este método no es público en la librería original)
   edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
-end;
-
-procedure TfrmEditRemoto.SetLanguage(lang: string);
-//Rutina de traducción
-begin
-  frmAbrirRemoto.SetLanguage(lang);
-  edit.SetLanguage(lang);
-
-  case lowerCase(lang) of
-  'es': begin
-    MenuItem1.Caption:='&Archivo';
-    MenuItem2.Caption:='&Edicion';
-    MenuItem17.Caption:='&Herramientas';
-    mnLenguaje.Caption:='&Lenguaje';
-
-    acArcNuevo.Caption := '&Nuevo';
-    acArcAbrir.Caption := '&Abrir...';
-    acArcGuardar.Caption := '&Guardar';
-    acArcGuaCom.Caption := 'G&uardar Como...';
-    acArcSalir.Caption := '&Salir';
-    acEdiUndo.Caption := '&Deshacer';
-    acEdiRedo.Caption := '&Rehacer';
-    acEdiCut.Caption := 'Cor&tar';
-    acEdiCopy.Caption := '&Copiar';
-    acEdiPaste.Caption := '&Pegar';
-    acEdiSelecAll.Caption := 'Seleccionar &Todo';
-    acEdiModCol.Caption := 'Modo Columna';
-    acVerNumLin.Caption := 'Ver &Núm. de Línea';
-    acVerBarEst.Caption := 'Ver Barra de &Estado';
-    acBusBuscar.Caption := 'Buscar...';
-    acBusBusSig.Caption := 'Buscar &Siguiente';
-    acBusRem.Caption := '&Remplazar...';
-    acVerPanArc.Caption := 'Panel de &Archivos';
-    AcHerConfig.Caption := 'Confi&guración';
-    dicClear;
-    end;
-  'en': begin
-    MenuItem1.Caption:='&File';
-    MenuItem2.Caption:='&Edit';
-    MenuItem17.Caption:='&Tools';
-    mnLenguaje.Caption:='&Language';
-
-    acArcNuevo.Caption := '&New';
-    acArcAbrir.Caption := '&Open...';
-    acArcGuardar.Caption := '&Save';
-    acArcGuaCom.Caption := 'Sa&ve As...';
-    acArcSalir.Caption := '&Exit';
-    acEdiUndo.Caption := '&Undo';
-    acEdiRedo.Caption := '&Redo';
-    acEdiCut.Caption := 'C&ut';
-    acEdiCopy.Caption := '&Copy';
-    acEdiPaste.Caption := '&Paste';
-    acEdiSelecAll.Caption := 'Select &All';
-    acEdiModCol.Caption := 'Column Mode';
-    acVerNumLin.Caption := 'Show Line &Number';
-    acVerBarEst.Caption := 'Show &Statusbar';
-    acBusBuscar.Caption := '&Find...';
-    acBusBusSig.Caption := 'Find Ne&xt';
-    acBusRem.Caption := '&Reeplace...';
-    acVerPanArc.Caption := '&Files Panel';
-    AcHerConfig.Caption := 'Se&tup';
-    //Traducción
-    dicSet('Editor Remoto - ','Remote Editor - ');
-    dicSet('El archivo ha sido modificado. ¿Guardar en el servidor?', 'File modified. Save on Server?');
-    dicSet('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
-           'File already exists. Overwrite?');
-    end;
-  end;
 end;
 
 end.

@@ -67,7 +67,6 @@ type
     procedure LeerArchivoIni(iniFile: string='');
     procedure escribirArchivoIni(iniFile: string='');
     procedure Configurar(Id: string='');
-    procedure SetLanguage(lang: string);
   end;
 
 var
@@ -221,15 +220,6 @@ begin
     msjError := SavePropToFile_AllFrames(self, arINI)
   else
     msjError := SavePropToFile_AllFrames(self, iniFile);
-end;
-
-procedure TConfig.SetLanguage(lang: string);
-//Rutina de traducción
-begin
-  fcGener.SetLanguage(lang);
-  fcRutArc.SetLanguage(lang);
-  fcMacros.SetLanguage(lang);
-  fcExpRem.SetLanguage(lang);
 end;
 
 end.

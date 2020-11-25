@@ -1,10 +1,10 @@
 inherited fcMacros: TfcMacros
-  DesignLeft = 418
-  DesignTop = 483
+  DesignLeft = 632
+  DesignTop = 345
   object edTpoMax: TEdit[0]
-    Left = 192
-    Height = 23
-    Top = 64
+    Left = 216
+    Height = 28
+    Top = 72
     Width = 56
     Alignment = taRightJustify
     TabOrder = 0
@@ -12,18 +12,18 @@ inherited fcMacros: TfcMacros
   end
   object Label1: TLabel[1]
     Left = 32
-    Height = 15
-    Top = 68
-    Width = 151
-    Caption = 'Tiempo de espera máx. (seg)'
+    Height = 20
+    Top = 76
+    Width = 125
+    Caption = 'Timeout. (seconds)'
     ParentColor = False
   end
   object chkMarLin: TCheckBox[2]
     Left = 32
-    Height = 19
+    Height = 24
     Top = 32
-    Width = 211
-    Caption = 'Marcar línea que se está ejecutando.'
+    Width = 215
+    Caption = 'Highlight line that is running.'
     Enabled = False
     TabOrder = 1
   end
