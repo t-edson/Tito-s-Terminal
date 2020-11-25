@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, IDEWindowIntf, Forms, Controls, ComCtrls, LCLType,
-  Menus, ActnList, ExtCtrls, StdCtrls, FrameTabSession, RegExpr, MisUtils;
+  Menus, ActnList, ExtCtrls, StdCtrls, FrameTabSession, MisUtils,
+  RegExpr2;  //Se usa RegExpr2, en lugar del RegExpr estándar de Lazarus, porque este tiene fallas.
 const
   //índice a las imágenes
   IMG_ARCHIVO = 0;
@@ -103,7 +104,7 @@ begin
   if ListDet then begin
     //hay información de campos
     it := ListView1.Items.Add;
-    //identifica campos
+    //Identifica campos
     if (re.Exec(lin)) then begin
       //encontró los campos
       it.Caption:=re.Match[7];  //nombre

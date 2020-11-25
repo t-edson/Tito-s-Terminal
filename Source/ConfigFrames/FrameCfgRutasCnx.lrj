@@ -1,0 +1,6 @@
+{"version":1,"strings":[
+{"hash":215977914,"name":"tfracfgrutarc.lblrutscript.caption","sourcebytes":[38,83,99,114,105,112,116,115,32,112,97,116,104,58],"value":"&Scripts path:"},
+{"hash":239150074,"name":"tfracfgrutarc.lblrutmac.caption","sourcebytes":[38,77,97,99,114,111,115,32,112,97,116,104,58],"value":"&Macros path:"},
+{"hash":140431220,"name":"tfracfgrutarc.chkopenlast.caption","sourcebytes":[38,79,112,101,110,32,108,97,115,116,32,101,100,105,116,101,100,32,102,105,108,101,32,111,110,32,115,116,97,114,116],"value":"&Open last edited file on start"},
+{"hash":27220154,"name":"tfracfgrutarc.lblrutleng.caption","sourcebytes":[38,76,101,110,103,117,97,106,101,115,32,112,97,116,104,58],"value":"&Lenguajes path:"}
+]}

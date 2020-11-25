@@ -22,8 +22,6 @@ type
   private
     explor: TfraExpRemoto;
     actualizar: boolean;
-  public
-    procedure SetLanguage(lang: string);
   end;
 
 var
@@ -49,7 +47,7 @@ end;
 
 procedure TfrmExpRemoto.FormShow(Sender: TObject);
 begin
-  Caption:=dic('Explorador Remoto');
+  Caption:= 'Remote Explorer';
   actualizar := true;
 end;
 
@@ -80,20 +78,6 @@ begin
   if actualizar then begin
     explor.Actualizar;  //lee archivos
     actualizar := false;
-  end;
-end;
-
-procedure TfrmExpRemoto.SetLanguage(lang: string);
-//Rutina de traducción
-begin
-  explor.SetLanguage(lang);
-  case lowerCase(lang) of
-  'es': begin
-      dicClear;  //ya está en español.
-    end;
-  'en': begin
-      dicSet('Explorador Remoto','Remote Explorer');
-    end;
   end;
 end;
 

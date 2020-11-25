@@ -550,22 +550,22 @@ object frmEditMacros: TfrmEditMacros
     object ToolButton1: TToolButton
       Left = 1
       Top = 2
-      Action = acArcNuevo
+      Action = acFilNew
     end
     object ToolButton2: TToolButton
       Left = 30
       Top = 2
-      Action = acArcAbrir
+      Action = acFilOpen
     end
     object ToolButton3: TToolButton
       Left = 59
       Top = 2
-      Action = acArcGuardar
+      Action = acFilSave
     end
     object ToolButton4: TToolButton
       Left = 88
       Top = 2
-      Action = acArcGuaCom
+      Action = acFilSaveAs
     end
     object ToolButton5: TToolButton
       Left = 117
@@ -575,49 +575,49 @@ object frmEditMacros: TfrmEditMacros
       Style = tbsSeparator
     end
     object ToolButton6: TToolButton
-      Left = 127
+      Left = 125
       Top = 2
       Action = acEdiUndo
     end
     object ToolButton7: TToolButton
-      Left = 156
+      Left = 154
       Top = 2
       Action = acEdiRedo
     end
     object ToolButton8: TToolButton
-      Left = 185
+      Left = 183
       Top = 2
       Action = acEdiCut
     end
     object ToolButton9: TToolButton
-      Left = 214
+      Left = 212
       Top = 2
       Action = acEdiCopy
     end
     object ToolButton10: TToolButton
-      Left = 243
+      Left = 241
       Top = 2
       Action = acEdiPaste
     end
     object ToolButton11: TToolButton
-      Left = 272
+      Left = 270
       Height = 28
       Top = 2
       Caption = 'ToolButton11'
       Style = tbsSeparator
     end
     object ToolButton12: TToolButton
-      Left = 282
+      Left = 278
       Top = 2
       Action = AcHerEjec
     end
     object ToolButton13: TToolButton
-      Left = 311
+      Left = 307
       Top = 2
       Action = AcHerDeten
     end
     object ToolButton14: TToolButton
-      Left = 340
+      Left = 336
       Top = 2
       Action = AcHerConfig
     end
@@ -634,47 +634,47 @@ object frmEditMacros: TfrmEditMacros
     Images = ImageList1
     Left = 280
     Top = 130
-    object acArcNuevo: TAction
+    object acFilNew: TAction
       Category = 'Arc'
-      Caption = '&Nuevo'
+      Caption = '&New'
       Hint = 'Nuevo Archivo'
       ImageIndex = 13
-      OnExecute = acArcNuevoExecute
+      OnExecute = acFilNewExecute
       ShortCut = 16462
     end
-    object acArcAbrir: TAction
+    object acFilOpen: TAction
       Category = 'Arc'
-      Caption = '&Abrir...'
+      Caption = '&Open...'
       Hint = 'Abrir Archivo'
       ImageIndex = 9
-      OnExecute = acArcAbrirExecute
+      OnExecute = acFilOpenExecute
       ShortCut = 16449
     end
-    object acArcGuardar: TAction
+    object acFilSave: TAction
       Category = 'Arc'
-      Caption = '&Guardar'
+      Caption = '&Save'
       Hint = 'Guardar Archivo'
       ImageIndex = 6
-      OnExecute = acArcGuardarExecute
+      OnExecute = acFilSaveExecute
       ShortCut = 16455
     end
-    object acArcGuaCom: TAction
+    object acFilSaveAs: TAction
       Category = 'Arc'
-      Caption = 'G&uardar Como...'
+      Caption = 'Save A&s...'
       Hint = 'Guardar como...'
       ImageIndex = 12
-      OnExecute = acArcGuaComExecute
+      OnExecute = acFilSaveAsExecute
     end
-    object acArcSalir: TAction
+    object acFilExit: TAction
       Category = 'Arc'
-      Caption = '&Salir'
+      Caption = 'E&xit'
       Hint = 'Salir'
       ImageIndex = 7
-      OnExecute = acArcSalirExecute
+      OnExecute = acFilExitExecute
     end
     object acEdiUndo: TAction
       Category = 'Edit'
-      Caption = '&Deshacer'
+      Caption = '&Undo'
       Hint = 'Deshacer'
       ImageIndex = 1
       OnExecute = acEdiUndoExecute
@@ -682,7 +682,7 @@ object frmEditMacros: TfrmEditMacros
     end
     object acEdiRedo: TAction
       Category = 'Edit'
-      Caption = '&Rehacer'
+      Caption = '&Redo'
       Hint = 'Rehacer'
       ImageIndex = 2
       OnExecute = acEdiRedoExecute
@@ -690,37 +690,31 @@ object frmEditMacros: TfrmEditMacros
     end
     object acEdiCut: TEditCut
       Category = 'Edit'
-      Caption = 'Cor&tar'
+      Caption = 'Cu&t'
       Hint = 'Cortar'
       ImageIndex = 3
       ShortCut = 16472
     end
     object acEdiCopy: TEditCopy
       Category = 'Edit'
-      Caption = '&Copiar'
+      Caption = '&Copy'
       Hint = 'Copiar'
       ImageIndex = 10
       ShortCut = 16451
     end
     object acEdiPaste: TEditPaste
       Category = 'Edit'
-      Caption = '&Pegar'
+      Caption = '&Paste'
       Hint = 'Pegar'
       ImageIndex = 11
       ShortCut = 16470
     end
     object acEdiSelecAll: TAction
       Category = 'Edit'
-      Caption = 'Seleccionar &Todo'
+      Caption = 'Select &All'
       Hint = 'Selecciona todo el texto'
       OnExecute = acEdiSelecAllExecute
       ShortCut = 16453
-    end
-    object acEdiModCol: TAction
-      Category = 'Edit'
-      Caption = 'Modo Columna'
-      Hint = 'Entra al modo columna'
-      ImageIndex = 15
     end
     object acVerNumLin: TAction
       Category = 'Ver'
@@ -730,21 +724,21 @@ object frmEditMacros: TfrmEditMacros
       Category = 'Ver'
       Caption = 'Ver Barra de &Estado'
     end
-    object acBusBuscar: TAction
+    object acSrchSearch: TAction
       Category = 'Search'
-      Caption = 'Buscar...'
+      Caption = 'Search...'
       ImageIndex = 17
       ShortCut = 16450
     end
-    object acBusBusSig: TAction
+    object acSrchSearchNext: TAction
       Category = 'Search'
-      Caption = 'Buscar &Siguiente'
+      Caption = 'Search &Next'
       ImageIndex = 18
       ShortCut = 114
     end
-    object acBusRem: TAction
+    object acSrchReplace: TAction
       Category = 'Search'
-      Caption = '&Remplazar...'
+      Caption = '&Replace...'
       ShortCut = 16466
     end
     object acVerPanArc: TAction
@@ -754,27 +748,27 @@ object frmEditMacros: TfrmEditMacros
     end
     object AcHerEjec: TAction
       Category = 'Her'
-      Caption = '&Ejecutar'
+      Caption = '&Execute'
       ImageIndex = 21
       OnExecute = AcHerEjecExecute
       ShortCut = 120
     end
     object AcHerDeten: TAction
       Category = 'Her'
-      Caption = '&Detener'
+      Caption = '&Stop'
       Hint = '&Detener ejecución'
       ImageIndex = 24
       OnExecute = AcHerDetenExecute
     end
     object AcHerGrab: TAction
       Category = 'Her'
-      Caption = '&Grabar'
+      Caption = '&Record'
       ImageIndex = 27
       OnExecute = AcHerGrabExecute
     end
     object AcHerConfig: TAction
       Category = 'Her'
-      Caption = 'C&onfigurar'
+      Caption = '&Settings'
       ImageIndex = 16
       OnExecute = AcHerConfigExecute
     end
@@ -1687,31 +1681,31 @@ object frmEditMacros: TfrmEditMacros
     Left = 120
     Top = 130
     object mnArchivo: TMenuItem
-      Caption = '&Archivo'
+      Caption = '&File'
       object MenuItem3: TMenuItem
-        Action = acArcNuevo
+        Action = acFilNew
       end
       object MenuItem4: TMenuItem
-        Action = acArcAbrir
+        Action = acFilOpen
       end
       object MenuItem5: TMenuItem
-        Action = acArcGuardar
+        Action = acFilSave
       end
       object MenuItem6: TMenuItem
-        Action = acArcGuaCom
+        Action = acFilSaveAs
       end
       object mnRecientes: TMenuItem
-        Caption = '&Recientes'
+        Caption = '&Recents'
       end
       object MenuItem7: TMenuItem
         Caption = '-'
       end
       object MenuItem8: TMenuItem
-        Action = acArcSalir
+        Action = acFilExit
       end
     end
     object mnEdicion: TMenuItem
-      Caption = '&Edicion'
+      Caption = '&Edit'
       object MenuItem9: TMenuItem
         Action = acEdiUndo
       end
@@ -1738,7 +1732,7 @@ object frmEditMacros: TfrmEditMacros
       end
     end
     object mnHerram: TMenuItem
-      Caption = '&Herramientas'
+      Caption = '&Tools'
       object MenuItem18: TMenuItem
         Action = AcHerEjec
       end

@@ -146,21 +146,13 @@ begin
   case IdFromTTreeNode(TreeView1.Selected) of
   '1',
 //  '1.1'  : ;
-//  '1.2'  : fcDetPrompt.ShowPos(145,0);
-  '1.3'  : fcRutArc.ShowPos(145,0);
-//  '2',
-//  '2.1'  : fcPantTerm.ShowPos(145,0);
-//  '2.2'  : fcEdTerm.ShowPos(145,0);
-//  '2.3'  : fcComRec.ShowPos(145,0);
-//  '3',
-//  '3.1'  : fcEdPcom.ShowPos(145,0);
-//  '3.2'  : fcPanCom.ShowPos(145,0);
-  '4',
-  '4.1'  : fcMacros.ShowPos(145,0);
-  '4.2'  : fcEdMacr.ShowPos(145,0);
-  '5',
-  '5.1'  : fcEdRemo.ShowPos(145,0);
-  '6'    : fcExpRem.ShowPos(145,0);
+  '1.2'  : fcRutArc.ShowPos(155,0);
+  '2',
+  '2.1'  : fcMacros.ShowPos(155,0);
+  '2.2'  : fcEdMacr.ShowPos(155,0);
+  '3',
+  '3.1'  : fcEdRemo.ShowPos(155,0);
+  '4'    : fcExpRem.ShowPos(155,0);
   end;
 end;
 
@@ -235,14 +227,8 @@ procedure TConfig.SetLanguage(lang: string);
 //Rutina de traducción
 begin
   fcGener.SetLanguage(lang);
-
   fcRutArc.SetLanguage(lang);
-
   fcMacros.SetLanguage(lang);
-  fcEdMacr.SetLanguage(lang);
-
-  fcEdRemo.SetLanguage(lang);
-
   fcExpRem.SetLanguage(lang);
 end;
 

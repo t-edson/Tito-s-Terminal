@@ -13,7 +13,7 @@ type
   { TfraCfgRutArc }
 
   TfraCfgRutArc = class(TCfgFrame)
-    chkAbrirUltScr: TCheckBox;
+    chkOpenLast: TCheckBox;
     DirectoryEdit1: TDirectoryEdit;
     DirectoryEdit2: TDirectoryEdit;
     DirectoryEdit3: TDirectoryEdit;
@@ -43,7 +43,7 @@ begin
   secINI := secINI0;  //sección INI
   //crea las relaciones variable-control
   Asoc_Str(@UltScript,'UltScript','');
-  Asoc_Bol_TChkBox(@AbrirUltScr, chkAbrirUltScr, 'AbrirUltScr', true);
+  Asoc_Bol_TChkBox(@AbrirUltScr, chkOpenLast, 'AbrirUltScr', true);
   Asoc_Str_TEditButton(@Scripts, DirectoryEdit1,'Scripts', patScripts);
   Asoc_Str_TEditButton(@Macros, DirectoryEdit2,'Macros', patMacros);
   Asoc_Str_TEditButton(@Lenguajes, DirectoryEdit3,'Lenguajes', patSyntax);
@@ -75,14 +75,14 @@ begin
       lblRutScript.Caption:='Ruta de &Scripts:';
       lblRutMac.Caption:='Ruta de &Macros:';
       lblRutLeng.Caption:='Ruta de &Lenguajes:';
-      chkAbrirUltScr.Caption:='&Abrir último archivo editado, al iniciar.';
+      chkOpenLast.Caption:='&Abrir último archivo editado, al iniciar.';
       dicClear;  //ya está en español
     end;
   'en': begin
       lblRutScript.Caption:='&Scripts path:';
       lblRutMac.Caption:='&Macros path:';
       lblRutLeng.Caption:='&Languages path:';
-      chkAbrirUltScr.Caption:='&Open last edited file on Start.';
+      chkOpenLast.Caption:='&Open last edited file on Start.';
       //diccionario
       dicSet('No se encuentra carpeta: %s','Folder not found: %s');
     end;

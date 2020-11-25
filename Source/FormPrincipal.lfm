@@ -57,8 +57,8 @@ object frmPrincipal: TfrmPrincipal
     Images = ImageList1
     Left = 32
     Top = 30
-    object mnArchivo: TMenuItem
-      Caption = '&Archivo'
+    object mnFile: TMenuItem
+      Caption = '&File'
       object MenuItem1: TMenuItem
         Action = AcFilConec
       end
@@ -81,7 +81,7 @@ object frmPrincipal: TfrmPrincipal
         Action = AcFilSavSesAs
       end
       object mnSesionesAlm: TMenuItem
-        Caption = '&Sesiones Almacenadas'
+        Caption = '&Stored Sessions'
         OnClick = mnSesionesAlmClick
       end
       object MenuItem4: TMenuItem
@@ -91,10 +91,12 @@ object frmPrincipal: TfrmPrincipal
         Action = AcFilExit
       end
     end
-    object mnVer: TMenuItem
-      Caption = '&Ver'
+    object mnView: TMenuItem
+      Caption = '&View'
       object MenuItem23: TMenuItem
-        Action = AcVerPanCom
+        Caption = '&Panel de Comandos'
+        Hint = 'Ver panel de comandos'
+        ShortCut = 113
       end
       object MenuItem37: TMenuItem
         Action = AcVerBarEst
@@ -109,73 +111,8 @@ object frmPrincipal: TfrmPrincipal
         Action = AcVerEdiMac
       end
     end
-    object mnTerminal: TMenuItem
-      Caption = '&Terminal'
-      object MenuItem13: TMenuItem
-        Caption = '&Conectar'
-        Hint = 'Conectar con la conexión actual'
-        ImageIndex = 26
-        ShortCut = 16465
-      end
-      object MenuItem9: TMenuItem
-        Caption = '&Desconectar'
-        Hint = 'Desconecta la sesión actual'
-        ImageIndex = 27
-        ShortCut = 24657
-      end
-      object MenuItem31: TMenuItem
-        Caption = '&Limpiar Buffer'
-        Hint = 'Limpia el buffer de pantalla'
-        ImageIndex = 33
-      end
-      object MenuItem8: TMenuItem
-        Caption = 'Detectar &Prompt'
-        Hint = 'Detecta el prompt actual'
-        ImageIndex = 30
-      end
-      object MenuItem44: TMenuItem
-        Caption = '&Subir a prompt'
-        Hint = 'Subir al prompt anterior'
-        ImageIndex = 28
-      end
-      object MenuItem45: TMenuItem
-        Caption = '&Bajar a prompt'
-        Hint = 'Bajar al siguiente prompt'
-        ImageIndex = 29
-      end
-      object mnTerSend: TMenuItem
-        Caption = '&Enviar'
-        object MenuItem68: TMenuItem
-          Caption = 'Enviar &Ctrl-C'
-          ImageIndex = 38
-        end
-        object MenuItem69: TMenuItem
-          Caption = 'Enviar &Enter'
-          ImageIndex = 42
-        end
-        object MenuItem70: TMenuItem
-          Caption = 'Enviar &CR'
-          ImageIndex = 42
-        end
-        object MenuItem79: TMenuItem
-          Caption = 'Enviar LF'
-          ImageIndex = 42
-        end
-        object MenuItem71: TMenuItem
-          Caption = 'Enviar CR+&LF'
-          ImageIndex = 42
-        end
-      end
-      object MenuItem27: TMenuItem
-        Caption = '-'
-      end
-      object MenuItem28: TMenuItem
-        Caption = 'Ver Barra de &Herramientas'
-        Hint = 'Ver Barra de Herramientas'
-      end
-    end
-    object mnHerram: TMenuItem
-      Caption = '&Herramientas'
+    object mnTools: TMenuItem
+      Caption = '&Tools'
       object mnEjecMacro: TMenuItem
         Caption = '&Ejecutar Macro'
         OnClick = mnEjecMacroClick
@@ -191,13 +128,13 @@ object frmPrincipal: TfrmPrincipal
         Caption = '-'
       end
       object MenuItem40: TMenuItem
-        Action = AcHerCfg
+        Action = AcToolSett
       end
     end
-    object mnAyuda: TMenuItem
-      Caption = 'Ay&uda'
+    object mnHelp: TMenuItem
+      Caption = '&Help'
       object mnAyuAyu: TMenuItem
-        Action = acAyuAyu
+        Action = acHlpHelp
       end
     end
   end
@@ -227,42 +164,30 @@ object frmPrincipal: TfrmPrincipal
     end
     object AcFilSavSesAs: TAction
       Category = 'Arc'
-      Caption = 'G&uardar Sesión Como ...'
+      Caption = 'Save Sesisón As ...'
       Hint = 'Guardar sesión indicando un nombre'
       ImageIndex = 39
       OnExecute = AcFilSavSesAsExecute
     end
-    object AcFilDescon: TAction
-      Category = 'Arc'
-      Caption = '&Desconectar'
-      Hint = 'Desconecta la conexión actual'
-    end
     object AcFilConec: TAction
       Category = 'Arc'
-      Caption = '&Conexión Rápida...'
+      Caption = '&Quick connection ...'
       Hint = 'Abre una nueva conexión'
       OnExecute = AcFilConecExecute
     end
     object AcFilNewWin: TAction
       Category = 'Arc'
-      Caption = 'Nueva &Ventana...'
+      Caption = 'New &Window...'
       Hint = 'Abre una nueva Ventana'
       ImageIndex = 0
       OnExecute = AcFilNewWinExecute
     end
     object AcFilExit: TAction
       Category = 'Arc'
-      Caption = '&Salir'
+      Caption = 'E&xit'
       Hint = 'Salir'
       ImageIndex = 7
       OnExecute = AcFilExitExecute
-    end
-    object AcVerPanCom: TAction
-      Category = 'Ver'
-      Caption = '&Panel de Comandos'
-      Hint = 'Ver panel de comandos'
-      OnExecute = AcVerPanComExecute
-      ShortCut = 113
     end
     object AcVerBarEst: TAction
       Category = 'Ver'
@@ -293,26 +218,26 @@ object frmPrincipal: TfrmPrincipal
       OnExecute = AcVerExpRemExecute
       ShortCut = 16453
     end
-    object AcHerCfg: TAction
-      Category = 'Her'
-      Caption = 'Confi&guración...'
+    object AcToolSett: TAction
+      Category = 'Tool'
+      Caption = '&Settings'
       Hint = 'Configurar'
       ImageIndex = 16
-      OnExecute = AcHerCfgExecute
+      OnExecute = AcToolSettExecute
     end
-    object AcHerGraMac: TAction
-      Category = 'Her'
-      Caption = '&Grabar Macro'
+    object AcToolRecMac: TAction
+      Category = 'Tool'
+      Caption = '&Record Macro'
       ImageIndex = 43
-      OnExecute = AcHerGraMacExecute
+      OnExecute = AcToolRecMacExecute
     end
-    object acAyuAyu: TAction
-      Category = 'Ayu'
+    object acHlpHelp: TAction
+      Category = 'Hlp'
       Caption = 'Ay&uda'
-      OnExecute = acAyuAyuExecute
+      OnExecute = acHlpHelpExecute
     end
-    object acAyuAcer: TAction
-      Category = 'Ayu'
+    object acHlpAbout: TAction
+      Category = 'Hlp'
       Caption = '&Acerca de'
     end
   end
@@ -1776,88 +1701,5 @@ object frmPrincipal: TfrmPrincipal
     OnTimer = Timer1Timer
     Left = 480
     Top = 30
-  end
-  object PopupMenu2: TPopupMenu
-    Images = ImageList1
-    Left = 824
-    Top = 136
-    object MenuItem56: TMenuItem
-      Caption = '&Copiar'
-      Hint = 'Copiar'
-      ImageIndex = 10
-      ShortCut = 16451
-    end
-    object MenuItem57: TMenuItem
-      Caption = '&Pegar'
-      ImageIndex = 11
-    end
-    object MenuItem82: TMenuItem
-      Caption = 'Copiar Elemento'
-      object MenuItem86: TMenuItem
-        Caption = 'Copiar &Palabra'
-      end
-      object MenuItem85: TMenuItem
-        Caption = '&Nombre de Archivo'
-      end
-      object MenuItem83: TMenuItem
-        Caption = 'R&uta de Archivo'
-      end
-      object MenuItem84: TMenuItem
-        Caption = 'Copiar N&ombre y Ruta'
-      end
-    end
-    object MenuItem81: TMenuItem
-      Caption = '-'
-    end
-    object MenuItem58: TMenuItem
-      Caption = '&Limpiar Buffer'
-      Hint = 'Limpia el buffer de pantalla'
-      ImageIndex = 33
-    end
-    object MenuItem59: TMenuItem
-      Caption = 'Detectar &Prompt'
-      Hint = 'Detecta el prompt actual'
-      ImageIndex = 30
-    end
-    object MenuItem60: TMenuItem
-      Caption = '&Subir a prompt'
-      Hint = 'Subir al prompt anterior'
-      ImageIndex = 28
-    end
-    object MenuItem61: TMenuItem
-      Caption = '&Bajar a prompt'
-      Hint = 'Bajar al siguiente prompt'
-      ImageIndex = 29
-    end
-    object MenuItem72: TMenuItem
-      Caption = '&Enviar'
-      object MenuItem73: TMenuItem
-        Caption = 'Enviar &Ctrl-C'
-        ImageIndex = 38
-      end
-      object MenuItem76: TMenuItem
-        Caption = 'Enviar &Enter'
-        ImageIndex = 42
-      end
-      object MenuItem75: TMenuItem
-        Caption = 'Enviar &CR'
-        ImageIndex = 42
-      end
-      object MenuItem80: TMenuItem
-        Caption = 'Enviar LF'
-        ImageIndex = 42
-      end
-      object MenuItem74: TMenuItem
-        Caption = 'Enviar CR+&LF'
-        ImageIndex = 42
-      end
-    end
-    object MenuItem78: TMenuItem
-      Caption = '-'
-    end
-    object MenuItem77: TMenuItem
-      Caption = 'Confi&gurar'
-      ImageIndex = 16
-    end
   end
 end

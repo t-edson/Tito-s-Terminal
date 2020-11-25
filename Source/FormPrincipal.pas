@@ -23,86 +23,48 @@ type
     AcFilExit: TAction;
     AcFilConec: TAction;
     AcFilNewWin: TAction;
-    AcFilDescon: TAction;
-    AcHerCfg: TAction;
+    AcToolSett: TAction;
     AcFilSavSesAs: TAction;
     AcFIlOpeSes: TAction;
     AcFilSavSes: TAction;
     AcFilNewSes: TAction;
-    AcHerGraMac: TAction;
-    acAyuAyu: TAction;
-    acAyuAcer: TAction;
+    AcToolRecMac: TAction;
+    acHlpHelp: TAction;
+    acHlpAbout: TAction;
     AcVerBarEst: TAction;
     AcVerExpRem: TAction;
     AcVerEdiRem: TAction;
     AcVerEdiMac: TAction;
-    AcVerPanCom: TAction;
     ActionList1: TActionList;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
-    MenuItem13: TMenuItem;
     mnAyuAyu: TMenuItem;
-    mnVer: TMenuItem;
-    mnArchivo: TMenuItem;
+    mnView: TMenuItem;
+    mnFile: TMenuItem;
     MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
     MenuItem25: TMenuItem;
     MenuItem26: TMenuItem;
-    MenuItem27: TMenuItem;
-    MenuItem28: TMenuItem;
     MenuItem3: TMenuItem;
-    MenuItem31: TMenuItem;
-    MenuItem44: TMenuItem;
-    MenuItem45: TMenuItem;
-    MenuItem56: TMenuItem;
-    MenuItem57: TMenuItem;
-    MenuItem58: TMenuItem;
-    MenuItem59: TMenuItem;
-    MenuItem60: TMenuItem;
-    MenuItem61: TMenuItem;
     MenuItem62: TMenuItem;
     MenuItem63: TMenuItem;
     MenuItem64: TMenuItem;
     MenuItem65: TMenuItem;
     MenuItem66: TMenuItem;
-    mnTerSend: TMenuItem;
-    MenuItem68: TMenuItem;
-    MenuItem69: TMenuItem;
-    MenuItem70: TMenuItem;
-    MenuItem71: TMenuItem;
-    MenuItem72: TMenuItem;
-    MenuItem73: TMenuItem;
-    MenuItem74: TMenuItem;
-    MenuItem75: TMenuItem;
-    MenuItem76: TMenuItem;
-    MenuItem77: TMenuItem;
-    MenuItem78: TMenuItem;
-    MenuItem79: TMenuItem;
-    MenuItem80: TMenuItem;
-    MenuItem81: TMenuItem;
-    MenuItem82: TMenuItem;
-    MenuItem83: TMenuItem;
-    MenuItem84: TMenuItem;
-    MenuItem85: TMenuItem;
-    MenuItem86: TMenuItem;
     mnSesionesAlm: TMenuItem;
     mnGraMacro: TMenuItem;
     MenuItem47: TMenuItem;
     mnAbrMacro: TMenuItem;
     mnEjecMacro: TMenuItem;
-    mnAyuda: TMenuItem;
+    mnHelp: TMenuItem;
     MenuItem37: TMenuItem;
-    mnHerram: TMenuItem;
+    mnTools: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem40: TMenuItem;
     MenuItem5: TMenuItem;
-    mnTerminal: TMenuItem;
-    MenuItem8: TMenuItem;
-    MenuItem9: TMenuItem;
     OpenDialog1: TOpenDialog;
-    PopupMenu2: TPopupMenu;
     SaveDialog1: TSaveDialog;
     Splitter1: TSplitter;
     StatusBar1: TStatusBar;
@@ -114,14 +76,13 @@ type
     procedure AcFilNewSesExecute(Sender: TObject);
     procedure AcFilNewWinExecute(Sender: TObject);
     procedure AcFilExitExecute(Sender: TObject);
-    procedure acAyuAyuExecute(Sender: TObject);
-    procedure AcHerGraMacExecute(Sender: TObject);
-    procedure AcHerCfgExecute(Sender: TObject);
+    procedure acHlpHelpExecute(Sender: TObject);
+    procedure AcToolRecMacExecute(Sender: TObject);
+    procedure AcToolSettExecute(Sender: TObject);
     procedure AcVerEdiRemExecute(Sender: TObject);
     procedure AcVerBarEstExecute(Sender: TObject);
     procedure AcVerEdiMacExecute(Sender: TObject);
     procedure AcVerExpRemExecute(Sender: TObject);
-    procedure AcVerPanComExecute(Sender: TObject);
     procedure edPComSpecialLineMarkup(Sender: TObject; Line: integer;
       var Special: boolean; Markup: TSynSelectedColor);
     procedure UpdateHeader;
@@ -159,7 +120,6 @@ type
     ejecMac: boolean;   //indica que está ejecutando una macro
     ejecCom: boolean;   //indica que está ejecutando un comando (editor remoto, exp. remoto ...)
     function ConexDisponible: boolean;
-    procedure SetLanguage(lang: string);
   public  //Acciones sobre la session actual.
     function GetCurSession(out pag: TfraTabSession): boolean;
     procedure SetCurPort(port: integer);
@@ -247,11 +207,8 @@ end;
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
   TranslateMsgs := true;  //activa la traducción en los mensajes
-  SetLanguage('en');
   Config.SetLanguage('en');
-  frmExpRemoto.SetLanguage('en');
   frmEditRemoto.SetLanguage('en');
-  frmEditMacros.SetLanguage('en');
   frmEditMacros.Init(TabSessions);
   Caption := NOM_PROG + ' ' + VER_PROG;
   //aquí ya sabemos que Config está creado. Lo configuramos
@@ -277,8 +234,7 @@ var
 begin
   //Actualiza encabezado
   if GetCurSession(pag) then begin
-    Caption := NOM_PROG + ' - Sesión: ' + ExtractFileName(pag.FileName) +
-                          ' - Archivo: ' + pag.FileName;
+    Caption := NOM_PROG + '-' + VER_PROG + ' - ' + pag.FileName;
   end else begin
     Caption := NOM_PROG;
   end;
@@ -667,6 +623,10 @@ var
 begin
   frmConexRap.ShowModal;
   if frmConexRap.Cancel then exit;
+  if not StringLike(frmConexRap.ip, '*.*.*.*') then begin
+    MsgErr('Invalid IP address.');
+    exit;
+  end;
   case frmConexRap.tipo of
   TCON_TELNET: begin
      ses := TabSessions.AddPage(MSG_FILE_EXT);
@@ -714,6 +674,7 @@ begin
   if not OpenDialog1.Execute then exit;    //se canceló
   AbrirSesion(OpenDialog1.FileName);
 end;
+
 procedure TfrmPrincipal.AcFilSavSesExecute(Sender: TObject);  //guardar sesión
 var
   ses: TfraTabSession;
@@ -740,11 +701,6 @@ procedure TfrmPrincipal.AcVerBarEstExecute(Sender: TObject);
 begin
   MostrarBarEst(not AcVerBarEst.Checked);
 end;
-procedure TfrmPrincipal.AcVerPanComExecute(Sender: TObject);
-begin
-//  MostrarPanCom(not AcVerPanCom.Checked);
-end;
-
 procedure TfrmPrincipal.AcVerEdiMacExecute(Sender: TObject);
 begin
   frmEditMacros.Show;
@@ -758,107 +714,18 @@ begin
   frmEditRemoto.Show;
 end;
 
-procedure TfrmPrincipal.AcHerGraMacExecute(Sender: TObject);
+procedure TfrmPrincipal.AcToolRecMacExecute(Sender: TObject);
 begin
   frmEditMacros.AcHerGrabExecute(self);
 end;
-procedure TfrmPrincipal.AcHerCfgExecute(Sender: TObject);
+procedure TfrmPrincipal.AcToolSettExecute(Sender: TObject);
 begin
   Config.Configurar;
 end;
 
-procedure TfrmPrincipal.acAyuAyuExecute(Sender: TObject);
+procedure TfrmPrincipal.acHlpHelpExecute(Sender: TObject);
 begin
   OpenURL('https://github.com/t-edson/Tito-s-Terminal/tree/master/Docs');
-end;
-
-procedure TfrmPrincipal.SetLanguage(lang: string);
-//Rutina de traducción
-begin
-  frmConexRap.SetLanguage(Lang);
-  case lowerCase(lang) of
-  'es': begin
-      mnArchivo.Caption:='&Archivo';
-      mnVer.Caption:='&Ver';
-      mnTerminal.Caption:='&Terminal';
-      mnHerram.Caption:='&Herramientas';
-      mnAyuda.Caption:='Ay&uda';
-
-      mnSesionesAlm.Caption:='&Sesiones Almacenadas';
-      mnEjecMacro.Caption:='&Ejecutar Macro';
-      mnAbrMacro.Caption:='&Abrir Macro';
-      mnGraMacro.Caption:='&Grabar Macro';
-      mnTerSend.Caption:='&Enviar';
-      MenuItem82.Caption:='Copiar Elemento';
-      MenuItem72.Caption:='&Enviar';
-
-      AcFilNewSes.Caption := '&Nueva Sesión';
-      AcFIlOpeSes.Caption := '&Abrir Sesión ...';
-      AcFilSavSes.Caption := '&Guardar Sesión';
-      AcFilSavSesAs.Caption := 'G&uardar Sesión Como ...';
-      AcFilDescon.Caption := '&Desconectar';
-      AcFilExit.Caption := '&Salir';
-      AcFilConec.Caption := '&Conexión Rápida...';
-      AcFilNewWin.Caption := 'Nueva &Ventana...';
-      AcVerPanCom.Caption := '&Panel de Comandos';
-      AcVerBarEst.Caption := 'Barra de estado';
-      AcVerEdiMac.Caption := 'Editor de &Macros';
-      AcVerEdiRem.Caption := '&Editor Remoto';
-      AcVerExpRem.Caption := 'E&xplorador Remoto';
-      AcHerCfg.Caption := 'Confi&guración...';
-      AcHerGraMac.Caption := '&Grabar Macro';
-      acAyuAyu.Caption:='Ay&uda';
-      dicClear;  //los mensajes ya están en español
-    end;
-  'en': begin
-      mnArchivo.Caption:='&File';
-      mnVer.Caption:='&View';
-      mnTerminal.Caption:='&Terminal';
-      mnHerram.Caption:='&Tools';
-      mnAyuda.Caption:='&Help';
-
-      mnSesionesAlm.Caption:='&Stored Sesions';
-      mnEjecMacro.Caption:='&Execute Macro';
-      mnAbrMacro.Caption:='&Open Macro';
-      mnGraMacro.Caption:='&Record Macro';
-      mnTerSend.Caption:='&Send';
-      MenuItem82.Caption:='Copy Element';
-      MenuItem72.Caption:='&Send';
-
-      AcFilNewSes.Caption := '&New Sesion';
-      AcFIlOpeSes.Caption := '&Open Sesion ...';
-      AcFilSavSes.Caption := '&Save Sesion';
-      AcFilSavSesAs.Caption := 'Sa&ve Sesion as ...';
-      AcFilDescon.Caption := '&Disconnect';
-      AcFilExit.Caption := '&Exit';
-      AcFilConec.Caption := '&Quick Connection...';
-      AcFilNewWin.Caption := 'New &Window...';
-      AcVerPanCom.Caption := '&Comand Panel';
-      AcVerBarEst.Caption := 'Status Bar';
-      AcVerEdiMac.Caption := '&Macro Editor';
-      AcVerEdiRem.Caption := 'Remote &Editor';
-      AcVerExpRem.Caption := 'Remote E&xplorer';
-      AcHerCfg.Caption := 'Confi&gure...';
-      AcHerGraMac.Caption := '&Record Macro';
-      acAyuAyu.Caption:='&Help';
-      //traducción
-      dicSet('Hay una conexión abierta. ¿Cerrarla?','There is an opened connection. Close?');
-      dicSet(' - Archivo: ', ' - File: ');
-      dicSet('No se encuentra archivo: %s','File not found: %s');
-      dicSet('En este momento, se está ejecutando una macro. ¿Detenerla?',
-             'There is a Macro runnig. Stop it?');
-      dicSet('Ejecutando macro','Running macro');
-      dicSet('No hay conexión disponible','No available connection');
-      dicSet('Tiempo de espera agotado','Timeout');
-      dicSet('Error detectando el prompt del comando. ','Error detecting prompt.');
-      dicSet('Probablemente deba ampliar la cantidad de líneas de la pantalla.',
-             'Probably you must increase the max number of lines in screen');
-      dicSet('Archivo de sesión|*.ses|Todos los archivos|*.*','Sesion file|*.ses|All files|*.*');
-      dicSet('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
-             'File % salready exists. Overwrite?');
-      dicSet('#Archivo de comandos','#Command file');
-    end;
-  end;
 end;
 
 end.

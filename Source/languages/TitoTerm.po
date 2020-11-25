@@ -58,6 +58,46 @@ msgstr ""
 msgid "Configuración"
 msgstr ""
 
+#: tfcexprem.chklistdet.caption
+msgid "Mostrar lista detallada de archivos."
+msgstr ""
+
+#: tfcexprem.chkmosocul.caption
+msgid "Mostrar archivos ocultos."
+msgstr ""
+
+#: tfcexprem.chkmosrut.caption
+msgid "Mostrar Información de Ruta Actual"
+msgstr ""
+
+#: tfcexprem.chkrefdesp.caption
+msgid "Refrescar lista, después de cada operación."
+msgstr ""
+
+#: tfcexprem.edtpomax.text
+msgid "edTpoMax"
+msgstr ""
+
+#: tfcexprem.label1.caption
+msgid "Tiempo máximo de espera al terminal (seg):"
+msgstr ""
+
+#: tfracfgrutarc.chkopenlast.caption
+msgid "&Open last edited file on start"
+msgstr ""
+
+#: tfracfgrutarc.lblrutleng.caption
+msgid "&Lenguajes path:"
+msgstr ""
+
+#: tfracfgrutarc.lblrutmac.caption
+msgid "&Macros path:"
+msgstr ""
+
+#: tfracfgrutarc.lblrutscript.caption
+msgid "&Scripts path:"
+msgstr ""
+
 #: tfraconexion.cmbserport.text
 msgctxt "tfraconexion.cmbserport.text"
 msgid "COM1"
@@ -577,6 +617,7 @@ msgid "&Close"
 msgstr ""
 
 #: tfratabsessions.mnnewtab.caption
+msgctxt "tfratabsessions.mnnewtab.caption"
 msgid "&New"
 msgstr ""
 
@@ -584,69 +625,35 @@ msgstr ""
 msgid "<<No pages>>"
 msgstr ""
 
-#: tfrmeditmacros.acarcabrir.caption
-msgctxt "tfrmeditmacros.acarcabrir.caption"
-msgid "&Abrir..."
+#: tfrmconexrap.btnaceptar.caption
+msgctxt "tfrmconexrap.btnaceptar.caption"
+msgid "&OK"
 msgstr ""
 
-#: tfrmeditmacros.acarcabrir.hint
-msgctxt "tfrmeditmacros.acarcabrir.hint"
-msgid "Abrir Archivo"
+#: tfrmconexrap.btncancelar.caption
+msgid "&Cancel"
 msgstr ""
 
-#: tfrmeditmacros.acarcguacom.caption
-msgctxt "tfrmeditmacros.acarcguacom.caption"
-msgid "G&uardar Como..."
+#: tfrmconexrap.caption
+msgid "Quick connection"
 msgstr ""
 
-#: tfrmeditmacros.acarcguacom.hint
-msgid "Guardar como..."
+#: tfrmconexrap.label1.caption
+msgid "Host:"
 msgstr ""
 
-#: tfrmeditmacros.acarcguardar.caption
-msgctxt "tfrmeditmacros.acarcguardar.caption"
-msgid "&Guardar"
+#: tfrmconexrap.optssh.caption
+msgid "SSH"
 msgstr ""
 
-#: tfrmeditmacros.acarcguardar.hint
-msgctxt "tfrmeditmacros.acarcguardar.hint"
-msgid "Guardar Archivo"
-msgstr ""
-
-#: tfrmeditmacros.acarcnuevo.caption
-msgctxt "tfrmeditmacros.acarcnuevo.caption"
-msgid "&Nuevo"
-msgstr ""
-
-#: tfrmeditmacros.acarcnuevo.hint
-msgid "Nuevo Archivo"
-msgstr ""
-
-#: tfrmeditmacros.acarcsalir.caption
-msgctxt "tfrmeditmacros.acarcsalir.caption"
-msgid "&Salir"
-msgstr ""
-
-#: tfrmeditmacros.acarcsalir.hint
-msgctxt "tfrmeditmacros.acarcsalir.hint"
-msgid "Salir"
-msgstr ""
-
-#: tfrmeditmacros.acbusbuscar.caption
-msgid "Buscar..."
-msgstr ""
-
-#: tfrmeditmacros.acbusbussig.caption
-msgid "Buscar &Siguiente"
-msgstr ""
-
-#: tfrmeditmacros.acbusrem.caption
-msgid "&Remplazar..."
+#: tfrmconexrap.opttelnet.caption
+msgctxt "tfrmconexrap.opttelnet.caption"
+msgid "&Telnet"
 msgstr ""
 
 #: tfrmeditmacros.acedicopy.caption
 msgctxt "tfrmeditmacros.acedicopy.caption"
-msgid "&Copiar"
+msgid "&Copy"
 msgstr ""
 
 #: tfrmeditmacros.acedicopy.hint
@@ -656,7 +663,7 @@ msgstr ""
 
 #: tfrmeditmacros.acedicut.caption
 msgctxt "tfrmeditmacros.acedicut.caption"
-msgid "Cor&tar"
+msgid "Cu&t"
 msgstr ""
 
 #: tfrmeditmacros.acedicut.hint
@@ -664,17 +671,9 @@ msgctxt "tfrmeditmacros.acedicut.hint"
 msgid "Cortar"
 msgstr ""
 
-#: tfrmeditmacros.acedimodcol.caption
-msgid "Modo Columna"
-msgstr ""
-
-#: tfrmeditmacros.acedimodcol.hint
-msgid "Entra al modo columna"
-msgstr ""
-
 #: tfrmeditmacros.acedipaste.caption
 msgctxt "tfrmeditmacros.acedipaste.caption"
-msgid "&Pegar"
+msgid "&Paste"
 msgstr ""
 
 #: tfrmeditmacros.acedipaste.hint
@@ -684,7 +683,7 @@ msgstr ""
 
 #: tfrmeditmacros.acediredo.caption
 msgctxt "tfrmeditmacros.acediredo.caption"
-msgid "&Rehacer"
+msgid "&Redo"
 msgstr ""
 
 #: tfrmeditmacros.acediredo.hint
@@ -693,7 +692,7 @@ msgstr ""
 
 #: tfrmeditmacros.acediselecall.caption
 msgctxt "tfrmeditmacros.acediselecall.caption"
-msgid "Seleccionar &Todo"
+msgid "Select &All"
 msgstr ""
 
 #: tfrmeditmacros.acediselecall.hint
@@ -702,7 +701,7 @@ msgstr ""
 
 #: tfrmeditmacros.acediundo.caption
 msgctxt "tfrmeditmacros.acediundo.caption"
-msgid "&Deshacer"
+msgid "&Undo"
 msgstr ""
 
 #: tfrmeditmacros.acediundo.hint
@@ -710,12 +709,60 @@ msgctxt "tfrmeditmacros.acediundo.hint"
 msgid "Deshacer"
 msgstr ""
 
+#: tfrmeditmacros.acfilexit.caption
+msgctxt "tfrmeditmacros.acfilexit.caption"
+msgid "E&xit"
+msgstr ""
+
+#: tfrmeditmacros.acfilexit.hint
+msgctxt "tfrmeditmacros.acfilexit.hint"
+msgid "Salir"
+msgstr ""
+
+#: tfrmeditmacros.acfilnew.caption
+msgctxt "tfrmeditmacros.acfilnew.caption"
+msgid "&New"
+msgstr ""
+
+#: tfrmeditmacros.acfilnew.hint
+msgctxt "tfrmeditmacros.acfilnew.hint"
+msgid "Nuevo Archivo"
+msgstr ""
+
+#: tfrmeditmacros.acfilopen.caption
+msgid "&Open..."
+msgstr ""
+
+#: tfrmeditmacros.acfilopen.hint
+msgctxt "tfrmeditmacros.acfilopen.hint"
+msgid "Abrir Archivo"
+msgstr ""
+
+#: tfrmeditmacros.acfilsave.caption
+msgid "&Save"
+msgstr ""
+
+#: tfrmeditmacros.acfilsave.hint
+msgctxt "tfrmeditmacros.acfilsave.hint"
+msgid "Guardar Archivo"
+msgstr ""
+
+#: tfrmeditmacros.acfilsaveas.caption
+msgid "Save A&s..."
+msgstr ""
+
+#: tfrmeditmacros.acfilsaveas.hint
+msgctxt "tfrmeditmacros.acfilsaveas.hint"
+msgid "Guardar como..."
+msgstr ""
+
 #: tfrmeditmacros.acherconfig.caption
-msgid "C&onfigurar"
+msgctxt "tfrmeditmacros.acherconfig.caption"
+msgid "&Settings"
 msgstr ""
 
 #: tfrmeditmacros.acherdeten.caption
-msgid "&Detener"
+msgid "&Stop"
 msgstr ""
 
 #: tfrmeditmacros.acherdeten.hint
@@ -723,11 +770,23 @@ msgid "&Detener ejecución"
 msgstr ""
 
 #: tfrmeditmacros.acherejec.caption
-msgid "&Ejecutar"
+msgid "&Execute"
 msgstr ""
 
 #: tfrmeditmacros.achergrab.caption
-msgid "&Grabar"
+msgid "&Record"
+msgstr ""
+
+#: tfrmeditmacros.acsrchreplace.caption
+msgid "&Replace..."
+msgstr ""
+
+#: tfrmeditmacros.acsrchsearch.caption
+msgid "Search..."
+msgstr ""
+
+#: tfrmeditmacros.acsrchsearchnext.caption
+msgid "Search &Next"
 msgstr ""
 
 #: tfrmeditmacros.acverbarest.caption
@@ -748,20 +807,20 @@ msgstr ""
 
 #: tfrmeditmacros.mnarchivo.caption
 msgctxt "tfrmeditmacros.mnarchivo.caption"
-msgid "&Archivo"
+msgid "&File"
 msgstr ""
 
 #: tfrmeditmacros.mnedicion.caption
-msgid "&Edicion"
+msgid "&Edit"
 msgstr ""
 
 #: tfrmeditmacros.mnherram.caption
 msgctxt "tfrmeditmacros.mnherram.caption"
-msgid "&Herramientas"
+msgid "&Tools"
 msgstr ""
 
 #: tfrmeditmacros.mnrecientes.caption
-msgid "&Recientes"
+msgid "&Recents"
 msgstr ""
 
 #: tfrmeditmacros.toolbar1.caption
@@ -777,18 +836,9 @@ msgstr ""
 msgid "ToolButton5"
 msgstr ""
 
-#: tfrmprincipal.acayuacer.caption
-msgid "&Acerca de"
-msgstr ""
-
-#: tfrmprincipal.acayuayu.caption
-msgctxt "tfrmprincipal.acayuayu.caption"
-msgid "Ay&uda"
-msgstr ""
-
 #: tfrmprincipal.acfilconec.caption
 msgctxt "tfrmprincipal.acfilconec.caption"
-msgid "&Conexión Rápida..."
+msgid "&Quick connection ..."
 msgstr ""
 
 #: tfrmprincipal.acfilconec.hint
@@ -796,19 +846,9 @@ msgctxt "tfrmprincipal.acfilconec.hint"
 msgid "Abre una nueva conexión"
 msgstr ""
 
-#: tfrmprincipal.acfildescon.caption
-msgctxt "tfrmprincipal.acfildescon.caption"
-msgid "&Desconectar"
-msgstr ""
-
-#: tfrmprincipal.acfildescon.hint
-msgctxt "tfrmprincipal.acfildescon.hint"
-msgid "Desconecta la conexión actual"
-msgstr ""
-
 #: tfrmprincipal.acfilexit.caption
 msgctxt "tfrmprincipal.acfilexit.caption"
-msgid "&Salir"
+msgid "E&xit"
 msgstr ""
 
 #: tfrmprincipal.acfilexit.hint
@@ -823,7 +863,7 @@ msgstr ""
 
 #: tfrmprincipal.acfilnewwin.caption
 msgctxt "tfrmprincipal.acfilnewwin.caption"
-msgid "Nueva &Ventana..."
+msgid "New &Window..."
 msgstr ""
 
 #: tfrmprincipal.acfilnewwin.hint
@@ -853,7 +893,7 @@ msgstr ""
 
 #: tfrmprincipal.acfilsavsesas.caption
 msgctxt "tfrmprincipal.acfilsavsesas.caption"
-msgid "G&uardar Sesión Como ..."
+msgid "Save Sesisón As ..."
 msgstr ""
 
 #: tfrmprincipal.acfilsavsesas.hint
@@ -861,19 +901,28 @@ msgctxt "tfrmprincipal.acfilsavsesas.hint"
 msgid "Guardar sesión indicando un nombre"
 msgstr ""
 
-#: tfrmprincipal.achercfg.caption
-msgctxt "tfrmprincipal.achercfg.caption"
-msgid "Confi&guración..."
+#: tfrmprincipal.achlpabout.caption
+msgctxt "tfrmprincipal.achlpabout.caption"
+msgid "&Acerca de"
 msgstr ""
 
-#: tfrmprincipal.achercfg.hint
-msgctxt "tfrmprincipal.achercfg.hint"
+#: tfrmprincipal.achlphelp.caption
+msgctxt "tfrmprincipal.achlphelp.caption"
+msgid "Ay&uda"
+msgstr ""
+
+#: tfrmprincipal.actoolrecmac.caption
+msgid "&Record Macro"
+msgstr ""
+
+#: tfrmprincipal.actoolsett.caption
+msgctxt "tfrmprincipal.actoolsett.caption"
+msgid "&Settings"
+msgstr ""
+
+#: tfrmprincipal.actoolsett.hint
+msgctxt "tfrmprincipal.actoolsett.hint"
 msgid "Configurar"
-msgstr ""
-
-#: tfrmprincipal.achergramac.caption
-msgctxt "tfrmprincipal.achergramac.caption"
-msgid "&Grabar Macro"
 msgstr ""
 
 #: tfrmprincipal.acverbarest.caption
@@ -908,244 +957,31 @@ msgstr ""
 msgid "Ver Explorador Remoto"
 msgstr ""
 
-#: tfrmprincipal.acverpancom.caption
-msgctxt "tfrmprincipal.acverpancom.caption"
-msgid "&Panel de Comandos"
-msgstr ""
-
-#: tfrmprincipal.acverpancom.hint
-msgid "Ver panel de comandos"
-msgstr ""
-
 #: tfrmprincipal.caption
 msgid "Tito's Telnet"
 msgstr ""
 
-#: tfrmprincipal.menuitem13.caption
-msgctxt "tfrmprincipal.menuitem13.caption"
-msgid "&Conectar"
+#: tfrmprincipal.menuitem23.caption
+msgctxt "tfrmprincipal.menuitem23.caption"
+msgid "&Panel de Comandos"
 msgstr ""
 
-#: tfrmprincipal.menuitem13.hint
-msgctxt "tfrmprincipal.menuitem13.hint"
-msgid "Conectar con la conexión actual"
-msgstr ""
-
-#: tfrmprincipal.menuitem28.caption
-msgctxt "tfrmprincipal.menuitem28.caption"
-msgid "Ver Barra de &Herramientas"
-msgstr ""
-
-#: tfrmprincipal.menuitem28.hint
-msgctxt "tfrmprincipal.menuitem28.hint"
-msgid "Ver Barra de Herramientas"
-msgstr ""
-
-#: tfrmprincipal.menuitem31.caption
-msgctxt "tfrmprincipal.menuitem31.caption"
-msgid "&Limpiar Buffer"
-msgstr ""
-
-#: tfrmprincipal.menuitem31.hint
-msgctxt "tfrmprincipal.menuitem31.hint"
-msgid "Limpia el buffer de pantalla"
-msgstr ""
-
-#: tfrmprincipal.menuitem44.caption
-msgctxt "tfrmprincipal.menuitem44.caption"
-msgid "&Subir a prompt"
-msgstr ""
-
-#: tfrmprincipal.menuitem44.hint
-msgctxt "tfrmprincipal.menuitem44.hint"
-msgid "Subir al prompt anterior"
-msgstr ""
-
-#: tfrmprincipal.menuitem45.caption
-msgctxt "tfrmprincipal.menuitem45.caption"
-msgid "&Bajar a prompt"
-msgstr ""
-
-#: tfrmprincipal.menuitem45.hint
-msgctxt "tfrmprincipal.menuitem45.hint"
-msgid "Bajar al siguiente prompt"
-msgstr ""
-
-#: tfrmprincipal.menuitem56.caption
-msgctxt "tfrmprincipal.menuitem56.caption"
-msgid "&Copiar"
-msgstr ""
-
-#: tfrmprincipal.menuitem56.hint
-msgctxt "tfrmprincipal.menuitem56.hint"
-msgid "Copiar"
-msgstr ""
-
-#: tfrmprincipal.menuitem57.caption
-msgctxt "tfrmprincipal.menuitem57.caption"
-msgid "&Pegar"
-msgstr ""
-
-#: tfrmprincipal.menuitem58.caption
-msgctxt "tfrmprincipal.menuitem58.caption"
-msgid "&Limpiar Buffer"
-msgstr ""
-
-#: tfrmprincipal.menuitem58.hint
-msgctxt "tfrmprincipal.menuitem58.hint"
-msgid "Limpia el buffer de pantalla"
-msgstr ""
-
-#: tfrmprincipal.menuitem59.caption
-msgctxt "tfrmprincipal.menuitem59.caption"
-msgid "Detectar &Prompt"
-msgstr ""
-
-#: tfrmprincipal.menuitem59.hint
-msgctxt "tfrmprincipal.menuitem59.hint"
-msgid "Detecta el prompt actual"
-msgstr ""
-
-#: tfrmprincipal.menuitem60.caption
-msgctxt "tfrmprincipal.menuitem60.caption"
-msgid "&Subir a prompt"
-msgstr ""
-
-#: tfrmprincipal.menuitem60.hint
-msgctxt "tfrmprincipal.menuitem60.hint"
-msgid "Subir al prompt anterior"
-msgstr ""
-
-#: tfrmprincipal.menuitem61.caption
-msgctxt "tfrmprincipal.menuitem61.caption"
-msgid "&Bajar a prompt"
-msgstr ""
-
-#: tfrmprincipal.menuitem61.hint
-msgctxt "tfrmprincipal.menuitem61.hint"
-msgid "Bajar al siguiente prompt"
-msgstr ""
-
-#: tfrmprincipal.menuitem68.caption
-msgctxt "tfrmprincipal.menuitem68.caption"
-msgid "Enviar &Ctrl-C"
-msgstr ""
-
-#: tfrmprincipal.menuitem69.caption
-msgctxt "tfrmprincipal.menuitem69.caption"
-msgid "Enviar &Enter"
-msgstr ""
-
-#: tfrmprincipal.menuitem70.caption
-msgctxt "tfrmprincipal.menuitem70.caption"
-msgid "Enviar &CR"
-msgstr ""
-
-#: tfrmprincipal.menuitem71.caption
-msgctxt "tfrmprincipal.menuitem71.caption"
-msgid "Enviar CR+&LF"
-msgstr ""
-
-#: tfrmprincipal.menuitem72.caption
-msgctxt "tfrmprincipal.menuitem72.caption"
-msgid "&Enviar"
-msgstr ""
-
-#: tfrmprincipal.menuitem73.caption
-msgctxt "tfrmprincipal.menuitem73.caption"
-msgid "Enviar &Ctrl-C"
-msgstr ""
-
-#: tfrmprincipal.menuitem74.caption
-msgctxt "tfrmprincipal.menuitem74.caption"
-msgid "Enviar CR+&LF"
-msgstr ""
-
-#: tfrmprincipal.menuitem75.caption
-msgctxt "tfrmprincipal.menuitem75.caption"
-msgid "Enviar &CR"
-msgstr ""
-
-#: tfrmprincipal.menuitem76.caption
-msgctxt "tfrmprincipal.menuitem76.caption"
-msgid "Enviar &Enter"
-msgstr ""
-
-#: tfrmprincipal.menuitem77.caption
-msgctxt "tfrmprincipal.menuitem77.caption"
-msgid "Confi&gurar"
-msgstr ""
-
-#: tfrmprincipal.menuitem79.caption
-msgctxt "tfrmprincipal.menuitem79.caption"
-msgid "Enviar LF"
-msgstr ""
-
-#: tfrmprincipal.menuitem8.caption
-msgctxt "tfrmprincipal.menuitem8.caption"
-msgid "Detectar &Prompt"
-msgstr ""
-
-#: tfrmprincipal.menuitem8.hint
-msgctxt "tfrmprincipal.menuitem8.hint"
-msgid "Detecta el prompt actual"
-msgstr ""
-
-#: tfrmprincipal.menuitem80.caption
-msgctxt "tfrmprincipal.menuitem80.caption"
-msgid "Enviar LF"
-msgstr ""
-
-#: tfrmprincipal.menuitem82.caption
-msgid "Copiar Elemento"
-msgstr ""
-
-#: tfrmprincipal.menuitem83.caption
-msgctxt "tfrmprincipal.menuitem83.caption"
-msgid "R&uta de Archivo"
-msgstr ""
-
-#: tfrmprincipal.menuitem84.caption
-msgctxt "tfrmprincipal.menuitem84.caption"
-msgid "Copiar N&ombre y Ruta"
-msgstr ""
-
-#: tfrmprincipal.menuitem85.caption
-msgctxt "tfrmprincipal.menuitem85.caption"
-msgid "&Nombre de Archivo"
-msgstr ""
-
-#: tfrmprincipal.menuitem86.caption
-msgctxt "tfrmprincipal.menuitem86.caption"
-msgid "Copiar &Palabra"
-msgstr ""
-
-#: tfrmprincipal.menuitem9.caption
-msgctxt "tfrmprincipal.menuitem9.caption"
-msgid "&Desconectar"
-msgstr ""
-
-#: tfrmprincipal.menuitem9.hint
-msgctxt "tfrmprincipal.menuitem9.hint"
-msgid "Desconecta la sesión actual"
+#: tfrmprincipal.menuitem23.hint
+msgctxt "tfrmprincipal.menuitem23.hint"
+msgid "Ver panel de comandos"
 msgstr ""
 
 #: tfrmprincipal.mnabrmacro.caption
 msgid "&Abrir Macro"
 msgstr ""
 
-#: tfrmprincipal.mnarchivo.caption
-msgctxt "tfrmprincipal.mnarchivo.caption"
-msgid "&Archivo"
-msgstr ""
-
-#: tfrmprincipal.mnayuda.caption
-msgctxt "tfrmprincipal.mnayuda.caption"
-msgid "Ay&uda"
-msgstr ""
-
 #: tfrmprincipal.mnejecmacro.caption
 msgid "&Ejecutar Macro"
+msgstr ""
+
+#: tfrmprincipal.mnfile.caption
+msgctxt "tfrmprincipal.mnfile.caption"
+msgid "&File"
 msgstr ""
 
 #: tfrmprincipal.mngramacro.caption
@@ -1153,26 +989,21 @@ msgctxt "tfrmprincipal.mngramacro.caption"
 msgid "&Grabar Macro"
 msgstr ""
 
-#: tfrmprincipal.mnherram.caption
-msgctxt "tfrmprincipal.mnherram.caption"
-msgid "&Herramientas"
+#: tfrmprincipal.mnhelp.caption
+msgid "&Help"
 msgstr ""
 
 #: tfrmprincipal.mnsesionesalm.caption
-msgid "&Sesiones Almacenadas"
+msgid "&Stored Sessions"
 msgstr ""
 
-#: tfrmprincipal.mnterminal.caption
-msgid "&Terminal"
+#: tfrmprincipal.mntools.caption
+msgctxt "tfrmprincipal.mntools.caption"
+msgid "&Tools"
 msgstr ""
 
-#: tfrmprincipal.mntersend.caption
-msgctxt "tfrmprincipal.mntersend.caption"
-msgid "&Enviar"
-msgstr ""
-
-#: tfrmprincipal.mnver.caption
-msgid "&Ver"
+#: tfrmprincipal.mnview.caption
+msgid "&View"
 msgstr ""
 
 #: tfrmsesproperty.bitcancel.caption

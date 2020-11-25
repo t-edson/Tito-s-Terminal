@@ -29,7 +29,6 @@ type
     //parámetros de conexión
     ip   : string;     //dirección IP
     tipo : TTipCon;    //tipo de conexión
-    procedure SetLanguage(lang: string);
   end;
 
 var
@@ -61,24 +60,12 @@ procedure TfrmConexRap.FormShow(Sender: TObject);
 begin
   Cancel := true;
   cmbHost.Clear;
+  cmbHost.Text := '192.168.1.1';
   optTelnet.Checked:=true;
 {  if Config.ConRecientes.Count > 0 then begin
     cmbHost.Items.AddStrings(Config.ConRecientes);
     cmbHost.ItemIndex:=0;  //selecciona al primero
   end;}
-end;
-
-procedure TfrmConexRap.SetLanguage(lang: string);
-//Rutina de traducción
-begin
-  case lowerCase(lang) of
-  'es': begin
-      Self.Caption :='Conexión Rápida';
-    end;
-  'en': begin
-      Self.Caption :='Quick Connection';
-    end;
-  end;
 end;
 
 end.

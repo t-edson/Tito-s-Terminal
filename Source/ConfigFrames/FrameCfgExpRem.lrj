@@ -1,0 +1,8 @@
+{"version":1,"strings":[
+{"hash":163005752,"name":"tfcexprem.edtpomax.text","sourcebytes":[101,100,84,112,111,77,97,120],"value":"edTpoMax"},
+{"hash":208151162,"name":"tfcexprem.label1.caption","sourcebytes":[84,105,101,109,112,111,32,109,195,161,120,105,109,111,32,100,101,32,101,115,112,101,114,97,32,97,108,32,116,101,114,109,105,110,97,108,32,40,115,101,103,41,58],"value":"Tiempo m\u00E1ximo de espera al terminal (seg):"},
+{"hash":242414446,"name":"tfcexprem.chklistdet.caption","sourcebytes":[77,111,115,116,114,97,114,32,108,105,115,116,97,32,100,101,116,97,108,108,97,100,97,32,100,101,32,97,114,99,104,105,118,111,115,46],"value":"Mostrar lista detallada de archivos."},
+{"hash":175627854,"name":"tfcexprem.chkmosocul.caption","sourcebytes":[77,111,115,116,114,97,114,32,97,114,99,104,105,118,111,115,32,111,99,117,108,116,111,115,46],"value":"Mostrar archivos ocultos."},
+{"hash":12611966,"name":"tfcexprem.chkrefdesp.caption","sourcebytes":[82,101,102,114,101,115,99,97,114,32,108,105,115,116,97,44,32,100,101,115,112,117,195,169,115,32,100,101,32,99,97,100,97,32,111,112,101,114,97,99,105,195,179,110,46],"value":"Refrescar lista, despu\u00E9s de cada operaci\u00F3n."},
+{"hash":57829020,"name":"tfcexprem.chkmosrut.caption","sourcebytes":[77,111,115,116,114,97,114,32,73,110,102,111,114,109,97,99,105,195,179,110,32,100,101,32,82,117,116,97,32,65,99,116,117,97,108],"value":"Mostrar Informaci\u00F3n de Ruta Actual"}
+]}
