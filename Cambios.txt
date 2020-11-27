@@ -4,6 +4,8 @@ Se actualiza la libería SynFacilUtils a la versión 1.22 para trabajar con la ver
 reciente de Lazarus.
 Se cambia la organización de la pantalla, creando una interfaz de lenguetas, asociando un
 terminal a un panel de comandos.
+Se eliminan las traducciones de idioma "en código" y se pasa a usar el i18m de Lazarus.
+Se deja de usar ConfigFrame y se usa ahora MiConfig.
 
 Tito's Terminal 0.7
 ===================

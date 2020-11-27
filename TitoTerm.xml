@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <VerPanCom Val="True"/>
+  <VerBHerPcom Val="True"/>
+  <VerBHerTerm Val="True"/>
+  <VerBarEst Val="True"/>
+  <TipAlineam Val="0"/>
+  <UltScript Val=""/>
+  <AbrirUltScr Val="True"/>
+  <Scripts Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8\scripts"/>
+  <Macros Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8\macros"/>
+  <Lenguajes Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8\lenguajes"/>
+  <TpoMax Val="10"/>
+  <MarLin Val="False"/>
+  <edMacros>
+    <TipLet Val="Courier New"/>
+    <TamLet Val="10"/>
+    <showVertSB Val="True"/>
+    <showHoriSB Val="True"/>
+    <cTxtNor Val="0"/>
+    <cFonEdi Val="15269864"/>
+    <cLinAct Val="65535"/>
+    <MarLinAct Val="False"/>
+    <ResPalCur Val="True"/>
+    <ResPalCFon Val="15780518"/>
+    <ResPalCTxt Val="0"/>
+    <ResPalCBor Val="15780518"/>
+    <ResPalFWord Val="False"/>
+    <VerPanVer Val="True"/>
+    <VerNumLin Val="False"/>
+    <VerMarPle Val="True"/>
+    <cFonPan Val="16777215"/>
+    <cTxtPan Val="0"/>
+    <recient Val=""/>
+  </edMacros>
+  <edRemoto>
+    <TipLet Val="Courier New"/>
+    <TamLet Val="10"/>
+    <showVertSB Val="True"/>
+    <showHoriSB Val="True"/>
+    <cTxtNor Val="0"/>
+    <cFonEdi Val="16777215"/>
+    <cLinAct Val="65535"/>
+    <MarLinAct Val="False"/>
+    <ResPalCur Val="True"/>
+    <ResPalCFon Val="15780518"/>
+    <ResPalCTxt Val="0"/>
+    <ResPalCBor Val="15780518"/>
+    <ResPalFWord Val="False"/>
+    <VerPanVer Val="True"/>
+    <VerNumLin Val="False"/>
+    <VerMarPle Val="True"/>
+    <cFonPan Val="16777215"/>
+    <cTxtPan Val="0"/>
+    <recient Val=""/>
+  </edRemoto>
+  <TpoMax2 Val="10"/>
+  <MosRut Val="True"/>
+  <ListDet Val="True"/>
+  <MosOcul Val="False"/>
+  <RefDesp Val="True"/>
+</CONFIG>
