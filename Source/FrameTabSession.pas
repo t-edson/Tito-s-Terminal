@@ -5,7 +5,7 @@ uses
   Classes, SysUtils, fgl, Forms, Controls, ExtCtrls, ComCtrls, Dialogs,
   Graphics, LCLType, LCLProc, ActnList, StdActns, Menus, StdCtrls,
   SynPluginMultiCaret, SynPluginSyncroEdit, SynFacilUtils, FormSelFuente,
-  MisUtils, MiConfigINI, MiConfigBasic, UnTerminal, TermVT, SynEdit,
+  MisUtils, MiConfigXML, MiConfigBasic, UnTerminal, TermVT, SynEdit,
   SynEditMarkupHighAll, SynEditKeyCmds, SynEditMarkup, uResaltTerm, Globales,
   FormSesProperty, FormConfig, uPreProces, uPreBasicos;
 const
@@ -22,16 +22,6 @@ type
     public
       procedure SetMark(p1, p2: TPoint);
   end;
-
-  TevRequireConnectGUI = procedure(
-      out OnChangeEditorState: TEventFile;
-//      out OnKeyUp      : TKeyEvent;
-//      out OnKeyDown    : TKeyEvent;
-//      out OnMouseDown  : TMouseEvent;
-      out OnFileOpened : TEventFile;
-      out PanCursorPos : TStatusPanel;
-      out PanLangName  : TStatusPanel
-    ) of object;
 
   {Versión de "TConsoleProc" que permite acceder al campo "panel", donde se muestra el
   estado de la conexión}
@@ -284,7 +274,7 @@ type
   public   //Manejadores de eventos
     function queryClose: boolean;
   public   //Inicialización
-    prop : TMiConfigINI;
+    prop : TMiConfigXML;
     function ShowProperties: TModalResult;
     procedure InicConect;
     procedure InicConectTelnet(ip0: string);
@@ -621,8 +611,8 @@ begin
   end;
   arc0 := SaveDialog1.FileName;
   if FileExists(arc0) then begin
-    resp := MessageDlg('', Format('El archivo %s ya existe.',[arc0]) + LineEnding +
-                  '¿Deseas sobreescribirlo?',
+    resp := MessageDlg('', Format('File %s already exists.',[arc0]) + LineEnding +
+                  '¿Overwrite?',
                   mtConfirmation, [mbYes, mbNo, mbCancel], 0);
     if (resp = mrCancel) or (resp = mrNo) then exit(false);
   end;
@@ -634,7 +624,7 @@ begin
   //Puede haber cambiado el nombre del archivo. Actualiza texto de la lengueta.
   UpdateCaption(fileName);
   //Delegamos la función de guardar históricos a la IDE
-  tabSessions.PageEvent('reg_rec_file', self, res);
+  tabSessions.PageEvent('reg_reg_file', self, res);
   //Finalmente guarda.
   if not prop.PropertiesToFile then begin
     MsgErr(prop.MsjErr);
@@ -645,14 +635,22 @@ begin
 end;
 procedure TfraTabSession.LoadFromFile;
 {Actualiza el contenido de esta sesión a partir del archivo especificado en "fileName".}
+var
+  tabSessions: TfraTabSessions;
+  res: string;
 begin
+  if not GetTabSessions(self, tabSessions) then exit;
   if not prop.FileToProperties then begin  //Accede a "fileName"
     MsgErr(prop.MsjErr);
   end;
-  if langFile<>'' then begin
-    ePCom.LoadSyntaxFromFile(langFile);   //Carga coloreado de sintaxis, actualiza menú y panel.
+  UpdatePromptProc;   //Actualiza los parámetros de detección del "prompt" en "proc".
+  UpdatePanInfoConn;  //Actualiza información de la conexión
+  //UpdatePanelState;
+  ePCom.RefreshPanCursor;  //Refresca el panel de posición del cursor.
+  if langFile<>'' then begin  //Carga coloreado de sintaxis, actualiza menú y panel.
+    ePCom.LoadSyntaxFromFile(langFile);
   end;
-  UpdatePromptProc;  //Actualiza los parámetros de detección del "prompt" en "proc".
+
   //Puede haber cambiado el nombre del archivo. Actualiza texto de la lengueta.
   UpdateCaption(fileName);
   //Actualiza controles que dependen de las propiedades.
@@ -660,6 +658,8 @@ begin
   ConfigEditor(edPCom, cfgEdPCom);       //Configura editor.
   if edTerm<>nil then edTerm.Invalidate; //Para que refresque los cambios.
   if edPCom<>nil then edPCom.Invalidate; //Para que refresque los cambios.
+  //Delegamos la función de guardar históricos a la IDE
+  tabSessions.PageEvent('reg_reg_file', self, res);
 end;
 //Campos para manejo del registro
 function TfraTabSession.StartLog(logName0: string): boolean;
@@ -721,7 +721,7 @@ var
 begin
   //Verificación del estado del proceso.
   if proc.state <> ECO_STOPPED then begin
-    rpta := MsgYesNoCancel('Hay una conexión abierta. ¿Cerrarla?');
+    rpta := MsgYesNoCancel('There is an opened connection. ¿Close?');
     if rpta in [2,3] then begin  //cancelar
       exit(false);    //sale
     end;
@@ -847,7 +847,7 @@ var
 begin
   Result := '';
   if not ConexDisponible then begin
-    Result := dic('No hay conexión disponible');
+    Result := 'Not available connection.';
     MsgExc(Result);
     exit;
   end;
@@ -862,13 +862,13 @@ begin
 //debugln('Fin envío comando: '+ com);
   //Espera hasta la aparición del "prompt"
   n := 0;
-  While Not LlegoPrompt And (n < Config.fcExpRem.TpoMax*10) do begin
+  While Not LlegoPrompt And (n < Config.TpoMax2*10) do begin
     Sleep(100);
     Application.ProcessMessages;
     Inc(n);
   end;
-  If n >= Config.fcExpRem.TpoMax*10 then begin    //Hubo desborde
-    Result := dic('Tiempo de espera agotado');
+  If n >= Config.TpoMax2*10 then begin    //Hubo desborde
+    Result := dic('Timeout');
     MsgExc(Result);
     exit;
   end else begin
@@ -879,8 +879,8 @@ begin
     edTerm.CaretY:=y2;  //posiciona como ayuda para ver si lo hizo bien
     y1 := BuscaPromptArr;  //busca al prompt anterior
     if y1 = -1 then begin
-      Result := dic('Error detectando el prompt del comando. ') +
-      dic('Probablemente deba ampliar la cantidad de líneas de la pantalla.');
+      Result := 'Error detecting command prompt. ' +
+      'Maybe you must increase the number of lines shown in the screen.';
       MsgExc(Result);
       exit;
     end;
@@ -975,7 +975,7 @@ begin
       proc.SendLn(Comando);
   teArchivo: begin
       if not FileExists(archivo) then begin
-        MsgErr('No se encuentra archivo: %s', [archivo]);
+        MsgErr('File not found: %s', [archivo]);
         exit;
       end;
       proc.SendLn(StringFromFile(archivo));
@@ -1013,9 +1013,9 @@ begin
     end;
   TCON_SSH: begin
       if Port='' then begin
-        Command:='plink -ssh ' + IP;
+        Command:='plink -ssh ' + IP + ' ';
       end else begin
-        Command:='plink -ssh '+' -P '+ Port + ' ' + IP;
+        Command:='plink -ssh -P '+ Port + ' ' + IP + ' ';
       end;
     end;
   TCON_SERIAL: begin
@@ -1133,7 +1133,7 @@ begin
 
 //  edPCom.OnSpecialLineMarkup:=@edSpecialLineMarkup;
 
-  ePCom := TSynFacilEditor.Create(edPCom,'SinNombre','sh');   //Crea Editor
+  ePCom := TSynFacilEditor.Create(edPCom,'Noname','sh');   //Crea Editor
   //ConnectToGUI;  Won't work now
 //  ePCom.OnChangeEditorState := @ChangeEditorState;  //Se debe hacer con ConnectToGUI()
   ePCom.OnEditChange := @UpdateActionsState;
@@ -1217,7 +1217,7 @@ begin
   {Crea archivo XML de configuración aquí, porque recién aquí se tiene el nombre del
   "Caption" (usado en la lengueta) y a partir de allí podemos generar un nombre del
   archivo para este frame.}
-  prop := TMiConfigINI.Create(self.Caption);   //"prop.GetFileName() será el nombre inicial del archivo.
+  prop := TMiConfigXML.Create(self.Caption);   //"prop.GetFileName() será el nombre inicial del archivo.
   f := frmSesProperty;
   //Parámetros de conexión
   prop.Asoc_Enum('tipo'   , @Tipo , SizeOf(TTipCon), [f.optTelnet,f.optSSH,f.optSerial,f.optOtro], 1);
@@ -1292,12 +1292,12 @@ begin
   //Rutina para forzar la carga de valores por defecto de las propiedades.
   tmp := fileName;     //Guarda valor.
   fileName := 'killme.tmp';        //Archivo temporal.
-  StringToFile('', 'killme.tmp');  //Ceea archivo en blanco.
+  StringToFile('<?xml version="1.0" encoding="utf-8"?><CONFIG></CONFIG>', 'killme.tmp');  //Ceea archivo en blanco.
   if not prop.FileToProperties then begin  //FileToProperties() pondrá valores por defecto, si no encuentra la clave.
     MsgErr(prop.MsjErr);
   end;
   fileName := tmp;     //Restaura.
-
+  DeleteFile('killme.tmp');  //Limpia la casa
   //Asigna evento a botón para probar comando recurrente
   f.OnTest := @TestRecurringCommand;
 
@@ -1365,20 +1365,20 @@ var
   arc0: TComponentName;
 begin
   if logName='' then begin
-    SaveDialog2.Filter := dic('Archivo de registro|*.log|Todos los archivos|*.*');
+    SaveDialog2.Filter := dic('Log file|*.log|All files|*.*');
     SaveDialog2.InitialDir:=patApp;  //busca aquí por defecto
     if not SaveDialog2.Execute then begin  //se canceló
       exit;    //se canceló
     end;
     arc0:=SaveDialog2.FileName;
     if FileExists(arc0) then begin
-      if MsgYesNoCancel('El archivo %s ya existe.' + LineEnding + '¿Deseas sobreescribirlo?',
+      if MsgYesNoCancel('File %s already exists.' + LineEnding + '¿Overwrite?',
                         [arc0]) in [2,3] then exit;
     end;
   end;
   logName := arc0;
   if not StartLog(logName) then begin
-    MsgErr('Error abriendo registro: ' + logName);
+    MsgErr('Error opening log: ' + logName);
   end;
 end;
 procedure TfraTabSession.AcFilSavSesExecute(Sender: TObject);
@@ -1443,7 +1443,7 @@ end;
 procedure TfraTabSession.AcTerDesconExecute(Sender: TObject); //desconectar
 begin
    if not proc.Close then
-     msgerr('No se puede cerrar el proceso actual.');
+     msgerr('Cannot clos the current process.');
 end;
 procedure TfraTabSession.AcTerCopPalExecute(Sender: TObject);
 const CARS = ['a'..'z','A'..'Z','0'..'9','_','-'];

@@ -11,7 +11,7 @@ uses
   Graphics, Dialogs, Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds,
   SynEditMiscClasses, LCLType, LCLProc, LCLIntf, UnTerminal, Clipbrd,
   FormConexRapida, FormConfig, FormExpRemoto, FormEditMacros, MisUtils,
-  Globales, FrameCfgComandRec, SynFacilUtils, FormEditRemoto,
+  Globales, SynFacilUtils, FormEditRemoto,
   FrameTabSessions, FrameTabSession, uPreBasicos, uPreProces, StrUtils;
 type
   TlogState = (logStopped, logRunning, logPaused);
@@ -31,15 +31,18 @@ type
     AcToolRecMac: TAction;
     acHlpHelp: TAction;
     acHlpAbout: TAction;
-    AcVerBarEst: TAction;
-    AcVerExpRem: TAction;
-    AcVerEdiRem: TAction;
-    AcVerEdiMac: TAction;
+    AcViewStatusBar: TAction;
+    AcViewRemExplor: TAction;
+    AcViewRemEdit: TAction;
+    AcViewMacEdit: TAction;
     ActionList1: TActionList;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem6: TMenuItem;
+    mnRecents: TMenuItem;
     mnAyuAyu: TMenuItem;
     mnView: TMenuItem;
     mnFile: TMenuItem;
@@ -65,7 +68,6 @@ type
     MenuItem40: TMenuItem;
     MenuItem5: TMenuItem;
     OpenDialog1: TOpenDialog;
-    SaveDialog1: TSaveDialog;
     Splitter1: TSplitter;
     StatusBar1: TStatusBar;
     Timer1: TTimer;
@@ -79,10 +81,10 @@ type
     procedure acHlpHelpExecute(Sender: TObject);
     procedure AcToolRecMacExecute(Sender: TObject);
     procedure AcToolSettExecute(Sender: TObject);
-    procedure AcVerEdiRemExecute(Sender: TObject);
-    procedure AcVerBarEstExecute(Sender: TObject);
-    procedure AcVerEdiMacExecute(Sender: TObject);
-    procedure AcVerExpRemExecute(Sender: TObject);
+    procedure AcViewRemEditExecute(Sender: TObject);
+    procedure AcViewStatusBarExecute(Sender: TObject);
+    procedure AcViewMacEditExecute(Sender: TObject);
+    procedure AcViewRemExplorExecute(Sender: TObject);
     procedure edPComSpecialLineMarkup(Sender: TObject; Line: integer;
       var Special: boolean; Markup: TSynSelectedColor);
     procedure UpdateHeader;
@@ -109,7 +111,6 @@ type
     procedure AbrirSesion(fileSession: string);
     procedure ConfiguraEntorno;
     procedure TabSessionsPageEvent(event: string; page: TObject; out res: string);
-    procedure InitMenuLanguages(menLanguage0: TMenuItem; LangPath0: string);
     procedure itemAbreComando(Sender: TObject);
     procedure itemAbreSesion(Sender: TObject);
     procedure MostrarBarEst(visibilidad: boolean);
@@ -128,8 +129,8 @@ type
     procedure SetCurLineDelimSend(delim: TUtLineDelSend);
     procedure SetCurOther(txt: string);
   private  //Manejo de menús recientes
-    mnRecents   : TMenuItem;  //Menú de archivos recientes
-    RecentFiles : TStringList;  //Lista de archivos recientes
+//    mnRecents   : TMenuItem;  //Menú de archivos recientes
+//    RecentFiles : TStringList;  //Lista de archivos recientes
     MaxRecents  : integer;    //Máxima cantidad de archivos recientes
     procedure RecentClick(Sender: TObject);
     procedure ActualMenusReciente(Sender: TObject);
@@ -152,30 +153,6 @@ resourcestring
   MSG_ALLFILES = 'All files';
 
 { TfrmPrincipal }
-procedure TfrmPrincipal.InitMenuLanguages(menLanguage0: TMenuItem; LangPath0: string);
-//Inicia un menú con la lista de archivos XML (que representan a lenguajes) que hay
-//en una carpeta en particular y les asigna un evento.
-var
-  Hay: Boolean;
-  SR : TSearchRec;
-  mnLanguages: TMenuItem;
-  LangPath: String;
-begin
-//  if menLanguage0 = nil then exit;
-//  mnLanguages := menLanguage0;  //guarda referencia a menú
-//  LangPath := LangPath0;        //guarda ruta
-//  if (LangPath<>'') and (LangPath[length(LangPath)] <> DirectorySeparator) then
-//     LangPath+=DirectorySeparator;
-//  //configura menú
-//  mnLanguages.Caption:= dic('&Lenguajes');
-//  //explora archivos
-//  Hay := FindFirst(LangPath + '*.xml', faAnyFile - faDirectory, SR) = 0;
-//  while Hay do begin
-//     //encontró archivo
-//    AddItemToMenu(mnLanguages, '&'+ChangeFileExt(SR.name,''), @DoSelectLanguage);
-//    Hay := FindNext(SR) = 0;
-//  end;
-end;
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
   ticComRec  := 0;
@@ -193,6 +170,7 @@ begin
   TabSessions.Align := alClient;
   //Manejador de todos los eventos de una página
   TabSessions.OnPageEvent := @TabSessionsPageEvent;
+
 end;
 procedure TfrmPrincipal.FormDestroy(Sender: TObject);
 begin
@@ -206,6 +184,7 @@ begin
 end;
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
+  InitMenuRecents(mnRecents, Config.RecentFiles, 8);
   TranslateMsgs := true;  //activa la traducción en los mensajes
   frmEditMacros.Init(TabSessions);
   Caption := NOM_PROG + ' ' + VER_PROG;
@@ -242,11 +221,6 @@ procedure TfrmPrincipal.edPComSpecialLineMarkup(Sender: TObject; Line: integer;
 begin
 //vacío
 end;
-//procedure TfrmPrincipal.PopupMenu1Popup(Sender: TObject);  //abre menú contextual
-////prepara el menú de "lenguajes", en el menú contextual
-//begin
-//  CopiarMemu(mnLenguajes, mnPopLeng);
-//end;
 
 /////////////// Funciones para manejo de macros///////////////
 procedure TfrmPrincipal.mnSesionesAlmClick(Sender: TObject);
@@ -257,12 +231,12 @@ end;
 procedure TfrmPrincipal.mnEjecMacroClick(Sender: TObject);
 begin
   mnEjecMacro.Clear;
-  LeeArchEnMenu(config.fcRutArc.macros + DirectorySeparator +'*.ttm', mnEjecMacro,@itemEjecMacro);
+  LeeArchEnMenu(config.macros + DirectorySeparator +'*.ttm', mnEjecMacro,@itemEjecMacro);
 end;
 procedure TfrmPrincipal.mnAbrMacroClick(Sender: TObject);
 begin
   mnAbrMacro.Clear;
-  LeeArchEnMenu(config.fcRutArc.macros + DirectorySeparator +'*.ttm', mnAbrMacro,@itemAbreMacro);
+  LeeArchEnMenu(config.macros + DirectorySeparator +'*.ttm', mnAbrMacro,@itemAbreMacro);
 end;
 procedure TfrmPrincipal.AbrirSesion(fileSession: string);
 //Abre una sesión
@@ -305,18 +279,18 @@ procedure TfrmPrincipal.itemAbreComando(Sender: TObject);
 var
   tmp: String;
 begin
-  tmp := config.fcRutArc.scripts + DirectorySeparator + TMenuItem(Sender).Caption;
+  tmp := config.scripts + DirectorySeparator + TMenuItem(Sender).Caption;
   //ePCom.LoadFile(tmp);
 end;
 procedure TfrmPrincipal.itemEjecMacro(Sender: TObject);
 //Ejecuta la macro elegida
 begin
-  frmEditMacros.Ejecutar(config.fcRutArc.macros + DirectorySeparator + TMenuItem(Sender).Caption);
+  frmEditMacros.Ejecutar(config.macros + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
 procedure TfrmPrincipal.itemAbreMacro(Sender: TObject);
 begin
   frmEditMacros.Show;
-  frmEditMacros.Abrir(config.fcRutArc.macros + DirectorySeparator + TMenuItem(Sender).Caption);
+  frmEditMacros.Abrir(config.macros + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
 procedure TfrmPrincipal.ConfiguraEntorno;
 //Configura el entorno (IDE) usando variables globales
@@ -437,8 +411,8 @@ begin
      res := MSG_FILE_DES + '|*' + MSG_FILE_EXT + '|' +
             MSG_ALLFILES + '|*.*'
   end;
-  'reg_rec_file': begin  //Se pide registrar archivo en el histórico
-    //AddRecentFile(pag.FileName);
+  'reg_reg_file': begin  //Se pide registrar archivo en el histórico
+    AddRecentFile(pag.FileName);
   end;
   'req_new_page': begin  //Se pide agregar una nueva página. Desde el menú de las lenguetas.
      AcFilNewSesExecute(self);
@@ -467,7 +441,7 @@ procedure TfrmPrincipal.MostrarBarEst(visibilidad:boolean );
 //Solo por esta función se debe cambiar la visibilidad de la barra de estado
 begin
    StatusBar1.Visible:=visibilidad;
-   AcVerBarEst.Checked:=visibilidad;
+   AcViewStatusBar.Checked:=visibilidad;
    Config.VerBarEst :=visibilidad; //Actualiza variable global
    Config.escribirArchivoIni; //guarda cambio
 end;
@@ -534,10 +508,12 @@ procedure TfrmPrincipal.ActualMenusReciente(Sender: TObject);
 recientemente. }
 var
   i: Integer;
+  RecentFiles: TStringList;
 begin
+  RecentFiles := Config.RecentFiles;
   if mnRecents = nil then exit;
   if RecentFiles = nil then exit;
-  //proteciión
+  //Protección
   if RecentFiles.Count = 0 then begin
     mnRecents[0].Caption := MSG_NOFILES;
     mnRecents[0].Enabled:=false;
@@ -563,7 +539,9 @@ procedure TfrmPrincipal.AddRecentFile(arch: string);
 //Agrega el nombre de un archivo reciente
 var hay: integer; //bandera-índice
     i: integer;
+    RecentFiles: TStringList;
 begin
+  RecentFiles := Config.RecentFiles;
   if RecentFiles = nil then exit;
   //verifica si ya existe
   hay := -1;   //valor inicial
@@ -575,7 +553,7 @@ begin
     RecentFiles.Delete(hay);     //lo elimina
     RecentFiles.Insert(0,arch);  //lo agrega al inicio
   end;
-  while RecentFiles.Count>MaxRecents do  //mantiene tamaño máximo
+  while RecentFiles.Count>MaxRecents do  //Mantiene tamaño máximo
     RecentFiles.Delete(MaxRecents);
 end;
 procedure TfrmPrincipal.LoadLastFileEdited;
@@ -606,7 +584,7 @@ var
   i: Integer;
 begin
   mnRecents := menRecents0;
-  RecentFiles := RecentList;  //gaurda referencia a lista
+  Config.RecentFiles := RecentList;  //gaurda referencia a lista
   MaxRecents := MaxRecents0;
   //configura menú
   mnRecents.OnClick:=@ActualMenusReciente;
@@ -642,7 +620,7 @@ end;
 procedure TfrmPrincipal.AcFilNewWinExecute(Sender: TObject);
 //Abre una nueva ventana de la aplicación
 begin
-   Exec('TTerm.exe','');
+   Exec('TitoTerm.exe','');
 end;
 procedure TfrmPrincipal.AcFilNewSesExecute(Sender: TObject);  //Genera una nueva sesión
 var
@@ -695,19 +673,19 @@ begin
   Close;
 end;
 
-procedure TfrmPrincipal.AcVerBarEstExecute(Sender: TObject);
+procedure TfrmPrincipal.AcViewStatusBarExecute(Sender: TObject);
 begin
-  MostrarBarEst(not AcVerBarEst.Checked);
+  MostrarBarEst(not AcViewStatusBar.Checked);
 end;
-procedure TfrmPrincipal.AcVerEdiMacExecute(Sender: TObject);
+procedure TfrmPrincipal.AcViewMacEditExecute(Sender: TObject);
 begin
   frmEditMacros.Show;
 end;
-procedure TfrmPrincipal.AcVerExpRemExecute(Sender: TObject);
+procedure TfrmPrincipal.AcViewRemExplorExecute(Sender: TObject);
 begin
   frmExpRemoto.Show;
 end;
-procedure TfrmPrincipal.AcVerEdiRemExecute(Sender: TObject);
+procedure TfrmPrincipal.AcViewRemEditExecute(Sender: TObject);
 begin
   frmEditRemoto.Show;
 end;

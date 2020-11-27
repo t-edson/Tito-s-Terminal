@@ -131,7 +131,7 @@ type
 
 implementation
 uses
-  FormPrincipal, FormConfig, FrameCfgConex, UnTerminal;
+  FormPrincipal, FormConfig, UnTerminal;
 
 { TGenCod }
 procedure TGenCod.LoadResInt(val: int64; catOp: TCatOperan);
@@ -187,7 +187,7 @@ procedure TGenCod.Cod_StartProgram;
 //Codifica la parte inicial del programa
 begin
   sp := 0;  //inicia pila
-  Timeout := config.fcMacros.tpoMax;   //inicia variable
+  Timeout := config.tpoMax;   //inicia variable
   stop := false;
   //////// variables predefinidas ////////////
   CreateVariable('timeout', 'int');
@@ -238,7 +238,7 @@ begin
 //  res.used:=false;  //No hay obligación de que la asignación devuelva un valor.
   if Upcase(p1^.rVar.name) = 'TIMEOUT' then begin
     //variable interna
-    config.fcMacros.TpoMax := p2^.ReadInt;
+    config.TpoMax := p2^.ReadInt;
   end else if Upcase(p1^.rVar.name) = 'curPORT' then begin
     //Variable interna
     frmPrincipal.SetCurPort(p2^.ReadInt);

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
   LCLProc, Menus, ComCtrls, ActnList, StdActns, MisUtils, SynFacilUtils,
-  UnTerminal, Parser, Globales, FrameTabSessions, FrameCfgConex;
+  UnTerminal, Parser, Globales, FrameTabSessions;
 
 type
 
@@ -194,7 +194,7 @@ end;
 procedure TfrmEditMacros.acFilOpenExecute(Sender: TObject);
 begin
   OpenDialog1.Filter:='Tito''s Telnet Macro |*.ttm|Todos los archivos|*.*';
-  OpenDialog1.InitialDir:=config.fcRutArc.macros;  //busca aquí por defecto
+  OpenDialog1.InitialDir:=config.macros;  //busca aquí por defecto
   edit.OpenDialog(OpenDialog1);
 end;
 procedure TfrmEditMacros.acFilSaveExecute(Sender: TObject);
@@ -203,7 +203,7 @@ begin
 end;
 procedure TfrmEditMacros.acFilSaveAsExecute(Sender: TObject);
 begin
-  SaveDialog1.InitialDir:=config.fcRutArc.macros;  //busca aquí por defecto
+  SaveDialog1.InitialDir:=config.macros;  //busca aquí por defecto
   edit.SaveAsDialog(SaveDialog1);
 end;
 procedure TfrmEditMacros.acFilExitExecute(Sender: TObject);

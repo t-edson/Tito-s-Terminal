@@ -48,8 +48,8 @@ type
     procedure Panel1EndDrag(Sender, Target: TObject; X, Y: Integer);
     procedure RefreshTabs;
     procedure SetTabIndex(AValue: integer);
-    procedure DibLeng(edi: TfraTabSession; coltex: TColor; Activo: boolean;
-      txt: string);   //dibuja una lengueta
+    procedure DibLeng(x1, x2: integer; coltex: TColor; Activo: boolean; txt: string
+      );   //dibuja una lengueta
     procedure Panel1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Panel1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer
@@ -90,14 +90,11 @@ type
     El parámetro "res" es la respuesta que se da al evento.}
     OnPageEvent: procedure(event: string; page: TObject; out res: string) of object;
     procedure PageEvent(event: string; page: TObject; out res: string);
-  public  //Administración de archivos
+  public  //Administración de páginas
     tmpPath: string;  //ruta usada para crear archivos temporales para los editores
     function AddPage(ext: string): TfraTabSession;
-    function LoadFile(fileName: string): boolean;
     function ClosePage: boolean;
     function CloseAll(out lstClosedFiles: string): boolean;
-  public   //Acceso a disco
-    function OpenDialog: boolean;
   public   //Inicialización
     procedure UpdateSynEditConfig;
     procedure UpdateSynEditCompletion;
@@ -110,6 +107,7 @@ implementation
 {$R *.lfm}
 const
   SEPAR_TABS = 2;  //Separación adicional, entre pestañas
+  WIDTH_ADD_TAB = 40;  //Ancho de botón "Agregar página"
 resourcestring
   MSG_PASFILES = 'Pascal Files';
   MSG_PASEXTEN = '*.pas';
@@ -158,16 +156,15 @@ begin
   RefreshTabs;
 end;
 //Métodos pàra el dibujo de lenguetas
-procedure TfraTabSessions.DibLeng(edi: TfraTabSession; coltex: TColor; Activo: boolean;
+procedure TfraTabSessions.DibLeng(x1, x2: integer; coltex: TColor; Activo: boolean;
   txt: string);
-var
-  x1, x2: integer;
-
+{Dibuja la lengueta en la posición indicada. Si "txt" es '+', se dibuja la lengueta
+para agregar página.}
   procedure GetX1X2(const xrmin: integer; y: integer; out xr1, xr2: integer);
   {devuelve las coordenadas x1 y x2 de la línea "y" de la lengueta}
   begin
     case y of
-    0: begin  //priemra fila
+    0: begin  //Primera fila
         xr1 := x1+4;
         xr2 := xrmin -4;
       end;
@@ -195,14 +192,13 @@ var
   colBorde: TColor;
 begin
   //Lee coordenadas horizontales
-  x1 := edi.x1;
-  x2 := edi.x1 + edi.tabWidth;
   alto := panHeader.Height;
   y1 := 0;
   y2 := y1 + alto;
   //Inicia dibujo
   cv := panHeader.canvas;
   cv.Font.Size:= FONT_TAB_SIZE;
+  cv.Font.Bold := false;
   cv.Font.Color := clBlack;
   cv.Font.Color := coltex;   //Color de texto
   //Fija Línea y color de fondo
@@ -210,8 +206,8 @@ begin
   cv.Pen.Width := 1;
   if Activo then cv.Pen.Color := clWhite else cv.Pen.Color := clMenu;
   //Dibuja fondo de lengueta. El dibujo es línea por línea
-  xrmin := x2 - (alto div 4);  //corrige inicio, para que el punto medio de la pendiente,  caiga en x2
-  xrmin2 := x2 + (alto div 4)+1;  //corrige inicio, para que el punto medio de la pendiente,  caiga en x2
+  xrmin := x2 - (alto div 4);    //Corrige inicio, para que el punto medio de la pendiente, caiga en x2.
+  xrmin2 := x2 + (alto div 4)+1; //Corrige inicio, para que el punto medio de la pendiente, caiga en x2.
   for i:=0 to alto-1 do begin
     GetX1X2(xrmin, i, xr1, xr2);
     cv.Line(xr1, i, xr2, i);
@@ -238,20 +234,32 @@ begin
   GetX1X2(xrmin, 3, xr1, xr2);
   cv.Pixels[xr1,3] := colBorde;
   cv.Pixels[xr2,3] := colBorde;
-  //Dibuja ícono
-  ImgCompletion.Draw(cv, x1+4, 6, 1);
-  //Elimina objetos y pone texto
-  r.Top := y1;
-  r.Bottom := y2;
-  r.Left := x1+20;  //Deja espacio para el ícono
-  r.Right := x2-7;  //deja espacio para el botón de cierre
-  cv.TextRect(r, x1+23, 4 ,txt);
+  if txt = '+' then begin  //Lengueta para agregar
+    //Elimina objetos y pone texto
+    r.Top := y1;
+    r.Bottom := y2;
+    r.Left := x1+8;  //Deja espacio para el ícono
+    r.Right := x2-7;  //Deja espacio para el botón de cierre
+    cv.Font.Size:= 12;
+    cv.Font.Bold := true;
+    cv.TextRect(r, x1+13, 0, '+');
+  end else begin  //Lengueta normal
+    //Dibuja ícono
+    ImgCompletion.Draw(cv, x1+4, 6, 1);
+    //Elimina objetos y pone texto
+    r.Top := y1;
+    r.Bottom := y2;
+    r.Left := x1+20;  //Deja espacio para el ícono
+    r.Right := x2-7;  //Deja espacio para el botón de cierre
+    cv.TextRect(r, x1+23, 4 ,txt);
+  end;
 end;
 procedure TfraTabSessions.Panel1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var
   x2, i: Integer;
   edi: TfraTabSession;
+  res: string;
 begin
   {Se asuma que las lenguetas ya tienen su coordenada x1, actualizada, porque ya
   han sido dibujadas, así que no llamaremos a UpdateX1CoordTabs.}
@@ -274,6 +282,13 @@ begin
       end;
       exit;
     end;
+  end;
+  //Verifica si se pulsó en el botón '+'
+  if pages.Count = 0 then x2 := xIniTabs;  //Por si no se actualizó "x2".
+  if (X>x2) and (X<x2 + WIDTH_ADD_TAB) then begin
+//    MsgBox('Add');
+    PageEvent('req_new_page', nil, res);
+    SetFocus;
   end;
 end;
 procedure TfraTabSessions.Panel1MouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -347,15 +362,15 @@ procedure TfraTabSessions.UpdateX1CoordTabs;
 "xIniTabs". El valor x1, representa la coordenada en que se dibuajaría la lengueta.}
 var
   i, x1: integer;
-  edi: TfraTabSession;
+  pag: TfraTabSession;
 begin
   {Este algoritmo debe ser igual a Panel1Paint(), para que no haya inconsistencias.}
   x1 := xIniTabs;
   for i := 0 to pages.Count-1 do begin
-    edi := pages[i];
-    edi.x1 := x1;   //Actualiza coordenada
+    pag := pages[i];
+    pag.x1 := x1;   //Actualiza coordenada
     //Calcula siguiente coordenada
-    x1 := x1 + edi.tabWidth + SEPAR_TABS;
+    x1 := x1 + pag.tabWidth + SEPAR_TABS;
   end;
 end;
 procedure TfraTabSessions.MakeActiveTabVisible;
@@ -380,7 +395,7 @@ begin
 end;
 procedure TfraTabSessions.Panel1Paint(Sender: TObject);
 var
-  i, x1: Integer;
+  i, x1, xfin: Integer;
   cv: TCanvas;
   pag: TfraTabSession;
 begin
@@ -391,14 +406,25 @@ begin
     pag := pages[i];
     if i <> TabIndex then begin
       //Dibuja todo menos al activo, lo deja para después.
-      DibLeng(pag, clBlack, false, pag.Caption);
+      DibLeng(pag.x1, pag.x1 + pag.tabWidth, clBlack, false, pag.Caption);
     end;
   end;
+  //Dibuja lengueta "+"
+  if TabIndex=-1 then begin
+    //No hay página
+    xfin := xIniTabs;
+  end else begin
+    pag := pages[pages.Count-1];  //ültima página
+    xfin := pag.x1 + pag.tabWidth;
+  end;
+  DibLeng(xfin, xfin + WIDTH_ADD_TAB, clBlack, false, '+');
+
   //Dibuja al final al activo, para que aparezca encima
   if TabIndex<>-1 then begin
     pag := pages[TabIndex];
-    DibLeng(pag, clBlack, true, pag.Caption);
+    DibLeng(pag.x1, pag.x1 + pag.tabWidth, clBlack, true, pag.Caption);
   end;
+
   //Dibuja la marca de movimiento de lengüeta
   if (tabSelec>=0) and (tabSelec<pages.Count) then begin
     pag := pages[tabSelec];
@@ -585,42 +611,6 @@ begin
   if pages[TabIndex].Visible then begin  //Si el "frame" es visible.
     pages[TabIndex].edPCom.SetFocus;
   end;
-end;
-//Administración de archivos
-function TfraTabSessions.LoadFile(fileName: string): boolean;
-//Carga un archivo en el editor. Si encuentra algún error. Devuelve FALSE.
-var
-  ed: TfraTabSession;
-begin
-  Result := true;   //por defecto
-//  if SelectEditor(filename) then exit; //Ya estaba abierto
-//  ed := AddPage('');   //Dispara OnSelecEditor
-  if Pos(DirectorySeparator, fileName) = 0 then begin
-    //Es ruta relativa, la vuelve abosulta
-    fileName := patApp + fileName;
-  end;
-  //ed.ePCom.LoadFile(fileName);
-  if ed.ePCom.Error='' then begin
-    //AddRecentFile(fileName);
-  end else begin
-    Result := false;  //Hubo error
-  end;
-  ed.Caption := ExtractFileName(fileName);
-  UpdateTabWidth(ed);  //Cambia el título Hay que actualizar ancho de lengueta.
-  {Dispara otra vez, para actualizar bien el nombre del archivo, en el Caption de la
-  ventana principal.}
-  if OnSelectEditor<>nil then OnSelectEditor;
-end;
-//Acceso a disco
-function TfraTabSessions.OpenDialog: boolean;
-//Muestra el cuadro de diálogo para abrir un archivo. Si hay error devuelve FALSE.
-var arc0: string;
-begin
-  OpenDialog1.Filter := MSG_PASFILES + '|' + MSG_PASEXTEN + '|' + MSG_ALLFILES + '|*.*';
-  if not OpenDialog1.Execute then exit(true);    //se canceló
-  arc0 := OpenDialog1.FileName;
-  LoadFile(arc0);  //Legalmente debería darle en UTF-8.
-  Result := true;  //Sale sin incidencias.
 end;
 function TfraTabSessions.ClosePage: boolean;
 {Cierra la página actual.

@@ -4,7 +4,7 @@ unit FormSesProperty;
 interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, Buttons, Spin, SynEditMarkup, SynEdit;
+  ExtCtrls, Buttons, Spin, Globales, SynEditMarkup, SynEdit;
 
 type
   TTipEnvio = (teComando, teArchivo);
@@ -139,7 +139,6 @@ type
     procedure optTelnetChange(Sender: TObject);
     procedure TreeView1Click(Sender: TObject);
   private
-    function IdFromTTreeNode(node: TTreeNode): string;
     procedure Ocultar;
   public
     OnTest : procedure of object;
@@ -178,19 +177,6 @@ begin
   RadioGroup1.ItemIndex:=2;
 end;
 
-function TfrmSesProperty.IdFromTTreeNode(node: TTreeNode): string;
-//Returns an ID with indication of the position of a TTreeNode'.
-//It has the form: 1, 1.1, 1.2. Only works for two levels.
-var
-  nivel: Integer;
-begin
-  nivel := node.Level;
-  if nivel = 1 then  //de dos niveles
-    Result := IntToStr(node.Parent.Index+1) + '.' +
-             IntToStr(node.Index+1)
-  else  //de un nivel
-    Result := IntToStr(node.Index+1);
-end;
 procedure TfrmSesProperty.TreeView1Click(Sender: TObject);
 begin
   if TreeView1.Selected = nil then exit;
@@ -317,6 +303,7 @@ end;
 procedure TfrmSesProperty.Exec(connected: boolean);
 {Muestra el formulario actual.}
 begin
+  TabGeneral.Show;  //Inicia con esta página
   if connected then begin
     TabGeneral.Enabled := false;
   end else begin

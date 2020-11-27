@@ -58,168 +58,182 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: tfcexprem.chklistdet.caption
+#: tconfig.chklistdet.caption
+msgctxt "tconfig.chklistdet.caption"
 msgid "Show detailed list of files."
 msgstr ""
 
-#: tfcexprem.chkmosocul.caption
-msgid "Show hidden files"
-msgstr ""
-
-#: tfcexprem.chkmosrut.caption
-msgid "Show currente path"
-msgstr ""
-
-#: tfcexprem.chkrefdesp.caption
-msgid "Refresh list, after any operation"
-msgstr ""
-
-#: tfcexprem.edtpomax.text
-msgctxt "tfcexprem.edtpomax.text"
-msgid "edTpoMax"
-msgstr ""
-
-#: tfcexprem.label1.caption
-msgid "Time for waiting terminal (seconds):"
-msgstr ""
-
-#: tfcmacros.chkmarlin.caption
+#: tconfig.chkmarlin.caption
+msgctxt "tconfig.chkmarlin.caption"
 msgid "Highlight line that is running."
 msgstr ""
 
-#: tfcmacros.edtpomax.text
-msgctxt "tfcmacros.edtpomax.text"
-msgid "edTpoMax"
+#: tconfig.chkmosocul.caption
+msgctxt "tconfig.chkmosocul.caption"
+msgid "Show hidden files"
 msgstr ""
 
-#: tfcmacros.label1.caption
-msgid "Timeout. (seconds)"
+#: tconfig.chkmosrut.caption
+msgctxt "tconfig.chkmosrut.caption"
+msgid "Show currente path"
 msgstr ""
 
-#: tfracfgrutarc.chkopenlast.caption
+#: tconfig.chkopenlast.caption
+msgctxt "tconfig.chkopenlast.caption"
 msgid "&Open last edited file on start"
 msgstr ""
 
-#: tfracfgrutarc.lblrutleng.caption
+#: tconfig.chkrefdesp.caption
+msgctxt "tconfig.chkrefdesp.caption"
+msgid "Refresh list, after any operation"
+msgstr ""
+
+#: tconfig.edtpomax.text
+msgctxt "tconfig.edtpomax.text"
+msgid "edTpoMax"
+msgstr ""
+
+#: tconfig.edtpomax1.text
+msgid "edTpoMax1"
+msgstr ""
+
+#: tconfig.label1.caption
+msgctxt "tconfig.label1.caption"
+msgid "Timeout. (seconds)"
+msgstr ""
+
+#: tconfig.label2.caption
+msgctxt "tconfig.label2.caption"
+msgid "Time for waiting terminal (seconds):"
+msgstr ""
+
+#: tconfig.lblrutleng.caption
+msgctxt "tconfig.lblrutleng.caption"
 msgid "&Lenguajes path:"
 msgstr ""
 
-#: tfracfgrutarc.lblrutmac.caption
+#: tconfig.lblrutmac.caption
+msgctxt "tconfig.lblrutmac.caption"
 msgid "&Macros path:"
 msgstr ""
 
-#: tfracfgrutarc.lblrutscript.caption
+#: tconfig.lblrutscript.caption
+msgctxt "tconfig.lblrutscript.caption"
 msgid "&Scripts path:"
 msgstr ""
 
-#: tfraconexion.cmbserport.text
-msgctxt "tfraconexion.cmbserport.text"
-msgid "COM1"
+#: tconfig.tabfilepath.caption
+msgid "TabFilePath"
 msgstr ""
 
-#: tfraconexion.lblip.caption
-msgctxt "tfraconexion.lblip.caption"
-msgid "IP:"
+#: tconfig.tabgeneral.caption
+msgid "TabGeneral"
 msgstr ""
 
-#: tfraconexion.lblotro.caption
-msgctxt "tfraconexion.lblotro.caption"
-msgid "Aplicativo:"
+#: tconfig.tabmacedit.caption
+msgid "TabMacEdit"
 msgstr ""
 
-#: tfraconexion.lblport.caption
-msgctxt "tfraconexion.lblport.caption"
-msgid "Puerto:"
+#: tconfig.tabmacsett.caption
+msgid "TabMacSett"
 msgstr ""
 
-#: tfraconexion.lblsercfg.caption
-msgctxt "tfraconexion.lblsercfg.caption"
-msgid "Configuración:"
+#: tconfig.tabremedit.caption
+msgid "TabRemEdit"
 msgstr ""
 
-#: tfraconexion.lblserport.caption
-msgctxt "tfraconexion.lblserport.caption"
-msgid "Puerto Serial:"
+#: tconfig.tabremexpl.caption
+msgid "TabRemExpl"
 msgstr ""
 
-#: tfraconexion.optotro.caption
-msgctxt "tfraconexion.optotro.caption"
-msgid "&Otro"
+#: tfracfgsynedit.chkfullword.caption
+msgid "Full Word"
 msgstr ""
 
-#: tfraconexion.optserial.caption
-msgctxt "tfraconexion.optserial.caption"
-msgid "S&erial"
+#: tfracfgsynedit.chkhighcurlin.caption
+msgid "Highlight current line:"
 msgstr ""
 
-#: tfraconexion.optssh.caption
-msgctxt "tfraconexion.optssh.caption"
-msgid "&SSH"
+#: tfracfgsynedit.chkhighcurword.caption
+msgid "Highlight current word"
 msgstr ""
 
-#: tfraconexion.opttelnet.caption
-msgctxt "tfraconexion.opttelnet.caption"
-msgid "&Telnet"
+#: tfracfgsynedit.chkverbardesh.caption
+msgid "&Horizontal Scrollbar"
 msgstr ""
 
-#: tfraconexion.radiogroup1.caption
-msgctxt "tfraconexion.radiogroup1.caption"
-msgid "Salto de línea (A enviar)"
+#: tfracfgsynedit.chkverbardesv.caption
+msgid "&Vertical Scrollbar"
 msgstr ""
 
-#: tfraconexion.radiogroup2.caption
-msgctxt "tfraconexion.radiogroup2.caption"
-msgid "Salto de Línea (A recibir)"
+#: tfracfgsynedit.chkvermarple.caption
+msgid "Show folding marks"
 msgstr ""
 
-#: tfraconexion.txtport.text
-msgctxt "tfraconexion.txtport.text"
-msgid "23"
+#: tfracfgsynedit.chkvernumlin.caption
+msgid "Show líne number"
 msgstr ""
 
-#: tfraconexion.txtsercfg.text
-msgctxt "tfraconexion.txtsercfg.text"
-msgid "9600,8,n,1,n"
+#: tfracfgsynedit.chkverpanver.caption
+msgid "Gutter"
 msgstr ""
 
-#: tfradetprompt.chkdetecprompt.caption
-msgctxt "tfradetprompt.chkdetecprompt.caption"
-msgid "Detección de Prompt"
+#: tfracfgsynedit.cmbtipoletra.text
+msgctxt "tfracfgsynedit.cmbtipoletra.text"
+msgid "cmbTipoLetra"
 msgstr ""
 
-#: tfradetprompt.groupbox1.caption
-msgctxt "tfradetprompt.groupbox1.caption"
-msgid "                            "
+#: tfracfgsynedit.groupbox1.caption
+msgid "   "
 msgstr ""
 
-#: tfradetprompt.label1.caption
-msgctxt "tfradetprompt.label1.caption"
-msgid "Inicio Prompt:"
+#: tfracfgsynedit.groupbox2.caption
+msgid "              "
 msgstr ""
 
-#: tfradetprompt.label2.caption
-msgctxt "tfradetprompt.label2.caption"
-msgid "Fin Prompt:"
+#: tfracfgsynedit.label1.caption
+msgctxt "tfracfgsynedit.label1.caption"
+msgid "Color:"
 msgstr ""
 
-#: tfradetprompt.radiobutton1.caption
-msgctxt "tfradetprompt.radiobutton1.caption"
-msgid "Correspondencia Exacta"
+#: tfracfgsynedit.label10.caption
+msgid "Back color:"
 msgstr ""
 
-#: tfradetprompt.radiobutton2.caption
-msgctxt "tfradetprompt.radiobutton2.caption"
-msgid "Al inicio de la línea."
+#: tfracfgsynedit.label11.caption
+msgid "Text color:"
 msgstr ""
 
-#: tfradetprompt.radiobutton3.caption
-msgctxt "tfradetprompt.radiobutton3.caption"
-msgid "Al final de la línea."
+#: tfracfgsynedit.label12.caption
+msgid "Frame color:"
 msgstr ""
 
-#: tfradetprompt.radiobutton4.caption
-msgctxt "tfradetprompt.radiobutton4.caption"
-msgid "En cualquier parte de la línea."
+#: tfracfgsynedit.label2.caption
+msgctxt "tfracfgsynedit.label2.caption"
+msgid "Back Color:"
+msgstr ""
+
+#: tfracfgsynedit.label3.caption
+msgctxt "tfracfgsynedit.label3.caption"
+msgid "Text Color:"
+msgstr ""
+
+#: tfracfgsynedit.label6.caption
+msgid "Font name:"
+msgstr ""
+
+#: tfracfgsynedit.label7.caption
+msgid "Font Size:"
+msgstr ""
+
+#: tfracfgsynedit.label8.caption
+msgctxt "tfracfgsynedit.label8.caption"
+msgid "Back Color:"
+msgstr ""
+
+#: tfracfgsynedit.label9.caption
+msgctxt "tfracfgsynedit.label9.caption"
+msgid "Text Color:"
 msgstr ""
 
 #: tfraexpremoto.acconfig.caption
@@ -292,76 +306,6 @@ msgstr ""
 #: tfraexpremoto.menuitem4.hint
 msgctxt "tfraexpremoto.menuitem4.hint"
 msgid "Refresca la lista"
-msgstr ""
-
-#: tfrapancom.chkcodfolding.caption
-msgctxt "tfrapancom.chkcodfolding.caption"
-msgid "&Plegado de Código"
-msgstr ""
-
-#: tfrapancom.chkcompletcode.caption
-msgctxt "tfrapancom.chkcompletcode.caption"
-msgid "Completado Automático de Código"
-msgstr ""
-
-#: tfrapancom.chksavebefsend.caption
-msgctxt "tfrapancom.chksavebefsend.caption"
-msgid "Guardar antes de enviar contenido"
-msgstr ""
-
-#: tfrapancom.chksendlnctrenter.caption
-msgctxt "tfrapancom.chksendlnctrenter.caption"
-msgid "Enviar línea con <Ctrl>+<Enter>"
-msgstr ""
-
-#: tfrapancom.chksendlnenter.caption
-msgctxt "tfrapancom.chksendlnenter.caption"
-msgid "Enviar línea con <Enter>"
-msgstr ""
-
-#: tfrapancom.chkusarprep.caption
-msgctxt "tfrapancom.chkusarprep.caption"
-msgid "Usar Preprocesador PreSQL"
-msgstr ""
-
-#: tfrapantterm.chkcursigprmpt.caption
-msgctxt "tfrapantterm.chkcursigprmpt.caption"
-msgid "Cursor de Terminal sigue a Prompt"
-msgstr ""
-
-#: tfrapantterm.chkinterdirec.caption
-msgctxt "tfrapantterm.chkinterdirec.caption"
-msgid "&Interceptar teclas direccionales"
-msgstr ""
-
-#: tfrapantterm.combobox1.text
-msgctxt "tfrapantterm.combobox1.text"
-msgid "VT100"
-msgstr ""
-
-#: tfrapantterm.combobox2.text
-msgctxt "tfrapantterm.combobox2.text"
-msgid "80*25"
-msgstr ""
-
-#: tfrapantterm.label1.caption
-msgctxt "tfrapantterm.label1.caption"
-msgid "Máximo Núm. Líneas :"
-msgstr ""
-
-#: tfrapantterm.label2.caption
-msgctxt "tfrapantterm.label2.caption"
-msgid "Tipo de terminal:"
-msgstr ""
-
-#: tfrapantterm.label3.caption
-msgctxt "tfrapantterm.label3.caption"
-msgid "Tamaño de terminal:"
-msgstr ""
-
-#: tfrapantterm.label4.caption
-msgctxt "tfrapantterm.label4.caption"
-msgid "Máximo Núm. Columnas:"
 msgstr ""
 
 #: tfratabsession.acedcopy.caption
@@ -919,6 +863,7 @@ msgid "&Tools"
 msgstr ""
 
 #: tfrmeditmacros.mnrecientes.caption
+msgctxt "tfrmeditmacros.mnrecientes.caption"
 msgid "&Recents"
 msgstr ""
 
@@ -1183,15 +1128,16 @@ msgstr ""
 
 #: tfrmprincipal.achlpabout.caption
 msgctxt "tfrmprincipal.achlpabout.caption"
-msgid "&Acerca de"
+msgid "&About..."
 msgstr ""
 
 #: tfrmprincipal.achlphelp.caption
 msgctxt "tfrmprincipal.achlphelp.caption"
-msgid "Ay&uda"
+msgid "&Help"
 msgstr ""
 
 #: tfrmprincipal.actoolrecmac.caption
+msgctxt "tfrmprincipal.actoolrecmac.caption"
 msgid "&Record Macro"
 msgstr ""
 
@@ -1205,36 +1151,40 @@ msgctxt "tfrmprincipal.actoolsett.hint"
 msgid "Configurar"
 msgstr ""
 
-#: tfrmprincipal.acverbarest.caption
-msgid "Barra de estado"
+#: tfrmprincipal.acviewmacedit.caption
+msgid "&Macros editor"
 msgstr ""
 
-#: tfrmprincipal.acverbarest.hint
-msgid "Ver Barra de Estado"
-msgstr ""
-
-#: tfrmprincipal.acveredimac.caption
-msgid "Editor de &Macros"
-msgstr ""
-
-#: tfrmprincipal.acveredimac.hint
+#: tfrmprincipal.acviewmacedit.hint
+msgctxt "tfrmprincipal.acviewmacedit.hint"
 msgid "Ver Editor de Macros"
 msgstr ""
 
-#: tfrmprincipal.acveredirem.caption
-msgid "&Editor Remoto"
+#: tfrmprincipal.acviewremedit.caption
+msgid "Remote &Editor"
 msgstr ""
 
-#: tfrmprincipal.acveredirem.hint
+#: tfrmprincipal.acviewremedit.hint
+msgctxt "tfrmprincipal.acviewremedit.hint"
 msgid "Ver Editor Remoto"
 msgstr ""
 
-#: tfrmprincipal.acverexprem.caption
-msgid "E&xplorador Remoto"
+#: tfrmprincipal.acviewremexplor.caption
+msgid "Remote E&xplorer"
 msgstr ""
 
-#: tfrmprincipal.acverexprem.hint
+#: tfrmprincipal.acviewremexplor.hint
+msgctxt "tfrmprincipal.acviewremexplor.hint"
 msgid "Ver Explorador Remoto"
+msgstr ""
+
+#: tfrmprincipal.acviewstatusbar.caption
+msgid "Status Bar"
+msgstr ""
+
+#: tfrmprincipal.acviewstatusbar.hint
+msgctxt "tfrmprincipal.acviewstatusbar.hint"
+msgid "Ver Barra de Estado"
 msgstr ""
 
 #: tfrmprincipal.caption
@@ -1252,11 +1202,11 @@ msgid "Ver panel de comandos"
 msgstr ""
 
 #: tfrmprincipal.mnabrmacro.caption
-msgid "&Abrir Macro"
+msgid "&Open Macro"
 msgstr ""
 
 #: tfrmprincipal.mnejecmacro.caption
-msgid "&Ejecutar Macro"
+msgid "&Ejxecute Macro"
 msgstr ""
 
 #: tfrmprincipal.mnfile.caption
@@ -1266,15 +1216,21 @@ msgstr ""
 
 #: tfrmprincipal.mngramacro.caption
 msgctxt "tfrmprincipal.mngramacro.caption"
-msgid "&Grabar Macro"
+msgid "&Record Macro"
 msgstr ""
 
 #: tfrmprincipal.mnhelp.caption
+msgctxt "tfrmprincipal.mnhelp.caption"
 msgid "&Help"
 msgstr ""
 
+#: tfrmprincipal.mnrecents.caption
+msgctxt "tfrmprincipal.mnrecents.caption"
+msgid "&Recents"
+msgstr ""
+
 #: tfrmprincipal.mnsesionesalm.caption
-msgid "&Stored Sessions"
+msgid "S&tored Sessions"
 msgstr ""
 
 #: tfrmprincipal.mntools.caption
@@ -1306,17 +1262,17 @@ msgstr ""
 
 #: tfrmsesproperty.chkcodfolding.caption
 msgctxt "tfrmsesproperty.chkcodfolding.caption"
-msgid "&Plegado de Código"
+msgid "Code &Folding"
 msgstr ""
 
 #: tfrmsesproperty.chkcompletcode.caption
 msgctxt "tfrmsesproperty.chkcompletcode.caption"
-msgid "Completado Automático de Código"
+msgid "Automatic Code Completion"
 msgstr ""
 
 #: tfrmsesproperty.chkcursigprmpt.caption
 msgctxt "tfrmsesproperty.chkcursigprmpt.caption"
-msgid "Cursor de Terminal sigue a Prompt"
+msgid "Terminal Cursor &follows Prompt"
 msgstr ""
 
 #: tfrmsesproperty.chkdetecprompt.caption
@@ -1336,7 +1292,7 @@ msgstr ""
 
 #: tfrmsesproperty.chkinterdirec.caption
 msgctxt "tfrmsesproperty.chkinterdirec.caption"
-msgid "&Interceptar teclas direccionales"
+msgid "&Intercepts directionals keys"
 msgstr ""
 
 #: tfrmsesproperty.chkmarlinact.caption
@@ -1351,17 +1307,17 @@ msgstr ""
 
 #: tfrmsesproperty.chksavebefsend.caption
 msgctxt "tfrmsesproperty.chksavebefsend.caption"
-msgid "Guardar antes de enviar contenido"
+msgid "Save before of send Content"
 msgstr ""
 
 #: tfrmsesproperty.chksendlnctrenter.caption
 msgctxt "tfrmsesproperty.chksendlnctrenter.caption"
-msgid "Enviar línea con <Ctrl>+<Enter>"
+msgid "Send current line with <Ctrl>+<Enter>"
 msgstr ""
 
 #: tfrmsesproperty.chksendlnenter.caption
 msgctxt "tfrmsesproperty.chksendlnenter.caption"
-msgid "Enviar línea con <Enter>"
+msgid "Send current line with <Enter>"
 msgstr ""
 
 #: tfrmsesproperty.chksendreccom.caption
@@ -1371,7 +1327,7 @@ msgstr ""
 
 #: tfrmsesproperty.chkusarprep.caption
 msgctxt "tfrmsesproperty.chkusarprep.caption"
-msgid "Usar Preprocesador PreSQL"
+msgid "Use PreSQL Preprocessor"
 msgstr ""
 
 #: tfrmsesproperty.chkverbardesh.caption
@@ -1430,6 +1386,7 @@ msgid "COM1"
 msgstr ""
 
 #: tfrmsesproperty.cmbtipoletra.text
+msgctxt "tfrmsesproperty.cmbtipoletra.text"
 msgid "cmbTipoLetra"
 msgstr ""
 
@@ -1472,7 +1429,7 @@ msgstr ""
 
 #: tfrmsesproperty.label1.caption
 msgctxt "tfrmsesproperty.label1.caption"
-msgid "Inicio Prompt:"
+msgid "Prompt start:"
 msgstr ""
 
 #: tfrmsesproperty.label15.caption
@@ -1481,27 +1438,27 @@ msgstr ""
 
 #: tfrmsesproperty.label2.caption
 msgctxt "tfrmsesproperty.label2.caption"
-msgid "Fin Prompt:"
+msgid "Prompt end:"
 msgstr ""
 
 #: tfrmsesproperty.label3.caption
 msgctxt "tfrmsesproperty.label3.caption"
-msgid "Máximo Núm. Líneas :"
+msgid "Max Lines ::"
 msgstr ""
 
 #: tfrmsesproperty.label4.caption
 msgctxt "tfrmsesproperty.label4.caption"
-msgid "Tipo de terminal:"
+msgid "Terminal &Type:"
 msgstr ""
 
 #: tfrmsesproperty.label5.caption
 msgctxt "tfrmsesproperty.label5.caption"
-msgid "Tamaño de terminal:"
+msgid "Terminal &Size:"
 msgstr ""
 
 #: tfrmsesproperty.label6.caption
 msgctxt "tfrmsesproperty.label6.caption"
-msgid "Máximo Núm. Columnas:"
+msgid "Max. Columns:"
 msgstr ""
 
 #: tfrmsesproperty.lblbackcol.caption
@@ -1639,32 +1596,32 @@ msgstr ""
 
 #: tfrmsesproperty.radiobutton1.caption
 msgctxt "tfrmsesproperty.radiobutton1.caption"
-msgid "Correspondencia Exacta"
+msgid "Match exactly"
 msgstr ""
 
 #: tfrmsesproperty.radiobutton2.caption
 msgctxt "tfrmsesproperty.radiobutton2.caption"
-msgid "Al inicio de la línea."
+msgid "Match at the Start of Line"
 msgstr ""
 
 #: tfrmsesproperty.radiobutton3.caption
 msgctxt "tfrmsesproperty.radiobutton3.caption"
-msgid "Al final de la línea."
+msgid "Match at the End of Line"
 msgstr ""
 
 #: tfrmsesproperty.radiobutton4.caption
 msgctxt "tfrmsesproperty.radiobutton4.caption"
-msgid "En cualquier parte de la línea."
+msgid "Match at any position"
 msgstr ""
 
 #: tfrmsesproperty.radiogroup1.caption
 msgctxt "tfrmsesproperty.radiogroup1.caption"
-msgid "Salto de línea (A enviar)"
+msgid "Line delimiter (To send)"
 msgstr ""
 
 #: tfrmsesproperty.radiogroup2.caption
 msgctxt "tfrmsesproperty.radiogroup2.caption"
-msgid "Salto de Línea (A recibir)"
+msgid "Line delimiter (To receive)"
 msgstr ""
 
 #: tfrmsesproperty.tabcomrec.caption

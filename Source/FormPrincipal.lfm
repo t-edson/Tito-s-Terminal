@@ -80,9 +80,15 @@ object frmPrincipal: TfrmPrincipal
       object MenuItem62: TMenuItem
         Action = AcFilSavSesAs
       end
+      object MenuItem6: TMenuItem
+        Caption = '-'
+      end
       object mnSesionesAlm: TMenuItem
-        Caption = '&Stored Sessions'
+        Caption = 'S&tored Sessions'
         OnClick = mnSesionesAlmClick
+      end
+      object mnRecents: TMenuItem
+        Caption = '&Recents'
       end
       object MenuItem4: TMenuItem
         Caption = '-'
@@ -99,30 +105,30 @@ object frmPrincipal: TfrmPrincipal
         ShortCut = 113
       end
       object MenuItem37: TMenuItem
-        Action = AcVerBarEst
+        Action = AcViewStatusBar
       end
       object MenuItem24: TMenuItem
-        Action = AcVerEdiRem
+        Action = AcViewRemEdit
       end
       object MenuItem25: TMenuItem
-        Action = AcVerExpRem
+        Action = AcViewRemExplor
       end
       object MenuItem26: TMenuItem
-        Action = AcVerEdiMac
+        Action = AcViewMacEdit
       end
     end
     object mnTools: TMenuItem
       Caption = '&Tools'
       object mnEjecMacro: TMenuItem
-        Caption = '&Ejecutar Macro'
+        Caption = '&Ejxecute Macro'
         OnClick = mnEjecMacroClick
       end
       object mnAbrMacro: TMenuItem
-        Caption = '&Abrir Macro'
+        Caption = '&Open Macro'
         OnClick = mnAbrMacroClick
       end
       object mnGraMacro: TMenuItem
-        Caption = '&Grabar Macro'
+        Caption = '&Record Macro'
       end
       object MenuItem47: TMenuItem
         Caption = '-'
@@ -135,6 +141,9 @@ object frmPrincipal: TfrmPrincipal
       Caption = '&Help'
       object mnAyuAyu: TMenuItem
         Action = acHlpHelp
+      end
+      object MenuItem2: TMenuItem
+        Action = acHlpAbout
       end
     end
   end
@@ -189,33 +198,33 @@ object frmPrincipal: TfrmPrincipal
       ImageIndex = 7
       OnExecute = AcFilExitExecute
     end
-    object AcVerBarEst: TAction
+    object AcViewStatusBar: TAction
       Category = 'Ver'
-      Caption = 'Barra de estado'
+      Caption = 'Status Bar'
       Hint = 'Ver Barra de Estado'
-      OnExecute = AcVerBarEstExecute
+      OnExecute = AcViewStatusBarExecute
     end
-    object AcVerEdiMac: TAction
+    object AcViewMacEdit: TAction
       Category = 'Ver'
-      Caption = 'Editor de &Macros'
+      Caption = '&Macros editor'
       Hint = 'Ver Editor de Macros'
       ImageIndex = 34
-      OnExecute = AcVerEdiMacExecute
+      OnExecute = AcViewMacEditExecute
     end
-    object AcVerEdiRem: TAction
+    object AcViewRemEdit: TAction
       Category = 'Ver'
-      Caption = '&Editor Remoto'
+      Caption = 'Remote &Editor'
       Hint = 'Ver Editor Remoto'
       ImageIndex = 37
-      OnExecute = AcVerEdiRemExecute
+      OnExecute = AcViewRemEditExecute
       ShortCut = 16497
     end
-    object AcVerExpRem: TAction
+    object AcViewRemExplor: TAction
       Category = 'Ver'
-      Caption = 'E&xplorador Remoto'
+      Caption = 'Remote E&xplorer'
       Hint = 'Ver Explorador Remoto'
       ImageIndex = 36
-      OnExecute = AcVerExpRemExecute
+      OnExecute = AcViewRemExplorExecute
       ShortCut = 16453
     end
     object AcToolSett: TAction
@@ -233,12 +242,12 @@ object frmPrincipal: TfrmPrincipal
     end
     object acHlpHelp: TAction
       Category = 'Hlp'
-      Caption = 'Ay&uda'
+      Caption = '&Help'
       OnExecute = acHlpHelpExecute
     end
     object acHlpAbout: TAction
       Category = 'Hlp'
-      Caption = '&Acerca de'
+      Caption = '&About...'
     end
   end
   object ImageList1: TImageList
@@ -1690,10 +1699,6 @@ object frmPrincipal: TfrmPrincipal
   end
   object OpenDialog1: TOpenDialog
     Left = 310
-    Top = 30
-  end
-  object SaveDialog1: TSaveDialog
-    Left = 400
     Top = 30
   end
   object Timer1: TTimer

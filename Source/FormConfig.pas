@@ -9,11 +9,8 @@ unit FormConfig;
 interface
 
 uses
-  SysUtils, Forms, Graphics, SynEdit, Buttons, ComCtrls,
-  UnTerminal, MisUtils, SynFacilCompletion,
-  FrameCfgGener, frameCfgDetPrompt, FrameCfgEdit, frameCfgPantTerm,
-  FrameCfgExpRem, FrameCfgMacros, FrameCfgComandRec, FrameCfgRutasCnx, FrameCfgPanCom
-  ,ConfigFrame;
+  SysUtils, Classes, Forms, Graphics, SynEdit, Buttons, ComCtrls, ExtCtrls,
+  StdCtrls, EditBtn, MisUtils, FrameCfgSynEdit, Globales, MiConfigXML;
 
 type
   TEvCambiaProp = procedure of object;  //evento para indicar que hay cambio
@@ -24,6 +21,30 @@ type
     bitAceptar: TBitBtn;
     bitAplicar: TBitBtn;
     bitCancel: TBitBtn;
+    chkListDet: TCheckBox;
+    chkMarLin: TCheckBox;
+    chkMosOcul: TCheckBox;
+    chkMosRut: TCheckBox;
+    chkOpenLast: TCheckBox;
+    chkRefDesp: TCheckBox;
+    DirectoryEdit1: TDirectoryEdit;
+    DirectoryEdit2: TDirectoryEdit;
+    DirectoryEdit3: TDirectoryEdit;
+    edTpoMax: TEdit;
+    edTpoMax1: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    lblRutLeng: TLabel;
+    lblRutMac: TLabel;
+    lblRutScript: TLabel;
+    PageControl1: TPageControl;
+    Panel1: TPanel;
+    TabGeneral: TTabSheet;
+    TabFilePath: TTabSheet;
+    TabMacSett: TTabSheet;
+    TabMacEdit: TTabSheet;
+    TabRemEdit: TTabSheet;
+    TabRemExpl: TTabSheet;
     TreeView1: TTreeView;
     procedure bitAceptarClick(Sender: TObject);
     procedure bitAplicarClick(Sender: TObject);
@@ -37,32 +58,35 @@ type
     procedure MostEnVentana;
     { private declarations }
   public
-    fraError: TCfgFrame;
-    msjError: string;
-    arIni   : String;      //Archivo de configuración
-    //edTerm  : TSynEdit;    //referencia al editor SynEdit
-    edPCom  : TSynEdit;    //referencia al editor panel de comando
-    edMacr  : TSynEdit;    //referencia al editor panel de comando
-    edRemo  : TSynEdit;    //referencia al editor remoto
-    //frames de configuración
-    fcGener   : TfraCfgGener;   //configuraciones generales (no visible)
-    //fcComRec  : TfraComandRec;  //comando recurrente
-    fcRutArc  : TfraCfgRutArc;  //Rutas-archivos de conexión
-    //fcEdTerm  : TfcEdit;   //terminal
-    //fcEdPcom  : TfcEdit;   //Panel de comandos
-    fcEdMacr  : TfcEdit;   //editor de macros
-    fcEdRemo  : TfcEdit;   //editor remoto
-    //fcPantTerm: TfraPantTerm;
-    //fcDetPrompt: TfraDetPrompt;
-    fcExpRem   : TfcExpRem;
-    fcMacros   : TfcMacros;
-    //fcPanCom   : TfraPanCom;
-    //propiedades globales
-    VerPanCom   : boolean;  //panel de comandos
-    VerBHerPcom : boolean;   //barra de herramientas
-    VerBHerTerm : boolean;   //barra de herramientas
-    VerBarEst   : boolean;   //barra de estado
-    TipAlineam  : integer;   //tipo de alineamiento de pantalla
+    //msjError: string;
+    edMacr  : TSynEdit;    //Referencia al editor panel de comando
+    edRemo  : TSynEdit;    //Referencia al editor remoto
+    //Frames de configuración
+    fcEdMacr  : TfraCfgSynEdit;   //Editor de macros
+    fcEdRemo  : TfraCfgSynEdit;   //Editor remoto
+  public  //Propiedades generales
+    VerPanCom   : boolean;  //Panel de comandos
+    VerBHerPcom : boolean;  //Barra de herramientas
+    VerBHerTerm : boolean;  //Barra de herramientas
+    VerBarEst   : boolean;  //Barra de estado
+    TipAlineam  : integer;  //Tipo de alineamiento de pantalla
+    RecentFiles : TStringList;  //Lista de archivos recientes
+  public  //Propiedades de rutas de archivos
+    UltScript: string;      //Último script editado
+    AbrirUltScr: boolean;
+    Scripts  : string;
+    Macros   : string;
+    Lenguajes: string;
+  public  //Configruaciones de macros
+    TpoMax : integer;
+    marLin : boolean;
+  public  //Configuraciones del explorador remoto
+    ListDet: boolean;
+    MosRut : boolean;  //muestra la ruta actual
+    MosOcul: boolean;
+    RefDesp: boolean;
+    TpoMax2: integer;
+  public
     procedure Iniciar();
     procedure LeerArchivoIni(iniFile: string='');
     procedure escribirArchivoIni(iniFile: string='');
@@ -79,35 +103,26 @@ implementation
 
 procedure TConfig.FormCreate(Sender: TObject);
 begin
-  //Crea frames de configuración
-  fcRutArc := TfraCfgRutArc.Create(Self);
-  fcRutArc.parent := self;
+  RecentFiles := TStringList.Create;
+  //Crea frames de configuración de SynEdit
+  fcEdMacr:= TfraCfgSynEdit.Create(Self);
+  fcEdMacr.Name := 'emac'; //Para que no de error de nombre
+  fcEdMacr.parent := TabMacEdit;
 
-  fcMacros    := TfcMacros.Create(self);
-  fcMacros.Parent := self;
-  fcEdMacr:= TfcEdit.Create(Self);
-  fcEdMacr.Name := 'emac'; //para que no de error de nombre
-  fcEdMacr.parent := self;
+  fcEdRemo:= TfraCfgSynEdit.Create(Self);
+  fcEdRemo.Name := 'erem'; //Para que no de error de nombre
+  fcEdRemo.parent := TabRemEdit;
 
-  fcEdRemo:= TfcEdit.Create(Self);
-  fcEdRemo.Name := 'erem'; //para que no de error de nombre
-  fcEdRemo.parent := self;
-
-  fcExpRem    := TfcExpRem.Create(self);
-  fcExpRem.parent := self;
-
-  fcGener := TfraCfgGener.Create(Self);
-  fcGener.parent := self;
-
-  //Obtiene nombre de archivo INI
-  arIni := GetIniName;
-  //selecciona primera opción
+  //Prepara página y Selecciona primera opción
+  PageControl1.ShowTabs := false;
   TreeView1.Items[0].Selected:=true;
   TreeView1Click(self);
+
+  cfgFile.VerifyFile;
 end;
 procedure TConfig.FormDestroy(Sender: TObject);
 begin
-  Free_AllConfigFrames(self);  //Libera los frames de configuración
+  RecentFiles.Destroy
 end;
 procedure TConfig.FormShow(Sender: TObject);
 begin
@@ -117,22 +132,31 @@ procedure TConfig.Iniciar();
 //Inicia el formulario de configuración. Debe llamarse antes de usar el formulario y
 //después de haber cargado todos los frames.
 begin
-  //inicia Frames
-  fcRutArc.Iniciar('rutas_conex');
-
-  fcMacros.Iniciar('cfgMacros');
-  fcEdMacr.Iniciar('edMacros', edMacr, $E8FFE8);
-  fcEdRemo.Iniciar('edRemoto', edRemo);
-  //fcPantTerm.Iniciar('panTerm',prTel);
-  //fcDetPrompt.Iniciar('detPrompt', edTerm, prTel);
-  fcExpRem.Iniciar('expRemoto');
-  //crea Frame y sus variables desde afuera, para facilitar acceso
-  fcGener.Iniciar('general');
-  fcGener.Asoc_Bol(@VerPanCom  , 'VerPanCom',true);
-  fcGener.Asoc_Bol(@VerBHerPcom, 'VerBHerPcom',true);
-  fcGener.Asoc_Bol(@VerBHerTerm, 'VerBHerTerm',true);
-  fcGener.Asoc_Bol(@VerBarEst  , 'VerBarEst',true);
-  fcGener.Asoc_Int(@TipAlineam , 'TipAlineam', 0);
+  //Configuraciones generales
+  cfgFile.Asoc_Bol('VerPanCom'  , @VerPanCom  , true);
+  cfgFile.Asoc_Bol('VerBHerPcom', @VerBHerPcom, true);
+  cfgFile.Asoc_Bol('VerBHerTerm', @VerBHerTerm, true);
+  cfgFile.Asoc_Bol('VerBarEst'  , @VerBarEst  , true);
+  cfgFile.Asoc_Int('TipAlineam' , @TipAlineam , 0);
+  //Propiedades de rutas de archivos
+  cfgFile.Asoc_Str('UltScript'  , @UltScript ,'');
+  cfgFile.Asoc_Bol('AbrirUltScr', @AbrirUltScr, chkOpenLast   , true);
+  cfgFile.Asoc_Str('Scripts'    , @Scripts    , DirectoryEdit1, patScripts);
+  cfgFile.Asoc_Str('Macros'     , @Macros     , DirectoryEdit2, patMacros);
+  cfgFile.Asoc_Str('Lenguajes'  , @Lenguajes  , DirectoryEdit3, patSyntax);
+  //Configuraciones de macros
+  cfgFile.Asoc_Int('TpoMax'     , @TpoMax, edTpoMax , 10, 1, 180);
+  cfgFile.Asoc_Bol('MarLin'     , @marLin, chkMarLin, false);
+  //Configuración de editor de macros
+  fcEdMacr.Iniciar('edMacros', cfgFile, $E8FFE8);
+  //Configuración de editor remoto
+  fcEdRemo.Iniciar('edRemoto', cfgFile);
+  //Configuraciones del explorador remoto
+  cfgFile.Asoc_Int('TpoMax2'    , @TpoMax2, edTpoMax1  , 10, 1, 180);
+  cfgFile.Asoc_Bol('MosRut'     , @MosRut , chkMosRut , true);
+  cfgFile.Asoc_Bol('ListDet'    , @ListDet, chkListDet, true);
+  cfgFile.Asoc_Bol('MosOcul'    , @MosOcul, chkMosOcul, false);
+  cfgFile.Asoc_Bol('RefDesp'    , @RefDesp, chkRefDesp, true);
 
   //lee parámetros del archivo de configuración.
   LeerArchivoIni;
@@ -141,37 +165,45 @@ procedure TConfig.TreeView1Click(Sender: TObject);
 begin
   if TreeView1.Selected = nil then exit;
   //hay ítem seleccionado
-  Hide_AllConfigFrames(self);  //oculta todos
   case IdFromTTreeNode(TreeView1.Selected) of
   '1',
 //  '1.1'  : ;
-  '1.2'  : fcRutArc.ShowPos(155,0);
+  '1.2'  : TabFilePath.Show;
   '2',
-  '2.1'  : fcMacros.ShowPos(155,0);
-  '2.2'  : fcEdMacr.ShowPos(155,0);
+  '2.1'  : TabMacSett.Show;
+  '2.2'  : TabMacEdit.Show;
   '3',
-  '3.1'  : fcEdRemo.ShowPos(155,0);
-  '4'    : fcExpRem.ShowPos(155,0);
+  '3.1'  : TabRemEdit.Show;
+  '4'    : TabRemExpl.Show;
   end;
 end;
 
 procedure TConfig.bitAceptarClick(Sender: TObject);
 begin
   bitAplicarClick(Self);
-  if fraError<>nil then exit;  //hubo error
+  if cfgFile.MsjErr<>'' then exit;  //hubo error
   self.Close;   //porque es modal
 end;
 procedure TConfig.bitAplicarClick(Sender: TObject);
 begin
   LeerDeVentana;       //Escribe propiedades de los frames
-  if fraError<>nil then begin
-
-    msgerr(fraError.MsjErr);
-    exit;
+  //valida las rutas leidas
+  if not DirectoryExists(Scripts) then begin
+    MsgExc('Folder not found: %s',[Scripts]);
+    Scripts := patScripts;
   end;
-  escribirArchivoIni;   //guarda propiedades en disco
-//  if edTerm<>nil then edTerm.Invalidate;     //para que refresque los cambios
-//  if edPCom<>nil then edPCom.Invalidate;     //para que refresque los cambios
+  if not DirectoryExists(Macros) then begin
+    MsgExc('Folder not found: %s', [Macros]);
+    Macros := patMacros;
+  end;
+  if not DirectoryExists(Lenguajes) then begin
+    MsgExc('Folder not found: %s', [Lenguajes]);
+    Lenguajes := patSyntax;
+  end;
+  fcEdMacr.ConfigEditor(edMacr);
+  fcEdRemo.ConfigEditor(edRemo);
+
+  escribirArchivoIni;   //Guarda propiedades en disco
 end;
 procedure TConfig.bitCancelClick(Sender: TObject);
 begin
@@ -198,28 +230,29 @@ end;
 procedure TConfig.LeerDeVentana;
 //Lee las propiedades de la ventana de configuración.
 begin
-  fraError := WindowToProp_AllFrames(self);
+  if not cfgFile.WindowToProperties then begin
+    MsgErr(cfgFile.MsjErr);
+  end;
 end;
 procedure TConfig.MostEnVentana;
 //Muestra las propiedades en la ventana de configuración.
 begin
-  fraError := PropToWindow_AllFrames(self);
+  if not cfgFile.PropertiesToWindow then begin
+    MsgErr(cfgFile.MsjErr);
+  end;
 end;
 procedure TConfig.LeerArchivoIni(iniFile: string = '');
 begin
-  if iniFile = '' then
-    msjError := ReadFileToProp_AllFrames(self, arINI)
-  else
-    msjError := ReadFileToProp_AllFrames(self, iniFile);
+  if not cfgFile.FileToProperties then begin
+    MsgErr(cfgFile.MsjErr);
+  end;
 end;
-
 procedure TConfig.escribirArchivoIni(iniFile: string='');
 //Escribe el archivo de configuración
 begin
-  if iniFile ='' then
-    msjError := SavePropToFile_AllFrames(self, arINI)
-  else
-    msjError := SavePropToFile_AllFrames(self, iniFile);
+  if not cfgFile.PropertiesToFile then begin
+    MsgErr(cfgFile.MsjErr);
+  end;
 end;
 
 end.

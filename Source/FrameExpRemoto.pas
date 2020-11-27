@@ -281,8 +281,8 @@ var
   n: Integer;
   fil: String;
 begin
-  ListDet := config.fcExpRem.ListDet;  //lee bandera
-  MosOcul := config.fcExpRem.MosOcul;
+  ListDet := config.ListDet;  //lee bandera
+  MosOcul := config.MosOcul;
   if ListDet then ConfigurarColumnasDetalladas  //actualiza apariencia
   else ConfigurarColumnasSimple;
   if not frmPrincipal.ConexDisponible then begin
@@ -293,7 +293,7 @@ begin
   end;
   AgregarMensajeEspera('Reading...');   //sería bueno mostrar una animación
   //actualiza lista de archivos
-  if config.fcExpRem.MosRut then begin  //debe actualizar ruta
+  if config.MosRut then begin  //debe actualizar ruta
     EnviarComando('pwd',listmp); //lee ruta
     txtRuta.Text:= listmp.Text;
     Panel1.Visible:=true;  //muestra panel de ruta
@@ -406,7 +406,7 @@ begin
   if Item.Caption <> Avalue then begin
     EnviarComando('mv "'+ Item.Caption + '" "'+ Avalue+'"', listmp);
     if trim(listmp.Text)<>'' then msgErr(listmp.Text);
-    if config.fcExpRem.RefDesp then ActualizarSel(Avalue);
+    if config.RefDesp then ActualizarSel(Avalue);
   end;
 end;
 
@@ -449,7 +449,7 @@ begin
       inc(n); nom := 'NewFile' + IntToStr(n);
     end;
   EnviarComando('echo "" >'+ nom, listmp);
-  if config.fcExpRem.RefDesp then ActualizarSel(nom);
+  if config.RefDesp then ActualizarSel(nom);
   self.SetFocus;
 end;
 procedure TfraExpRemoto.acFilRenameExecute(Sender: TObject);  //renombrar
@@ -476,7 +476,7 @@ begin
       inc(n); nom := 'NewFolder' + IntToStr(n);
     end;
   EnviarComando('mkdir '+nom, listmp);
-  if config.fcExpRem.RefDesp then ActualizarSel(nom);
+  if config.RefDesp then ActualizarSel(nom);
 end;
 procedure TfraExpRemoto.acEdDeleteExecute(Sender: TObject);  //eliminar
 var
@@ -490,7 +490,7 @@ begin
         for it in ListView1.Items do if it.Selected then begin
           EnviarComando('rm "' + it.Caption+'"', listmp);
         end;
-        if config.fcExpRem.RefDesp then Actualizar;
+        if config.RefDesp then Actualizar;
       end;
     end else begin  //hay carpetas entre los seleccionados
        MsgExc('Cannot delete files and folders together.');
@@ -500,13 +500,13 @@ begin
       if MsgYesNo('Delete folder: %s ?',[it.Caption]) = 1 then begin
         EnviarComando('rmdir '+it.Caption, listmp);
         if trim(listmp.Text)<>'' then msgErr(listmp.Text);
-        if config.fcExpRem.RefDesp then Actualizar;
+        if config.RefDesp then Actualizar;
       end;
     end else begin  //es archivo
       if MsgYesNo('Delete file: %s ?', [it.Caption]) = 1 then begin
         EnviarComando('rm "' + it.Caption+'"', listmp);
         if trim(listmp.Text)<>'' then msgErr(listmp.Text);
-        if config.fcExpRem.RefDesp then Actualizar;
+        if config.RefDesp then Actualizar;
       end;
     end;
   end;

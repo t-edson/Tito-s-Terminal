@@ -6,7 +6,7 @@ unit Globales; {$mode objfpc}{$H+}
 interface
 uses  Classes, SysUtils, Forms, SynEdit, SynEditKeyCmds, MisUtils,
       SynEditTypes, StrUtils, lclType, FileUtil,
-      types, LazLogger, LazUTF8, Menus ;
+      types, LazLogger, LazUTF8, Menus, ComCtrls ;
 
 const
   NOM_PROG ='Tito''s Terminal';   //nombre de programa
@@ -36,6 +36,9 @@ var
    ActConsSeg  : Boolean;   // Activa consultas en segundo plano.
 
 //Funciones para control del editor
+function IdFromTTreeNode(node: TTreeNode): string;
+function TTreeNodeFromId(Id: string; tree: TTreeView): TTreeNode;
+
 procedure SubirCursorBloque(ed: TSynEdit; Shift: TShiftState);
 procedure BajarCursorBloque(ed: TSynEdit; Shift: TShiftState);
 procedure InsertaColumnasBloque(ed: TsynEdit; var key: TUTF8Char);
@@ -46,6 +49,58 @@ procedure LeeArchEnMenu(arc: string; mn: TMenuItem; accion: TNotifyEvent);
 procedure CopiarMemu(menOrig, menDest: TMenuItem);
 
 implementation
+
+function IdFromTTreeNode(node: TTreeNode): string;
+//Returns an ID with indication of the position of a TTreeNode'.
+//It has the form: 1, 1.1, 1.2. Only works for two levels.
+var
+  nivel: Integer;
+begin
+  nivel := node.Level;
+  if nivel = 1 then  //de dos niveles
+    Result := IntToStr(node.Parent.Index+1) + '.' +
+             IntToStr(node.Index+1)
+  else  //de un nivel
+    Result := IntToStr(node.Index+1);
+end;
+function TTreeNodeFromId(Id: string; tree: TTreeView): TTreeNode;
+//Returns a TreeNode, given the ID position. If not found, returns NIL.
+//Only works for two levels.
+var
+  list: TStringList;
+  it: TTreeNode;
+  Padre: TTreeNode;
+  i: Integer;
+begin
+  Result := nil;  //por defecto
+  if Id='' then exit;
+  list := TStringList.Create;
+  list.Delimiter:='.';
+  list.DelimitedText:=Id;
+  if list.Count = 1 then begin  //de un solo nivel
+    //ubica el nodo
+    for it in Tree.Items do if it.Level=0 then begin
+        if IntToStr(it.Index+1) = list[0] then Result := it;
+    end;
+  end else begin  //de dos o más niveles
+    //ubica al nodo padre
+    Padre := nil;
+    for it in Tree.Items do begin
+      if it.Level=0 then begin
+        if IntToStr(it.Index+1) = list[0] then Padre := it;
+      end;
+    end;
+    if Padre = nil then exit;  //no lo ubica
+    //ubica al nodo hijo
+    for i := 0 to Padre.Count-1 do begin
+      it := Padre.Items[i];
+      if it.Level=1 then begin
+        if IntToStr(it.Index+1) = list[1] then Result := it;
+      end;
+    end;
+  end;
+  list.Destroy;
+end;
 
 //Funciones para control del editor
 procedure EdSubirCursor(ed: TSynEdit; Shift: TShiftState);
