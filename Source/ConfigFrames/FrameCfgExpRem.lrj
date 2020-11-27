@@ -1,8 +1,0 @@
-{"version":1,"strings":[
-{"hash":163005752,"name":"tfcexprem.edtpomax.text","sourcebytes":[101,100,84,112,111,77,97,120],"value":"edTpoMax"},
-{"hash":252932458,"name":"tfcexprem.label1.caption","sourcebytes":[84,105,109,101,32,102,111,114,32,119,97,105,116,105,110,103,32,116,101,114,109,105,110,97,108,32,40,115,101,99,111,110,100,115,41,58],"value":"Time for waiting terminal (seconds):"},
-{"hash":19811742,"name":"tfcexprem.chklistdet.caption","sourcebytes":[83,104,111,119,32,100,101,116,97,105,108,101,100,32,108,105,115,116,32,111,102,32,102,105,108,101,115,46],"value":"Show detailed list of files."},
-{"hash":114999027,"name":"tfcexprem.chkmosocul.caption","sourcebytes":[83,104,111,119,32,104,105,100,100,101,110,32,102,105,108,101,115],"value":"Show hidden files"},
-{"hash":227521230,"name":"tfcexprem.chkrefdesp.caption","sourcebytes":[82,101,102,114,101,115,104,32,108,105,115,116,44,32,97,102,116,101,114,32,97,110,121,32,111,112,101,114,97,116,105,111,110],"value":"Refresh list, after any operation"},
-{"hash":86084504,"name":"tfcexprem.chkmosrut.caption","sourcebytes":[83,104,111,119,32,99,117,114,114,101,110,116,101,32,112,97,116,104],"value":"Show currente path"}
-]}
