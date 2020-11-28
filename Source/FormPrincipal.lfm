@@ -16,7 +16,6 @@ object frmPrincipal: TfrmPrincipal
   OnDestroy = FormDestroy
   OnDropFiles = FormDropFiles
   OnKeyDown = FormKeyDown
-  OnKeyPress = FormKeyPress
   OnShow = FormShow
   LCLVersion = '2.0.10.0'
   object StatusBar1: TStatusBar

@@ -4,7 +4,7 @@ unit FormSesProperty;
 interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, Buttons, Spin, Globales, SynEditMarkup, SynEdit;
+  ExtCtrls, Buttons, Spin, Globales, SynEdit;
 
 type
   TTipEnvio = (teComando, teArchivo);

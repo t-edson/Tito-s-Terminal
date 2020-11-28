@@ -1,7 +1,7 @@
 object frmSesProperty: TfrmSesProperty
-  Left = 378
+  Left = 380
   Height = 421
-  Top = 348
+  Top = 349
   Width = 575
   BorderStyle = bsDialog
   Caption = 'Session Properties'

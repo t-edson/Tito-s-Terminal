@@ -94,7 +94,6 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure FormShow(Sender: TObject);
     procedure itemEjecMacro(Sender: TObject);
     procedure itemAbreMacro(Sender: TObject);
@@ -226,7 +225,7 @@ end;
 procedure TfrmPrincipal.mnSesionesAlmClick(Sender: TObject);
 begin
   mnSesionesAlm.Clear;
-  LeeArchEnMenu(patSesiones + DirectorySeparator +'*.ses', mnSesionesAlm,@itemAbreSesion);
+  LeeArchEnMenu(patSesiones + DirectorySeparator +'*.ses', mnSesionesAlm, @itemAbreSesion);
 end;
 procedure TfrmPrincipal.mnEjecMacroClick(Sender: TObject);
 begin
@@ -304,20 +303,38 @@ begin
 end;
 procedure TfrmPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+var
+  pag: TfraTabSession;
 begin
      case Key of
-     VK_TAB: if Shift = [ssCtrl] then begin  //Ctrl+Tab
-         //edterm.SetFocus;  //pasa el enfoque
+     VK_TAB: begin
+       if Shift = [ssCtrl] then begin  //Ctrl+Tab
+         TabSessions.SelectNextEditor;
+       end;
+       if Shift = [ssShift, ssCtrl] then begin  //Shift+Ctrl+Tab
+         TabSessions.SelectPrevEditor;
        end;
      end;
-end;
-procedure TfrmPrincipal.FormKeyPress(Sender: TObject; var Key: char);
-//Aaquí se interceptan el teclado a los controles
-begin
-//  if edTerm.Focused then begin
-//    proc.Send(Key);
-////    debugln('KeyPress:'+Key);
-//  end;
+     VK_1: begin
+       if Shift = [ssCtrl] then begin  //Ctrl+1
+         if not GetCurSession(pag) then exit;
+         //Selecciona panel de comandos
+         pag.edPCom.SetFocus;
+       end;
+     end;
+     VK_2: begin
+       if Shift = [ssCtrl] then begin  //Ctrl+2
+         if not GetCurSession(pag) then exit;
+         //Selecciona Terminal
+         pag.edTerm.SetFocus;
+       end;
+     end;
+     VK_F4: begin
+       if Shift = [ssCtrl] then begin  //Ctrl+F4
+         TabSessions.ClosePage;
+       end;
+     end;
+     end;
 end;
 procedure TfrmPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction
   );

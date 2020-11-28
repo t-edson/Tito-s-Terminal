@@ -8,8 +8,8 @@ object fraTabSession: TfraTabSession
   DesignTimePPI = 120
   ParentFont = False
   TabOrder = 0
-  DesignLeft = 399
-  DesignTop = 247
+  DesignLeft = 400
+  DesignTop = 248
   object ToolBar1: TToolBar
     Left = 0
     Height = 33
@@ -17,6 +17,8 @@ object fraTabSession: TfraTabSession
     Width = 688
     Caption = 'ToolBar1'
     Images = ImageList1
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 0
     object ToolButton1: TToolButton
       Left = 1
@@ -61,75 +63,92 @@ object fraTabSession: TfraTabSession
       Action = acEdPaste
     end
     object ToolButton9: TToolButton
-      Left = 209
+      Left = 275
       Height = 28
       Top = 2
       Caption = 'ToolButton9'
       Style = tbsDivider
     end
     object ToolButton10: TToolButton
-      Left = 214
+      Left = 280
       Top = 2
       Action = AcPCmEnvLin
     end
     object ToolButton11: TToolButton
-      Left = 243
+      Left = 309
       Top = 2
       Action = AcPCmEnvTod
     end
     object ToolButton12: TToolButton
-      Left = 272
+      Left = 338
       Top = 2
       Action = acPCmEnvCtrC
     end
     object ToolButton13: TToolButton
-      Left = 301
+      Left = 367
       Height = 28
       Top = 2
       Caption = 'ToolButton13'
       Style = tbsDivider
     end
     object ToolButton14: TToolButton
-      Left = 306
+      Left = 372
       Top = 2
       Action = AcTerConec
     end
     object ToolButton15: TToolButton
-      Left = 335
+      Left = 401
       Top = 2
       Action = AcTerDescon
     end
     object ToolButton16: TToolButton
-      Left = 364
+      Left = 430
       Top = 2
       Action = AcTerDetPrm
     end
     object ToolButton17: TToolButton
-      Left = 393
+      Left = 459
       Top = 2
       Action = AcTerLimBuf
     end
     object ToolButton18: TToolButton
-      Left = 422
+      Left = 488
       Top = 2
       Action = AcTerPrmArr
     end
     object ToolButton19: TToolButton
-      Left = 451
+      Left = 517
       Top = 2
       Action = AcTerPrmAba
     end
     object ToolButton20: TToolButton
-      Left = 480
+      Left = 546
       Height = 28
       Top = 2
       Caption = 'ToolButton20'
       Style = tbsDivider
     end
     object ToolButton21: TToolButton
-      Left = 485
+      Left = 551
       Top = 2
       Action = AcHerCfg
+    end
+    object ToolButton22: TToolButton
+      Left = 217
+      Top = 2
+      Action = acFindFind
+    end
+    object ToolButton23: TToolButton
+      Left = 246
+      Top = 2
+      Action = acFindReplace
+    end
+    object ToolButton24: TToolButton
+      Left = 209
+      Height = 28
+      Top = 2
+      Caption = 'ToolButton24'
+      Style = tbsSeparator
     end
   end
   object Panel1: TPanel
@@ -154,6 +173,7 @@ object fraTabSession: TfraTabSession
       ParentColor = False
       ParentFont = False
       TabOrder = 0
+      OnEnter = edPComEnter
       Gutter.Width = 35
       Gutter.MouseActions = <>
       RightGutter.Width = 0
@@ -648,6 +668,7 @@ object fraTabSession: TfraTabSession
       Height = 525
       Top = 1
       Width = 6
+      OnMoved = Splitter1Moved
     end
     inline edTerm: TSynEdit
       Left = 257
@@ -661,7 +682,9 @@ object fraTabSession: TfraTabSession
       Font.Quality = fqNonAntialiased
       ParentColor = False
       ParentFont = False
+      PopupMenu = PopupMenu2
       TabOrder = 2
+      OnEnter = edTermEnter
       Gutter.Width = 37
       Gutter.MouseActions = <>
       RightGutter.Width = 0
@@ -1091,6 +1114,7 @@ object fraTabSession: TfraTabSession
       MouseTextActions = <>
       MouseSelActions = <>
       VisibleSpecialChars = [vscSpace, vscTabAtLast]
+      ReadOnly = True
       SelectedColor.BackPriority = 50
       SelectedColor.ForePriority = 50
       SelectedColor.FramePriority = 50
@@ -1600,96 +1624,96 @@ object fraTabSession: TfraTabSession
     end
     object AcTerConec: TAction
       Category = 'Ter'
-      Caption = '&Conectar'
-      Hint = 'Conectar con la conexión actual'
+      Caption = '&Connect'
+      Hint = 'Connect'
       ImageIndex = 26
       OnExecute = AcTerConecExecute
       ShortCut = 16465
     end
     object AcTerDescon: TAction
       Category = 'Ter'
-      Caption = '&Desconectar'
-      Hint = 'Desconecta la sesión actual'
+      Caption = '&Disconnect'
+      Hint = 'Disconnect'
       ImageIndex = 27
       OnExecute = AcTerDesconExecute
       ShortCut = 24657
     end
     object AcTerLimBuf: TAction
       Category = 'Ter'
-      Caption = '&Limpiar Buffer'
-      Hint = 'Limpia el buffer de pantalla'
+      Caption = '&Clean Buffer'
+      Hint = 'Clean the screen buffer'
       ImageIndex = 33
       OnExecute = AcTerLimBufExecute
     end
     object AcTerDetPrm: TAction
       Category = 'Ter'
-      Caption = 'Detectar &Prompt'
-      Hint = 'Detecta el prompt actual'
+      Caption = 'Detect &Prompt'
+      Hint = 'Detect prompt'
       ImageIndex = 30
       OnExecute = AcTerDetPrmExecute
     end
     object AcTerVerBHer: TAction
       Category = 'Ter'
-      Caption = 'Ver Barra de &Herramientas'
-      Hint = 'Ver Barra de Herramientas'
+      Caption = 'View Toolbar'
+      Hint = 'View Tollbar'
       OnExecute = AcTerVerBHerExecute
     end
     object AcTerPrmArr: TAction
       Category = 'Ter'
-      Caption = '&Subir a prompt'
-      Hint = 'Subir al prompt anterior'
+      Caption = 'Go to &Previous prompt'
+      Hint = 'Go to previous prompt'
       ImageIndex = 28
       OnExecute = AcTerPrmArrExecute
     end
     object AcTerPrmAba: TAction
       Category = 'Ter'
-      Caption = '&Bajar a prompt'
-      Hint = 'Bajar al siguiente prompt'
+      Caption = 'Go to &Next prompt'
+      Hint = 'Go to next prompt'
       ImageIndex = 29
       OnExecute = AcTerPrmAbaExecute
     end
     object AcTerEnvEnter: TAction
       Category = 'Ter'
-      Caption = 'Enviar &Enter'
+      Caption = 'Send &Enter'
       ImageIndex = 42
       OnExecute = AcTerEnvEnterExecute
     end
     object AcTerEnvCR: TAction
       Category = 'Ter'
-      Caption = 'Enviar &CR'
+      Caption = 'Send &CR'
       ImageIndex = 42
       OnExecute = AcTerEnvCRExecute
     end
     object AcTerEnvCRLF: TAction
       Category = 'Ter'
-      Caption = 'Enviar CR+&LF'
+      Caption = 'Send CR+&LF'
       ImageIndex = 42
       OnExecute = AcTerEnvCRLFExecute
     end
     object AcTerEnvLF: TAction
       Category = 'Ter'
-      Caption = 'Enviar LF'
+      Caption = 'Send LF'
       ImageIndex = 42
       OnExecute = AcTerEnvLFExecute
     end
     object AcTerCopPal: TAction
       Category = 'Ter'
-      Caption = 'Copiar &Palabra'
+      Caption = 'Copy &Word'
       OnExecute = AcTerCopPalExecute
     end
     object AcTerCopNom: TAction
       Category = 'Ter'
-      Caption = '&Nombre de Archivo'
+      Caption = '&Copy File name'
       OnExecute = AcTerCopNomExecute
     end
     object AcTerCopRut: TAction
       Category = 'Ter'
-      Caption = 'R&uta de Archivo'
+      Caption = 'Copy Pat&h'
       OnExecute = AcTerCopRutExecute
     end
     object AcTerCopNomRut: TAction
       Category = 'Ter'
-      Caption = 'Copiar N&ombre y Ruta'
+      Caption = 'Copy Name and Path'
       OnExecute = AcTerCopNomRutExecute
     end
     object AcHerCfg: TAction
@@ -1703,6 +1727,34 @@ object fraTabSession: TfraTabSession
       Category = 'Her'
       Caption = '&Grabar Macro'
       ImageIndex = 43
+    end
+    object acFindFind: TAction
+      Category = 'Find'
+      Caption = '&Search'
+      ImageIndex = 17
+      OnExecute = acFindFindExecute
+      ShortCut = 16454
+    end
+    object acFindNext: TAction
+      Category = 'Find'
+      Caption = 'acFindNext'
+      ImageIndex = 19
+      OnExecute = acFindNextExecute
+      ShortCut = 114
+    end
+    object acFindPrev: TAction
+      Category = 'Find'
+      Caption = 'acFindPrev'
+      ImageIndex = 19
+      OnExecute = acFindPrevExecute
+      ShortCut = 8306
+    end
+    object acFindReplace: TAction
+      Category = 'Find'
+      Caption = 'acFindReplace'
+      ImageIndex = 20
+      OnExecute = acFindReplaceExecute
+      ShortCut = 16466
     end
   end
   object PopupMenu1: TPopupMenu
@@ -3202,5 +3254,79 @@ object fraTabSession: TfraTabSession
     OnTimer = Timer1Timer
     Left = 514
     Top = 64
+  end
+  object PopupMenu2: TPopupMenu
+    Images = ImageList1
+    Left = 472
+    Top = 312
+    object MenuItem56: TMenuItem
+      Action = acEdCopy
+    end
+    object MenuItem57: TMenuItem
+      Action = acEdPaste
+    end
+    object MenuItem82: TMenuItem
+      Caption = 'Copiar Elemento'
+      object MenuItem86: TMenuItem
+        Action = AcTerCopPal
+      end
+      object MenuItem85: TMenuItem
+        Action = AcTerCopNom
+      end
+      object MenuItem83: TMenuItem
+        Action = AcTerCopRut
+      end
+      object MenuItem84: TMenuItem
+        Action = AcTerCopNomRut
+      end
+    end
+    object MenuItem81: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem58: TMenuItem
+      Action = AcTerLimBuf
+    end
+    object MenuItem59: TMenuItem
+      Action = AcTerDetPrm
+    end
+    object MenuItem60: TMenuItem
+      Action = AcTerPrmArr
+    end
+    object MenuItem61: TMenuItem
+      Action = AcTerPrmAba
+    end
+    object MenuItem72: TMenuItem
+      Caption = '&Enviar'
+      object MenuItem73: TMenuItem
+      end
+      object MenuItem76: TMenuItem
+        Action = AcTerEnvEnter
+      end
+      object MenuItem75: TMenuItem
+        Action = AcTerEnvCR
+      end
+      object MenuItem80: TMenuItem
+        Action = AcTerEnvLF
+      end
+      object MenuItem74: TMenuItem
+        Action = AcTerEnvCRLF
+      end
+    end
+    object MenuItem78: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem77: TMenuItem
+    end
+  end
+  object FindDialog1: TFindDialog
+    OnFind = FindDialog1Find
+    Left = 336
+    Top = 448
+  end
+  object ReplaceDialog1: TReplaceDialog
+    Options = [frDown, frReplace, frReplaceAll, frHidePromptOnReplace]
+    OnReplace = ReplaceDialog1Replace
+    Left = 476
+    Top = 448
   end
 end

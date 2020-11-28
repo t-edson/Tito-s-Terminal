@@ -1,7 +1,7 @@
 object Config: TConfig
-  Left = 356
+  Left = 357
   Height = 448
-  Top = 180
+  Top = 181
   Width = 605
   BorderStyle = bsDialog
   Caption = 'Settings'

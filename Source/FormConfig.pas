@@ -54,7 +54,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure TreeView1Click(Sender: TObject);
   private
-    procedure LeerDeVentana;
     procedure MostEnVentana;
     { private declarations }
   public
@@ -138,6 +137,7 @@ begin
   cfgFile.Asoc_Bol('VerBHerTerm', @VerBHerTerm, true);
   cfgFile.Asoc_Bol('VerBarEst'  , @VerBarEst  , true);
   cfgFile.Asoc_Int('TipAlineam' , @TipAlineam , 0);
+  cfgFile.Asoc_StrList('Recents_ses', @RecentFiles);
   //Propiedades de rutas de archivos
   cfgFile.Asoc_Str('UltScript'  , @UltScript ,'');
   cfgFile.Asoc_Bol('AbrirUltScr', @AbrirUltScr, chkOpenLast   , true);
@@ -186,8 +186,10 @@ begin
 end;
 procedure TConfig.bitAplicarClick(Sender: TObject);
 begin
-  LeerDeVentana;       //Escribe propiedades de los frames
-  //valida las rutas leidas
+  if not cfgFile.WindowToProperties then begin
+    MsgErr(cfgFile.MsjErr);
+  end;
+  //Valida las rutas leidas
   if not DirectoryExists(Scripts) then begin
     MsgExc('Folder not found: %s',[Scripts]);
     Scripts := patScripts;
@@ -227,13 +229,6 @@ begin
   Showmodal;
 end;
 
-procedure TConfig.LeerDeVentana;
-//Lee las propiedades de la ventana de configuración.
-begin
-  if not cfgFile.WindowToProperties then begin
-    MsgErr(cfgFile.MsjErr);
-  end;
-end;
 procedure TConfig.MostEnVentana;
 //Muestra las propiedades en la ventana de configuración.
 begin

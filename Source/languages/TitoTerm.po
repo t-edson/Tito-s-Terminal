@@ -418,6 +418,22 @@ msgctxt "tfratabsession.acfilstoplog.hint"
 msgid "Detener Registro de datos"
 msgstr ""
 
+#: tfratabsession.acfindfind.caption
+msgid "&Search"
+msgstr ""
+
+#: tfratabsession.acfindnext.caption
+msgid "acFindNext"
+msgstr ""
+
+#: tfratabsession.acfindprev.caption
+msgid "acFindPrev"
+msgstr ""
+
+#: tfratabsession.acfindreplace.caption
+msgid "acFindReplace"
+msgstr ""
+
 #: tfratabsession.achercfg.caption
 msgctxt "tfratabsession.achercfg.caption"
 msgid "Confi&guración..."
@@ -495,112 +511,120 @@ msgstr ""
 
 #: tfratabsession.acterconec.caption
 msgctxt "tfratabsession.acterconec.caption"
-msgid "&Conectar"
+msgid "&Connect"
 msgstr ""
 
 #: tfratabsession.acterconec.hint
 msgctxt "tfratabsession.acterconec.hint"
-msgid "Conectar con la conexión actual"
+msgid "Connect"
 msgstr ""
 
 #: tfratabsession.actercopnom.caption
 msgctxt "tfratabsession.actercopnom.caption"
-msgid "&Nombre de Archivo"
+msgid "&Copy File name"
 msgstr ""
 
 #: tfratabsession.actercopnomrut.caption
 msgctxt "tfratabsession.actercopnomrut.caption"
-msgid "Copiar N&ombre y Ruta"
+msgid "Copy Name and Path"
 msgstr ""
 
 #: tfratabsession.actercoppal.caption
 msgctxt "tfratabsession.actercoppal.caption"
-msgid "Copiar &Palabra"
+msgid "Copy &Word"
 msgstr ""
 
 #: tfratabsession.actercoprut.caption
 msgctxt "tfratabsession.actercoprut.caption"
-msgid "R&uta de Archivo"
+msgid "Copy Pat&h"
 msgstr ""
 
 #: tfratabsession.acterdescon.caption
 msgctxt "tfratabsession.acterdescon.caption"
-msgid "&Desconectar"
+msgid "&Disconnect"
 msgstr ""
 
 #: tfratabsession.acterdescon.hint
 msgctxt "tfratabsession.acterdescon.hint"
-msgid "Desconecta la sesión actual"
+msgid "Disconnect"
 msgstr ""
 
 #: tfratabsession.acterdetprm.caption
 msgctxt "tfratabsession.acterdetprm.caption"
-msgid "Detectar &Prompt"
+msgid "Detect &Prompt"
 msgstr ""
 
 #: tfratabsession.acterdetprm.hint
 msgctxt "tfratabsession.acterdetprm.hint"
-msgid "Detecta el prompt actual"
+msgid "Detect prompt"
 msgstr ""
 
 #: tfratabsession.acterenvcr.caption
 msgctxt "tfratabsession.acterenvcr.caption"
-msgid "Enviar &CR"
+msgid "Send &CR"
 msgstr ""
 
 #: tfratabsession.acterenvcrlf.caption
 msgctxt "tfratabsession.acterenvcrlf.caption"
-msgid "Enviar CR+&LF"
+msgid "Send CR+&LF"
 msgstr ""
 
 #: tfratabsession.acterenventer.caption
 msgctxt "tfratabsession.acterenventer.caption"
-msgid "Enviar &Enter"
+msgid "Send &Enter"
 msgstr ""
 
 #: tfratabsession.acterenvlf.caption
 msgctxt "tfratabsession.acterenvlf.caption"
-msgid "Enviar LF"
+msgid "Send LF"
 msgstr ""
 
 #: tfratabsession.acterlimbuf.caption
 msgctxt "tfratabsession.acterlimbuf.caption"
-msgid "&Limpiar Buffer"
+msgid "&Clean Buffer"
 msgstr ""
 
 #: tfratabsession.acterlimbuf.hint
 msgctxt "tfratabsession.acterlimbuf.hint"
-msgid "Limpia el buffer de pantalla"
+msgid "Clean the screen buffer"
 msgstr ""
 
 #: tfratabsession.acterprmaba.caption
 msgctxt "tfratabsession.acterprmaba.caption"
-msgid "&Bajar a prompt"
+msgid "Go to &Next prompt"
 msgstr ""
 
 #: tfratabsession.acterprmaba.hint
 msgctxt "tfratabsession.acterprmaba.hint"
-msgid "Bajar al siguiente prompt"
+msgid "Go to next prompt"
 msgstr ""
 
 #: tfratabsession.acterprmarr.caption
 msgctxt "tfratabsession.acterprmarr.caption"
-msgid "&Subir a prompt"
+msgid "Go to &Previous prompt"
 msgstr ""
 
 #: tfratabsession.acterprmarr.hint
 msgctxt "tfratabsession.acterprmarr.hint"
-msgid "Subir al prompt anterior"
+msgid "Go to previous prompt"
 msgstr ""
 
 #: tfratabsession.acterverbher.caption
 msgctxt "tfratabsession.acterverbher.caption"
-msgid "Ver Barra de &Herramientas"
+msgid "View Toolbar"
 msgstr ""
 
 #: tfratabsession.acterverbher.hint
 msgctxt "tfratabsession.acterverbher.hint"
-msgid "Ver Barra de Herramientas"
+msgid "View Tollbar"
+msgstr ""
+
+#: tfratabsession.menuitem72.caption
+msgid "&Enviar"
+msgstr ""
+
+#: tfratabsession.menuitem82.caption
+msgid "Copiar Elemento"
 msgstr ""
 
 #: tfratabsession.mnpopcomalm.caption
@@ -624,6 +648,10 @@ msgstr ""
 
 #: tfratabsession.toolbutton20.caption
 msgid "ToolButton20"
+msgstr ""
+
+#: tfratabsession.toolbutton24.caption
+msgid "ToolButton24"
 msgstr ""
 
 #: tfratabsession.toolbutton3.caption

@@ -6,8 +6,8 @@ uses
   Graphics, LCLType, LCLProc, ActnList, StdActns, Menus, StdCtrls,
   SynPluginMultiCaret, SynPluginSyncroEdit, SynFacilUtils, FormSelFuente,
   MisUtils, MiConfigXML, MiConfigBasic, UnTerminal, TermVT, SynEdit,
-  SynEditMarkupHighAll, SynEditKeyCmds, SynEditMarkup, uResaltTerm, Globales,
-  FormSesProperty, FormConfig, uPreProces, uPreBasicos;
+  SynEditMarkupHighAll, SynEditKeyCmds, SynEditMarkup, SynEditTypes,
+  uResaltTerm, Globales, FormSesProperty, FormConfig, uPreProces, uPreBasicos;
 const
   FONT_TAB_SIZE = 9;
   MIN_WIDTH_TAB = 50;  //Ancho por defecto de la lengueta
@@ -88,7 +88,12 @@ type
     AcTerPrmAba: TAction;
     AcTerPrmArr: TAction;
     AcTerVerBHer: TAction;
+    acFindFind: TAction;
+    acFindNext: TAction;
+    acFindPrev: TAction;
+    acFindReplace: TAction;
     ActionList1: TActionList;
+    FindDialog1: TFindDialog;
     ImageList1: TImageList;
     imgBookMarks: TImageList;
     MenuItem2: TMenuItem;
@@ -100,10 +105,32 @@ type
     MenuItem53: TMenuItem;
     MenuItem54: TMenuItem;
     MenuItem55: TMenuItem;
+    MenuItem56: TMenuItem;
+    MenuItem57: TMenuItem;
+    MenuItem58: TMenuItem;
+    MenuItem59: TMenuItem;
+    MenuItem60: TMenuItem;
+    MenuItem61: TMenuItem;
+    MenuItem72: TMenuItem;
+    MenuItem73: TMenuItem;
+    MenuItem74: TMenuItem;
+    MenuItem75: TMenuItem;
+    MenuItem76: TMenuItem;
+    MenuItem77: TMenuItem;
+    MenuItem78: TMenuItem;
+    MenuItem80: TMenuItem;
+    MenuItem81: TMenuItem;
+    MenuItem82: TMenuItem;
+    MenuItem83: TMenuItem;
+    MenuItem84: TMenuItem;
+    MenuItem85: TMenuItem;
+    MenuItem86: TMenuItem;
     mnPopComAlm: TMenuItem;
     mnPopLeng: TMenuItem;
     Panel1: TPanel;
     PopupMenu1: TPopupMenu;
+    PopupMenu2: TPopupMenu;
+    ReplaceDialog1: TReplaceDialog;
     SaveDialog1: TSaveDialog;
     SaveDialog2: TSaveDialog;
     Splitter1: TSplitter;
@@ -125,6 +152,9 @@ type
     ToolButton2: TToolButton;
     ToolButton20: TToolButton;
     ToolButton21: TToolButton;
+    ToolButton22: TToolButton;
+    ToolButton23: TToolButton;
+    ToolButton24: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
@@ -132,10 +162,14 @@ type
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
+    procedure acFindFindExecute(Sender: TObject);
     procedure AcFilSavSesAsExecute(Sender: TObject);
     procedure AcFilSavSesExecute(Sender: TObject);
     procedure AcFilStarLogExecute(Sender: TObject);
     procedure AcFilStopLogExecute(Sender: TObject);
+    procedure acFindNextExecute(Sender: TObject);
+    procedure acFindPrevExecute(Sender: TObject);
+    procedure acFindReplaceExecute(Sender: TObject);
     procedure AcHerCfgExecute(Sender: TObject);
     procedure acPCmEnvCtrCExecute(Sender: TObject);
     procedure AcPCmEnvLinExecute(Sender: TObject);
@@ -155,6 +189,11 @@ type
     procedure AcTerPrmAbaExecute(Sender: TObject);
     procedure AcTerPrmArrExecute(Sender: TObject);
     procedure AcTerVerBHerExecute(Sender: TObject);
+    procedure edPComEnter(Sender: TObject);
+    procedure edTermEnter(Sender: TObject);
+    procedure FindDialog1Find(Sender: TObject);
+    procedure ReplaceDialog1Replace(Sender: TObject);
+    procedure Splitter1Moved(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     ejecCom: boolean;   //indica que está ejecutando un comando (editor remoto, exp. remoto ...)
@@ -162,12 +201,14 @@ type
     LlegoPrompt: boolean;   //bandera
     parpadPan0: boolean;   //para activar el parpadeo del panel0
     ticComRec : integer;   //contador para comando recurrente
+    edFocused : TSynEdit;  //Editor con enfoque
     function BuscaPromptArr: integer;
     function BuscaPromptAba: integer;
     function BuscaUltPrompt: integer;
     function ConexDisponible: boolean;
     procedure ConfigEditor(ed: TSynEdit; cfgEdit: TEditCfg);
     procedure DistribuirPantalla;
+    procedure PropertiesChanged;
     procedure UpdateActionsState(Sender: TObject);
     procedure edPComKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EnvioTemporizado;
@@ -227,7 +268,7 @@ type
     curSigPrm  : boolean;  //cursor sigue a prompt
   public    //Parámetros del editor del Terminal
     cfgEdTerm  : TEditCfg;
-  public    //Parámetros de Comando recurrente
+  public   //Parámetros de Comando recurrente
     Activar  : boolean;
     Tempo    : integer;
     tipEnvio: TTipEnvio;
@@ -243,12 +284,13 @@ type
     SendLnEnter: boolean;   // Enviar la línea actual con <Enter>.
     SendLnCtrEnter: boolean;// Enviar la línea actual con <Ctrl>+<Enter>.
     UsarPrep   : boolean;   // Usar preprocesador.
-  public    //Parámetros del editor del comandos
+  public   //Parámetros del editor del comandos
     cfgEdPCom  : TEditCfg;
   public   //Parámetros adicionales
     langFile   : string;    //Archivo del lenguaje para el resaltador.
     textPCom : TStrings;  //Texto del panel de comandos
     textTerm   : TStrings;  //Texto del terminal.
+    pComWidth   : integer;  //Ancho de panel de comando.
   public   //Detección de prompt
     procedure UpdatePromptProc;
     function ContienePrompt(const linAct: string): integer;
@@ -508,8 +550,8 @@ procedure TfraTabSession.Activate;
 begin
   Show;              //Primero se hace visible.
   ConnectToGUI;      //Pide configurar eventos.
-  UpdatePanInfoConn; //Actualiza información de la conexión.
-  //UpdatePanelState;
+  UpdatePanInfoConn; //Actualiza panel con información de la conexión.
+  UpdatePanelState;  //Actualiza panel de estado de la conexión
   ePCom.RefreshPanCursor;  //Refresca el panel de posición del cursor.
   UpdatePanelLangName; //Actualiza nombre del lenguaje.
 end;
@@ -521,7 +563,7 @@ end;
 procedure TfraTabSession.UpdatePanelState;
 {Actualiza el panel de estado de la conexión.}
 begin
-
+  proc.RefPanelEstado;
 end;
 procedure TfraTabSession.UpdatePanelLangName;
 {Actualiza el panel del lenguaje del resaltador.}
@@ -546,6 +588,24 @@ begin
     yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
     edTErm.CaretXY := Point(proc.term.curX, yvt+proc.term.CurY+1);
   end;
+end;
+procedure TfraTabSession.PropertiesChanged;
+{Rutinas a ejecutar cuando han cambiado las propiedades de la sesión, como cuando se
+cargan de archivo o se cambian con la ventana de propiedades.}
+begin
+  UpdatePromptProc;   //Actualiza los parámetros de detección del "prompt" en "proc".
+  UpdatePanInfoConn;  //Actualiza información de la conexión
+  UpdatePanelState;   //Actualiza panel del estado de la conexión
+  ePCom.RefreshPanCursor;  //Refresca el panel de posición del cursor.
+  if langFile<>'' then begin  //Carga coloreado de sintaxis, actualiza menú y panel.
+    ePCom.LoadSyntaxFromFile(langFile);
+  end;
+  //Actualiza controles que dependen de las propiedades.
+  ConfigEditor(edTerm, cfgEdTerm);       //Configura editor.
+  ConfigEditor(edPCom, cfgEdPCom);       //Configura editor.
+  edTerm.Invalidate; //Para que refresque los cambios.
+  edPCom.Invalidate; //Para que refresque los cambios.
+  edPCom.Width := pComWidth;
 end;
 //Acceso a disco
 procedure TfraTabSession.UpdateCaption(filName: string);
@@ -640,24 +700,13 @@ var
   res: string;
 begin
   if not GetTabSessions(self, tabSessions) then exit;
-  if not prop.FileToProperties then begin  //Accede a "fileName"
+  prop.FileToProperties;  //Accede a "fileName"
+  if prop.MsjErr<>'' then begin  //Accede a "fileName"
     MsgErr(prop.MsjErr);
   end;
-  UpdatePromptProc;   //Actualiza los parámetros de detección del "prompt" en "proc".
-  UpdatePanInfoConn;  //Actualiza información de la conexión
-  //UpdatePanelState;
-  ePCom.RefreshPanCursor;  //Refresca el panel de posición del cursor.
-  if langFile<>'' then begin  //Carga coloreado de sintaxis, actualiza menú y panel.
-    ePCom.LoadSyntaxFromFile(langFile);
-  end;
-
   //Puede haber cambiado el nombre del archivo. Actualiza texto de la lengueta.
   UpdateCaption(fileName);
-  //Actualiza controles que dependen de las propiedades.
-  ConfigEditor(edTerm, cfgEdTerm);       //Configura editor.
-  ConfigEditor(edPCom, cfgEdPCom);       //Configura editor.
-  if edTerm<>nil then edTerm.Invalidate; //Para que refresque los cambios.
-  if edPCom<>nil then edPCom.Invalidate; //Para que refresque los cambios.
+  PropertiesChanged;   //Procesa el cambio de propiedades
   //Delegamos la función de guardar históricos a la IDE
   tabSessions.PageEvent('reg_reg_file', self, res);
 end;
@@ -802,11 +851,7 @@ begin
       msgerr(prop.MsjErr);
       exit;
     end;
-    //Actualiza controles que dependen de las propiedades.
-    ConfigEditor(edTerm, cfgEdTerm);       //Configura editor.
-    ConfigEditor(edPCom, cfgEdPCom);       //Configura editor.
-    if edTerm<>nil then edTerm.Invalidate; //para que refresque los cambios.
-    if edPCom<>nil then edPCom.Invalidate; //para que refresque los cambios.
+    PropertiesChanged;   //Procesa el cambio de propiedades
     //fcConex.GrabarIP;  //Debería grabar las últimas IP
   end;
   mrCancel: begin  //Cancelar
@@ -1288,6 +1333,8 @@ begin
   prop.Asoc_Str ('langFile'  , @langFile, '');
   prop.Asoc_StrList('textPCom'   , @textPCom);
   //prop.Asoc_StrList('Term'   , @textTerm);
+  prop.Asoc_Int('pComWidth',  @pComWidth, 200);
+
 
   //Rutina para forzar la carga de valores por defecto de las propiedades.
   tmp := fileName;     //Guarda valor.
@@ -1305,6 +1352,11 @@ begin
 //  //Configura evento
 //  if OnRequireSynEditConfig<>nil then
 //    OnRequireSynEditConfig(page.edPCom);
+end;
+procedure TfraTabSession.Splitter1Moved(Sender: TObject);
+{Se está dimensionando}
+begin
+  pComWidth := edPCom.Width;
 end;
 procedure TfraTabSession.ExecSettings;
 begin
@@ -1392,6 +1444,28 @@ end;
 procedure TfraTabSession.AcFilStopLogExecute(Sender: TObject);
 begin
   EndLog;
+end;
+procedure TfraTabSession.acFindFindExecute(Sender: TObject);
+begin
+  FindDialog1.Execute;
+end;
+procedure TfraTabSession.acFindNextExecute(Sender: TObject);
+begin
+  FindDialog1Find(self);
+end;
+procedure TfraTabSession.acFindPrevExecute(Sender: TObject);
+begin
+  if frDown in FindDialog1.Options then begin
+    FindDialog1.Options := FindDialog1.Options - [frDown];  //Quita
+    FindDialog1Find(self);
+    FindDialog1.Options := FindDialog1.Options + [frDown];  //Restaura
+  end else begin
+    FindDialog1Find(self);
+  end;
+end;
+procedure TfraTabSession.acFindReplaceExecute(Sender: TObject);
+begin
+  ReplaceDialog1.Execute;
 end;
 //Acciones del Panel de comando.
 procedure TfraTabSession.AcPCmEnvLinExecute(Sender: TObject);
@@ -1586,6 +1660,80 @@ procedure TfraTabSession.AcTerVerBHerExecute(Sender: TObject);
 begin
 
 end;
+procedure TfraTabSession.edPComEnter(Sender: TObject);
+begin
+  edFocused := edPCom;
+end;
+procedure TfraTabSession.edTermEnter(Sender: TObject);
+begin
+  edFocused := edTerm;
+end;
+procedure TfraTabSession.FindDialog1Find(Sender: TObject);
+var
+  encon  : integer;
+  buscado : string;
+  opciones: TSynSearchOptions;
+  curEdit: TSynEdit;
+begin
+  //Busca el último editor que tuvo el enfoque.
+  if edFocused = nil then begin
+    exit;
+  end else begin
+    curEdit := edFocused;
+  end;
+  buscado := FindDialog1.FindText;
+  opciones := [];
+  if not(frDown in FindDialog1.Options) then opciones += [ssoBackwards];
+  if frMatchCase in FindDialog1.Options then opciones += [ssoMatchCase];
+  if frWholeWord in FindDialog1.Options then opciones += [ssoWholeWord];
+  if frEntireScope in FindDialog1.Options then opciones += [ssoEntireScope];
+  encon := curEdit.SearchReplace(buscado,'',opciones);
+  if encon = 0 then
+     MsgBox('Not found "%s"', [buscado]);
+end;
+
+procedure TfraTabSession.ReplaceDialog1Replace(Sender: TObject);
+var
+  encon, r : integer;
+  buscado : string;
+  opciones: TSynSearchOptions;
+  curEdit: TSynEdit;
+begin
+  //Busca el último editor que tuvo el enfoque.
+  if edFocused = nil then begin
+    exit;
+  end else begin
+    curEdit := edFocused;
+  end;
+  buscado := ReplaceDialog1.FindText;
+  opciones := [ssoFindContinue];
+  if not(frDown in ReplaceDialog1.Options) then opciones += [ssoBackwards];
+  if frMatchCase in ReplaceDialog1.Options then opciones += [ssoMatchCase];
+  if frWholeWord in ReplaceDialog1.Options then opciones += [ssoWholeWord];
+  if frEntireScope in ReplaceDialog1.Options then opciones += [ssoEntireScope];
+  if frReplaceAll in ReplaceDialog1.Options then begin
+    //se ha pedido reemplazar todo
+    encon := curEdit.SearchReplace(buscado,ReplaceDialog1.ReplaceText,
+                              opciones+[ssoReplaceAll]);  //reemplaza
+    MsgBox('%d words replaced', [IntToStr(encon)]);
+    exit;
+  end;
+  //reemplazo con confirmación
+  ReplaceDialog1.CloseDialog;
+  encon := curEdit.SearchReplace(buscado,'',opciones);  //búsqueda
+  while encon <> 0 do begin
+      //pregunta
+      r := Application.MessageBox(pChar('Replace this?'), '', MB_YESNOCANCEL);
+      if r = IDCANCEL then exit;
+      if r = IDYES then begin
+        curEdit.TextBetweenPoints[curEdit.BlockBegin,curEdit.BlockEnd] := ReplaceDialog1.ReplaceText;
+      end;
+      //busca siguiente
+      encon := curEdit.SearchReplace(buscado,'',opciones);  //búsca siguiente
+  end;
+  MsgBox('No found "%s"', [buscado]);
+end;
+
 //Acciones de herramientas
 procedure TfraTabSession.AcHerCfgExecute(Sender: TObject);
 begin

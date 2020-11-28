@@ -7,14 +7,24 @@ unit uResaltTerm;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, Graphics, SynEditHighlighter,
+  Classes, SysUtils, Graphics, LCLProc, SynEditHighlighter,
   SynEditHighlighterFoldBase;
 type
   {Clase para la creación de un resaltador}
   TRangeState = (rsUnknown, rsComment);
   //ID para categorizar a los tokens
-  TtkTokenKind = (tkIndentif, tkComment, tkKey, tkNull, tkSpace, tkString, tkUnknown,
-                  tkPrompt, tkDirect);
+  TtkTokenKind = (tkIndentif,
+                  tkComment,
+                  tkKey,    //Palabra clave
+                  tkError,  //Palabra ERROR.
+                  tkWarning,  //Palabra WARNING.
+                  tkNull,
+                  tkSpace,
+                  tkString,
+                  tkPrompt,
+                  tkUnknown,
+                  tkDirect  //Listado de directorio
+                  );
 
   TProcTableProc = procedure of object; //Tipo procedimiento para procesar el
                                         //token por el carácter inicial.
@@ -36,6 +46,8 @@ type
     fAtriCadena  : TSynHighlighterAttributes;
     fAtriPrompt  : TSynHighlighterAttributes;
     fAtriDirect  : TSynHighlighterAttributes;
+    fAtriError   : TSynHighlighterAttributes;
+    fAtriWarning : TSynHighlighterAttributes;
   public
     //detecPrompt : boolean;    //Activa la detección del prompt
     //prIni, prFin: string;     //Cadena inicial, y final del prompt { TODO : En teoría no deberían ser necesarias estas variables  }
@@ -112,7 +124,6 @@ begin
     j := UpCase(i);
   end;
 end;
-
 constructor TResaltTerm.Create(AOwner: TComponent);
 //Constructor de la clase. Aquí se deben crear los atributos a usar.
 begin
@@ -121,7 +132,7 @@ begin
   fAtriIdentif  := TSynHighlighterAttributes.Create('Identif');
   fAtriIdentif.Foreground := clWhite;    //color de letra
   AddAttribute(fAtriIdentif);
-  //atributo de comentarios
+  //Atributo de comentarios
   fAtriComent  := TSynHighlighterAttributes.Create('Comment');
 //  fAtriComent.Style := [fsItalic];     //en cursiva
   fAtriComent.Foreground := clLtGray;    //color de letra gris
@@ -131,31 +142,35 @@ begin
   fAtriClave.Style := [fsBold];       //en negrita
   fAtriClave.Foreground:=TColor($40D040);;     //color de letra verde
   AddAttribute(fAtriClave);
-  //atributo de espacios. Sin atributos
+  //Atributo de espacios. Sin atributos
   fAtriEspac   := TSynHighlighterAttributes.Create('space');
   AddAttribute(fAtriEspac);
-  //atributo de cadenas
+  //Atributo de cadenas
   fAtriCadena  := TSynHighlighterAttributes.Create('String');
   fAtriCadena.Foreground :=  TColor($FFFF00);   //color de letra celeste
   AddAttribute(fAtriCadena);
-  //atributo de prompt
+  //Atributo de prompt
   fAtriPrompt  := TSynHighlighterAttributes.Create('Prompt');
   fAtriPrompt.Foreground := clWhite;   //color de letra
   fAtriPrompt.Background:= clGreen;
   AddAttribute(fAtriPrompt);
-  //atributo de directorio
+  //Atributo de directorio
   fAtriDirect  := TSynHighlighterAttributes.Create('Direct');
   fAtriDirect.Foreground := clYellow;   //color de letra
   AddAttribute(fAtriDirect);
-  //atributo desconocido
-//  fAtriDescon  := TSynHighlighterAttributes.Create('Otros');
-//  fAtriDescon.Foreground := clYellow;   //color de letra
-//  AddAttribute(fAtriDirect);
 
+  //Atributo de error
+  fAtriError  := TSynHighlighterAttributes.Create('Error');
+  fAtriError.Foreground := clRed;   //color de letra
+  AddAttribute(fAtriError);
+
+  //Atributo de Advertencia
+  fAtriWarning  := TSynHighlighterAttributes.Create('Warning');
+  fAtriWarning.Foreground := clYellow;   //color de letra
+  AddAttribute(fAtriWarning);
 
   CreaTablaDeMetodos;  //Construye tabla de métodos
 end;
-
 procedure TResaltTerm.CreaTablaDeMetodos;
 var
   I: Char;
@@ -168,7 +183,7 @@ begin
       'b': fProcTable[I] := @ProcB;
       'c': fProcTable[I] := @ProcC;
       'd': fProcTable[I] := @ProcD;
-      'e': fProcTable[I] := @ProcE;
+      'e','E': fProcTable[I] := @ProcE;
       'f': fProcTable[I] := @ProcF;
       'g': fProcTable[I] := @ProcG;
       'h': fProcTable[I] := @ProcH;
@@ -186,11 +201,11 @@ begin
       't': fProcTable[I] := @ProcT;
       'u': fProcTable[I] := @ProcU;
       'v': fProcTable[I] := @ProcV;
-      'w': fProcTable[I] := @ProcW;
+      'w','W': fProcTable[I] := @ProcW;
       'x': fProcTable[I] := @ProcIdent;
       'y': fProcTable[I] := @ProcIdent;
       'z': fProcTable[I] := @ProcZ;
-      'A'..'Z': fProcTable[I] := @ProcIdent;
+      'A'..'D','F'..'V','X'..'Z': fProcTable[I] := @ProcIdent;
       #0     : fProcTable[I] := @ProcNull;   //Se lee el caracter de marca de fin de cadena
       #1..#9, #11, #12, #14..#32: fProcTable[I] := @ProcSpace;
       else fProcTable[I] := @ProcUnknown;
@@ -202,13 +217,10 @@ var
   Temp: PChar;
 begin
   Temp := fToIdent;
-  if Length(aKey) = fStringLen then
-  begin
+  if Length(aKey) = fStringLen then begin
     Result := True;
-    for i := 1 to fStringLen do
-    begin
-      if Temp^ <> aKey[i] then
-      begin
+    for i := 1 to fStringLen do begin
+      if Temp^ <> aKey[i] then begin
         Result := False;
         break;
       end;
@@ -299,16 +311,21 @@ begin
     fTokenID := tkIndentif;  //identificador común
 end;
 procedure TResaltTerm.ProcE;
+var
+  tok, utok: String;
 begin
   while Identifiers[linAct[posFin]] do inc(posFin);
   fStringLen := posFin - posIni - 1;  //calcula tamaño - 1
   fToIdent := linAct + posIni + 1;  //puntero al identificador + 1
-  if KeyComp('cho')     then fTokenID := tkKey else
-  if KeyComp('lse')     then fTokenID := tkKey else
-  if KeyComp('nv')     then fTokenID := tkKey else
-  if KeyComp('val')     then fTokenID := tkKey else
-  if KeyComp('xit')     then fTokenID := tkKey else
-  if KeyComp('xport')     then fTokenID := tkKey else
+  tok := GetToken;
+  utok := Upcase(GetToken);
+  if tok = 'echo'     then fTokenID := tkKey else
+  if tok = 'else'     then fTokenID := tkKey else
+  if tok = 'env'      then fTokenID := tkKey else
+  if utok = 'ERROR'   then fTokenID := tkError else
+  if tok = 'eval'     then fTokenID := tkKey else
+  if tok = 'exit'     then fTokenID := tkKey else
+  if tok = 'export'   then fTokenID := tkKey else
     fTokenID := tkIndentif;  //identificador común
 end;
 procedure TResaltTerm.ProcF;
@@ -495,19 +512,24 @@ begin
     fTokenID := tkIndentif;  //identificador común
 end;
 procedure TResaltTerm.ProcW;
+var
+  tok, utok: String;
 begin
   while Identifiers[linAct[posFin]] do inc(posFin);
   fStringLen := posFin - posIni - 1;  //calcula tamaño - 1
   fToIdent := linAct + posIni + 1;  //puntero al identificador + 1
-  if KeyComp('ait')     then fTokenID := tkKey else
-  if KeyComp('c')     then fTokenID := tkKey else
-  if KeyComp('hatis')     then fTokenID := tkKey else
-  if KeyComp('whence')     then fTokenID := tkKey else
-  if KeyComp('hereis')     then fTokenID := tkKey else
-  if KeyComp('hich')     then fTokenID := tkKey else
-  if KeyComp('hile')     then fTokenID := tkKey else
-  if KeyComp('ho')     then fTokenID := tkKey else
-  if KeyComp('hoami')     then fTokenID := tkKey else
+  tok := GetToken;
+  utok := Upcase(GetToken);
+  if tok = 'wait'     then fTokenID := tkKey else
+  if utok = 'WARNING' then fTokenID := tkWarning else
+  if tok = 'wc'       then fTokenID := tkKey else
+  if tok = 'whatis'   then fTokenID := tkKey else
+  if tok = 'wwhence'  then fTokenID := tkKey else
+  if tok = 'whereis'  then fTokenID := tkKey else
+  if tok = 'which'    then fTokenID := tkKey else
+  if tok = 'while'    then fTokenID := tkKey else
+  if tok = 'who'      then fTokenID := tkKey else
+  if tok = 'whoami'   then fTokenID := tkKey else
     fTokenID := tkIndentif;  //identificador común
 end;
 procedure TResaltTerm.ProcZ;
@@ -614,6 +636,8 @@ begin
     tkString  : Result := fAtriCadena;
     tkPrompt  : Result := fAtriPrompt;
     tkDirect  : Result := fAtriDirect;
+    tkError   : Result := fAtriError;
+    tkWarning : Result := fAtriWarning;
     else
       Result := nil;  //tkUnknown, tkNull
   end;
@@ -637,8 +661,11 @@ end;
  llaves, corchetes, parentesis y comillas. No son cruciales para el coloreado
  de tokens, pero deben responder bien.}
 function TResaltTerm.GetToken: String;
+var
+  Len: LongInt;
 begin
-  Result := '';
+  Len := posFin - posIni;
+  SetString(Result, (linAct + posIni), Len);
 end;
 function TResaltTerm.GetTokenPos: Integer;
 begin
