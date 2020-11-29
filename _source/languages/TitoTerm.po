@@ -1,0 +1,1725 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: formprincipal.msg_allfiles
+msgctxt "formprincipal.msg_allfiles"
+msgid "All files"
+msgstr ""
+
+#: formprincipal.msg_file_des
+msgctxt "formprincipal.msg_file_des"
+msgid "Session Files"
+msgstr ""
+
+#: formprincipal.msg_file_ext
+msgctxt "formprincipal.msg_file_ext"
+msgid ".ses"
+msgstr ""
+
+#: formprincipal.msg_nofiles
+msgctxt "formprincipal.msg_nofiles"
+msgid "No files"
+msgstr ""
+
+#: frametabsession.msg_modifsav
+msgctxt "frametabsession.msg_modifsav"
+msgid "File %s has been modified. Save?"
+msgstr ""
+
+#: tconfig.bitaplicar.caption
+msgid "A&plicar"
+msgstr ""
+
+#: tconfig.caption
+msgid "Settings"
+msgstr ""
+
+#: tconfig.chklistdet.caption
+msgctxt "tconfig.chklistdet.caption"
+msgid "Show detailed list of files."
+msgstr ""
+
+#: tconfig.chkmarlin.caption
+msgctxt "tconfig.chkmarlin.caption"
+msgid "Highlight line that is running."
+msgstr ""
+
+#: tconfig.chkmosocul.caption
+msgctxt "tconfig.chkmosocul.caption"
+msgid "Show hidden files"
+msgstr ""
+
+#: tconfig.chkmosrut.caption
+msgctxt "tconfig.chkmosrut.caption"
+msgid "Show currente path"
+msgstr ""
+
+#: tconfig.chkopenlast.caption
+msgctxt "tconfig.chkopenlast.caption"
+msgid "&Open last edited file on start"
+msgstr ""
+
+#: tconfig.chkrefdesp.caption
+msgctxt "tconfig.chkrefdesp.caption"
+msgid "Refresh list, after any operation"
+msgstr ""
+
+#: tconfig.edtpomax.text
+msgctxt "tconfig.edtpomax.text"
+msgid "edTpoMax"
+msgstr ""
+
+#: tconfig.edtpomax1.text
+msgid "edTpoMax1"
+msgstr ""
+
+#: tconfig.label1.caption
+msgctxt "tconfig.label1.caption"
+msgid "Timeout. (seconds)"
+msgstr ""
+
+#: tconfig.label2.caption
+msgctxt "tconfig.label2.caption"
+msgid "Time for waiting terminal (seconds):"
+msgstr ""
+
+#: tconfig.lblrutleng.caption
+msgctxt "tconfig.lblrutleng.caption"
+msgid "&Lenguajes path:"
+msgstr ""
+
+#: tconfig.lblrutmac.caption
+msgctxt "tconfig.lblrutmac.caption"
+msgid "&Macros path:"
+msgstr ""
+
+#: tconfig.lblrutscript.caption
+msgctxt "tconfig.lblrutscript.caption"
+msgid "&Scripts path:"
+msgstr ""
+
+#: tconfig.tabfilepath.caption
+msgid "TabFilePath"
+msgstr ""
+
+#: tconfig.tabgeneral.caption
+msgid "TabGeneral"
+msgstr ""
+
+#: tconfig.tabmacedit.caption
+msgid "TabMacEdit"
+msgstr ""
+
+#: tconfig.tabmacsett.caption
+msgid "TabMacSett"
+msgstr ""
+
+#: tconfig.tabremedit.caption
+msgid "TabRemEdit"
+msgstr ""
+
+#: tconfig.tabremexpl.caption
+msgid "TabRemExpl"
+msgstr ""
+
+#: tfracfgsynedit.chkfullword.caption
+msgid "Full Word"
+msgstr ""
+
+#: tfracfgsynedit.chkhighcurlin.caption
+msgid "Highlight current line:"
+msgstr ""
+
+#: tfracfgsynedit.chkhighcurword.caption
+msgid "Highlight current word"
+msgstr ""
+
+#: tfracfgsynedit.chkverbardesh.caption
+msgid "&Horizontal Scrollbar"
+msgstr ""
+
+#: tfracfgsynedit.chkverbardesv.caption
+msgid "&Vertical Scrollbar"
+msgstr ""
+
+#: tfracfgsynedit.chkvermarple.caption
+msgid "Show folding marks"
+msgstr ""
+
+#: tfracfgsynedit.chkvernumlin.caption
+msgid "Show líne number"
+msgstr ""
+
+#: tfracfgsynedit.chkverpanver.caption
+msgid "Gutter"
+msgstr ""
+
+#: tfracfgsynedit.cmbtipoletra.text
+msgctxt "tfracfgsynedit.cmbtipoletra.text"
+msgid "cmbTipoLetra"
+msgstr ""
+
+#: tfracfgsynedit.groupbox1.caption
+msgid "   "
+msgstr ""
+
+#: tfracfgsynedit.groupbox2.caption
+msgid "              "
+msgstr ""
+
+#: tfracfgsynedit.label1.caption
+msgctxt "tfracfgsynedit.label1.caption"
+msgid "Color:"
+msgstr ""
+
+#: tfracfgsynedit.label10.caption
+msgid "Back color:"
+msgstr ""
+
+#: tfracfgsynedit.label11.caption
+msgid "Text color:"
+msgstr ""
+
+#: tfracfgsynedit.label12.caption
+msgid "Frame color:"
+msgstr ""
+
+#: tfracfgsynedit.label2.caption
+msgctxt "tfracfgsynedit.label2.caption"
+msgid "Back Color:"
+msgstr ""
+
+#: tfracfgsynedit.label3.caption
+msgctxt "tfracfgsynedit.label3.caption"
+msgid "Text Color:"
+msgstr ""
+
+#: tfracfgsynedit.label6.caption
+msgid "Font name:"
+msgstr ""
+
+#: tfracfgsynedit.label7.caption
+msgid "Font Size:"
+msgstr ""
+
+#: tfracfgsynedit.label8.caption
+msgctxt "tfracfgsynedit.label8.caption"
+msgid "Back Color:"
+msgstr ""
+
+#: tfracfgsynedit.label9.caption
+msgctxt "tfracfgsynedit.label9.caption"
+msgid "Text Color:"
+msgstr ""
+
+#: tfraexpremoto.acconfig.caption
+msgctxt "tfraexpremoto.acconfig.caption"
+msgid "&Settings"
+msgstr ""
+
+#: tfraexpremoto.acconfig.hint
+msgid "Configurar el explorador"
+msgstr ""
+
+#: tfraexpremoto.aceddelete.caption
+msgid "&Delete"
+msgstr ""
+
+#: tfraexpremoto.acededit.caption
+msgctxt "tfraexpremoto.acededit.caption"
+msgid "&Edit"
+msgstr ""
+
+#: tfraexpremoto.acfileaccess.caption
+msgid "&Enter"
+msgstr ""
+
+#: tfraexpremoto.acfilnewfile.caption
+msgid "&New file"
+msgstr ""
+
+#: tfraexpremoto.acfilnewfile.hint
+msgid "Crea un nuevo archivo"
+msgstr ""
+
+#: tfraexpremoto.acfilnewfold.caption
+msgid "New folder"
+msgstr ""
+
+#: tfraexpremoto.acfilrename.caption
+msgid "&Rename"
+msgstr ""
+
+#: tfraexpremoto.acherejec.caption
+msgid "E&xecute"
+msgstr ""
+
+#: tfraexpremoto.acverrefres.caption
+msgid "&Refresh All"
+msgstr ""
+
+#: tfraexpremoto.acverrefres.hint
+msgctxt "tfraexpremoto.acverrefres.hint"
+msgid "Refresca la lista"
+msgstr ""
+
+#: tfraexpremoto.label1.caption
+msgid "Current path:"
+msgstr ""
+
+#: tfraexpremoto.listview1.columns[0].caption
+msgid "Nombre"
+msgstr ""
+
+#: tfraexpremoto.listview1.columns[1].caption
+msgid "Fecha"
+msgstr ""
+
+#: tfraexpremoto.listview1.columns[2].caption
+msgid "Tamaño"
+msgstr ""
+
+#: tfraexpremoto.menuitem4.hint
+msgctxt "tfraexpremoto.menuitem4.hint"
+msgid "Refresca la lista"
+msgstr ""
+
+#: tfratabsession.acedcopy.caption
+msgctxt "tfratabsession.acedcopy.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tfratabsession.acedcopy.hint
+msgctxt "tfratabsession.acedcopy.hint"
+msgid "Copy"
+msgstr ""
+
+#: tfratabsession.acedcut.caption
+msgctxt "tfratabsession.acedcut.caption"
+msgid "C&ut"
+msgstr ""
+
+#: tfratabsession.acedcut.hint
+msgctxt "tfratabsession.acedcut.hint"
+msgid "Cut"
+msgstr ""
+
+#: tfratabsession.acedpaste.caption
+msgctxt "tfratabsession.acedpaste.caption"
+msgid "&Paste"
+msgstr ""
+
+#: tfratabsession.acedpaste.hint
+msgid "Paste"
+msgstr ""
+
+#: tfratabsession.acedredo.caption
+msgctxt "tfratabsession.acedredo.caption"
+msgid "&Redo"
+msgstr ""
+
+#: tfratabsession.acedredo.hint
+msgctxt "tfratabsession.acedredo.hint"
+msgid "Redo"
+msgstr ""
+
+#: tfratabsession.acedselecall.caption
+msgctxt "tfratabsession.acedselecall.caption"
+msgid "Select All"
+msgstr ""
+
+#: tfratabsession.acedselecall.hint
+msgctxt "tfratabsession.acedselecall.hint"
+msgid "Select All"
+msgstr ""
+
+#: tfratabsession.acedundo.caption
+msgctxt "tfratabsession.acedundo.caption"
+msgid "&Undo"
+msgstr ""
+
+#: tfratabsession.acedundo.hint
+msgctxt "tfratabsession.acedundo.hint"
+msgid "Undo"
+msgstr ""
+
+#: tfratabsession.acfilnewses.caption
+msgctxt "tfratabsession.acfilnewses.caption"
+msgid "&New Session"
+msgstr ""
+
+#: tfratabsession.acfilnewses.hint
+msgid "New Session"
+msgstr ""
+
+#: tfratabsession.acfilopeses.caption
+msgctxt "tfratabsession.acfilopeses.caption"
+msgid "&Open Session ..."
+msgstr ""
+
+#: tfratabsession.acfilopeses.hint
+msgctxt "tfratabsession.acfilopeses.hint"
+msgid "Open Session"
+msgstr ""
+
+#: tfratabsession.acfilsavses.caption
+msgctxt "tfratabsession.acfilsavses.caption"
+msgid "&Save Session"
+msgstr ""
+
+#: tfratabsession.acfilsavses.hint
+msgctxt "tfratabsession.acfilsavses.hint"
+msgid "Save"
+msgstr ""
+
+#: tfratabsession.acfilsavsesas.caption
+msgctxt "tfratabsession.acfilsavsesas.caption"
+msgid "Save Session &As"
+msgstr ""
+
+#: tfratabsession.acfilsavsesas.hint
+msgctxt "tfratabsession.acfilsavsesas.hint"
+msgid "Save As"
+msgstr ""
+
+#: tfratabsession.acfilstarlog.caption
+msgctxt "tfratabsession.acfilstarlog.caption"
+msgid "&Start Logging..."
+msgstr ""
+
+#: tfratabsession.acfilstarlog.hint
+msgctxt "tfratabsession.acfilstarlog.hint"
+msgid "Start Logging"
+msgstr ""
+
+#: tfratabsession.acfilstoplog.caption
+msgctxt "tfratabsession.acfilstoplog.caption"
+msgid "S&top Logging"
+msgstr ""
+
+#: tfratabsession.acfilstoplog.hint
+msgctxt "tfratabsession.acfilstoplog.hint"
+msgid "Stop Logging"
+msgstr ""
+
+#: tfratabsession.acfindfind.caption
+msgid "&Search"
+msgstr ""
+
+#: tfratabsession.acfindfind.hint
+msgid "Find"
+msgstr ""
+
+#: tfratabsession.acfindnext.caption
+msgctxt "tfratabsession.acfindnext.caption"
+msgid "Find Next"
+msgstr ""
+
+#: tfratabsession.acfindnext.hint
+msgctxt "tfratabsession.acfindnext.hint"
+msgid "Find Next"
+msgstr ""
+
+#: tfratabsession.acfindprev.caption
+msgid "Find Previos"
+msgstr ""
+
+#: tfratabsession.acfindprev.hint
+msgid "Find Previous"
+msgstr ""
+
+#: tfratabsession.acfindreplace.caption
+msgctxt "tfratabsession.acfindreplace.caption"
+msgid "Replace"
+msgstr ""
+
+#: tfratabsession.acfindreplace.hint
+msgctxt "tfratabsession.acfindreplace.hint"
+msgid "Replace"
+msgstr ""
+
+#: tfratabsession.achercfg.caption
+msgctxt "tfratabsession.achercfg.caption"
+msgid "Se&ttings"
+msgstr ""
+
+#: tfratabsession.achercfg.hint
+msgctxt "tfratabsession.achercfg.hint"
+msgid "Show settings"
+msgstr ""
+
+#: tfratabsession.achergramac.caption
+msgctxt "tfratabsession.achergramac.caption"
+msgid "&Record Macro"
+msgstr ""
+
+#: tfratabsession.achergramac.hint
+msgid "Record Macro"
+msgstr ""
+
+#: tfratabsession.acpcmcampos.caption
+msgctxt "tfratabsession.acpcmcampos.caption"
+msgid "Cambiar posición"
+msgstr ""
+
+#: tfratabsession.acpcmcampos.hint
+msgctxt "tfratabsession.acpcmcampos.hint"
+msgid "Cambia la posición del Panel de comandos"
+msgstr ""
+
+#: tfratabsession.acpcmenvctrc.caption
+msgctxt "tfratabsession.acpcmenvctrc.caption"
+msgid "Send Ct&rl+C"
+msgstr ""
+
+#: tfratabsession.acpcmenvctrc.hint
+msgctxt "tfratabsession.acpcmenvctrc.hint"
+msgid "Send Ctrl+C"
+msgstr ""
+
+#: tfratabsession.acpcmenvlin.caption
+msgctxt "tfratabsession.acpcmenvlin.caption"
+msgid "Send &Line"
+msgstr ""
+
+#: tfratabsession.acpcmenvlin.hint
+msgctxt "tfratabsession.acpcmenvlin.hint"
+msgid "Send current line or selection"
+msgstr ""
+
+#: tfratabsession.acpcmenvtod.caption
+msgctxt "tfratabsession.acpcmenvtod.caption"
+msgid "Send &All"
+msgstr ""
+
+#: tfratabsession.acpcmenvtod.hint
+msgctxt "tfratabsession.acpcmenvtod.hint"
+msgid "Send all text or selection"
+msgstr ""
+
+#: tfratabsession.acpcmocul.caption
+msgctxt "tfratabsession.acpcmocul.caption"
+msgid "Ocultar"
+msgstr ""
+
+#: tfratabsession.acpcmocul.hint
+msgctxt "tfratabsession.acpcmocul.hint"
+msgid "Ocultar Panel de comandos"
+msgstr ""
+
+#: tfratabsession.acterconec.caption
+msgctxt "tfratabsession.acterconec.caption"
+msgid "&Connect"
+msgstr ""
+
+#: tfratabsession.acterconec.hint
+msgctxt "tfratabsession.acterconec.hint"
+msgid "Connect"
+msgstr ""
+
+#: tfratabsession.actercopnom.caption
+msgctxt "tfratabsession.actercopnom.caption"
+msgid "&Copy File name"
+msgstr ""
+
+#: tfratabsession.actercopnomrut.caption
+msgctxt "tfratabsession.actercopnomrut.caption"
+msgid "Copy Name and Path"
+msgstr ""
+
+#: tfratabsession.actercoppal.caption
+msgctxt "tfratabsession.actercoppal.caption"
+msgid "Copy &Word"
+msgstr ""
+
+#: tfratabsession.actercoprut.caption
+msgctxt "tfratabsession.actercoprut.caption"
+msgid "Copy Pat&h"
+msgstr ""
+
+#: tfratabsession.acterdescon.caption
+msgctxt "tfratabsession.acterdescon.caption"
+msgid "&Disconnect"
+msgstr ""
+
+#: tfratabsession.acterdescon.hint
+msgctxt "tfratabsession.acterdescon.hint"
+msgid "Disconnect"
+msgstr ""
+
+#: tfratabsession.acterdetprm.caption
+msgctxt "tfratabsession.acterdetprm.caption"
+msgid "Detect &Prompt"
+msgstr ""
+
+#: tfratabsession.acterdetprm.hint
+msgctxt "tfratabsession.acterdetprm.hint"
+msgid "Detect prompt"
+msgstr ""
+
+#: tfratabsession.acterenvcr.caption
+msgctxt "tfratabsession.acterenvcr.caption"
+msgid "Send &CR"
+msgstr ""
+
+#: tfratabsession.acterenvcrlf.caption
+msgctxt "tfratabsession.acterenvcrlf.caption"
+msgid "Send CR+&LF"
+msgstr ""
+
+#: tfratabsession.acterenventer.caption
+msgctxt "tfratabsession.acterenventer.caption"
+msgid "Send &Enter"
+msgstr ""
+
+#: tfratabsession.acterenvlf.caption
+msgctxt "tfratabsession.acterenvlf.caption"
+msgid "Send LF"
+msgstr ""
+
+#: tfratabsession.acterlimbuf.caption
+msgctxt "tfratabsession.acterlimbuf.caption"
+msgid "&Clean Buffer"
+msgstr ""
+
+#: tfratabsession.acterlimbuf.hint
+msgctxt "tfratabsession.acterlimbuf.hint"
+msgid "Clean the screen buffer"
+msgstr ""
+
+#: tfratabsession.acterprmaba.caption
+msgctxt "tfratabsession.acterprmaba.caption"
+msgid "Go to &Next prompt"
+msgstr ""
+
+#: tfratabsession.acterprmaba.hint
+msgctxt "tfratabsession.acterprmaba.hint"
+msgid "Go to next prompt"
+msgstr ""
+
+#: tfratabsession.acterprmarr.caption
+msgctxt "tfratabsession.acterprmarr.caption"
+msgid "Go to &Previous prompt"
+msgstr ""
+
+#: tfratabsession.acterprmarr.hint
+msgctxt "tfratabsession.acterprmarr.hint"
+msgid "Go to previous prompt"
+msgstr ""
+
+#: tfratabsession.acterverbher.caption
+msgctxt "tfratabsession.acterverbher.caption"
+msgid "View Toolbar"
+msgstr ""
+
+#: tfratabsession.acterverbher.hint
+msgctxt "tfratabsession.acterverbher.hint"
+msgid "View Tollbar"
+msgstr ""
+
+#: tfratabsession.menuitem72.caption
+msgid "&Enviar"
+msgstr ""
+
+#: tfratabsession.menuitem82.caption
+msgid "Copiar Elemento"
+msgstr ""
+
+#: tfratabsession.mnpopcomalm.caption
+msgctxt "tfratabsession.mnpopcomalm.caption"
+msgid "Comandos Almacenados"
+msgstr ""
+
+#: tfratabsession.mnpopleng.caption
+msgctxt "tfratabsession.mnpopleng.caption"
+msgid "&Lenguaje"
+msgstr ""
+
+#: tfratabsession.toolbar1.caption
+msgctxt "tfratabsession.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfratabsession.toolbutton13.caption
+msgid "ToolButton13"
+msgstr ""
+
+#: tfratabsession.toolbutton20.caption
+msgid "ToolButton20"
+msgstr ""
+
+#: tfratabsession.toolbutton24.caption
+msgid "ToolButton24"
+msgstr ""
+
+#: tfratabsession.toolbutton3.caption
+msgid "ToolButton3"
+msgstr ""
+
+#: tfratabsession.toolbutton9.caption
+msgid "ToolButton9"
+msgstr ""
+
+#: tfratabsessions.lblnewsession.caption
+msgctxt "tfratabsessions.lblnewsession.caption"
+msgid ">&New Session ..."
+msgstr ""
+
+#: tfratabsessions.lblopensession.caption
+msgctxt "tfratabsessions.lblopensession.caption"
+msgid ">&Open Session ..."
+msgstr ""
+
+#: tfratabsessions.mncloseall.caption
+msgid "Close &All"
+msgstr ""
+
+#: tfratabsessions.mncloseothers.caption
+msgid "Close &Others"
+msgstr ""
+
+#: tfratabsessions.mnclosetab.caption
+msgid "&Close"
+msgstr ""
+
+#: tfratabsessions.mnnewtab.caption
+msgctxt "tfratabsessions.mnnewtab.caption"
+msgid "&New"
+msgstr ""
+
+#: tfrmeditmacros.acedicopy.caption
+msgctxt "tfrmeditmacros.acedicopy.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tfrmeditmacros.acedicopy.hint
+msgctxt "tfrmeditmacros.acedicopy.hint"
+msgid "Copiar"
+msgstr ""
+
+#: tfrmeditmacros.acedicut.caption
+msgctxt "tfrmeditmacros.acedicut.caption"
+msgid "Cu&t"
+msgstr ""
+
+#: tfrmeditmacros.acedicut.hint
+msgctxt "tfrmeditmacros.acedicut.hint"
+msgid "Cortar"
+msgstr ""
+
+#: tfrmeditmacros.acedipaste.caption
+msgctxt "tfrmeditmacros.acedipaste.caption"
+msgid "&Paste"
+msgstr ""
+
+#: tfrmeditmacros.acedipaste.hint
+msgctxt "tfrmeditmacros.acedipaste.hint"
+msgid "Pegar"
+msgstr ""
+
+#: tfrmeditmacros.acediredo.caption
+msgctxt "tfrmeditmacros.acediredo.caption"
+msgid "&Redo"
+msgstr ""
+
+#: tfrmeditmacros.acediredo.hint
+msgctxt "tfrmeditmacros.acediredo.hint"
+msgid "Rehacer"
+msgstr ""
+
+#: tfrmeditmacros.acediselecall.caption
+msgctxt "tfrmeditmacros.acediselecall.caption"
+msgid "Select &All"
+msgstr ""
+
+#: tfrmeditmacros.acediselecall.hint
+msgctxt "tfrmeditmacros.acediselecall.hint"
+msgid "Selecciona todo el texto"
+msgstr ""
+
+#: tfrmeditmacros.acediundo.caption
+msgctxt "tfrmeditmacros.acediundo.caption"
+msgid "&Undo"
+msgstr ""
+
+#: tfrmeditmacros.acediundo.hint
+msgctxt "tfrmeditmacros.acediundo.hint"
+msgid "Deshacer"
+msgstr ""
+
+#: tfrmeditmacros.acfilexit.caption
+msgctxt "tfrmeditmacros.acfilexit.caption"
+msgid "E&xit"
+msgstr ""
+
+#: tfrmeditmacros.acfilexit.hint
+msgctxt "tfrmeditmacros.acfilexit.hint"
+msgid "Salir"
+msgstr ""
+
+#: tfrmeditmacros.acfilnew.caption
+msgctxt "tfrmeditmacros.acfilnew.caption"
+msgid "&New"
+msgstr ""
+
+#: tfrmeditmacros.acfilnew.hint
+msgctxt "tfrmeditmacros.acfilnew.hint"
+msgid "Nuevo Archivo"
+msgstr ""
+
+#: tfrmeditmacros.acfilopen.caption
+msgid "&Open..."
+msgstr ""
+
+#: tfrmeditmacros.acfilopen.hint
+msgctxt "tfrmeditmacros.acfilopen.hint"
+msgid "Abrir Archivo"
+msgstr ""
+
+#: tfrmeditmacros.acfilsave.caption
+msgctxt "tfrmeditmacros.acfilsave.caption"
+msgid "&Save"
+msgstr ""
+
+#: tfrmeditmacros.acfilsave.hint
+msgctxt "tfrmeditmacros.acfilsave.hint"
+msgid "Guardar Archivo"
+msgstr ""
+
+#: tfrmeditmacros.acfilsaveas.caption
+msgid "Save A&s..."
+msgstr ""
+
+#: tfrmeditmacros.acfilsaveas.hint
+msgctxt "tfrmeditmacros.acfilsaveas.hint"
+msgid "Guardar como..."
+msgstr ""
+
+#: tfrmeditmacros.acherconfig.caption
+msgctxt "tfrmeditmacros.acherconfig.caption"
+msgid "&Settings"
+msgstr ""
+
+#: tfrmeditmacros.acherdeten.caption
+msgid "&Stop"
+msgstr ""
+
+#: tfrmeditmacros.acherdeten.hint
+msgid "&Detener ejecución"
+msgstr ""
+
+#: tfrmeditmacros.acherejec.caption
+msgid "&Execute"
+msgstr ""
+
+#: tfrmeditmacros.achergrab.caption
+msgid "&Record"
+msgstr ""
+
+#: tfrmeditmacros.acsrchreplace.caption
+msgid "&Replace..."
+msgstr ""
+
+#: tfrmeditmacros.acsrchsearch.caption
+msgctxt "tfrmeditmacros.acsrchsearch.caption"
+msgid "Search..."
+msgstr ""
+
+#: tfrmeditmacros.acsrchsearchnext.caption
+msgctxt "tfrmeditmacros.acsrchsearchnext.caption"
+msgid "Search &Next"
+msgstr ""
+
+#: tfrmeditmacros.acverbarest.caption
+msgctxt "tfrmeditmacros.acverbarest.caption"
+msgid "Ver Barra de &Estado"
+msgstr ""
+
+#: tfrmeditmacros.acvernumlin.caption
+msgctxt "tfrmeditmacros.acvernumlin.caption"
+msgid "Ver &Núm. de Línea"
+msgstr ""
+
+#: tfrmeditmacros.acverpanarc.caption
+msgctxt "tfrmeditmacros.acverpanarc.caption"
+msgid "Panel de &Archivos"
+msgstr ""
+
+#: tfrmeditmacros.caption
+msgid "frmEditMacros"
+msgstr ""
+
+#: tfrmeditmacros.mnarchivo.caption
+msgctxt "tfrmeditmacros.mnarchivo.caption"
+msgid "&File"
+msgstr ""
+
+#: tfrmeditmacros.mnedicion.caption
+msgctxt "tfrmeditmacros.mnedicion.caption"
+msgid "&Edit"
+msgstr ""
+
+#: tfrmeditmacros.mnherram.caption
+msgctxt "tfrmeditmacros.mnherram.caption"
+msgid "&Tools"
+msgstr ""
+
+#: tfrmeditmacros.mnrecientes.caption
+msgctxt "tfrmeditmacros.mnrecientes.caption"
+msgid "&Recents"
+msgstr ""
+
+#: tfrmeditmacros.toolbar1.caption
+msgctxt "tfrmeditmacros.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfrmeditmacros.toolbutton11.caption
+msgid "ToolButton11"
+msgstr ""
+
+#: tfrmeditmacros.toolbutton5.caption
+msgctxt "tfrmeditmacros.toolbutton5.caption"
+msgid "ToolButton5"
+msgstr ""
+
+#: tfrmprincipal.acfilexit.caption
+msgctxt "tfrmprincipal.acfilexit.caption"
+msgid "E&xit"
+msgstr ""
+
+#: tfrmprincipal.acfilexit.hint
+msgctxt "tfrmprincipal.acfilexit.hint"
+msgid "Salir"
+msgstr ""
+
+#: tfrmprincipal.acfilnewses.caption
+msgctxt "tfrmprincipal.acfilnewses.caption"
+msgid "&New Session"
+msgstr ""
+
+#: tfrmprincipal.acfilnewwin.caption
+msgctxt "tfrmprincipal.acfilnewwin.caption"
+msgid "New &Window..."
+msgstr ""
+
+#: tfrmprincipal.acfilnewwin.hint
+msgctxt "tfrmprincipal.acfilnewwin.hint"
+msgid "Abre una nueva Ventana"
+msgstr ""
+
+#: tfrmprincipal.acfilopeses.caption
+msgctxt "tfrmprincipal.acfilopeses.caption"
+msgid "&Open Session ..."
+msgstr ""
+
+#: tfrmprincipal.acfilopeses.hint
+msgctxt "tfrmprincipal.acfilopeses.hint"
+msgid "Abre un archivo de sesión"
+msgstr ""
+
+#: tfrmprincipal.acfilqckconnec.caption
+msgctxt "tfrmprincipal.acfilqckconnec.caption"
+msgid "&Quick connection ..."
+msgstr ""
+
+#: tfrmprincipal.acfilqckconnec.hint
+msgctxt "tfrmprincipal.acfilqckconnec.hint"
+msgid "Abre una nueva conexión"
+msgstr ""
+
+#: tfrmprincipal.acfilsavses.caption
+msgctxt "tfrmprincipal.acfilsavses.caption"
+msgid "&Save Session"
+msgstr ""
+
+#: tfrmprincipal.acfilsavses.hint
+msgctxt "tfrmprincipal.acfilsavses.hint"
+msgid "Guarda la sesión actual"
+msgstr ""
+
+#: tfrmprincipal.acfilsavsesas.caption
+msgctxt "tfrmprincipal.acfilsavsesas.caption"
+msgid "Save Sesisón As ..."
+msgstr ""
+
+#: tfrmprincipal.acfilsavsesas.hint
+msgctxt "tfrmprincipal.acfilsavsesas.hint"
+msgid "Guardar sesión indicando un nombre"
+msgstr ""
+
+#: tfrmprincipal.achlpabout.caption
+msgctxt "tfrmprincipal.achlpabout.caption"
+msgid "&About..."
+msgstr ""
+
+#: tfrmprincipal.achlphelp.caption
+msgctxt "tfrmprincipal.achlphelp.caption"
+msgid "&Help"
+msgstr ""
+
+#: tfrmprincipal.acmaceditor.caption
+msgctxt "tfrmprincipal.acmaceditor.caption"
+msgid "&Macro editor"
+msgstr ""
+
+#: tfrmprincipal.acmaceditor.hint
+msgctxt "tfrmprincipal.acmaceditor.hint"
+msgid "Ver Editor de Macros"
+msgstr ""
+
+#: tfrmprincipal.acmacrecord.caption
+msgctxt "tfrmprincipal.acmacrecord.caption"
+msgid "&Record Macro"
+msgstr ""
+
+#: tfrmprincipal.actoolremedit.caption
+msgctxt "tfrmprincipal.actoolremedit.caption"
+msgid "Remote &Editor"
+msgstr ""
+
+#: tfrmprincipal.actoolremedit.hint
+msgctxt "tfrmprincipal.actoolremedit.hint"
+msgid "Ver Editor Remoto"
+msgstr ""
+
+#: tfrmprincipal.actoolremexplor.caption
+msgctxt "tfrmprincipal.actoolremexplor.caption"
+msgid "Remote E&xplorer"
+msgstr ""
+
+#: tfrmprincipal.actoolremexplor.hint
+msgctxt "tfrmprincipal.actoolremexplor.hint"
+msgid "Ver Explorador Remoto"
+msgstr ""
+
+#: tfrmprincipal.actoolsett.caption
+msgctxt "tfrmprincipal.actoolsett.caption"
+msgid "&Settings"
+msgstr ""
+
+#: tfrmprincipal.actoolsett.hint
+msgctxt "tfrmprincipal.actoolsett.hint"
+msgid "Configurar"
+msgstr ""
+
+#: tfrmprincipal.acviewstatusbar.caption
+msgid "Status Bar"
+msgstr ""
+
+#: tfrmprincipal.acviewstatusbar.hint
+msgctxt "tfrmprincipal.acviewstatusbar.hint"
+msgid "Ver Barra de Estado"
+msgstr ""
+
+#: tfrmprincipal.caption
+msgid "Tito's Telnet"
+msgstr ""
+
+#: tfrmprincipal.mnabrmacro.caption
+msgctxt "tfrmprincipal.mnabrmacro.caption"
+msgid "&Open Macro"
+msgstr ""
+
+#: tfrmprincipal.mnejecmacro.caption
+msgid "&Execute Macro"
+msgstr ""
+
+#: tfrmprincipal.mnfile.caption
+msgctxt "tfrmprincipal.mnfile.caption"
+msgid "&File"
+msgstr ""
+
+#: tfrmprincipal.mnhelp.caption
+msgctxt "tfrmprincipal.mnhelp.caption"
+msgid "&Help"
+msgstr ""
+
+#: tfrmprincipal.mnmacros.caption
+msgid "&Macros"
+msgstr ""
+
+#: tfrmprincipal.mnrecents.caption
+msgctxt "tfrmprincipal.mnrecents.caption"
+msgid "&Recents"
+msgstr ""
+
+#: tfrmprincipal.mnsesionesalm.caption
+msgid "S&tored Sessions"
+msgstr ""
+
+#: tfrmprincipal.mntools.caption
+msgctxt "tfrmprincipal.mntools.caption"
+msgid "&Tools"
+msgstr ""
+
+#: tfrmprincipal.mnview.caption
+msgid "&View"
+msgstr ""
+
+#: tfrmquickconnect.btnaceptar.caption
+msgctxt "tfrmquickconnect.btnaceptar.caption"
+msgid "&OK"
+msgstr ""
+
+#: tfrmquickconnect.btncancelar.caption
+msgctxt "tfrmquickconnect.btncancelar.caption"
+msgid "&Cancel"
+msgstr ""
+
+#: tfrmquickconnect.caption
+msgctxt "tfrmquickconnect.caption"
+msgid "Quick connection"
+msgstr ""
+
+#: tfrmquickconnect.label1.caption
+msgctxt "tfrmquickconnect.label1.caption"
+msgid "Host:"
+msgstr ""
+
+#: tfrmquickconnect.optssh.caption
+msgctxt "tfrmquickconnect.optssh.caption"
+msgid "SSH"
+msgstr ""
+
+#: tfrmquickconnect.opttelnet.caption
+msgctxt "tfrmquickconnect.opttelnet.caption"
+msgid "&Telnet"
+msgstr ""
+
+#: tfrmremoteeditor.acedicopy.caption
+msgctxt "tfrmremoteeditor.acedicopy.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tfrmremoteeditor.acedicopy.hint
+msgctxt "tfrmremoteeditor.acedicopy.hint"
+msgid "Copiar"
+msgstr ""
+
+#: tfrmremoteeditor.acedicut.caption
+msgctxt "tfrmremoteeditor.acedicut.caption"
+msgid "Cu&t"
+msgstr ""
+
+#: tfrmremoteeditor.acedicut.hint
+msgctxt "tfrmremoteeditor.acedicut.hint"
+msgid "Cortar"
+msgstr ""
+
+#: tfrmremoteeditor.acedipaste.caption
+msgctxt "tfrmremoteeditor.acedipaste.caption"
+msgid "&Paste"
+msgstr ""
+
+#: tfrmremoteeditor.acedipaste.hint
+msgctxt "tfrmremoteeditor.acedipaste.hint"
+msgid "Pegar"
+msgstr ""
+
+#: tfrmremoteeditor.acediredo.caption
+msgctxt "tfrmremoteeditor.acediredo.caption"
+msgid "&Redo"
+msgstr ""
+
+#: tfrmremoteeditor.acediredo.hint
+msgctxt "tfrmremoteeditor.acediredo.hint"
+msgid "Rehacer"
+msgstr ""
+
+#: tfrmremoteeditor.acediselecall.caption
+msgctxt "tfrmremoteeditor.acediselecall.caption"
+msgid "Select &All"
+msgstr ""
+
+#: tfrmremoteeditor.acediselecall.hint
+msgctxt "tfrmremoteeditor.acediselecall.hint"
+msgid "Selecciona todo el texto"
+msgstr ""
+
+#: tfrmremoteeditor.acediundo.caption
+msgctxt "tfrmremoteeditor.acediundo.caption"
+msgid "&Undo"
+msgstr ""
+
+#: tfrmremoteeditor.acediundo.hint
+msgctxt "tfrmremoteeditor.acediundo.hint"
+msgid "Deshacer"
+msgstr ""
+
+#: tfrmremoteeditor.acfilexit.caption
+msgctxt "tfrmremoteeditor.acfilexit.caption"
+msgid "&Exit"
+msgstr ""
+
+#: tfrmremoteeditor.acfilexit.hint
+msgctxt "tfrmremoteeditor.acfilexit.hint"
+msgid "Salir"
+msgstr ""
+
+#: tfrmremoteeditor.acfilnew.caption
+msgctxt "tfrmremoteeditor.acfilnew.caption"
+msgid "&New"
+msgstr ""
+
+#: tfrmremoteeditor.acfilnew.hint
+msgctxt "tfrmremoteeditor.acfilnew.hint"
+msgid "Nuevo Archivo"
+msgstr ""
+
+#: tfrmremoteeditor.acfilopen.caption
+msgctxt "tfrmremoteeditor.acfilopen.caption"
+msgid "&Open.."
+msgstr ""
+
+#: tfrmremoteeditor.acfilopen.hint
+msgctxt "tfrmremoteeditor.acfilopen.hint"
+msgid "Abrir Archivo"
+msgstr ""
+
+#: tfrmremoteeditor.acfilsave.caption
+msgctxt "tfrmremoteeditor.acfilsave.caption"
+msgid "&Save"
+msgstr ""
+
+#: tfrmremoteeditor.acfilsave.hint
+msgctxt "tfrmremoteeditor.acfilsave.hint"
+msgid "Guardar Archivo"
+msgstr ""
+
+#: tfrmremoteeditor.acfilsaveas.caption
+msgctxt "tfrmremoteeditor.acfilsaveas.caption"
+msgid "Save a&s ..."
+msgstr ""
+
+#: tfrmremoteeditor.acfilsaveas.hint
+msgctxt "tfrmremoteeditor.acfilsaveas.hint"
+msgid "Guardar como..."
+msgstr ""
+
+#: tfrmremoteeditor.acsrchreplace.caption
+msgctxt "tfrmremoteeditor.acsrchreplace.caption"
+msgid "&Replace ..."
+msgstr ""
+
+#: tfrmremoteeditor.acsrchsearch.caption
+msgctxt "tfrmremoteeditor.acsrchsearch.caption"
+msgid "Search..."
+msgstr ""
+
+#: tfrmremoteeditor.acsrchsearchnext.caption
+msgctxt "tfrmremoteeditor.acsrchsearchnext.caption"
+msgid "Search &Next"
+msgstr ""
+
+#: tfrmremoteeditor.actoolsettings.caption
+msgctxt "tfrmremoteeditor.actoolsettings.caption"
+msgid "Se&ttings"
+msgstr ""
+
+#: tfrmremoteeditor.actoolsettings.hint
+msgctxt "tfrmremoteeditor.actoolsettings.hint"
+msgid "Configurar la edición remota"
+msgstr ""
+
+#: tfrmremoteeditor.acviewfilpanel.caption
+msgctxt "tfrmremoteeditor.acviewfilpanel.caption"
+msgid "&FIle Panel"
+msgstr ""
+
+#: tfrmremoteeditor.acviewlinnum.caption
+msgctxt "tfrmremoteeditor.acviewlinnum.caption"
+msgid "Line &Number"
+msgstr ""
+
+#: tfrmremoteeditor.acviewstabar.caption
+msgctxt "tfrmremoteeditor.acviewstabar.caption"
+msgid "&Status bar"
+msgstr ""
+
+#: tfrmremoteeditor.caption
+msgctxt "tfrmremoteeditor.caption"
+msgid "Editor Remoto"
+msgstr ""
+
+#: tfrmremoteeditor.menuitem1.caption
+msgctxt "tfrmremoteeditor.menuitem1.caption"
+msgid "&File"
+msgstr ""
+
+#: tfrmremoteeditor.menuitem17.caption
+msgctxt "tfrmremoteeditor.menuitem17.caption"
+msgid "&Tools"
+msgstr ""
+
+#: tfrmremoteeditor.menuitem2.caption
+msgctxt "tfrmremoteeditor.menuitem2.caption"
+msgid "&Edit"
+msgstr ""
+
+#: tfrmremoteeditor.mnlenguaje.caption
+msgctxt "tfrmremoteeditor.mnlenguaje.caption"
+msgid "&Language"
+msgstr ""
+
+#: tfrmremoteeditor.mnrecents.caption
+msgctxt "tfrmremoteeditor.mnrecents.caption"
+msgid "Recents"
+msgstr ""
+
+#: tfrmremoteeditor.toolbar1.caption
+msgctxt "tfrmremoteeditor.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfrmremoteeditor.toolbutton5.caption
+msgctxt "tfrmremoteeditor.toolbutton5.caption"
+msgid "ToolButton5"
+msgstr ""
+
+#: tfrmremoteexplor.caption
+msgid "Explorador Remoto"
+msgstr ""
+
+#: tfrmremoteopendial.caption
+msgctxt "tfrmremoteopendial.caption"
+msgid "Abrir Remoto ..."
+msgstr ""
+
+#: tfrmsesproperty.bitcancel.caption
+msgid "Cancel"
+msgstr ""
+
+#: tfrmsesproperty.bitok.caption
+msgctxt "tfrmsesproperty.bitok.caption"
+msgid "&OK"
+msgstr ""
+
+#: tfrmsesproperty.bitok_conn.caption
+msgctxt "tfrmsesproperty.bitok_conn.caption"
+msgid "OK and Connect"
+msgstr ""
+
+#: tfrmsesproperty.caption
+msgid "Session Properties"
+msgstr ""
+
+#: tfrmsesproperty.chkcodfolding.caption
+msgctxt "tfrmsesproperty.chkcodfolding.caption"
+msgid "Code &Folding"
+msgstr ""
+
+#: tfrmsesproperty.chkcompletcode.caption
+msgctxt "tfrmsesproperty.chkcompletcode.caption"
+msgid "Automatic Code Completion"
+msgstr ""
+
+#: tfrmsesproperty.chkcursigprmpt.caption
+msgctxt "tfrmsesproperty.chkcursigprmpt.caption"
+msgid "Terminal Cursor &follows Prompt"
+msgstr ""
+
+#: tfrmsesproperty.chkdetecprompt.caption
+msgctxt "tfrmsesproperty.chkdetecprompt.caption"
+msgid "Prompt detection"
+msgstr ""
+
+#: tfrmsesproperty.chkhlcurword.caption
+msgctxt "tfrmsesproperty.chkhlcurword.caption"
+msgid "Resaltar palabra bajo cursor"
+msgstr ""
+
+#: tfrmsesproperty.chkhlcurword1.caption
+msgctxt "tfrmsesproperty.chkhlcurword1.caption"
+msgid "Resaltar palabra bajo cursor"
+msgstr ""
+
+#: tfrmsesproperty.chkinterdirec.caption
+msgctxt "tfrmsesproperty.chkinterdirec.caption"
+msgid "&Intercepts directionals keys"
+msgstr ""
+
+#: tfrmsesproperty.chkmarlinact.caption
+msgctxt "tfrmsesproperty.chkmarlinact.caption"
+msgid "Marcar línea actual"
+msgstr ""
+
+#: tfrmsesproperty.chkmarlinact1.caption
+msgctxt "tfrmsesproperty.chkmarlinact1.caption"
+msgid "Marcar línea actual"
+msgstr ""
+
+#: tfrmsesproperty.chksendlnctrenter.caption
+msgctxt "tfrmsesproperty.chksendlnctrenter.caption"
+msgid "Send current line (or selection) with <Ctrl>+<Enter>"
+msgstr ""
+
+#: tfrmsesproperty.chksendlnenter.caption
+msgctxt "tfrmsesproperty.chksendlnenter.caption"
+msgid "Send current line (or selection) with <Enter>"
+msgstr ""
+
+#: tfrmsesproperty.chksendreccom.caption
+msgctxt "tfrmsesproperty.chksendreccom.caption"
+msgid "Send Recurring Command"
+msgstr ""
+
+#: tfrmsesproperty.chkshowpcom.caption
+msgid "Show &Command Panel"
+msgstr ""
+
+#: tfrmsesproperty.chkshowterm.caption
+msgid "Show &Terminal"
+msgstr ""
+
+#: tfrmsesproperty.chkusarprep.caption
+msgctxt "tfrmsesproperty.chkusarprep.caption"
+msgid "Use PreSQL Preprocessor"
+msgstr ""
+
+#: tfrmsesproperty.chkverbardesh.caption
+msgctxt "tfrmsesproperty.chkverbardesh.caption"
+msgid "Barra de desplaz &Horiz."
+msgstr ""
+
+#: tfrmsesproperty.chkverbardesh1.caption
+msgctxt "tfrmsesproperty.chkverbardesh1.caption"
+msgid "Barra de desplaz &Horiz."
+msgstr ""
+
+#: tfrmsesproperty.chkverbardesv.caption
+msgctxt "tfrmsesproperty.chkverbardesv.caption"
+msgid "Barra de desplaz &Vert."
+msgstr ""
+
+#: tfrmsesproperty.chkverbardesv1.caption
+msgctxt "tfrmsesproperty.chkverbardesv1.caption"
+msgid "Barra de desplaz &Vert."
+msgstr ""
+
+#: tfrmsesproperty.chkvermarple.caption
+msgctxt "tfrmsesproperty.chkvermarple.caption"
+msgid "Ver Marc.de plegado"
+msgstr ""
+
+#: tfrmsesproperty.chkvermarple1.caption
+msgctxt "tfrmsesproperty.chkvermarple1.caption"
+msgid "Ver Marc.de plegado"
+msgstr ""
+
+#: tfrmsesproperty.chkvernumlin.caption
+msgctxt "tfrmsesproperty.chkvernumlin.caption"
+msgid "Ver Núm.de línea"
+msgstr ""
+
+#: tfrmsesproperty.chkvernumlin1.caption
+msgctxt "tfrmsesproperty.chkvernumlin1.caption"
+msgid "Ver Núm.de línea"
+msgstr ""
+
+#: tfrmsesproperty.chkverpanver.caption
+msgctxt "tfrmsesproperty.chkverpanver.caption"
+msgid "Panel Vertical"
+msgstr ""
+
+#: tfrmsesproperty.chkverpanver1.caption
+msgctxt "tfrmsesproperty.chkverpanver1.caption"
+msgid "Panel Vertical"
+msgstr ""
+
+#: tfrmsesproperty.cmbserport.text
+msgctxt "tfrmsesproperty.cmbserport.text"
+msgid "COM1"
+msgstr ""
+
+#: tfrmsesproperty.cmbtipoletra.text
+msgctxt "tfrmsesproperty.cmbtipoletra.text"
+msgid "cmbTipoLetra"
+msgstr ""
+
+#: tfrmsesproperty.cmbtipoletra1.text
+msgid "cmbTipoLetra1"
+msgstr ""
+
+#: tfrmsesproperty.cmdtestcomm.caption
+msgid "&Test"
+msgstr ""
+
+#: tfrmsesproperty.combobox1.text
+msgctxt "tfrmsesproperty.combobox1.text"
+msgid "VT100"
+msgstr ""
+
+#: tfrmsesproperty.combobox2.text
+msgctxt "tfrmsesproperty.combobox2.text"
+msgid "80*25"
+msgstr ""
+
+#: tfrmsesproperty.groupbox1.caption
+msgctxt "tfrmsesproperty.groupbox1.caption"
+msgid "                            "
+msgstr ""
+
+#: tfrmsesproperty.groupbox3.caption
+msgid "Send"
+msgstr ""
+
+#: tfrmsesproperty.grpvertpan.caption
+msgctxt "tfrmsesproperty.grpvertpan.caption"
+msgid "                            "
+msgstr ""
+
+#: tfrmsesproperty.grpvertpan1.caption
+msgctxt "tfrmsesproperty.grpvertpan1.caption"
+msgid "                            "
+msgstr ""
+
+#: tfrmsesproperty.label1.caption
+msgctxt "tfrmsesproperty.label1.caption"
+msgid "Prompt start:"
+msgstr ""
+
+#: tfrmsesproperty.label15.caption
+msgid "Time between sendings (min):"
+msgstr ""
+
+#: tfrmsesproperty.label2.caption
+msgctxt "tfrmsesproperty.label2.caption"
+msgid "Prompt end:"
+msgstr ""
+
+#: tfrmsesproperty.label3.caption
+msgctxt "tfrmsesproperty.label3.caption"
+msgid "Max Lines ::"
+msgstr ""
+
+#: tfrmsesproperty.label4.caption
+msgctxt "tfrmsesproperty.label4.caption"
+msgid "Terminal &Type:"
+msgstr ""
+
+#: tfrmsesproperty.label5.caption
+msgctxt "tfrmsesproperty.label5.caption"
+msgid "Terminal &Size:"
+msgstr ""
+
+#: tfrmsesproperty.label6.caption
+msgctxt "tfrmsesproperty.label6.caption"
+msgid "Max. Columns:"
+msgstr ""
+
+#: tfrmsesproperty.lblbackcol.caption
+msgctxt "tfrmsesproperty.lblbackcol.caption"
+msgid "Color de fondo:"
+msgstr ""
+
+#: tfrmsesproperty.lblbackcol1.caption
+msgctxt "tfrmsesproperty.lblbackcol1.caption"
+msgid "Color de fondo:"
+msgstr ""
+
+#: tfrmsesproperty.lblclinact.caption
+msgctxt "tfrmsesproperty.lblclinact.caption"
+msgid "Color:"
+msgstr ""
+
+#: tfrmsesproperty.lblclinact1.caption
+msgctxt "tfrmsesproperty.lblclinact1.caption"
+msgid "Color:"
+msgstr ""
+
+#: tfrmsesproperty.lblcurwordcol.caption
+msgctxt "tfrmsesproperty.lblcurwordcol.caption"
+msgid "Color:"
+msgstr ""
+
+#: tfrmsesproperty.lblcurwordcol1.caption
+msgctxt "tfrmsesproperty.lblcurwordcol1.caption"
+msgid "Color:"
+msgstr ""
+
+#: tfrmsesproperty.lblfontname.caption
+msgctxt "tfrmsesproperty.lblfontname.caption"
+msgid "Letra:"
+msgstr ""
+
+#: tfrmsesproperty.lblfontname1.caption
+msgctxt "tfrmsesproperty.lblfontname1.caption"
+msgid "Letra:"
+msgstr ""
+
+#: tfrmsesproperty.lblfontsize.caption
+msgctxt "tfrmsesproperty.lblfontsize.caption"
+msgid "Tamaño:"
+msgstr ""
+
+#: tfrmsesproperty.lblfontsize1.caption
+msgctxt "tfrmsesproperty.lblfontsize1.caption"
+msgid "Tamaño:"
+msgstr ""
+
+#: tfrmsesproperty.lblip.caption
+msgctxt "tfrmsesproperty.lblip.caption"
+msgid "IP:"
+msgstr ""
+
+#: tfrmsesproperty.lblotro.caption
+msgctxt "tfrmsesproperty.lblotro.caption"
+msgid "Aplicativo:"
+msgstr ""
+
+#: tfrmsesproperty.lblport.caption
+msgctxt "tfrmsesproperty.lblport.caption"
+msgid "Puerto:"
+msgstr ""
+
+#: tfrmsesproperty.lblsercfg.caption
+msgctxt "tfrmsesproperty.lblsercfg.caption"
+msgid "Configuración:"
+msgstr ""
+
+#: tfrmsesproperty.lblserport.caption
+msgctxt "tfrmsesproperty.lblserport.caption"
+msgid "Puerto Serial:"
+msgstr ""
+
+#: tfrmsesproperty.lbltextcol.caption
+msgctxt "tfrmsesproperty.lbltextcol.caption"
+msgid "Color texto:"
+msgstr ""
+
+#: tfrmsesproperty.lbltextcol1.caption
+msgctxt "tfrmsesproperty.lbltextcol1.caption"
+msgid "Color texto:"
+msgstr ""
+
+#: tfrmsesproperty.lblvpbckcol.caption
+msgctxt "tfrmsesproperty.lblvpbckcol.caption"
+msgid "Color Fondo:"
+msgstr ""
+
+#: tfrmsesproperty.lblvpbckcol1.caption
+msgctxt "tfrmsesproperty.lblvpbckcol1.caption"
+msgid "Color Fondo:"
+msgstr ""
+
+#: tfrmsesproperty.lblvptxtcol.caption
+msgctxt "tfrmsesproperty.lblvptxtcol.caption"
+msgid "Color de texto:"
+msgstr ""
+
+#: tfrmsesproperty.lblvptxtcol1.caption
+msgctxt "tfrmsesproperty.lblvptxtcol1.caption"
+msgid "Color de texto:"
+msgstr ""
+
+#: tfrmsesproperty.optcomando.caption
+msgid "&Command:"
+msgstr ""
+
+#: tfrmsesproperty.optotro.caption
+msgctxt "tfrmsesproperty.optotro.caption"
+msgid "&Otro"
+msgstr ""
+
+#: tfrmsesproperty.optscript.caption
+msgid "&Commnad file:"
+msgstr ""
+
+#: tfrmsesproperty.optserial.caption
+msgctxt "tfrmsesproperty.optserial.caption"
+msgid "S&erial"
+msgstr ""
+
+#: tfrmsesproperty.optssh.caption
+msgctxt "tfrmsesproperty.optssh.caption"
+msgid "&SSH"
+msgstr ""
+
+#: tfrmsesproperty.opttelnet.caption
+msgctxt "tfrmsesproperty.opttelnet.caption"
+msgid "&Telnet"
+msgstr ""
+
+#: tfrmsesproperty.radiobutton1.caption
+msgctxt "tfrmsesproperty.radiobutton1.caption"
+msgid "Match exactly"
+msgstr ""
+
+#: tfrmsesproperty.radiobutton2.caption
+msgctxt "tfrmsesproperty.radiobutton2.caption"
+msgid "Match at the Start of Line"
+msgstr ""
+
+#: tfrmsesproperty.radiobutton3.caption
+msgctxt "tfrmsesproperty.radiobutton3.caption"
+msgid "Match at the End of Line"
+msgstr ""
+
+#: tfrmsesproperty.radiobutton4.caption
+msgctxt "tfrmsesproperty.radiobutton4.caption"
+msgid "Match at any position"
+msgstr ""
+
+#: tfrmsesproperty.radiogroup1.caption
+msgctxt "tfrmsesproperty.radiogroup1.caption"
+msgid "Line delimiter (To send)"
+msgstr ""
+
+#: tfrmsesproperty.radiogroup2.caption
+msgctxt "tfrmsesproperty.radiogroup2.caption"
+msgid "Line delimiter (To receive)"
+msgstr ""
+
+#: tfrmsesproperty.tabgenappear.caption
+msgid "Appearance"
+msgstr ""
+
+#: tfrmsesproperty.tabgeneral.caption
+msgid "General"
+msgstr ""
+
+#: tfrmsesproperty.tabpcomedit.caption
+msgid "TabPComEdit"
+msgstr ""
+
+#: tfrmsesproperty.tabpcomset.caption
+msgctxt "tfrmsesproperty.tabpcomset.caption"
+msgid "Comm.Panel"
+msgstr ""
+
+#: tfrmsesproperty.tabpromptdet.caption
+msgid "Prompt det."
+msgstr ""
+
+#: tfrmsesproperty.tabtermcrec.caption
+msgctxt "tfrmsesproperty.tabtermcrec.caption"
+msgid "Recurring Command"
+msgstr ""
+
+#: tfrmsesproperty.tabtermedit.caption
+msgid "Term.Edit"
+msgstr ""
+
+#: tfrmsesproperty.tabtermpant.caption
+msgid "Term.Screen"
+msgstr ""
+
+#: tfrmsesproperty.txtarchivo.text
+msgid "txtArchivo"
+msgstr ""
+
+#: tfrmsesproperty.txtcomando.text
+msgid "txtComando"
+msgstr ""
+
+#: tfrmsesproperty.txtport.text
+msgctxt "tfrmsesproperty.txtport.text"
+msgid "23"
+msgstr ""
+
+#: tfrmsesproperty.txtsercfg.text
+msgctxt "tfrmsesproperty.txtsercfg.text"
+msgid "9600,8,n,1,n"
+msgstr ""
+

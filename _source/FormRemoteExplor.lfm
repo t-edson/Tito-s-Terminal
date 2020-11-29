@@ -1,0 +1,13 @@
+object frmRemoteExplor: TfrmRemoteExplor
+  Left = 284
+  Height = 470
+  Top = 88
+  Width = 662
+  Caption = 'Explorador Remoto'
+  DesignTimePPI = 120
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  LCLVersion = '2.0.10.0'
+end

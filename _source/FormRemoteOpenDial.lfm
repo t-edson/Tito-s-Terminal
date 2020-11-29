@@ -1,0 +1,50 @@
+object frmRemoteOpenDial: TfrmRemoteOpenDial
+  Left = 291
+  Height = 352
+  Top = 210
+  Width = 540
+  Caption = 'Abrir Remoto ...'
+  ClientHeight = 352
+  ClientWidth = 540
+  DesignTimePPI = 120
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  LCLVersion = '2.0.10.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 64
+    Top = 288
+    Width = 540
+    Align = alBottom
+    ClientHeight = 64
+    ClientWidth = 540
+    ParentFont = False
+    TabOrder = 0
+    object butAceptar: TBitBtn
+      Left = 20
+      Height = 38
+      Top = 10
+      Width = 94
+      Default = True
+      DefaultCaption = True
+      Kind = bkOK
+      OnClick = butAceptarClick
+      ParentFont = False
+      TabOrder = 0
+    end
+    object butCancel: TBitBtn
+      Left = 160
+      Height = 38
+      Top = 10
+      Width = 94
+      Cancel = True
+      DefaultCaption = True
+      Kind = bkCancel
+      ModalResult = 2
+      ParentFont = False
+      TabOrder = 1
+    end
+  end
+end

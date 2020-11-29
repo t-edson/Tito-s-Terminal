@@ -1,0 +1,269 @@
+object Config: TConfig
+  Left = 357
+  Height = 448
+  Top = 181
+  Width = 605
+  BorderStyle = bsDialog
+  Caption = 'Settings'
+  ClientHeight = 448
+  ClientWidth = 605
+  DesignTimePPI = 120
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  LCLVersion = '2.0.10.0'
+  object TreeView1: TTreeView
+    Left = 0
+    Height = 385
+    Top = 0
+    Width = 170
+    Align = alLeft
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -17
+    Font.Name = 'Calibri'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 0
+    OnClick = TreeView1Click
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+    Items.Data = {
+      F9FFFFFF020004000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF020000000000
+      0000010700000047656E6572616CFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
+      000000000000000700000047656E6572616CFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFF0000000000000000000B00000050617468732F46696C6573FFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFF020000000000000001060000004D6163726F73FFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFF0000000000000000000800000053657474696E
+      6773FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000000000000000600000045
+      6469746F72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0100000000000000010D00
+      000052656D6F746520456469746F72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
+      000000000000000006000000456469746F72FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFF0000000000000000000F00000052656D6F7465204578706C6F726572
+    }
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 63
+    Top = 385
+    Width = 605
+    Align = alBottom
+    ClientHeight = 63
+    ClientWidth = 605
+    TabOrder = 1
+    object bitAceptar: TBitBtn
+      Left = 210
+      Height = 38
+      Top = 12
+      Width = 94
+      Default = True
+      DefaultCaption = True
+      Kind = bkOK
+      OnClick = bitAceptarClick
+      ParentFont = False
+      TabOrder = 0
+    end
+    object bitAplicar: TBitBtn
+      Left = 330
+      Height = 38
+      Top = 12
+      Width = 100
+      Caption = 'A&plicar'
+      Kind = bkYes
+      OnClick = bitAplicarClick
+      ParentFont = False
+      TabOrder = 1
+    end
+    object bitCancel: TBitBtn
+      Left = 460
+      Height = 38
+      Top = 12
+      Width = 94
+      Cancel = True
+      DefaultCaption = True
+      Kind = bkCancel
+      ModalResult = 2
+      OnClick = bitCancelClick
+      ParentFont = False
+      TabOrder = 2
+    end
+  end
+  object PageControl1: TPageControl
+    Left = 170
+    Height = 385
+    Top = 0
+    Width = 435
+    ActivePage = TabRemExpl
+    Align = alClient
+    TabIndex = 5
+    TabOrder = 2
+    object TabGeneral: TTabSheet
+      Caption = 'TabGeneral'
+    end
+    object TabFilePath: TTabSheet
+      Caption = 'TabFilePath'
+      ClientHeight = 294
+      ClientWidth = 403
+      object lblRutScript: TLabel
+        Left = 24
+        Height = 20
+        Top = 24
+        Width = 81
+        Caption = '&Scripts path:'
+        ParentColor = False
+      end
+      object DirectoryEdit1: TDirectoryEdit
+        Left = 24
+        Height = 28
+        Top = 48
+        Width = 336
+        ShowHidden = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object lblRutMac: TLabel
+        Left = 24
+        Height = 20
+        Top = 80
+        Width = 85
+        Caption = '&Macros path:'
+        ParentColor = False
+      end
+      object DirectoryEdit2: TDirectoryEdit
+        Left = 24
+        Height = 28
+        Top = 104
+        Width = 336
+        ShowHidden = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object chkOpenLast: TCheckBox
+        Left = 24
+        Height = 24
+        Top = 200
+        Width = 213
+        Caption = '&Open last edited file on start'
+        TabOrder = 2
+      end
+      object lblRutLeng: TLabel
+        Left = 24
+        Height = 20
+        Top = 136
+        Width = 103
+        Caption = '&Lenguajes path:'
+        Enabled = False
+        ParentColor = False
+      end
+      object DirectoryEdit3: TDirectoryEdit
+        Left = 24
+        Height = 28
+        Top = 160
+        Width = 336
+        ShowHidden = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Enabled = False
+        MaxLength = 0
+        TabOrder = 3
+      end
+    end
+    object TabMacSett: TTabSheet
+      Caption = 'TabMacSett'
+      ClientHeight = 294
+      ClientWidth = 403
+      object edTpoMax: TEdit
+        Left = 216
+        Height = 28
+        Top = 72
+        Width = 56
+        Alignment = taRightJustify
+        TabOrder = 0
+        Text = 'edTpoMax'
+      end
+      object Label1: TLabel
+        Left = 32
+        Height = 20
+        Top = 76
+        Width = 125
+        Caption = 'Timeout. (seconds)'
+        ParentColor = False
+      end
+      object chkMarLin: TCheckBox
+        Left = 32
+        Height = 24
+        Top = 32
+        Width = 215
+        Caption = 'Highlight line that is running.'
+        Enabled = False
+        TabOrder = 1
+      end
+    end
+    object TabMacEdit: TTabSheet
+      Caption = 'TabMacEdit'
+    end
+    object TabRemEdit: TTabSheet
+      Caption = 'TabRemEdit'
+    end
+    object TabRemExpl: TTabSheet
+      Caption = 'TabRemExpl'
+      ClientHeight = 352
+      ClientWidth = 427
+      object edTpoMax1: TEdit
+        Left = 256
+        Height = 28
+        Top = 32
+        Width = 56
+        Alignment = taRightJustify
+        TabOrder = 0
+        Text = 'edTpoMax1'
+      end
+      object Label2: TLabel
+        Left = 32
+        Height = 40
+        Top = 24
+        Width = 160
+        AutoSize = False
+        Caption = 'Time for waiting terminal (seconds):'
+        ParentColor = False
+        WordWrap = True
+      end
+      object chkListDet: TCheckBox
+        Left = 32
+        Height = 24
+        Top = 120
+        Width = 194
+        Caption = 'Show detailed list of files.'
+        TabOrder = 1
+      end
+      object chkMosOcul: TCheckBox
+        Left = 32
+        Height = 24
+        Top = 152
+        Width = 141
+        Caption = 'Show hidden files'
+        TabOrder = 2
+      end
+      object chkRefDesp: TCheckBox
+        Left = 32
+        Height = 24
+        Top = 184
+        Width = 230
+        Caption = 'Refresh list, after any operation'
+        TabOrder = 3
+      end
+      object chkMosRut: TCheckBox
+        Left = 32
+        Height = 24
+        Top = 88
+        Width = 152
+        Caption = 'Show currente path'
+        TabOrder = 4
+      end
+    end
+  end
+end

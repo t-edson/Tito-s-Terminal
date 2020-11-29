@@ -1,0 +1,23 @@
+{"version":1,"strings":[
+{"hash":78001754,"name":"tfracfgsynedit.label1.caption","sourcebytes":[67,111,108,111,114,58],"value":"Color:"},
+{"hash":82734986,"name":"tfracfgsynedit.label8.caption","sourcebytes":[66,97,99,107,32,67,111,108,111,114,58],"value":"Back Color:"},
+{"hash":81852730,"name":"tfracfgsynedit.label9.caption","sourcebytes":[84,101,120,116,32,67,111,108,111,114,58],"value":"Text Color:"},
+{"hash":8736,"name":"tfracfgsynedit.groupbox1.caption","sourcebytes":[32,32,32],"value":"   "},
+{"hash":82623170,"name":"tfracfgsynedit.chkverpanver.caption","sourcebytes":[71,117,116,116,101,114],"value":"Gutter"},
+{"hash":82734986,"name":"tfracfgsynedit.label2.caption","sourcebytes":[66,97,99,107,32,67,111,108,111,114,58],"value":"Back Color:"},
+{"hash":81852730,"name":"tfracfgsynedit.label3.caption","sourcebytes":[84,101,120,116,32,67,111,108,111,114,58],"value":"Text Color:"},
+{"hash":42986018,"name":"tfracfgsynedit.chkvernumlin.caption","sourcebytes":[83,104,111,119,32,108,195,173,110,101,32,110,117,109,98,101,114],"value":"Show l\u00EDne number"},
+{"hash":63852547,"name":"tfracfgsynedit.chkvermarple.caption","sourcebytes":[83,104,111,119,32,102,111,108,100,105,110,103,32,109,97,114,107,115],"value":"Show folding marks"},
+{"hash":544,"name":"tfracfgsynedit.groupbox2.caption","sourcebytes":[32,32,32,32,32,32,32,32,32,32,32,32,32,32],"value":"              "},
+{"hash":216043156,"name":"tfracfgsynedit.chkhighcurword.caption","sourcebytes":[72,105,103,104,108,105,103,104,116,32,99,117,114,114,101,110,116,32,119,111,114,100],"value":"Highlight current word"},
+{"hash":116289418,"name":"tfracfgsynedit.label10.caption","sourcebytes":[66,97,99,107,32,99,111,108,111,114,58],"value":"Back color:"},
+{"hash":115407162,"name":"tfracfgsynedit.label11.caption","sourcebytes":[84,101,120,116,32,99,111,108,111,114,58],"value":"Text color:"},
+{"hash":39761194,"name":"tfracfgsynedit.label12.caption","sourcebytes":[70,114,97,109,101,32,99,111,108,111,114,58],"value":"Frame color:"},
+{"hash":48606020,"name":"tfracfgsynedit.chkfullword.caption","sourcebytes":[70,117,108,108,32,87,111,114,100],"value":"Full Word"},
+{"hash":237536586,"name":"tfracfgsynedit.chkhighcurlin.caption","sourcebytes":[72,105,103,104,108,105,103,104,116,32,99,117,114,114,101,110,116,32,108,105,110,101,58],"value":"Highlight current line:"},
+{"hash":200403954,"name":"tfracfgsynedit.chkverbardesv.caption","sourcebytes":[38,86,101,114,116,105,99,97,108,32,83,99,114,111,108,108,98,97,114],"value":"&Vertical Scrollbar"},
+{"hash":97399170,"name":"tfracfgsynedit.chkverbardesh.caption","sourcebytes":[38,72,111,114,105,122,111,110,116,97,108,32,83,99,114,111,108,108,98,97,114],"value":"&Horizontal Scrollbar"},
+{"hash":108049882,"name":"tfracfgsynedit.label6.caption","sourcebytes":[70,111,110,116,32,110,97,109,101,58],"value":"Font name:"},
+{"hash":27373697,"name":"tfracfgsynedit.cmbtipoletra.text","sourcebytes":[99,109,98,84,105,112,111,76,101,116,114,97],"value":"cmbTipoLetra"},
+{"hash":106882778,"name":"tfracfgsynedit.label7.caption","sourcebytes":[70,111,110,116,32,83,105,122,101,58],"value":"Font Size:"}
+]}
