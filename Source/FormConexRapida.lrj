@@ -1,8 +1,0 @@
-{"version":1,"strings":[
-{"hash":225018270,"name":"tfrmconexrap.caption","sourcebytes":[81,117,105,99,107,32,99,111,110,110,101,99,116,105,111,110],"value":"Quick connection"},
-{"hash":5204602,"name":"tfrmconexrap.label1.caption","sourcebytes":[72,111,115,116,58],"value":"Host:"},
-{"hash":11067,"name":"tfrmconexrap.btnaceptar.caption","sourcebytes":[38,79,75],"value":"&OK"},
-{"hash":177752476,"name":"tfrmconexrap.btncancelar.caption","sourcebytes":[38,67,97,110,99,101,108],"value":"&Cancel"},
-{"hash":195835108,"name":"tfrmconexrap.opttelnet.caption","sourcebytes":[38,84,101,108,110,101,116],"value":"&Telnet"},
-{"hash":22648,"name":"tfrmconexrap.optssh.caption","sourcebytes":[83,83,72],"value":"SSH"}
-]}
