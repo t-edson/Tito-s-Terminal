@@ -63,6 +63,8 @@ type
     //Frames de configuración
     fcEdMacr  : TfraCfgSynEdit;   //Editor de macros
     fcEdRemo  : TfraCfgSynEdit;   //Editor remoto
+    //Evento
+    OnPropertiesChanged: procedure of object;  //Evento de cambio de propiedades
   public  //Propiedades generales
     VerPanCom   : boolean;  //Panel de comandos
     VerBHerPcom : boolean;  //Barra de herramientas
@@ -87,8 +89,8 @@ type
     TpoMax2: integer;
   public
     procedure Iniciar();
-    procedure LeerArchivoIni(iniFile: string='');
-    procedure escribirArchivoIni(iniFile: string='');
+    procedure ReadFromFile(iniFile: string='');
+    procedure SaveToFile(iniFile: string='');
     procedure Configurar(Id: string='');
   end;
 
@@ -159,7 +161,7 @@ begin
   cfgFile.Asoc_Bol('RefDesp'    , @RefDesp, chkRefDesp, true);
 
   //lee parámetros del archivo de configuración.
-  LeerArchivoIni;
+  ReadFromFile;
 end;
 procedure TConfig.TreeView1Click(Sender: TObject);
 begin
@@ -202,10 +204,8 @@ begin
     MsgExc('Folder not found: %s', [Lenguajes]);
     Lenguajes := patSyntax;
   end;
-  fcEdMacr.ConfigEditor(edMacr);
-  fcEdRemo.ConfigEditor(edRemo);
-
-  escribirArchivoIni;   //Guarda propiedades en disco
+  if OnPropertiesChanged<>nil then OnPropertiesChanged();
+  SaveToFile;   //Guarda propiedades en disco
 end;
 procedure TConfig.bitCancelClick(Sender: TObject);
 begin
@@ -236,13 +236,14 @@ begin
     MsgErr(cfgFile.MsjErr);
   end;
 end;
-procedure TConfig.LeerArchivoIni(iniFile: string = '');
+procedure TConfig.ReadFromFile(iniFile: string = '');
 begin
   if not cfgFile.FileToProperties then begin
     MsgErr(cfgFile.MsjErr);
   end;
+  if OnPropertiesChanged<>nil then OnPropertiesChanged();
 end;
-procedure TConfig.escribirArchivoIni(iniFile: string='');
+procedure TConfig.SaveToFile(iniFile: string='');
 //Escribe el archivo de configuración
 begin
   if not cfgFile.PropertiesToFile then begin

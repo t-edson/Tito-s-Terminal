@@ -57,8 +57,37 @@ object fraTabSessions: TfraTabSessions
     Width = 849
     Align = alClient
     BevelOuter = bvNone
-    Caption = '<<No pages>>'
+    ClientHeight = 564
+    ClientWidth = 849
     TabOrder = 1
+    object lblNewSession: TLabel
+      Left = 40
+      Height = 28
+      Top = 24
+      Width = 140
+      Caption = '>&New Session ...'
+      Font.Color = clBlue
+      Font.Height = -20
+      ParentColor = False
+      ParentFont = False
+      OnMouseDown = lblNewSessionMouseDown
+      OnMouseEnter = lblNewSessionMouseEnter
+      OnMouseLeave = lblNewSessionMouseLeave
+    end
+    object lblOpenSession: TLabel
+      Left = 40
+      Height = 28
+      Top = 72
+      Width = 149
+      Caption = '>&Open Session ...'
+      Font.Color = clBlue
+      Font.Height = -20
+      ParentColor = False
+      ParentFont = False
+      OnMouseDown = lblOpenSessionMouseDown
+      OnMouseEnter = lblOpenSessionMouseEnter
+      OnMouseLeave = lblOpenSessionMouseLeave
+    end
   end
   object ImgCompletion: TImageList
     Left = 328

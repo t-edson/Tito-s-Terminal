@@ -72,7 +72,6 @@ type
     AcPCmEnvLin: TAction;
     AcPCmEnvTod: TAction;
     AcPCmOcul: TAction;
-    AcPcmVerBHer: TAction;
     AcTerConec: TAction;
     AcTerCopNom: TAction;
     AcTerCopNomRut: TAction;
@@ -208,7 +207,6 @@ type
     function ConexDisponible: boolean;
     procedure ConfigEditor(ed: TSynEdit; cfgEdit: TEditCfg);
     procedure DistribuirPantalla;
-    procedure PropertiesChanged;
     procedure UpdateActionsState(Sender: TObject);
     procedure edPComKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EnvioTemporizado;
@@ -247,6 +245,7 @@ type
     procedure UpdatePanelState;
     procedure UpdatePanelLangName;
     procedure UpdateCommand;
+    procedure PropertiesChanged;
   public   //Parámetros de conexión
     Tipo      : TTipCon;  //Tipo de conexión
     IP        : String;   //Direción IP (solo válido con el tipo TCON_TELNET Y TCON_SSH)
@@ -280,7 +279,6 @@ type
   public   //Parámetros del panel de comandos
     CompletCode: boolean;   // Habilita el completado de código.
     CodFolding : boolean;   // Habilita el plegado de código.
-    SaveBefSend: boolean;   // Permite guardar antes de enviar el texto.
     SendLnEnter: boolean;   // Enviar la línea actual con <Enter>.
     SendLnCtrEnter: boolean;// Enviar la línea actual con <Ctrl>+<Enter>.
     UsarPrep   : boolean;   // Usar preprocesador.
@@ -288,9 +286,11 @@ type
     cfgEdPCom  : TEditCfg;
   public   //Parámetros adicionales
     langFile   : string;    //Archivo del lenguaje para el resaltador.
-    textPCom : TStrings;  //Texto del panel de comandos
+    textPCom   : TStrings;  //Texto del panel de comandos
     textTerm   : TStrings;  //Texto del terminal.
-    pComWidth   : integer;  //Ancho de panel de comando.
+    pComWidth  : integer;   //Ancho de panel de comando.
+    showPCom   : boolean;   //Visibilidad del panel de comandos
+    showTerm   : boolean;   //Visibilidad del Terminal
   public   //Detección de prompt
     procedure UpdatePromptProc;
     function ContienePrompt(const linAct: string): integer;
@@ -606,6 +606,27 @@ begin
   edTerm.Invalidate; //Para que refresque los cambios.
   edPCom.Invalidate; //Para que refresque los cambios.
   edPCom.Width := pComWidth;
+  //Visibilidad del panel de comando Y del terminal
+  if showPCom and showTerm then begin  //Mostrar ambos
+    edPCom.Visible := true;
+    edPCom.Align := alLeft;
+    Splitter1.Visible := true;
+    edTerm.Visible := true;
+    edTerm.Align := alClient;
+  end else if showPCom then begin  //Solo panel de comandos
+    edPCom.Visible := true;
+    edPCom.Align := alClient;  //Toda la pantalla
+    Splitter1.Visible := false;
+    edTerm.Visible := false;
+  end else if showTerm then begin  //Solo Terminal
+    edPCom.Visible := false;
+    Splitter1.Visible := false;
+    edTerm.Visible := true;
+    edTerm.Align := alClient;  //Toda la pantalla
+  end else begin
+    edPCom.Visible := false;
+    edTerm.Visible := false;
+  end;
 end;
 //Acceso a disco
 procedure TfraTabSession.UpdateCaption(filName: string);
@@ -1279,10 +1300,10 @@ begin
   prop.Asoc_Enum('TipDetec'    , @TipDetec  , SizeOf(TipDetec),
          [f.RadioButton1, f.RadioButton2   , f.RadioButton3, f.RadioButton4], 0);
   //Parámetros de la pantalla del terminal.
-  prop.Asoc_Int ('maxLinTer' , @maxLinTer , f.txtMaxLinT, 5000, 200, MAX_LIN_TER);  {menos de 200 líneas puede causar problemas con la rutina de limitación de tamaño}
-  prop.Asoc_Int ('maxColTer' , @maxColTer , f.txtMaxColT, 1000, 80,10000);
-  prop.Asoc_Bol ('interDirec', @interDirec, f.chkInterDirec,true);
-  prop.Asoc_Bol ('curSigPrm' , @curSigPrm , f.chkCurSigPrmpt,true);
+  prop.Asoc_Int ('maxLinTer'   , @maxLinTer , f.txtMaxLinT, 5000, 200, MAX_LIN_TER);  {menos de 200 líneas puede causar problemas con la rutina de limitación de tamaño}
+  prop.Asoc_Int ('maxColTer'   , @maxColTer , f.txtMaxColT, 1000, 80,10000);
+  prop.Asoc_Bol ('interDirec'  , @interDirec, f.chkInterDirec,true);
+  prop.Asoc_Bol ('curSigPrm'   , @curSigPrm , f.chkCurSigPrmpt,true);
   //Parámetros del editor del terminal
   prop.Asoc_TCol('t_cTxtNor'   , @cfgEdterm.cTxtNor   , f.cbutTexto    , clGray);
   prop.Asoc_TCol('t_cFonEdi'   , @cfgEdterm.cFonEdi   , f.cbutBackCol  , clBlack);
@@ -1300,11 +1321,11 @@ begin
   prop.Asoc_Int ('t_TamLet'    , @cfgEdTerm.FontSize  , f.spFontSize   , 9);
   prop.Asoc_Str ('t_TipLet'    , @cfgEdTerm.FontName  , f.cmbTipoLetra , 'Courier New');
   //Parámetros de Comando recurrente
-  prop.Asoc_Bol ('Activar'   , @Activar   , f.chkSendRecCom , false);
-  prop.Asoc_Int ('Tempo'     , @Tempo     , f.speTempo      , 5);
-  prop.Asoc_Enum('tipEnvio'  , @tipEnvio  , SizeOf(tipEnvio), [f.optComando, f.optScript], 0);
-  prop.Asoc_Str ('Comando'   , @Comando   , f.txtComando    , '');
-  prop.Asoc_Str ('Archivo'   , @Archivo   , f.txtArchivo    , '');
+  prop.Asoc_Bol ('Activar'     , @Activar   , f.chkSendRecCom , false);
+  prop.Asoc_Int ('Tempo'       , @Tempo     , f.speTempo      , 5);
+  prop.Asoc_Enum('tipEnvio'    , @tipEnvio  , SizeOf(tipEnvio), [f.optComando, f.optScript], 0);
+  prop.Asoc_Str ('Comando'     , @Comando   , f.txtComando    , '');
+  prop.Asoc_Str ('Archivo'     , @Archivo   , f.txtArchivo    , '');
   //Parámetros del editor de Comandos
   prop.Asoc_TCol('c_cTxtNor'   , @cfgEdPcom.cTxtNor   , f.cbutTexto1    , clBlack);
   prop.Asoc_TCol('c_cFonEdi'   , @cfgEdPcom.cFonEdi   , f.cbutBackCol1  , clWhite);
@@ -1324,17 +1345,17 @@ begin
   //Parámetros del panel de comandos.
   prop.Asoc_Bol ('CompletCode'  , @CompletCode   , f.chkCompletCode  , true);
   prop.Asoc_Bol ('CodFolding'   , @CodFolding    , f.chkCodFolding   , true);
-  prop.Asoc_Bol ('SaveBefSend'  , @SaveBefSend   , f.chkSaveBefSend  , false);
   prop.Asoc_Bol ('SendLnEnter'  , @SendLnEnter   , f.chkSendLnEnter  , false);
   prop.Asoc_Bol ('SendLnCtrEnter',@SendLnCtrEnter, f.chkSendLnCtrEnter, true);
   prop.Asoc_Bol ('UsarPrep'     , @UsarPrep      , f.chkUsarPrep     , false);
 
   //Parámetros adicionales
-  prop.Asoc_Str ('langFile'  , @langFile, '');
-  prop.Asoc_StrList('textPCom'   , @textPCom);
+  prop.Asoc_Str ('langFile'    , @langFile, '');
+  prop.Asoc_StrList('textPCom' , @textPCom);
   //prop.Asoc_StrList('Term'   , @textTerm);
-  prop.Asoc_Int('pComWidth',  @pComWidth, 200);
-
+  prop.Asoc_Int('pComWidth'    ,  @pComWidth, 300);
+  prop.Asoc_Bol('showPCom'     ,  @showPCom, f.chkShowPCom, true);
+  prop.Asoc_Bol('showTerm'     ,  @showTerm, f.chkShowTerm, true);
 
   //Rutina para forzar la carga de valores por defecto de las propiedades.
   tmp := fileName;     //Guarda valor.
@@ -1345,13 +1366,9 @@ begin
   end;
   fileName := tmp;     //Restaura.
   DeleteFile('killme.tmp');  //Limpia la casa
+
   //Asigna evento a botón para probar comando recurrente
   f.OnTest := @TestRecurringCommand;
-
-
-//  //Configura evento
-//  if OnRequireSynEditConfig<>nil then
-//    OnRequireSynEditConfig(page.edPCom);
 end;
 procedure TfraTabSession.Splitter1Moved(Sender: TObject);
 {Se está dimensionando}
@@ -1474,23 +1491,17 @@ var
 begin
   if proc = nil then exit;
   if edPCom.SelAvail then begin  //hay selección
-    //envía texto seleccionado
+    //Envía texto seleccionado
     EnviarTxt(edPCom.SelText);
   end else begin  //no hay selección, envía la línea actual
     lin := edPCom.LineText;  //línea actual
     EnviarTxt(lin);
   end;
 end;
-procedure TfraTabSession.acPCmEnvCtrCExecute(Sender: TObject);
-begin
-  proc.Send(#3);
-end;
 procedure TfraTabSession.AcPCmEnvTodExecute(Sender: TObject);
-//Envía todo el texto
+//Envía todo el texto.
 begin
   if proc = nil then exit ;
-//  if Config.fcPanCom.SaveBefSend then  //*** Usar mejor opción AUTOSAVE
-//    AcPcmGuardarExecute(Self);
   if edPCom.SelAvail then begin
     //hay selección
     frmSelFuente.optSel.Checked := true;
@@ -1506,9 +1517,17 @@ begin
       EnviarTxt(edPCom.LineText);
     End;
   end else begin
-    //no hay selección, envía todo
+    //No hay selección, envía todo
+    if MsgYesNoCancel('Send all the content of the editor?')<>1 then begin
+      exit;
+    end;
     EnviarTxt(edPCom.Text);
   end;
+end;
+
+procedure TfraTabSession.acPCmEnvCtrCExecute(Sender: TObject);
+begin
+  proc.Send(#3);
 end;
 procedure TfraTabSession.AcTerConecExecute(Sender: TObject);
 begin
@@ -1739,6 +1758,7 @@ procedure TfraTabSession.AcHerCfgExecute(Sender: TObject);
 begin
   ExecSettings;
 end;
+
 
 end.
 

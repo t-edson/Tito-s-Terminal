@@ -90,7 +90,10 @@ begin
         if IntToStr(it.Index+1) = list[0] then Padre := it;
       end;
     end;
-    if Padre = nil then exit;  //no lo ubica
+    if Padre = nil then begin
+      list.Destroy;
+      exit;  //no lo ubica
+    end;
     //ubica al nodo hijo
     for i := 0 to Padre.Count-1 do begin
       it := Padre.Items[i];

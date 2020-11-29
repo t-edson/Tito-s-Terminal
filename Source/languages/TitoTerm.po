@@ -310,62 +310,70 @@ msgstr ""
 
 #: tfratabsession.acedcopy.caption
 msgctxt "tfratabsession.acedcopy.caption"
-msgid "&Copiar"
+msgid "&Copy"
 msgstr ""
 
 #: tfratabsession.acedcopy.hint
 msgctxt "tfratabsession.acedcopy.hint"
-msgid "Copiar"
+msgid "Copy"
 msgstr ""
 
 #: tfratabsession.acedcut.caption
 msgctxt "tfratabsession.acedcut.caption"
-msgid "Cor&tar"
+msgid "C&ut"
 msgstr ""
 
 #: tfratabsession.acedcut.hint
 msgctxt "tfratabsession.acedcut.hint"
-msgid "Cortar"
+msgid "Cut"
 msgstr ""
 
 #: tfratabsession.acedpaste.caption
 msgctxt "tfratabsession.acedpaste.caption"
-msgid "&Pegar"
+msgid "&Paste"
+msgstr ""
+
+#: tfratabsession.acedpaste.hint
+msgid "Paste"
 msgstr ""
 
 #: tfratabsession.acedredo.caption
 msgctxt "tfratabsession.acedredo.caption"
-msgid "&Rehacer"
+msgid "&Redo"
 msgstr ""
 
 #: tfratabsession.acedredo.hint
 msgctxt "tfratabsession.acedredo.hint"
-msgid "Reahacer"
+msgid "Redo"
 msgstr ""
 
 #: tfratabsession.acedselecall.caption
 msgctxt "tfratabsession.acedselecall.caption"
-msgid "Seleccionar &Todo"
+msgid "Select All"
 msgstr ""
 
 #: tfratabsession.acedselecall.hint
 msgctxt "tfratabsession.acedselecall.hint"
-msgid "Seleccionar todo"
+msgid "Select All"
 msgstr ""
 
 #: tfratabsession.acedundo.caption
 msgctxt "tfratabsession.acedundo.caption"
-msgid "&Deshacer"
+msgid "&Undo"
 msgstr ""
 
 #: tfratabsession.acedundo.hint
 msgctxt "tfratabsession.acedundo.hint"
-msgid "Deshacer"
+msgid "Undo"
 msgstr ""
 
 #: tfratabsession.acfilnewses.caption
 msgctxt "tfratabsession.acfilnewses.caption"
 msgid "&New Session"
+msgstr ""
+
+#: tfratabsession.acfilnewses.hint
+msgid "New Session"
 msgstr ""
 
 #: tfratabsession.acfilopeses.caption
@@ -375,7 +383,7 @@ msgstr ""
 
 #: tfratabsession.acfilopeses.hint
 msgctxt "tfratabsession.acfilopeses.hint"
-msgid "Abre un archivo de sesión"
+msgid "Open Session"
 msgstr ""
 
 #: tfratabsession.acfilsavses.caption
@@ -385,68 +393,92 @@ msgstr ""
 
 #: tfratabsession.acfilsavses.hint
 msgctxt "tfratabsession.acfilsavses.hint"
-msgid "Guarda la sesión actual"
+msgid "Save"
 msgstr ""
 
 #: tfratabsession.acfilsavsesas.caption
 msgctxt "tfratabsession.acfilsavsesas.caption"
-msgid "G&uardar Sesión Como ..."
+msgid "Save Session &As"
 msgstr ""
 
 #: tfratabsession.acfilsavsesas.hint
 msgctxt "tfratabsession.acfilsavsesas.hint"
-msgid "Guardar sesión indicando un nombre"
+msgid "Save As"
 msgstr ""
 
 #: tfratabsession.acfilstarlog.caption
 msgctxt "tfratabsession.acfilstarlog.caption"
-msgid "&Iniciar Registro..."
+msgid "&Start Logging..."
 msgstr ""
 
 #: tfratabsession.acfilstarlog.hint
 msgctxt "tfratabsession.acfilstarlog.hint"
-msgid "Iniciar Registro de datos"
+msgid "Start Logging"
 msgstr ""
 
 #: tfratabsession.acfilstoplog.caption
 msgctxt "tfratabsession.acfilstoplog.caption"
-msgid "De&tener Registro"
+msgid "S&top Logging"
 msgstr ""
 
 #: tfratabsession.acfilstoplog.hint
 msgctxt "tfratabsession.acfilstoplog.hint"
-msgid "Detener Registro de datos"
+msgid "Stop Logging"
 msgstr ""
 
 #: tfratabsession.acfindfind.caption
 msgid "&Search"
 msgstr ""
 
+#: tfratabsession.acfindfind.hint
+msgid "Find"
+msgstr ""
+
 #: tfratabsession.acfindnext.caption
-msgid "acFindNext"
+msgctxt "tfratabsession.acfindnext.caption"
+msgid "Find Next"
+msgstr ""
+
+#: tfratabsession.acfindnext.hint
+msgctxt "tfratabsession.acfindnext.hint"
+msgid "Find Next"
 msgstr ""
 
 #: tfratabsession.acfindprev.caption
-msgid "acFindPrev"
+msgid "Find Previos"
+msgstr ""
+
+#: tfratabsession.acfindprev.hint
+msgid "Find Previous"
 msgstr ""
 
 #: tfratabsession.acfindreplace.caption
-msgid "acFindReplace"
+msgctxt "tfratabsession.acfindreplace.caption"
+msgid "Replace"
+msgstr ""
+
+#: tfratabsession.acfindreplace.hint
+msgctxt "tfratabsession.acfindreplace.hint"
+msgid "Replace"
 msgstr ""
 
 #: tfratabsession.achercfg.caption
 msgctxt "tfratabsession.achercfg.caption"
-msgid "Confi&guración..."
+msgid "Se&ttings"
 msgstr ""
 
 #: tfratabsession.achercfg.hint
 msgctxt "tfratabsession.achercfg.hint"
-msgid "Configurar"
+msgid "Show settings"
 msgstr ""
 
 #: tfratabsession.achergramac.caption
 msgctxt "tfratabsession.achergramac.caption"
-msgid "&Grabar Macro"
+msgid "&Record Macro"
+msgstr ""
+
+#: tfratabsession.achergramac.hint
+msgid "Record Macro"
 msgstr ""
 
 #: tfratabsession.acpcmcampos.caption
@@ -461,32 +493,32 @@ msgstr ""
 
 #: tfratabsession.acpcmenvctrc.caption
 msgctxt "tfratabsession.acpcmenvctrc.caption"
-msgid "Enviar Ct&rl+C"
+msgid "Send Ct&rl+C"
 msgstr ""
 
 #: tfratabsession.acpcmenvctrc.hint
 msgctxt "tfratabsession.acpcmenvctrc.hint"
-msgid "Enviar Ctrl+C al terminal"
+msgid "Send Ctrl+C"
 msgstr ""
 
 #: tfratabsession.acpcmenvlin.caption
 msgctxt "tfratabsession.acpcmenvlin.caption"
-msgid "Enviar &Línea"
+msgid "Send &Line"
 msgstr ""
 
 #: tfratabsession.acpcmenvlin.hint
 msgctxt "tfratabsession.acpcmenvlin.hint"
-msgid "Enviar línea actual"
+msgid "Send current line or selection"
 msgstr ""
 
 #: tfratabsession.acpcmenvtod.caption
 msgctxt "tfratabsession.acpcmenvtod.caption"
-msgid "Enviar &Todo"
+msgid "Send &All"
 msgstr ""
 
 #: tfratabsession.acpcmenvtod.hint
 msgctxt "tfratabsession.acpcmenvtod.hint"
-msgid "Enviar todas las líneas"
+msgid "Send all text or selection"
 msgstr ""
 
 #: tfratabsession.acpcmocul.caption
@@ -497,16 +529,6 @@ msgstr ""
 #: tfratabsession.acpcmocul.hint
 msgctxt "tfratabsession.acpcmocul.hint"
 msgid "Ocultar Panel de comandos"
-msgstr ""
-
-#: tfratabsession.acpcmverbher.caption
-msgctxt "tfratabsession.acpcmverbher.caption"
-msgid "Ver Barra de &Herramientas"
-msgstr ""
-
-#: tfratabsession.acpcmverbher.hint
-msgctxt "tfratabsession.acpcmverbher.hint"
-msgid "Ver Barra de Herramientas"
 msgstr ""
 
 #: tfratabsession.acterconec.caption
@@ -662,6 +684,16 @@ msgstr ""
 msgid "ToolButton9"
 msgstr ""
 
+#: tfratabsessions.lblnewsession.caption
+msgctxt "tfratabsessions.lblnewsession.caption"
+msgid ">&New Session ..."
+msgstr ""
+
+#: tfratabsessions.lblopensession.caption
+msgctxt "tfratabsessions.lblopensession.caption"
+msgid ">&Open Session ..."
+msgstr ""
+
 #: tfratabsessions.mncloseall.caption
 msgid "Close &All"
 msgstr ""
@@ -677,10 +709,6 @@ msgstr ""
 #: tfratabsessions.mnnewtab.caption
 msgctxt "tfratabsessions.mnnewtab.caption"
 msgid "&New"
-msgstr ""
-
-#: tfratabsessions.pancontent.caption
-msgid "<<No pages>>"
 msgstr ""
 
 #: tfrmabrirremoto.caption
@@ -1031,6 +1059,7 @@ msgid "Search &Next"
 msgstr ""
 
 #: tfrmeditremoto.actoolsettings.caption
+msgctxt "tfrmeditremoto.actoolsettings.caption"
 msgid "Se&ttings"
 msgstr ""
 
@@ -1089,16 +1118,6 @@ msgctxt "tfrmeditremoto.toolbutton5.caption"
 msgid "ToolButton5"
 msgstr ""
 
-#: tfrmprincipal.acfilconec.caption
-msgctxt "tfrmprincipal.acfilconec.caption"
-msgid "&Quick connection ..."
-msgstr ""
-
-#: tfrmprincipal.acfilconec.hint
-msgctxt "tfrmprincipal.acfilconec.hint"
-msgid "Abre una nueva conexión"
-msgstr ""
-
 #: tfrmprincipal.acfilexit.caption
 msgctxt "tfrmprincipal.acfilexit.caption"
 msgid "E&xit"
@@ -1134,6 +1153,16 @@ msgctxt "tfrmprincipal.acfilopeses.hint"
 msgid "Abre un archivo de sesión"
 msgstr ""
 
+#: tfrmprincipal.acfilqckconnec.caption
+msgctxt "tfrmprincipal.acfilqckconnec.caption"
+msgid "&Quick connection ..."
+msgstr ""
+
+#: tfrmprincipal.acfilqckconnec.hint
+msgctxt "tfrmprincipal.acfilqckconnec.hint"
+msgid "Abre una nueva conexión"
+msgstr ""
+
 #: tfrmprincipal.acfilsavses.caption
 msgctxt "tfrmprincipal.acfilsavses.caption"
 msgid "&Save Session"
@@ -1164,9 +1193,39 @@ msgctxt "tfrmprincipal.achlphelp.caption"
 msgid "&Help"
 msgstr ""
 
-#: tfrmprincipal.actoolrecmac.caption
-msgctxt "tfrmprincipal.actoolrecmac.caption"
+#: tfrmprincipal.acmaceditor.caption
+msgctxt "tfrmprincipal.acmaceditor.caption"
+msgid "&Macro editor"
+msgstr ""
+
+#: tfrmprincipal.acmaceditor.hint
+msgctxt "tfrmprincipal.acmaceditor.hint"
+msgid "Ver Editor de Macros"
+msgstr ""
+
+#: tfrmprincipal.acmacrecord.caption
+msgctxt "tfrmprincipal.acmacrecord.caption"
 msgid "&Record Macro"
+msgstr ""
+
+#: tfrmprincipal.actoolremedit.caption
+msgctxt "tfrmprincipal.actoolremedit.caption"
+msgid "Remote &Editor"
+msgstr ""
+
+#: tfrmprincipal.actoolremedit.hint
+msgctxt "tfrmprincipal.actoolremedit.hint"
+msgid "Ver Editor Remoto"
+msgstr ""
+
+#: tfrmprincipal.actoolremexplor.caption
+msgctxt "tfrmprincipal.actoolremexplor.caption"
+msgid "Remote E&xplorer"
+msgstr ""
+
+#: tfrmprincipal.actoolremexplor.hint
+msgctxt "tfrmprincipal.actoolremexplor.hint"
+msgid "Ver Explorador Remoto"
 msgstr ""
 
 #: tfrmprincipal.actoolsett.caption
@@ -1177,33 +1236,6 @@ msgstr ""
 #: tfrmprincipal.actoolsett.hint
 msgctxt "tfrmprincipal.actoolsett.hint"
 msgid "Configurar"
-msgstr ""
-
-#: tfrmprincipal.acviewmacedit.caption
-msgid "&Macros editor"
-msgstr ""
-
-#: tfrmprincipal.acviewmacedit.hint
-msgctxt "tfrmprincipal.acviewmacedit.hint"
-msgid "Ver Editor de Macros"
-msgstr ""
-
-#: tfrmprincipal.acviewremedit.caption
-msgid "Remote &Editor"
-msgstr ""
-
-#: tfrmprincipal.acviewremedit.hint
-msgctxt "tfrmprincipal.acviewremedit.hint"
-msgid "Ver Editor Remoto"
-msgstr ""
-
-#: tfrmprincipal.acviewremexplor.caption
-msgid "Remote E&xplorer"
-msgstr ""
-
-#: tfrmprincipal.acviewremexplor.hint
-msgctxt "tfrmprincipal.acviewremexplor.hint"
-msgid "Ver Explorador Remoto"
 msgstr ""
 
 #: tfrmprincipal.acviewstatusbar.caption
@@ -1219,22 +1251,13 @@ msgstr ""
 msgid "Tito's Telnet"
 msgstr ""
 
-#: tfrmprincipal.menuitem23.caption
-msgctxt "tfrmprincipal.menuitem23.caption"
-msgid "&Panel de Comandos"
-msgstr ""
-
-#: tfrmprincipal.menuitem23.hint
-msgctxt "tfrmprincipal.menuitem23.hint"
-msgid "Ver panel de comandos"
-msgstr ""
-
 #: tfrmprincipal.mnabrmacro.caption
+msgctxt "tfrmprincipal.mnabrmacro.caption"
 msgid "&Open Macro"
 msgstr ""
 
 #: tfrmprincipal.mnejecmacro.caption
-msgid "&Ejxecute Macro"
+msgid "&Execute Macro"
 msgstr ""
 
 #: tfrmprincipal.mnfile.caption
@@ -1242,14 +1265,13 @@ msgctxt "tfrmprincipal.mnfile.caption"
 msgid "&File"
 msgstr ""
 
-#: tfrmprincipal.mngramacro.caption
-msgctxt "tfrmprincipal.mngramacro.caption"
-msgid "&Record Macro"
-msgstr ""
-
 #: tfrmprincipal.mnhelp.caption
 msgctxt "tfrmprincipal.mnhelp.caption"
 msgid "&Help"
+msgstr ""
+
+#: tfrmprincipal.mnmacros.caption
+msgid "&Macros"
 msgstr ""
 
 #: tfrmprincipal.mnrecents.caption
@@ -1333,24 +1355,27 @@ msgctxt "tfrmsesproperty.chkmarlinact1.caption"
 msgid "Marcar línea actual"
 msgstr ""
 
-#: tfrmsesproperty.chksavebefsend.caption
-msgctxt "tfrmsesproperty.chksavebefsend.caption"
-msgid "Save before of send Content"
-msgstr ""
-
 #: tfrmsesproperty.chksendlnctrenter.caption
 msgctxt "tfrmsesproperty.chksendlnctrenter.caption"
-msgid "Send current line with <Ctrl>+<Enter>"
+msgid "Send current line (or selection) with <Ctrl>+<Enter>"
 msgstr ""
 
 #: tfrmsesproperty.chksendlnenter.caption
 msgctxt "tfrmsesproperty.chksendlnenter.caption"
-msgid "Send current line with <Enter>"
+msgid "Send current line (or selection) with <Enter>"
 msgstr ""
 
 #: tfrmsesproperty.chksendreccom.caption
 msgctxt "tfrmsesproperty.chksendreccom.caption"
 msgid "Send Recurring Command"
+msgstr ""
+
+#: tfrmsesproperty.chkshowpcom.caption
+msgid "Show &Command Panel"
+msgstr ""
+
+#: tfrmsesproperty.chkshowterm.caption
+msgid "Show &Terminal"
 msgstr ""
 
 #: tfrmsesproperty.chkusarprep.caption
@@ -1652,24 +1677,30 @@ msgctxt "tfrmsesproperty.radiogroup2.caption"
 msgid "Line delimiter (To receive)"
 msgstr ""
 
-#: tfrmsesproperty.tabcomrec.caption
-msgid "Recurring Command"
+#: tfrmsesproperty.tabgenappear.caption
+msgid "Appearance"
 msgstr ""
 
 #: tfrmsesproperty.tabgeneral.caption
 msgid "General"
 msgstr ""
 
-#: tfrmsesproperty.tabpancom.caption
-msgid "Comm.Panel"
-msgstr ""
-
 #: tfrmsesproperty.tabpcomedit.caption
 msgid "TabPComEdit"
 msgstr ""
 
+#: tfrmsesproperty.tabpcomset.caption
+msgctxt "tfrmsesproperty.tabpcomset.caption"
+msgid "Comm.Panel"
+msgstr ""
+
 #: tfrmsesproperty.tabpromptdet.caption
 msgid "Prompt det."
+msgstr ""
+
+#: tfrmsesproperty.tabtermcrec.caption
+msgctxt "tfrmsesproperty.tabtermcrec.caption"
+msgid "Recurring Command"
 msgstr ""
 
 #: tfrmsesproperty.tabtermedit.caption

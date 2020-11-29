@@ -1507,100 +1507,102 @@ object fraTabSession: TfraTabSession
     object AcFilNewSes: TAction
       Category = 'Arc'
       Caption = '&New Session'
+      Hint = 'New Session'
       ImageIndex = 41
     end
     object AcFIlOpeSes: TAction
       Category = 'Arc'
       Caption = '&Open Session ...'
-      Hint = 'Abre un archivo de sesión'
+      Hint = 'Open Session'
       ImageIndex = 9
     end
     object AcFilSavSes: TAction
       Category = 'Arc'
       Caption = '&Save Session'
-      Hint = 'Guarda la sesión actual'
+      Hint = 'Save'
       ImageIndex = 6
       OnExecute = AcFilSavSesExecute
     end
     object AcFilSavSesAs: TAction
       Category = 'Arc'
-      Caption = 'G&uardar Sesión Como ...'
-      Hint = 'Guardar sesión indicando un nombre'
+      Caption = 'Save Session &As'
+      Hint = 'Save As'
       ImageIndex = 39
       OnExecute = AcFilSavSesAsExecute
     end
     object AcFilStarLog: TAction
       Category = 'Arc'
-      Caption = '&Iniciar Registro...'
-      Hint = 'Iniciar Registro de datos'
+      Caption = '&Start Logging...'
+      Hint = 'Start Logging'
       ImageIndex = 44
       OnExecute = AcFilStarLogExecute
     end
     object AcFilStopLog: TAction
       Category = 'Arc'
-      Caption = 'De&tener Registro'
-      Hint = 'Detener Registro de datos'
+      Caption = 'S&top Logging'
+      Hint = 'Stop Logging'
       ImageIndex = 44
       OnExecute = AcFilStopLogExecute
     end
     object acEdUndo: TAction
       Category = 'Edit'
-      Caption = '&Deshacer'
-      Hint = 'Deshacer'
+      Caption = '&Undo'
+      Hint = 'Undo'
       ImageIndex = 1
       ShortCut = 16474
     end
     object acEdRedo: TAction
       Category = 'Edit'
-      Caption = '&Rehacer'
-      Hint = 'Reahacer'
+      Caption = '&Redo'
+      Hint = 'Redo'
       ImageIndex = 2
       ShortCut = 24666
     end
     object acEdCut: TEditCut
       Category = 'Edit'
-      Caption = 'Cor&tar'
-      Hint = 'Cortar'
+      Caption = 'C&ut'
+      Hint = 'Cut'
       ImageIndex = 3
       ShortCut = 16472
     end
     object acEdCopy: TEditCopy
       Category = 'Edit'
-      Caption = '&Copiar'
-      Hint = 'Copiar'
+      Caption = '&Copy'
+      Hint = 'Copy'
       ImageIndex = 10
       ShortCut = 16451
     end
     object acEdPaste: TAction
       Category = 'Edit'
-      Caption = '&Pegar'
+      Caption = '&Paste'
+      Hint = 'Paste'
       ImageIndex = 11
     end
     object acEdSelecAll: TAction
       Category = 'Edit'
-      Caption = 'Seleccionar &Todo'
-      Hint = 'Seleccionar todo'
+      Caption = 'Select All'
+      Hint = 'Select All'
       ShortCut = 16453
     end
     object AcPCmEnvLin: TAction
       Category = 'Pcm'
-      Caption = 'Enviar &Línea'
-      Hint = 'Enviar línea actual'
+      Caption = 'Send &Line'
+      Hint = 'Send current line or selection'
       ImageIndex = 31
       OnExecute = AcPCmEnvLinExecute
     end
     object AcPCmEnvTod: TAction
       Category = 'Pcm'
-      Caption = 'Enviar &Todo'
-      Hint = 'Enviar todas las líneas'
+      Caption = 'Send &All'
+      Hint = 'Send all text or selection'
       ImageIndex = 32
       OnExecute = AcPCmEnvTodExecute
       ShortCut = 16504
     end
     object acPCmEnvCtrC: TAction
       Category = 'Pcm'
-      Caption = 'Enviar Ct&rl+C'
-      Hint = 'Enviar Ctrl+C al terminal'
+      Caption = 'Send Ct&rl+C'
+      Hint = 'Send Ctrl+C'
       ImageIndex = 38
       OnExecute = acPCmEnvCtrCExecute
     end
@@ -1616,11 +1618,6 @@ object fraTabSession: TfraTabSession
       Hint = 'Cambia la posición del Panel de comandos'
       ImageIndex = 35
       ShortCut = 8305
-    end
-    object AcPcmVerBHer: TAction
-      Category = 'Pcm'
-      Caption = 'Ver Barra de &Herramientas'
-      Hint = 'Ver Barra de Herramientas'
     end
     object AcTerConec: TAction
       Category = 'Ter'
@@ -1718,40 +1715,45 @@ object fraTabSession: TfraTabSession
     end
     object AcHerCfg: TAction
       Category = 'Her'
-      Caption = 'Confi&guración...'
-      Hint = 'Configurar'
+      Caption = 'Se&ttings'
+      Hint = 'Show settings'
       ImageIndex = 16
       OnExecute = AcHerCfgExecute
     end
     object AcHerGraMac: TAction
       Category = 'Her'
-      Caption = '&Grabar Macro'
+      Caption = '&Record Macro'
+      Hint = 'Record Macro'
       ImageIndex = 43
     end
     object acFindFind: TAction
       Category = 'Find'
       Caption = '&Search'
+      Hint = 'Find'
       ImageIndex = 17
       OnExecute = acFindFindExecute
       ShortCut = 16454
     end
     object acFindNext: TAction
       Category = 'Find'
-      Caption = 'acFindNext'
+      Caption = 'Find Next'
+      Hint = 'Find Next'
       ImageIndex = 19
       OnExecute = acFindNextExecute
       ShortCut = 114
     end
     object acFindPrev: TAction
       Category = 'Find'
-      Caption = 'acFindPrev'
+      Caption = 'Find Previos'
+      Hint = 'Find Previous'
       ImageIndex = 19
       OnExecute = acFindPrevExecute
       ShortCut = 8306
     end
     object acFindReplace: TAction
       Category = 'Find'
-      Caption = 'acFindReplace'
+      Caption = 'Replace'
+      Hint = 'Replace'
       ImageIndex = 20
       OnExecute = acFindReplaceExecute
       ShortCut = 16466

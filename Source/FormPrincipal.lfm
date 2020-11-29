@@ -59,7 +59,7 @@ object frmPrincipal: TfrmPrincipal
     object mnFile: TMenuItem
       Caption = '&File'
       object MenuItem1: TMenuItem
-        Action = AcFilConec
+        Action = AcFilQckConnec
       end
       object MenuItem3: TMenuItem
         Action = AcFilNewWin
@@ -98,28 +98,17 @@ object frmPrincipal: TfrmPrincipal
     end
     object mnView: TMenuItem
       Caption = '&View'
-      object MenuItem23: TMenuItem
-        Caption = '&Panel de Comandos'
-        Hint = 'Ver panel de comandos'
-        ShortCut = 113
-      end
       object MenuItem37: TMenuItem
         Action = AcViewStatusBar
       end
-      object MenuItem24: TMenuItem
-        Action = AcViewRemEdit
-      end
-      object MenuItem25: TMenuItem
-        Action = AcViewRemExplor
-      end
-      object MenuItem26: TMenuItem
-        Action = AcViewMacEdit
-      end
     end
-    object mnTools: TMenuItem
-      Caption = '&Tools'
+    object mnMacros: TMenuItem
+      Caption = '&Macros'
+      object MenuItem7: TMenuItem
+        Action = AcMacEditor
+      end
       object mnEjecMacro: TMenuItem
-        Caption = '&Ejxecute Macro'
+        Caption = '&Execute Macro'
         OnClick = mnEjecMacroClick
       end
       object mnAbrMacro: TMenuItem
@@ -127,7 +116,16 @@ object frmPrincipal: TfrmPrincipal
         OnClick = mnAbrMacroClick
       end
       object mnGraMacro: TMenuItem
-        Caption = '&Record Macro'
+        Action = AcMacRecord
+      end
+    end
+    object mnTools: TMenuItem
+      Caption = '&Tools'
+      object MenuItem9: TMenuItem
+        Action = AcToolRemEdit
+      end
+      object MenuItem8: TMenuItem
+        Action = AcToolRemExplor
       end
       object MenuItem47: TMenuItem
         Caption = '-'
@@ -150,80 +148,81 @@ object frmPrincipal: TfrmPrincipal
     Images = ImageList1
     Left = 210
     Top = 30
+    object AcFilQckConnec: TAction
+      Category = 'Fil'
+      Caption = '&Quick connection ...'
+      Hint = 'Abre una nueva conexión'
+      ImageIndex = 26
+      OnExecute = AcFilQckConnecExecute
+    end
     object AcFilNewSes: TAction
-      Category = 'Arc'
+      Category = 'Fil'
       Caption = '&New Session'
       ImageIndex = 41
       OnExecute = AcFilNewSesExecute
     end
     object AcFIlOpeSes: TAction
-      Category = 'Arc'
+      Category = 'Fil'
       Caption = '&Open Session ...'
       Hint = 'Abre un archivo de sesión'
       ImageIndex = 9
       OnExecute = AcFIlOpeSesExecute
     end
     object AcFilSavSes: TAction
-      Category = 'Arc'
+      Category = 'Fil'
       Caption = '&Save Session'
       Hint = 'Guarda la sesión actual'
       ImageIndex = 6
       OnExecute = AcFilSavSesExecute
     end
     object AcFilSavSesAs: TAction
-      Category = 'Arc'
+      Category = 'Fil'
       Caption = 'Save Sesisón As ...'
       Hint = 'Guardar sesión indicando un nombre'
       ImageIndex = 39
       OnExecute = AcFilSavSesAsExecute
     end
-    object AcFilConec: TAction
-      Category = 'Arc'
-      Caption = '&Quick connection ...'
-      Hint = 'Abre una nueva conexión'
-      OnExecute = AcFilConecExecute
-    end
     object AcFilNewWin: TAction
-      Category = 'Arc'
+      Category = 'Fil'
       Caption = 'New &Window...'
       Hint = 'Abre una nueva Ventana'
       ImageIndex = 0
       OnExecute = AcFilNewWinExecute
     end
     object AcFilExit: TAction
-      Category = 'Arc'
+      Category = 'Fil'
       Caption = 'E&xit'
       Hint = 'Salir'
       ImageIndex = 7
       OnExecute = AcFilExitExecute
     end
     object AcViewStatusBar: TAction
-      Category = 'Ver'
+      Category = 'View'
       Caption = 'Status Bar'
       Hint = 'Ver Barra de Estado'
       OnExecute = AcViewStatusBarExecute
     end
-    object AcViewMacEdit: TAction
-      Category = 'Ver'
-      Caption = '&Macros editor'
+    object AcMacEditor: TAction
+      Category = 'Mac'
+      Caption = '&Macro editor'
       Hint = 'Ver Editor de Macros'
       ImageIndex = 34
-      OnExecute = AcViewMacEditExecute
+      OnExecute = AcMacEditorExecute
     end
-    object AcViewRemEdit: TAction
-      Category = 'Ver'
+    object AcToolRemEdit: TAction
+      Category = 'Tool'
       Caption = 'Remote &Editor'
       Hint = 'Ver Editor Remoto'
       ImageIndex = 37
-      OnExecute = AcViewRemEditExecute
+      OnExecute = AcToolRemEditExecute
       ShortCut = 16497
     end
-    object AcViewRemExplor: TAction
-      Category = 'Ver'
+    object AcToolRemExplor: TAction
+      Category = 'Tool'
       Caption = 'Remote E&xplorer'
       Hint = 'Ver Explorador Remoto'
       ImageIndex = 36
-      OnExecute = AcViewRemExplorExecute
+      OnExecute = AcToolRemExplorExecute
       ShortCut = 16453
     end
     object AcToolSett: TAction
@@ -233,11 +232,11 @@ object frmPrincipal: TfrmPrincipal
       ImageIndex = 16
       OnExecute = AcToolSettExecute
     end
-    object AcToolRecMac: TAction
-      Category = 'Tool'
+    object AcMacRecord: TAction
+      Category = 'Mac'
       Caption = '&Record Macro'
       ImageIndex = 43
-      OnExecute = AcToolRecMacExecute
+      OnExecute = AcMacRecordExecute
     end
     object acHlpHelp: TAction
       Category = 'Hlp'

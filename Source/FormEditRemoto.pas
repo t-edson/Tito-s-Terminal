@@ -105,6 +105,7 @@ type
     edit: TSynFacilEditor;
     lineas: TStringList;    //lista temporal
   public
+    MsjErr: String;
     NomArcLocal: string;  //nombre de archivo local
     procedure AbrirRemoto(arc: string);
   end;
@@ -277,7 +278,7 @@ end;
 
 procedure TfrmEditRemoto.AcToolSettingsExecute(Sender: TObject);
 begin
-  config.Configurar('5.1');
+  config.Configurar('3');
 end;
 
 procedure TfrmEditRemoto.acEdiRedoExecute(Sender: TObject);
@@ -292,7 +293,6 @@ end;
 procedure TfrmEditRemoto.AbrirRemoto(arc: string);
 //Permite editar un archivo almacenado en un archivo externo
 var
-  MsjErr: String;
   ses: TfraTabSession;
 begin
   if self.Visible and edit.SaveQuery then Exit;   //Verifica cambios

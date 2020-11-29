@@ -21,20 +21,20 @@ type
   TfrmPrincipal = class(TForm)
   published
     AcFilExit: TAction;
-    AcFilConec: TAction;
+    AcFilQckConnec: TAction;
     AcFilNewWin: TAction;
     AcToolSett: TAction;
     AcFilSavSesAs: TAction;
     AcFIlOpeSes: TAction;
     AcFilSavSes: TAction;
     AcFilNewSes: TAction;
-    AcToolRecMac: TAction;
+    AcMacRecord: TAction;
     acHlpHelp: TAction;
     acHlpAbout: TAction;
     AcViewStatusBar: TAction;
-    AcViewRemExplor: TAction;
-    AcViewRemEdit: TAction;
-    AcViewMacEdit: TAction;
+    AcToolRemExplor: TAction;
+    AcToolRemEdit: TAction;
+    AcMacEditor: TAction;
     ActionList1: TActionList;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
@@ -42,14 +42,17 @@ type
     MenuItem10: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
+    mnEjecMacro: TMenuItem;
+    mnAbrMacro: TMenuItem;
+    mnGraMacro: TMenuItem;
+    mnMacros: TMenuItem;
     mnRecents: TMenuItem;
     mnAyuAyu: TMenuItem;
     mnView: TMenuItem;
     mnFile: TMenuItem;
-    MenuItem23: TMenuItem;
-    MenuItem24: TMenuItem;
-    MenuItem25: TMenuItem;
-    MenuItem26: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem62: TMenuItem;
     MenuItem63: TMenuItem;
@@ -57,10 +60,7 @@ type
     MenuItem65: TMenuItem;
     MenuItem66: TMenuItem;
     mnSesionesAlm: TMenuItem;
-    mnGraMacro: TMenuItem;
     MenuItem47: TMenuItem;
-    mnAbrMacro: TMenuItem;
-    mnEjecMacro: TMenuItem;
     mnHelp: TMenuItem;
     MenuItem37: TMenuItem;
     mnTools: TMenuItem;
@@ -74,17 +74,17 @@ type
     procedure AcFIlOpeSesExecute(Sender: TObject);
     procedure AcFilSavSesAsExecute(Sender: TObject);
     procedure AcFilSavSesExecute(Sender: TObject);
-    procedure AcFilConecExecute(Sender: TObject);
+    procedure AcFilQckConnecExecute(Sender: TObject);
     procedure AcFilNewSesExecute(Sender: TObject);
     procedure AcFilNewWinExecute(Sender: TObject);
     procedure AcFilExitExecute(Sender: TObject);
     procedure acHlpHelpExecute(Sender: TObject);
-    procedure AcToolRecMacExecute(Sender: TObject);
+    procedure AcMacRecordExecute(Sender: TObject);
     procedure AcToolSettExecute(Sender: TObject);
-    procedure AcViewRemEditExecute(Sender: TObject);
+    procedure AcToolRemEditExecute(Sender: TObject);
     procedure AcViewStatusBarExecute(Sender: TObject);
-    procedure AcViewMacEditExecute(Sender: TObject);
-    procedure AcViewRemExplorExecute(Sender: TObject);
+    procedure AcMacEditorExecute(Sender: TObject);
+    procedure AcToolRemExplorExecute(Sender: TObject);
     procedure edPComSpecialLineMarkup(Sender: TObject; Line: integer;
       var Special: boolean; Markup: TSynSelectedColor);
     procedure UpdateHeader;
@@ -108,12 +108,11 @@ type
     ticComRec : integer;   //contador para comando recurrente
     TabSessions: TfraTabSessions;   //Panel de editores
     procedure AbrirSesion(fileSession: string);
-    procedure ConfiguraEntorno;
+    procedure PropertiesChanged;
     procedure TabSessionsPageEvent(event: string; page: TObject; out res: string);
     procedure itemAbreComando(Sender: TObject);
     procedure itemAbreSesion(Sender: TObject);
     procedure MostrarBarEst(visibilidad: boolean);
-    procedure MostrarBHerTerm(visibilidad: boolean);
   public
 //    proc   : TConsoleProc; //referencia al proceso actual
     curProc: TConsoleProc2; //referencia al proceso actual
@@ -187,14 +186,11 @@ begin
   TranslateMsgs := true;  //activa la traducción en los mensajes
   frmEditMacros.Init(TabSessions);
   Caption := NOM_PROG + ' ' + VER_PROG;
-  //aquí ya sabemos que Config está creado. Lo configuramos
-  //Config.edTerm := edTerm;  //pasa referencia de editor.
-//  Config.edPCom := edPCom;  //pasa referencia de Panel de comando
+  //Aquí ya sabemos que Config está creado. Lo configuramos.
   Config.edMacr := frmEditMacros.ed;
   COnfig.edRemo := frmEditRemoto.ed;
-
+  Config.OnPropertiesChanged := @PropertiesChanged;
   Config.Iniciar();  //Inicia la configuración
-  ConfiguraEntorno;
   //muestra dirección IP actual
   //ActualizarInfoPanel0;
   //actualiza menús
@@ -244,10 +240,8 @@ var
   i: Integer;
 begin
 //  //Actualiza menús
-//  mnSesionesAlmClick(self);  //Actualiza menú "Sesiones almacenadas"
 //  mnEjecMacroClick(self);
 //  mnAbrMacroClick(self);
-//  ConfiguraEntorno;
 
   //Si es ruta relativa, la vuelve absoluta.
   if Pos(DirectorySeparator, fileSession) = 0 then begin
@@ -291,15 +285,20 @@ begin
   frmEditMacros.Show;
   frmEditMacros.Abrir(config.macros + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
-procedure TfrmPrincipal.ConfiguraEntorno;
-//Configura el entorno (IDE) usando variables globales
+procedure TfrmPrincipal.PropertiesChanged;
+//Configura el entorno (IDE) a partir de la configuración global (FormConfig).
 begin
   //Inicia visibilidad de paneles. Estas son propiedades del entrono, no de un editor en particular
-  MostrarBHerTerm(Config.VerBHerTerm);
+  //Barra de herramientas
+//  tbTerm.Visible       := Config.VerBHerTerm;
+//  AcTerVerBHer.Checked := Config.VerBHerTerm;
+  //Barra de estado.
   MostrarBarEst(Config.VerBarEst);
-//  MostrarPanCom(Config.VerPanCom);
-//  MostrarPanBD(VerPanBD);
-//  MostrarVEnSes(VerVenSes);
+  //Apariencia de los editores
+  Config.fcEdMacr.ConfigEditor(frmEditMacros.ed);
+  Config.fcEdRemo.ConfigEditor(frmEditRemoto.ed);
+  frmEditMacros.ed.Invalidate;
+  frmEditRemoto.ed.Invalidate;
 end;
 procedure TfrmPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -334,12 +333,17 @@ begin
          TabSessions.ClosePage;
        end;
      end;
+     VK_F2: begin
+       if not GetCurSession(pag) then exit;
+       pag.showPCom := not pag.showPCom;
+       pag.PropertiesChanged;  //Para actualizar cambios.
+     end;
      end;
 end;
 procedure TfrmPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction
   );
 begin
-  Config.escribirArchivoIni;  //guarda configuración
+  Config.SaveToFile;  //guarda configuración
 end;
 procedure TfrmPrincipal.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 var
@@ -434,6 +438,9 @@ begin
   'req_new_page': begin  //Se pide agregar una nueva página. Desde el menú de las lenguetas.
      AcFilNewSesExecute(self);
   end;
+  'req_open_page': begin  //Se pide abrir una página
+     AcFIlOpeSesExecute(self);
+  end;
   end;
 end;
 procedure TfrmPrincipal.Timer1Timer(Sender: TObject);
@@ -446,21 +453,13 @@ begin
     StatusBar1.InvalidatePanel(0,[ppText]);
   end;
 end;
-procedure TfrmPrincipal.MostrarBHerTerm(visibilidad: boolean);
-//Solo por esta función se debe cambiar la visibilidad de la barra de herramientas
-begin
-  //tbTerm.Visible:=visibilidad;
-  //AcTerVerBHer.Checked:=visibilidad;
-  Config.VerBHerTerm :=visibilidad; //Actualiza variable global}
-  Config.escribirArchivoIni; //guarda cambio
-end;
 procedure TfrmPrincipal.MostrarBarEst(visibilidad:boolean );
 //Solo por esta función se debe cambiar la visibilidad de la barra de estado
 begin
    StatusBar1.Visible:=visibilidad;
    AcViewStatusBar.Checked:=visibilidad;
    Config.VerBarEst :=visibilidad; //Actualiza variable global
-   Config.escribirArchivoIni; //guarda cambio
+   Config.SaveToFile; //guarda cambio
 end;
 function TfrmPrincipal.ConexDisponible: boolean;
 //Indica si la conexión está en estado ECO_READY, es decir, que puede
@@ -610,7 +609,8 @@ begin
   end;
 end;
 /////////////////////// ACCIONES ////////////////////////
-procedure TfrmPrincipal.AcFilConecExecute(Sender: TObject);  //conexión rápida
+//Acciones de archivo
+procedure TfrmPrincipal.AcFilQckConnecExecute(Sender: TObject);  //conexión rápida
 var
   ses: TfraTabSession;
 begin
@@ -632,7 +632,7 @@ begin
   end;
   //InicConect;   //inicia conexión
   //Almacena conexión
-  Config.escribirArchivoIni;  //guarda en configuración}
+  Config.SaveToFile;  //guarda en configuración}
 end;
 procedure TfrmPrincipal.AcFilNewWinExecute(Sender: TObject);
 //Abre una nueva ventana de la aplicación
@@ -667,7 +667,6 @@ begin
   if not OpenDialog1.Execute then exit;    //se canceló
   AbrirSesion(OpenDialog1.FileName);
 end;
-
 procedure TfrmPrincipal.AcFilSavSesExecute(Sender: TObject);  //guardar sesión
 var
   ses: TfraTabSession;
@@ -689,33 +688,34 @@ procedure TfrmPrincipal.AcFilExitExecute(Sender: TObject);
 begin
   Close;
 end;
-
+//Acciones de Ver
 procedure TfrmPrincipal.AcViewStatusBarExecute(Sender: TObject);
 begin
   MostrarBarEst(not AcViewStatusBar.Checked);
 end;
-procedure TfrmPrincipal.AcViewMacEditExecute(Sender: TObject);
+//Acciones de macros
+procedure TfrmPrincipal.AcMacEditorExecute(Sender: TObject);
 begin
   frmEditMacros.Show;
 end;
-procedure TfrmPrincipal.AcViewRemExplorExecute(Sender: TObject);
+procedure TfrmPrincipal.AcMacRecordExecute(Sender: TObject);
+begin
+  frmEditMacros.AcHerGrabExecute(self);
+end;
+//Acciones de Herramientas
+procedure TfrmPrincipal.AcToolRemExplorExecute(Sender: TObject);
 begin
   frmExpRemoto.Show;
 end;
-procedure TfrmPrincipal.AcViewRemEditExecute(Sender: TObject);
+procedure TfrmPrincipal.AcToolRemEditExecute(Sender: TObject);
 begin
   frmEditRemoto.Show;
-end;
-
-procedure TfrmPrincipal.AcToolRecMacExecute(Sender: TObject);
-begin
-  frmEditMacros.AcHerGrabExecute(self);
 end;
 procedure TfrmPrincipal.AcToolSettExecute(Sender: TObject);
 begin
   Config.Configurar;
 end;
-
+//Acciones de ayuda
 procedure TfrmPrincipal.acHlpHelpExecute(Sender: TObject);
 begin
   OpenURL('https://github.com/t-edson/Tito-s-Terminal/tree/master/Docs');

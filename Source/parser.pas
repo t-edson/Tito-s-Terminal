@@ -36,12 +36,6 @@ type
     destructor Destroy; override;
   end;
 
-{  TSecAct = ( bloNormal,  {Bloque normal, como el programa principal o el cuerpo de alguna
-                           estructura "IF", lo que va entre THEN y ELSE.}
-              bloEvaluac  {BLoque en donde se espera un resultado booleand para tomar
-                          una decisiónm como la expresión que va entre el IF y el THEN.}
-            );}
-//procedure Compilar(NombArc: string; LinArc: Tstrings);
 var
   cxp : TCompiler;
 

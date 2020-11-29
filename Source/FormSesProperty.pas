@@ -4,7 +4,7 @@ unit FormSesProperty;
 interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, Buttons, Spin, Globales, SynEdit;
+  ExtCtrls, Buttons, Spin, Globales, SynEdit, Types;
 
 type
   TTipEnvio = (teComando, teArchivo);
@@ -27,6 +27,8 @@ type
     cbutTexto1: TColorButton;
     cbutTxtPan: TColorButton;
     cbutTxtPan1: TColorButton;
+    chkShowTerm: TCheckBox;
+    chkShowPCom: TCheckBox;
     chkHLCurWord1: TCheckBox;
     chkMarLinAct1: TCheckBox;
     chkSendRecCom: TCheckBox;
@@ -37,7 +39,6 @@ type
     chkInterDirec: TCheckBox;
     chkMarLinAct: TCheckBox;
     chkHLCurWord: TCheckBox;
-    chkSaveBefSend: TCheckBox;
     chkSendLnCtrEnter: TCheckBox;
     chkSendLnEnter: TCheckBox;
     chkUsarPrep: TCheckBox;
@@ -109,8 +110,9 @@ type
     spFontSize1: TSpinEdit;
     TabGeneral: TTabSheet;
     TabPromptDet: TTabSheet;
-    TabPanCom: TTabSheet;
-    TabComRec: TTabSheet;
+    TabPComSet: TTabSheet;
+    TabGenAppear: TTabSheet;
+    TabTermCRec: TTabSheet;
     TabPComEdit: TTabSheet;
     TabTermEdit: TTabSheet;
     TabTermPant: TTabSheet;
@@ -137,6 +139,8 @@ type
     procedure optSerialChange(Sender: TObject);
     procedure optSSHChange(Sender: TObject);
     procedure optTelnetChange(Sender: TObject);
+    procedure TabTermEditContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
     procedure TreeView1Click(Sender: TObject);
   private
     procedure Ocultar;
@@ -177,6 +181,12 @@ begin
   RadioGroup1.ItemIndex:=2;
 end;
 
+procedure TfrmSesProperty.TabTermEditContextPopup(Sender: TObject;
+  MousePos: TPoint; var Handled: Boolean);
+begin
+
+end;
+
 procedure TfrmSesProperty.TreeView1Click(Sender: TObject);
 begin
   if TreeView1.Selected = nil then exit;
@@ -185,16 +195,14 @@ begin
   '1',
   '1.1'  : TabGeneral.Show;
   '1.2'  : TabPromptDet.Show;
+  '1.3'  : TabGenAppear.Show;
   '2',
   '2.1'  : TabPComEdit.Show;
-  //'2.2'  : fcPanCom.ShowPos(145,0);
+  '2.2'  : TabPComSet.Show;
   '3',
   '3.1'  : TabTermPant.Show;
   '3.2'  : TabTermEdit.Show;
-  '3.3'  : TabComRec.Show;
-//  '4',
-//  '4.1'  : fcMacros.ShowPos(145,0);
-//  '4.2'  : fcEdMacr.ShowPos(145,0);
+  '3.3'  : TabTermCRec.Show;
   end;
   //Visibilidad de botón
   bitOK_conn.Visible := (PageControl1.TabIndex = 0);
@@ -303,7 +311,9 @@ end;
 procedure TfrmSesProperty.Exec(connected: boolean);
 {Muestra el formulario actual.}
 begin
-  TabGeneral.Show;  //Inicia con esta página
+  //Selecciona primera opción.
+  TreeView1.Items[0].Selected:=true;
+  TreeView1Click(self);
   if connected then begin
     TabGeneral.Enabled := false;
   end else begin

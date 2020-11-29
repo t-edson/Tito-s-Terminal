@@ -6,10 +6,9 @@ unit FrameTabSessions;
 interface
 uses
   Classes, SysUtils, FileUtil, LazUTF8, LazFileUtils, Forms, Controls, Dialogs,
-  ComCtrls, ExtCtrls, Graphics, LCLProc, Menus, LCLType, StdCtrls, strutils,
-  fgl, Types, SynEdit, SynEditKeyCmds, SynEditTypes, Globales,
-  uResaltTerm, FrameTabSession, SynFacilUtils, SynFacilBasic,
-  SynFacilCompletion, MisUtils;
+  ComCtrls, ExtCtrls, Graphics, LCLProc, Menus, LCLType, StdCtrls,
+  fgl, Types, SynEdit, SynEditKeyCmds, Globales,
+  uResaltTerm, FrameTabSession, SynFacilUtils, SynFacilBasic, MisUtils;
 type
   { TPage }
   TPage = class
@@ -21,6 +20,8 @@ type
   TfraTabSessions = class(TFrame)
   published
     ImgCompletion: TImageList;
+    lblNewSession: TLabel;
+    lblOpenSession: TLabel;
     mnCloseOthers: TMenuItem;
     mnCloseAll: TMenuItem;
     mnNewTab: TMenuItem;
@@ -32,6 +33,14 @@ type
     panContent: TPanel;
     PopUpTabs: TPopupMenu;
     UpDown1: TUpDown;
+    procedure lblNewSessionMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure lblNewSessionMouseEnter(Sender: TObject);
+    procedure lblNewSessionMouseLeave(Sender: TObject);
+    procedure lblOpenSessionMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure lblOpenSessionMouseEnter(Sender: TObject);
+    procedure lblOpenSessionMouseLeave(Sender: TObject);
     procedure mnCloseOthersClick(Sender: TObject);
     procedure mnCloseAllClick(Sender: TObject);
     procedure mnCloseTabClick(Sender: TObject);
@@ -61,14 +70,11 @@ type
     procedure InitTabs;
   private
     FTabIndex  : integer;
-    FTabViewMode: integer;
     function LastIndex: integer;
     function NewName(prefix, ext: string): string;
     procedure DeleteEdit;
-    procedure SetTabViewMode(AValue: integer);
   public  //Manejo de pestañas y páginas
     pages    : TPages;
-    property TabViewMode: integer read FTabViewMode write SetTabViewMode;  //Modo de visualización
     property TabIndex: integer read FTabIndex write SetTabIndex;   //panel actualmente activo
     function Count: integer;
     function ActivePage: TfraTabSession;
@@ -108,12 +114,6 @@ implementation
 const
   SEPAR_TABS = 2;  //Separación adicional, entre pestañas
   WIDTH_ADD_TAB = 40;  //Ancho de botón "Agregar página"
-resourcestring
-  MSG_PASFILES = 'Pascal Files';
-  MSG_PASEXTEN = '*.pas';
-  MSG_ALLFILES = 'All files';
-  MSG_NOFILES  = 'No files';
-  MSG_NOSYNFIL = 'Syntax file not found: %s'   ;
 
 { TfraTabSessions }
 procedure TfraTabSessions.SetLanguage;
@@ -122,22 +122,18 @@ begin
 end;
 procedure TfraTabSessions.RefreshTabs;
 begin
-  if FTabViewMode = 0 then begin
-    //Se muestran siempre
-    panHeader.Visible := true;
-  end else if FTabViewMode = 1 then begin
-    //Se oculta, cuando hay una sola pestaña
-    if pages.Count = 1 then begin
-      //No vale la pena
-      panHeader.Visible := false;
-    end else begin
-      panHeader.Visible := true;
-    end;
-  end else begin
-    //Se oculta siempre
+  if pages.Count=0 then begin
     panHeader.Visible := false;
+  end else begin
+    panHeader.Visible := true;
   end;
   panHeader.Invalidate;   //para refrescar
+  //Botones de desplazamiento horizontal
+  if pages.Count > 1 then begin
+    UpDown1.Enabled := true;
+  end else begin
+    UpDown1.Enabled := false;
+  end;
 end;
 procedure TfraTabSessions.SetTabIndex(AValue: integer);
 {Define la sesión que se hará visible}
@@ -153,6 +149,7 @@ begin
 //  pages[FTabIndex].Visible := true;  //Muestra la nueva sesión.
   PageEvent('req_activate', pages[FTabIndex], res);
   if OnSelectEditor<>nil then OnSelectEditor;  //Dispara evento.
+
   RefreshTabs;
 end;
 //Métodos pàra el dibujo de lenguetas
@@ -284,11 +281,11 @@ begin
     end;
   end;
   //Verifica si se pulsó en el botón '+'
-  if pages.Count = 0 then x2 := xIniTabs;  //Por si no se actualizó "x2".
-  if (X>x2) and (X<x2 + WIDTH_ADD_TAB) then begin
-//    MsgBox('Add');
-    PageEvent('req_new_page', nil, res);
-    SetFocus;
+  if pages.Count>0 then begin  //Solo cuando se dibuja.
+    if (X>x2) and (X<x2 + WIDTH_ADD_TAB) then begin
+      PageEvent('req_new_page', nil, res);
+      SetFocus;
+    end;
   end;
 end;
 procedure TfraTabSessions.Panel1MouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -410,14 +407,12 @@ begin
     end;
   end;
   //Dibuja lengueta "+"
-  if TabIndex=-1 then begin
-    //No hay página
-    xfin := xIniTabs;
-  end else begin
+  if pages.Count>0 then begin
+    //Solo se dibuja si hay página seleccionada.
     pag := pages[pages.Count-1];  //ültima página
     xfin := pag.x1 + pag.tabWidth;
+    DibLeng(xfin, xfin + WIDTH_ADD_TAB, clBlack, false, '+');
   end;
-  DibLeng(xfin, xfin + WIDTH_ADD_TAB, clBlack, false, '+');
 
   //Dibuja al final al activo, para que aparezca encima
   if TabIndex<>-1 then begin
@@ -434,7 +429,7 @@ begin
     cv.Pen.Color := clGray;
     cv.Line(x1 ,0, x1, panHeader.Height);
   end else if tabSelec = pages.Count then begin
-    //Se marac al final de la última pestaña
+    //Se marca al final de la última pestaña
     pag := pages[pages.Count-1];  //el útlimo
     x1 := pag.x1 + pag.tabWidth +2;
     cv := panHeader.canvas;
@@ -542,12 +537,6 @@ begin
   end;
   MakeActiveTabVisible;
   if OnSelectEditor<>nil then OnSelectEditor;
-  RefreshTabs;
-end;
-procedure TfraTabSessions.SetTabViewMode(AValue: integer);
-begin
-  if FTabViewMode = AValue then Exit;
-  FTabViewMode := AValue;
   RefreshTabs;
 end;
 ///Manejo de pestañas
@@ -672,6 +661,7 @@ begin
   FTabIndex := -1;
   InitTabs;
   tabSelec := -1;
+  RefreshTabs;
 end;
 destructor TfraTabSessions.Destroy;
 begin
@@ -724,6 +714,40 @@ begin
     if not ClosePage then
       break;  //Se canceló
   end;
+  SetFocus;
+end;
+//Eventos del botón "Nueva Sesión".
+procedure TfraTabSessions.lblNewSessionMouseEnter(Sender: TObject);
+begin
+  lblNewSession.Font.Bold := true;
+end;
+procedure TfraTabSessions.lblNewSessionMouseLeave(Sender: TObject);
+begin
+  lblNewSession.Font.Bold := false;
+end;
+procedure TfraTabSessions.lblNewSessionMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  res: string;
+begin
+  PageEvent('req_new_page', nil, res);
+  SetFocus;
+end;
+//Eventos del botón "Abrir Sesión".
+procedure TfraTabSessions.lblOpenSessionMouseEnter(Sender: TObject);
+begin
+  lblOpenSession.Font.Bold := true;
+end;
+procedure TfraTabSessions.lblOpenSessionMouseLeave(Sender: TObject);
+begin
+  lblOpenSession.Font.Bold := false;
+end;
+procedure TfraTabSessions.lblOpenSessionMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  res: string;
+begin
+  PageEvent('req_open_page', nil, res);
   SetFocus;
 end;
 
