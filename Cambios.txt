@@ -6,6 +6,7 @@ Se cambia la organización de la pantalla, creando una interfaz de lenguetas, aso
 terminal a un panel de comandos.
 Se eliminan las traducciones de idioma "en código" y se pasa a usar el i18m de Lazarus.
 Se deja de usar ConfigFrame y se usa ahora MiConfig.
+Se reordenan los menús y las acciones.
 
 Tito's Terminal 0.7
 ===================
