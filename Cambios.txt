@@ -8,6 +8,20 @@ Se eliminan las traducciones de idioma "en código" y se pasa a usar el i18m de L
 Se deja de usar ConfigFrame y se usa ahora MiConfig.
 Se reordenan los menús y las acciones.
 
+PENDIENTES
+Cambiar el nombre de la carpetas /sesiones y /leguajes a inglés.
+Actualizar el Manual de Usuario.
+Queda pendiente reordenar la declaración de varias clases, porque falta clasificar sus campos.
+También está pendiente refactorizar algunos nombres a la terminlogía inglesa.
+Falta usar el frame de configuración para SynEdit( que se usa en FormConfig) en la ventana
+de configuración de las sesiones, donde se tienen controles con nombres similares (con postfijo 1).
+Falta implementar el reordenamiento de las ventanas de la sesión. Algo como se hacía en la 
+versión 0.7.
+Falta implementar el reconocimiento de algunas secuencias de escape (es más tema de la librería
+UnTerminal) como las que muestran el estado de avance de las descargas.
+Queda pendiente implementar la grabación de macros.
+Faltaría también incluir otras traducciones.
+
 Tito's Terminal 0.7
 ===================
 Se actualiza la librería Xpres, a la versión 1.2.
