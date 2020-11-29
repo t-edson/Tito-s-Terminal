@@ -3,7 +3,7 @@ Tito-s-Terminal 0.8
 
 Terminal con Interfaz gráfica, coloreado de sintaxis y automatización para telnet, y ssh.
 
-![Tito's Terminal](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/1969/12/tterm1.png "Título de la imagen")
+![Tito's Terminal](https://github.com/t-edson/Tito-s-Terminal/blob/0.8/_screenshots/screen1.png "Pantalla de Tito's Terminal")
 
 Tito's Terminal empezó como una broma, pero ahora es una aplicación bastante completa y ha migrado recientemente a Lazarus.
 
