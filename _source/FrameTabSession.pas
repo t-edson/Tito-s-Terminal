@@ -1354,7 +1354,7 @@ begin
   //Parámetros adicionales
   prop.Asoc_Str ('langFile'    , @langFile, '');
   prop.Asoc_StrList('textPCom' , @textPCom);
-  prop.Asoc_StrList('textTerm'   , @textTerm);
+//  prop.Asoc_StrList('textTerm' , @textTerm);
   prop.Asoc_Int('pComWidth'    ,  @pComWidth, 300);
   prop.Asoc_Bol('showPCom'     ,  @showPCom, f.chkShowPCom, true);
   prop.Asoc_Bol('showTerm'     ,  @showTerm, f.chkShowTerm, true);

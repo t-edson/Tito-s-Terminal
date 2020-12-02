@@ -4,7 +4,7 @@ object frmPrincipal: TfrmPrincipal
   Top = 95
   Width = 1180
   AllowDropFiles = True
-  Caption = 'Tito''s Telnet'
+  Caption = 'Tito''s Terminal'
   ClientHeight = 731
   ClientWidth = 1180
   DesignTimePPI = 120

@@ -110,7 +110,6 @@ type
     procedure AbrirSesion(fileSession: string);
     procedure PropertiesChanged;
     procedure TabSessionsPageEvent(event: string; page: TObject; out res: string);
-    procedure itemAbreComando(Sender: TObject);
     procedure itemAbreSesion(Sender: TObject);
     procedure MostrarBarEst(visibilidad: boolean);
   public
@@ -185,7 +184,6 @@ begin
   InitMenuRecents(mnRecents, Config.RecentFiles, 8);
   TranslateMsgs := true;  //activa la traducción en los mensajes
   frmEditMacros.Init(TabSessions);
-  Caption := NOM_PROG + ' ' + VER_PROG;
   //Aquí ya sabemos que Config está creado. Lo configuramos.
   Config.edMacr := frmEditMacros.ed;
   COnfig.edRemo := frmRemoteEditor.ed;
@@ -198,7 +196,7 @@ begin
   mnEjecMacroClick(self);
   mnAbrMacroClick(self);
 
-  UpdateHeader; //para actualizar barra de título
+  UpdateHeader;    //Actualiza barra de título
 end;
 procedure TfrmPrincipal.UpdateHeader;
 var
@@ -208,7 +206,7 @@ begin
   if GetCurSession(pag) then begin
     Caption := NOM_PROG + '-' + VER_PROG + ' - ' + pag.FileName;
   end else begin
-    Caption := NOM_PROG;
+    Caption := NOM_PROG + '-' + VER_PROG;
   end;
 end;
 procedure TfrmPrincipal.edPComSpecialLineMarkup(Sender: TObject; Line: integer;
@@ -268,13 +266,6 @@ procedure TfrmPrincipal.itemAbreSesion(Sender: TObject);
 begin
   AbrirSesion(patSessions + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
-procedure TfrmPrincipal.itemAbreComando(Sender: TObject);
-var
-  tmp: String;
-begin
-  tmp := config.scripts + DirectorySeparator + TMenuItem(Sender).Caption;
-  //ePCom.LoadFile(tmp);
-end;
 procedure TfrmPrincipal.itemEjecMacro(Sender: TObject);
 //Ejecuta la macro elegida
 begin
@@ -331,6 +322,7 @@ begin
      VK_F4: begin
        if Shift = [ssCtrl] then begin  //Ctrl+F4
          TabSessions.ClosePage;
+         Key := 0;  //Sino daría error en las rutinas que procesen la tecla.
        end;
      end;
      VK_F2: begin
@@ -339,7 +331,9 @@ begin
        pag.PropertiesChanged;  //Para actualizar cambios.
      end;
      VK_S: begin
-       AcFilSavSesExecute(self);
+       if Shift = [ssCtrl] then begin  //Ctrl+S
+          AcFilSavSesExecute(self);  //Guarda sesión
+       end;
      end;
      end;
 end;

@@ -1,5 +1,5 @@
 {"version":1,"strings":[
-{"hash":245451460,"name":"tfrmprincipal.caption","sourcebytes":[84,105,116,111,39,115,32,84,101,108,110,101,116],"value":"Tito's Telnet"},
+{"hash":128846556,"name":"tfrmprincipal.caption","sourcebytes":[84,105,116,111,39,115,32,84,101,114,109,105,110,97,108],"value":"Tito's Terminal"},
 {"hash":2805797,"name":"tfrmprincipal.mnfile.caption","sourcebytes":[38,70,105,108,101],"value":"&File"},
 {"hash":170385011,"name":"tfrmprincipal.mnsesionesalm.caption","sourcebytes":[83,38,116,111,114,101,100,32,83,101,115,115,105,111,110,115],"value":"S&tored Sessions"},
 {"hash":146392835,"name":"tfrmprincipal.mnrecents.caption","sourcebytes":[38,82,101,99,101,110,116,115],"value":"&Recents"},

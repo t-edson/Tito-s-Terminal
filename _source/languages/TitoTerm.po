@@ -1013,7 +1013,7 @@ msgid "Ver Barra de Estado"
 msgstr ""
 
 #: tfrmprincipal.caption
-msgid "Tito's Telnet"
+msgid "Tito's Terminal"
 msgstr ""
 
 #: tfrmprincipal.mnabrmacro.caption
