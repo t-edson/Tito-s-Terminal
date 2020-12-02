@@ -118,7 +118,7 @@ type
     curProc: TConsoleProc2; //referencia al proceso actual
     ejecMac: boolean;   //indica que está ejecutando una macro
     ejecCom: boolean;   //indica que está ejecutando un comando (editor remoto, exp. remoto ...)
-    function ConexDisponible: boolean;
+    function AvailableConnection: boolean;
   public  //Acciones sobre la session actual.
     function GetCurSession(out pag: TfraTabSession): boolean;
     procedure SetCurPort(port: integer);
@@ -338,6 +338,9 @@ begin
        pag.showPCom := not pag.showPCom;
        pag.PropertiesChanged;  //Para actualizar cambios.
      end;
+     VK_S: begin
+       AcFilSavSesExecute(self);
+     end;
      end;
 end;
 procedure TfrmPrincipal.FormClose(Sender: TObject; var CloseAction: TCloseAction
@@ -460,7 +463,7 @@ begin
    Config.VerBarEst :=visibilidad; //Actualiza variable global
    Config.SaveToFile; //guarda cambio
 end;
-function TfrmPrincipal.ConexDisponible: boolean;
+function TfrmPrincipal.AvailableConnection: boolean;
 //Indica si la conexión está en estado ECO_READY, es decir, que puede
 //recibir un comando
 var

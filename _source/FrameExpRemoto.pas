@@ -285,7 +285,7 @@ begin
   MosOcul := config.MosOcul;
   if ListDet then ConfigurarColumnasDetalladas  //actualiza apariencia
   else ConfigurarColumnasSimple;
-  if not frmPrincipal.ConexDisponible then begin
+  if not frmPrincipal.AvailableConnection then begin
     MsgExc('No available connection');
     ListView1.Items.Clear;
     AgregarFilaErr('Error on reading data.');

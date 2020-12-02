@@ -728,6 +728,8 @@ begin
   //Puede haber cambiado el nombre del archivo. Actualiza texto de la lengueta.
   UpdateCaption(fileName);
   PropertiesChanged;   //Procesa el cambio de propiedades
+  edTerm.CaretY := edTerm.Lines.Count;  //Cursor en la línea final.
+  edTerm.CaretX := length(edTerm.Lines[edTerm.Lines.Count-1])+1;  //En la columna final.
   //Delegamos la función de guardar históricos a la IDE
   tabSessions.PageEvent('reg_reg_file', self, res);
 end;
@@ -1352,7 +1354,7 @@ begin
   //Parámetros adicionales
   prop.Asoc_Str ('langFile'    , @langFile, '');
   prop.Asoc_StrList('textPCom' , @textPCom);
-  //prop.Asoc_StrList('Term'   , @textTerm);
+  prop.Asoc_StrList('textTerm'   , @textTerm);
   prop.Asoc_Int('pComWidth'    ,  @pComWidth, 300);
   prop.Asoc_Bol('showPCom'     ,  @showPCom, f.chkShowPCom, true);
   prop.Asoc_Bol('showTerm'     ,  @showTerm, f.chkShowTerm, true);
@@ -1426,6 +1428,78 @@ begin
   hlTerm.Destroy;
   ePCom.Destroy;
   inherited Destroy;
+end;
+procedure TfraTabSession.edPComEnter(Sender: TObject);
+begin
+  edFocused := edPCom;
+end;
+procedure TfraTabSession.edTermEnter(Sender: TObject);
+begin
+  edFocused := edTerm;
+end;
+procedure TfraTabSession.FindDialog1Find(Sender: TObject);
+var
+  encon  : integer;
+  buscado : string;
+  opciones: TSynSearchOptions;
+  curEdit: TSynEdit;
+begin
+  //Busca el último editor que tuvo el enfoque.
+  if edFocused = nil then begin
+    exit;
+  end else begin
+    curEdit := edFocused;
+  end;
+  buscado := FindDialog1.FindText;
+  opciones := [];
+  if not(frDown in FindDialog1.Options) then opciones += [ssoBackwards];
+  if frMatchCase in FindDialog1.Options then opciones += [ssoMatchCase];
+  if frWholeWord in FindDialog1.Options then opciones += [ssoWholeWord];
+  if frEntireScope in FindDialog1.Options then opciones += [ssoEntireScope];
+  encon := curEdit.SearchReplace(buscado,'',opciones);
+  if encon = 0 then
+     MsgBox('Not found "%s"', [buscado]);
+end;
+procedure TfraTabSession.ReplaceDialog1Replace(Sender: TObject);
+var
+  encon, r : integer;
+  buscado : string;
+  opciones: TSynSearchOptions;
+  curEdit: TSynEdit;
+begin
+  //Busca el último editor que tuvo el enfoque.
+  if edFocused = nil then begin
+    exit;
+  end else begin
+    curEdit := edFocused;
+  end;
+  buscado := ReplaceDialog1.FindText;
+  opciones := [ssoFindContinue];
+  if not(frDown in ReplaceDialog1.Options) then opciones += [ssoBackwards];
+  if frMatchCase in ReplaceDialog1.Options then opciones += [ssoMatchCase];
+  if frWholeWord in ReplaceDialog1.Options then opciones += [ssoWholeWord];
+  if frEntireScope in ReplaceDialog1.Options then opciones += [ssoEntireScope];
+  if frReplaceAll in ReplaceDialog1.Options then begin
+    //se ha pedido reemplazar todo
+    encon := curEdit.SearchReplace(buscado,ReplaceDialog1.ReplaceText,
+                              opciones+[ssoReplaceAll]);  //reemplaza
+    MsgBox('%d words replaced', [IntToStr(encon)]);
+    exit;
+  end;
+  //reemplazo con confirmación
+  ReplaceDialog1.CloseDialog;
+  encon := curEdit.SearchReplace(buscado,'',opciones);  //búsqueda
+  while encon <> 0 do begin
+      //pregunta
+      r := Application.MessageBox(pChar('Replace this?'), '', MB_YESNOCANCEL);
+      if r = IDCANCEL then exit;
+      if r = IDYES then begin
+        curEdit.TextBetweenPoints[curEdit.BlockBegin,curEdit.BlockEnd] := ReplaceDialog1.ReplaceText;
+      end;
+      //busca siguiente
+      encon := curEdit.SearchReplace(buscado,'',opciones);  //búsca siguiente
+  end;
+  MsgBox('No found "%s"', [buscado]);
 end;
 //////////////// Acciones ///////////////////
 //Acciones de archivo.
@@ -1524,11 +1598,11 @@ begin
     EnviarTxt(edPCom.Text);
   end;
 end;
-
 procedure TfraTabSession.acPCmEnvCtrCExecute(Sender: TObject);
 begin
   proc.Send(#3);
 end;
+
 procedure TfraTabSession.AcTerConecExecute(Sender: TObject);
 begin
   InicConect;   //inicia conexión
@@ -1679,86 +1753,11 @@ procedure TfraTabSession.AcTerVerBHerExecute(Sender: TObject);
 begin
 
 end;
-procedure TfraTabSession.edPComEnter(Sender: TObject);
-begin
-  edFocused := edPCom;
-end;
-procedure TfraTabSession.edTermEnter(Sender: TObject);
-begin
-  edFocused := edTerm;
-end;
-procedure TfraTabSession.FindDialog1Find(Sender: TObject);
-var
-  encon  : integer;
-  buscado : string;
-  opciones: TSynSearchOptions;
-  curEdit: TSynEdit;
-begin
-  //Busca el último editor que tuvo el enfoque.
-  if edFocused = nil then begin
-    exit;
-  end else begin
-    curEdit := edFocused;
-  end;
-  buscado := FindDialog1.FindText;
-  opciones := [];
-  if not(frDown in FindDialog1.Options) then opciones += [ssoBackwards];
-  if frMatchCase in FindDialog1.Options then opciones += [ssoMatchCase];
-  if frWholeWord in FindDialog1.Options then opciones += [ssoWholeWord];
-  if frEntireScope in FindDialog1.Options then opciones += [ssoEntireScope];
-  encon := curEdit.SearchReplace(buscado,'',opciones);
-  if encon = 0 then
-     MsgBox('Not found "%s"', [buscado]);
-end;
-
-procedure TfraTabSession.ReplaceDialog1Replace(Sender: TObject);
-var
-  encon, r : integer;
-  buscado : string;
-  opciones: TSynSearchOptions;
-  curEdit: TSynEdit;
-begin
-  //Busca el último editor que tuvo el enfoque.
-  if edFocused = nil then begin
-    exit;
-  end else begin
-    curEdit := edFocused;
-  end;
-  buscado := ReplaceDialog1.FindText;
-  opciones := [ssoFindContinue];
-  if not(frDown in ReplaceDialog1.Options) then opciones += [ssoBackwards];
-  if frMatchCase in ReplaceDialog1.Options then opciones += [ssoMatchCase];
-  if frWholeWord in ReplaceDialog1.Options then opciones += [ssoWholeWord];
-  if frEntireScope in ReplaceDialog1.Options then opciones += [ssoEntireScope];
-  if frReplaceAll in ReplaceDialog1.Options then begin
-    //se ha pedido reemplazar todo
-    encon := curEdit.SearchReplace(buscado,ReplaceDialog1.ReplaceText,
-                              opciones+[ssoReplaceAll]);  //reemplaza
-    MsgBox('%d words replaced', [IntToStr(encon)]);
-    exit;
-  end;
-  //reemplazo con confirmación
-  ReplaceDialog1.CloseDialog;
-  encon := curEdit.SearchReplace(buscado,'',opciones);  //búsqueda
-  while encon <> 0 do begin
-      //pregunta
-      r := Application.MessageBox(pChar('Replace this?'), '', MB_YESNOCANCEL);
-      if r = IDCANCEL then exit;
-      if r = IDYES then begin
-        curEdit.TextBetweenPoints[curEdit.BlockBegin,curEdit.BlockEnd] := ReplaceDialog1.ReplaceText;
-      end;
-      //busca siguiente
-      encon := curEdit.SearchReplace(buscado,'',opciones);  //búsca siguiente
-  end;
-  MsgBox('No found "%s"', [buscado]);
-end;
-
 //Acciones de herramientas
 procedure TfraTabSession.AcHerCfgExecute(Sender: TObject);
 begin
   ExecSettings;
 end;
-
 
 end.
 
