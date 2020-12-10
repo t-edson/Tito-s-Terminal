@@ -95,7 +95,7 @@ msgstr ""
 
 #: tconfig.lblrutscript.caption
 msgctxt "tconfig.lblrutscript.caption"
-msgid "&Scripts path:"
+msgid "&Temporal path:"
 msgstr ""
 
 #: tconfig.tabfilepath.caption
@@ -114,8 +114,8 @@ msgstr ""
 msgid "TabMacSett"
 msgstr ""
 
-#: tconfig.tabremedit.caption
-msgid "TabRemEdit"
+#: tconfig.tabremededit.caption
+msgid "TabRemEdEdit"
 msgstr ""
 
 #: tconfig.tabremexpl.caption
@@ -1479,6 +1479,18 @@ msgctxt "tfrmsesproperty.label1.caption"
 msgid "Prompt start:"
 msgstr ""
 
+#: tfrmsesproperty.label10.caption
+msgid "Path to external explorer:"
+msgstr ""
+
+#: tfrmsesproperty.label11.caption
+msgid "User:"
+msgstr ""
+
+#: tfrmsesproperty.label12.caption
+msgid "Password:"
+msgstr ""
+
 #: tfrmsesproperty.label15.caption
 msgid "Time between sendings (min):"
 msgstr ""
@@ -1506,6 +1518,20 @@ msgstr ""
 #: tfrmsesproperty.label6.caption
 msgctxt "tfrmsesproperty.label6.caption"
 msgid "Max. Columns:"
+msgstr ""
+
+#: tfrmsesproperty.label7.caption
+msgctxt "tfrmsesproperty.label7.caption"
+msgid "Command to launch Editor:"
+msgstr ""
+
+#: tfrmsesproperty.label8.caption
+msgid "Path to external editor:"
+msgstr ""
+
+#: tfrmsesproperty.label9.caption
+msgctxt "tfrmsesproperty.label9.caption"
+msgid "Command to launch Editor:"
 msgstr ""
 
 #: tfrmsesproperty.lblbackcol.caption
@@ -1641,6 +1667,14 @@ msgctxt "tfrmsesproperty.opttelnet.caption"
 msgid "&Telnet"
 msgstr ""
 
+#: tfrmsesproperty.radgroupedttype.caption
+msgid "Edition mode:"
+msgstr ""
+
+#: tfrmsesproperty.radgroupexptype.caption
+msgid "Explorer type:"
+msgstr ""
+
 #: tfrmsesproperty.radiobutton1.caption
 msgctxt "tfrmsesproperty.radiobutton1.caption"
 msgid "Match exactly"
@@ -1671,12 +1705,30 @@ msgctxt "tfrmsesproperty.radiogroup2.caption"
 msgid "Line delimiter (To receive)"
 msgstr ""
 
+#: tfrmsesproperty.tabeditsett.caption
+msgid "Editor Tool"
+msgstr ""
+
+#: tfrmsesproperty.tabexplor.caption
+msgid "TabExplor"
+msgstr ""
+
 #: tfrmsesproperty.tabgenappear.caption
 msgid "Appearance"
 msgstr ""
 
-#: tfrmsesproperty.tabgeneral.caption
+#: tfrmsesproperty.tabgenconnec.caption
+msgctxt "tfrmsesproperty.tabgenconnec.caption"
 msgid "General"
+msgstr ""
+
+#: tfrmsesproperty.tabgenprmtdet.caption
+msgctxt "tfrmsesproperty.tabgenprmtdet.caption"
+msgid "Prompt det."
+msgstr ""
+
+#: tfrmsesproperty.tabgensyntax.caption
+msgid "TabGenSyntax"
 msgstr ""
 
 #: tfrmsesproperty.tabpcomedit.caption
@@ -1686,10 +1738,6 @@ msgstr ""
 #: tfrmsesproperty.tabpcomset.caption
 msgctxt "tfrmsesproperty.tabpcomset.caption"
 msgid "Comm.Panel"
-msgstr ""
-
-#: tfrmsesproperty.tabpromptdet.caption
-msgid "Prompt det."
 msgstr ""
 
 #: tfrmsesproperty.tabtermcrec.caption
@@ -1711,6 +1759,30 @@ msgstr ""
 
 #: tfrmsesproperty.txtcomando.text
 msgid "txtComando"
+msgstr ""
+
+#: tfrmsesproperty.txtcomlaunedit.text
+msgid "txtComLaunEdit"
+msgstr ""
+
+#: tfrmsesproperty.txtcomlaunexpl.text
+msgid "txtComLaunExpl"
+msgstr ""
+
+#: tfrmsesproperty.txtedipass.text
+msgid "txtEdiPass"
+msgstr ""
+
+#: tfrmsesproperty.txtediuser.text
+msgid "txtEdiUser"
+msgstr ""
+
+#: tfrmsesproperty.txtexternedit.text
+msgid "txtExternEdit"
+msgstr ""
+
+#: tfrmsesproperty.txtexternexplor.text
+msgid "txtExternExplor"
 msgstr ""
 
 #: tfrmsesproperty.txtport.text

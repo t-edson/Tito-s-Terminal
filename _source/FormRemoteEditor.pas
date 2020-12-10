@@ -12,9 +12,12 @@ uses
   Globales, SynFacilUtils, FormRemoteOpenDial, FrameTabSession;
 
 type
-
+//  TEditionMode = (
+//    temLocal,    //Edición normal de un archivo local
+//    temRemSFTP,  //Edición remota pro SFTP
+//    temRemShell  //Ediicón remota por comandos SSH (No recomendable)
+//  );
   { TfrmRemoteEditor }
-
   TfrmRemoteEditor = class(TForm)
   published
     acFilOpen: TAction;
@@ -102,23 +105,25 @@ type
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure FormShow(Sender: TObject);
   private
+    ses: TfraTabSession;
     edit: TSynFacilEditor;
     lineas: TStringList;    //lista temporal
+    localFile, destFile: String;  //Rutas de archivo
   public
     MsjErr: String;
     NomArcLocal: string;  //nombre de archivo local
-    procedure AbrirRemoto(arc: string);
+    procedure Open(destFile0: string);
+    procedure Init(ses0: TfraTabSession);
   end;
 
 var
   frmRemoteEditor: TfrmRemoteEditor;
 
 implementation
-uses FormPrincipal, FormConfig;
+uses FormPrincipal, FormConfig, Comandos;
 {$R *.lfm}
 
 { TfrmRemoteEditor }
-
 procedure TfrmRemoteEditor.FormCreate(Sender: TObject);
 begin
   InicEditorC1(ed);     //inicia editor con configuraciones por defecto
@@ -144,7 +149,6 @@ begin
   edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
   edit.InitMenuRecents(mnRecents,nil);  //inicia el menú "Recientes"
 end;
-
 procedure TfrmRemoteEditor.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 var
   rpta: Byte;
@@ -164,13 +168,11 @@ begin
   //archivo cargado.
   edit.NewFile(false);
 end;
-
 procedure TfrmRemoteEditor.FormDestroy(Sender: TObject);
 begin
   lineas.Destroy;
   edit.Destroy;
 end;
-
 procedure TfrmRemoteEditor.FormDropFiles(Sender: TObject; const FileNames: array of String);
 begin
   //Carga archivo arrastrados
@@ -178,7 +180,6 @@ begin
   edit.LoadFile(FileNames[0]);
   edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
 end;
-
 procedure TfrmRemoteEditor.ChangeEditorState;
 begin
   acFilSave.Enabled:=edit.Modified;
@@ -189,19 +190,16 @@ begin
 //  acEdiCopiar.Enabled := edit.canCopy;
 //  acEdiPegar.Enabled:= edit.CanPaste;
 end;
-
 procedure TfrmRemoteEditor.editChangeFileInform;
 begin
   //actualiza nombre de archivo
   Caption := 'Remote Editor - ' + edit.FileName;
 end;
-
 procedure TfrmRemoteEditor.edSpecialLineMarkup(Sender: TObject; Line: integer;
   var Special: boolean; Markup: TSynSelectedColor);
 begin
   //vacío
 end;
-
 /////////////////// Acciones de Archivo /////////////////////
 procedure TfrmRemoteEditor.acFilNewExecute(Sender: TObject);
 begin
@@ -214,39 +212,45 @@ begin
 //  edit.OpenDialog(OpenDialog1);
   frmRemoteOpenDial.ShowModal;
   if frmRemoteOpenDial.archivo <> '' then begin
-    AbrirRemoto(frmRemoteOpenDial.archivo);
+    Open(frmRemoteOpenDial.archivo);
   end;
 end;
-
 procedure TfrmRemoteEditor.acFilSaveExecute(Sender: TObject);
 var
   txt: String;
-  ses: TfraTabSession;
 begin
-  txt := edit.Text;   //toma texto
-  { -- Esta sustitución antigua, falla cuando se usa el carcater !
-  txt := StringReplace(txt, '\', '\\',[rfReplaceAll]);  //para proteger del comando
-  txt := StringReplace(txt, '$', '\$',[rfReplaceAll]);
-  txt := StringReplace(txt, '`', '\`',[rfReplaceAll]);
-  txt := StringReplace(txt, '"', '\"',[rfReplaceAll]);
-  txt := StringReplace(txt, '\\\\"', '\\\\\"',[rfReplaceAll]); //esta combinación debe ser así en ksh
-  txt := StringReplace(txt, #9, '\t',[rfReplaceAll]);
-  ed.Enabled := False;
-  frmPrincipal.EnviarComando('echo "' + txt + '" > "' + edit.NomArc+'"', lineas);
-  ed.Enabled := True;
-  }
-  {Usa comillas simples para evitar sustitución, porque las comillas simples ponen todo
-  literalmente. El problema está cuando se quiere imprimir precisamente, comilla simple.
-  Para ello se debe hacer una sustitución}
-  ed.Enabled := False;
-  txt := StringReplace(txt, '''', '''"''"''',[rfReplaceAll]);
-  if frmPrincipal.GetCurSession(ses) then begin
-    ses.EnviarComando('echo ''' + txt + ''' > "' + edit.FileName+'"', lineas);
+  if ses.editMode = edtLocal then begin
+    //Edición normal en archivo local
+    edit.SaveFile;
+  end else if ses.editMode = edtRemotSFTP then begin
+    if destFile='' then begin
+      MsgExc('There isn''t a file opened');
+      exit;
+    end;
+    //Modo SFTP
+    edit.SaveFile;  //Guarda localmente
+    //Transfiere archivo usando la misma IP de la conexión.
+    ExecSFTP(ses.ftpEditUser, ses.ftpEditPass, ses.ip,
+        'lcd "'+ patTemp + '"' + LineEnding +
+        'cd "'+ ExtractFileDir(destFile) + '"' + LineEnding +
+        'put "' + ExtractFileName(destFile) + '"' + LineEnding +
+        'quit');
+
+  end else if ses.editMode = edtBashComm then begin
+    //Modo de puro comandos del shell
+    txt := edit.Text;   //toma texto
+    {Usa comillas simples para evitar sustitución, porque las comillas simples ponen todo
+    literalmente. El problema está cuando se quiere imprimir precisamente, comilla simple.
+    Para ello se debe hacer una sustitución}
+    ed.Enabled := False;
+    txt := StringReplace(txt, '''', '''"''"''',[rfReplaceAll]);
+    if ses<>nil then begin
+      ses.EnviarComando('echo ''' + txt + ''' > "' + edit.FileName+'"', lineas);
+    end;
+    ed.Enabled := True;
+    //para actualizar controles
+    edit.Modified:=false;  //Este método no es público en la librería original
   end;
-  ed.Enabled := True;
-  //para actualizar controles
-  edit.Modified:=false;  //Este método no es público en la librería original
-//  edit.SaveFile;
 end;
 
 procedure TfrmRemoteEditor.acFilSaveAsExecute(Sender: TObject);
@@ -275,12 +279,10 @@ procedure TfrmRemoteEditor.acEdiUndoExecute(Sender: TObject);
 begin
   edit.Undo;
 end;
-
 procedure TfrmRemoteEditor.AcToolSettingsExecute(Sender: TObject);
 begin
   config.Configurar('3');
 end;
-
 procedure TfrmRemoteEditor.acEdiRedoExecute(Sender: TObject);
 begin
   edit.Redo;
@@ -289,26 +291,53 @@ procedure TfrmRemoteEditor.acEdiSelecAllExecute(Sender: TObject);
 begin
   ed.SelectAll;
 end;
-
-procedure TfrmRemoteEditor.AbrirRemoto(arc: string);
+procedure TfrmRemoteEditor.Open(destFile0: string);  //Opcional para archivos locales
 //Permite editar un archivo almacenado en un archivo externo
-var
-  ses: TfraTabSession;
 begin
+  destFile := destFile0;   //Guarda archivo abierto
   if self.Visible and edit.SaveQuery then Exit;   //Verifica cambios
   if not self.Visible then self.Show;
-  if frmPrincipal.GetCurSession(ses) then begin
-    MsjErr := ses.EnviarComando('cat "'+arc+'"', lineas);
+  if ses.editMode = edtLocal then begin
+    //Edición normal
+    edit.LoadFile(destFile);
+  end else if ses.editMode = edtRemotSFTP then begin   //Edición por SFTP
+    //Crea ruta de archivo local
+    localFile := patTemp + DirectorySeparator + ExtractFileName(destFile);
+    //Elimina si ya existe
+    if FileExists(localFile) then DeleteFile(localFile);
+    //Trae archivo usando la misma IP de la conexión.
+    ExecSFTP(ses.ftpEditUser, ses.ftpEditPass, ses.ip,
+        'lcd "'+ patTemp + '"' + LineEnding +
+        'get ' + destFile + LineEnding +
+        'quit');
+    //Carga archivo local
+    //edit.Text := StringFromFile(patTemp + DirectorySeparator + localFile);
+    edit.LoadFile(localFile);
+
+  end else if ses.editMode = edtBashComm then begin
+    //Ediicón por comandos
+    if ses<>nil then begin
+      MsjErr := ses.EnviarComando('cat "'+destFile+'"', lineas);
+    end;
+    ed.Lines.Clear;
+    ed.Lines.AddStrings(lineas);
+    edit.FileName:=destFile;
+    //para actualizar controles
+    edit.Modified:=false;  //Este método no es público en la librería original)
+     //para actualizar nombre
+    edit.ChangeFileInform;   //Este método no es público en la librería original)
+    edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
   end;
-  ed.Lines.Clear;
-  ed.Lines.AddStrings(lineas);
-  edit.FileName:=arc;
-  //para actualizar controles
-  edit.Modified:=false;  //Este método no es público en la librería original)
-   //para actualizar nombre
-  edit.ChangeFileInform;   //Este método no es público en la librería original)
-  edit.LoadSyntaxFromPath;  //para que busque el archivo apropiado
 end;
+
+procedure TfrmRemoteEditor.Init(ses0: TfraTabSession);
+{Inicializa parámetros que necesita la herramienta Editor.
+Para mostrar el editor se necesita simplemente llamar a .Show }
+begin
+  //Se necesita acceder a la sesión para determinar el modo de edición.
+  ses := ses0;
+end;
+
 
 end.
 

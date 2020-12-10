@@ -1,7 +1,7 @@
 object frmSesProperty: TfrmSesProperty
-  Left = 380
+  Left = 392
   Height = 421
-  Top = 349
+  Top = 324
   Width = 581
   BorderStyle = bsDialog
   Caption = 'Session Properties'
@@ -15,15 +15,15 @@ object frmSesProperty: TfrmSesProperty
     Height = 358
     Top = 0
     Width = 411
-    ActivePage = TabPComSet
+    ActivePage = TabEditSett
     Align = alClient
     ShowTabs = False
-    TabIndex = 5
+    TabIndex = 9
     TabOrder = 0
-    object TabGeneral: TTabSheet
+    object TabGenConnec: TTabSheet
       Caption = 'General'
       ClientHeight = 350
-      ClientWidth = 397
+      ClientWidth = 403
       object lblIP: TLabel
         Left = 104
         Height = 20
@@ -207,10 +207,10 @@ object frmSesProperty: TfrmSesProperty
         TabOrder = 10
       end
     end
-    object TabPromptDet: TTabSheet
+    object TabGenPrmtDet: TTabSheet
       Caption = 'Prompt det.'
       ClientHeight = 350
-      ClientWidth = 397
+      ClientWidth = 403
       object GroupBox1: TGroupBox
         Left = 8
         Height = 224
@@ -313,6 +313,9 @@ object frmSesProperty: TfrmSesProperty
         Caption = 'Show &Command Panel'
         TabOrder = 1
       end
+    end
+    object TabGenSyntax: TTabSheet
+      Caption = 'TabGenSyntax'
     end
     object TabPComEdit: TTabSheet
       Caption = 'TabPComEdit'
@@ -887,7 +890,7 @@ object frmSesProperty: TfrmSesProperty
     object TabTermCRec: TTabSheet
       Caption = 'Recurring Command'
       ClientHeight = 350
-      ClientWidth = 397
+      ClientWidth = 403
       object chkSendRecCom: TCheckBox
         Left = 24
         Height = 24
@@ -966,6 +969,163 @@ object frmSesProperty: TfrmSesProperty
         Caption = '&Test'
         OnClick = cmdTestCommClick
         TabOrder = 3
+      end
+    end
+    object TabEditSett: TTabSheet
+      Caption = 'Editor Tool'
+      ClientHeight = 350
+      ClientWidth = 403
+      object Label7: TLabel
+        Left = 16
+        Height = 20
+        Top = 32
+        Width = 181
+        Caption = 'Command to launch Editor:'
+        ParentColor = False
+      end
+      object txtComLaunEdit: TEdit
+        Left = 272
+        Height = 28
+        Top = 24
+        Width = 100
+        Enabled = False
+        TabOrder = 0
+        Text = 'txtComLaunEdit'
+      end
+      object txtExternEdit: TEdit
+        Left = 16
+        Height = 28
+        Top = 232
+        Width = 368
+        TabOrder = 1
+        Text = 'txtExternEdit'
+      end
+      object Label8: TLabel
+        Left = 16
+        Height = 20
+        Top = 208
+        Width = 151
+        Caption = 'Path to external editor:'
+        ParentColor = False
+      end
+      object radGroupEdtType: TRadioGroup
+        Left = 16
+        Height = 120
+        Top = 64
+        Width = 328
+        AutoFill = True
+        Caption = 'Edition mode:'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 95
+        ClientWidth = 324
+        Items.Strings = (
+          'Local File Edition'
+          'Remote using SFTP'
+          'Remote using Bash Commands'
+        )
+        OnClick = radGroupEdtTypeClick
+        TabOrder = 2
+      end
+      object Label11: TLabel
+        Left = 16
+        Height = 20
+        Top = 276
+        Width = 32
+        Caption = 'User:'
+        ParentColor = False
+      end
+      object Label12: TLabel
+        Left = 200
+        Height = 20
+        Top = 276
+        Width = 65
+        Caption = 'Password:'
+        ParentColor = False
+      end
+      object txtEdiUser: TEdit
+        Left = 72
+        Height = 28
+        Top = 272
+        Width = 100
+        TabOrder = 3
+        Text = 'txtEdiUser'
+      end
+      object txtEdiPass: TEdit
+        Left = 284
+        Height = 28
+        Top = 272
+        Width = 100
+        EchoMode = emPassword
+        PasswordChar = '*'
+        TabOrder = 4
+        Text = 'txtEdiPass'
+      end
+    end
+    object TabExplor: TTabSheet
+      Caption = 'TabExplor'
+      ClientHeight = 350
+      ClientWidth = 403
+      object Label9: TLabel
+        Left = 16
+        Height = 20
+        Top = 32
+        Width = 181
+        Caption = 'Command to launch Editor:'
+        ParentColor = False
+      end
+      object txtComLaunExpl: TEdit
+        Left = 272
+        Height = 28
+        Top = 24
+        Width = 100
+        Enabled = False
+        TabOrder = 0
+        Text = 'txtComLaunExpl'
+      end
+      object Label10: TLabel
+        Left = 16
+        Height = 20
+        Top = 192
+        Width = 166
+        Caption = 'Path to external explorer:'
+        ParentColor = False
+      end
+      object txtExternExplor: TEdit
+        Left = 16
+        Height = 28
+        Top = 216
+        Width = 356
+        TabOrder = 1
+        Text = 'txtExternExplor'
+      end
+      object radGroupExpType: TRadioGroup
+        Left = 16
+        Height = 104
+        Top = 72
+        Width = 231
+        AutoFill = True
+        Caption = 'Explorer type:'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 79
+        ClientWidth = 227
+        Items.Strings = (
+          'Bash Command Explorer'
+          'External Explorer'
+        )
+        OnClick = radGroupExpTypeClick
+        TabOrder = 2
       end
     end
   end
@@ -1069,20 +1229,24 @@ object frmSesProperty: TfrmSesProperty
     OnClick = TreeView1Click
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
     Items.Data = {
-      F9FFFFFF020003000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF030000000000
+      F9FFFFFF020005000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040000000000
       0000010700000047656E6572616CFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
       000000000000000A000000436F6E6E656374696F6EFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFF0000000000000000001000000050726F6D70742064657465637469
       6F6EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000000000000000A00000041
-      7070656172616E6365FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF02000000000000
-      00010D000000436F6D6D616E642050616E656CFFFFFFFFFFFFFFFFFFFFFFFFFF
-      FFFFFF00000000000000000006000000456469746F72FFFFFFFFFFFFFFFFFFFF
-      FFFFFFFFFFFF000000000000000000050000004F74686572FFFFFFFFFFFFFFFF
-      FFFFFFFFFFFFFFFF030000000000000001080000005465726D696E616CFFFFFF
-      FFFFFFFFFFFFFFFFFFFFFFFFFF0000000000000000000600000053637265656E
-      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000006000000456469
-      746F72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000011000000
-      526563757272696E6720436F6D6D616E64
+      7070656172616E6365FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000
+      00000600000053796E746178FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF02000000
+      00000000010D000000436F6D6D616E642050616E656CFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFF00000000000000000006000000456469746F72FFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFF000000000000000000050000004F74686572FFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFF030000000000000001080000005465726D696E616C
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000006000000536372
+      65656EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000006000000
+      456469746F72FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000011
+      000000526563757272696E6720436F6D6D616E64FFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFF0000000000000000000B000000456469746F7220746F6F6CFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000000D0000004578706C6F7265
+      7220546F6F6C
     }
   end
 end

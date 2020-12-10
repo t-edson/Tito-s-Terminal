@@ -99,17 +99,27 @@ object Config: TConfig
     TabOrder = 2
     object TabGeneral: TTabSheet
       Caption = 'TabGeneral'
+      ClientHeight = 352
+      ClientWidth = 427
+      object chkOpenLast: TCheckBox
+        Left = 16
+        Height = 24
+        Top = 24
+        Width = 213
+        Caption = '&Open last edited file on start'
+        TabOrder = 0
+      end
     end
     object TabFilePath: TTabSheet
       Caption = 'TabFilePath'
-      ClientHeight = 294
-      ClientWidth = 403
+      ClientHeight = 352
+      ClientWidth = 427
       object lblRutScript: TLabel
         Left = 24
         Height = 20
         Top = 24
-        Width = 81
-        Caption = '&Scripts path:'
+        Width = 101
+        Caption = '&Temporal path:'
         ParentColor = False
       end
       object DirectoryEdit1: TDirectoryEdit
@@ -142,14 +152,6 @@ object Config: TConfig
         MaxLength = 0
         TabOrder = 1
       end
-      object chkOpenLast: TCheckBox
-        Left = 24
-        Height = 24
-        Top = 200
-        Width = 213
-        Caption = '&Open last edited file on start'
-        TabOrder = 2
-      end
       object lblRutLeng: TLabel
         Left = 24
         Height = 20
@@ -169,7 +171,7 @@ object Config: TConfig
         NumGlyphs = 1
         Enabled = False
         MaxLength = 0
-        TabOrder = 3
+        TabOrder = 2
       end
     end
     object TabMacSett: TTabSheet
@@ -206,8 +208,8 @@ object Config: TConfig
     object TabMacEdit: TTabSheet
       Caption = 'TabMacEdit'
     end
-    object TabRemEdit: TTabSheet
-      Caption = 'TabRemEdit'
+    object TabRemEdEdit: TTabSheet
+      Caption = 'TabRemEdEdit'
     end
     object TabRemExpl: TTabSheet
       Caption = 'TabRemExpl'

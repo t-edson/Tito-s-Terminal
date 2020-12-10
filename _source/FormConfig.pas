@@ -10,7 +10,7 @@ interface
 
 uses
   SysUtils, Classes, Forms, Graphics, SynEdit, Buttons, ComCtrls, ExtCtrls,
-  StdCtrls, EditBtn, MisUtils, FrameCfgSynEdit, Globales, MiConfigXML;
+  StdCtrls, EditBtn, Controls, MisUtils, FrameCfgSynEdit, Globales, MiConfigXML;
 
 type
   TEvCambiaProp = procedure of object;  //evento para indicar que hay cambio
@@ -43,7 +43,7 @@ type
     TabFilePath: TTabSheet;
     TabMacSett: TTabSheet;
     TabMacEdit: TTabSheet;
-    TabRemEdit: TTabSheet;
+    TabRemEdEdit: TTabSheet;
     TabRemExpl: TTabSheet;
     TreeView1: TTreeView;
     procedure bitAceptarClick(Sender: TObject);
@@ -54,6 +54,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure TreeView1Click(Sender: TObject);
   private
+    function GetTabFromId(id: string): TTabSheet;
+    function ActivateControl(ctlRef: TComponent): boolean;
     procedure MostEnVentana;
     { private declarations }
   public
@@ -72,21 +74,21 @@ type
     VerBarEst   : boolean;  //Barra de estado
     TipAlineam  : integer;  //Tipo de alineamiento de pantalla
     RecentFiles : TStringList;  //Lista de archivos recientes
+    AbrirUltScr : boolean;
   public  //Propiedades de rutas de archivos
-    UltScript: string;      //Último script editado
-    AbrirUltScr: boolean;
-    Scripts  : string;
-    Macros   : string;
-    Lenguajes: string;
-  public  //Configruaciones de macros
+    UltScript  : string;    //Último script editado
+    foldTemp      : string;  { TODO : ¿Realmente conviene personalizar estas rutas? ¿Por qué no las dejamos fijas en las rutas que se definen en la unidad "Globales"? }
+    foldMacros    : string;
+    foldLenguajes : string;
+  public  //Configuraciones de Macros
     TpoMax : integer;
     marLin : boolean;
   public  //Configuraciones del explorador remoto
-    ListDet: boolean;
+    TpoMax2: integer;  //Tiempo máximo de espera
     MosRut : boolean;  //muestra la ruta actual
+    ListDet: boolean;
     MosOcul: boolean;
     RefDesp: boolean;
-    TpoMax2: integer;
   public
     procedure Iniciar();
     procedure ReadFromFile(iniFile: string='');
@@ -112,7 +114,7 @@ begin
 
   fcEdRemo:= TfraCfgSynEdit.Create(Self);
   fcEdRemo.Name := 'erem'; //Para que no de error de nombre
-  fcEdRemo.parent := TabRemEdit;
+  fcEdRemo.parent := TabRemEdEdit;
 
   //Prepara página y Selecciona primera opción
   PageControl1.ShowTabs := false;
@@ -143,13 +145,13 @@ begin
   //Propiedades de rutas de archivos
   cfgFile.Asoc_Str('UltScript'  , @UltScript ,'');
   cfgFile.Asoc_Bol('AbrirUltScr', @AbrirUltScr, chkOpenLast   , true);
-  cfgFile.Asoc_Str('Scripts'    , @Scripts    , DirectoryEdit1, patScripts);
-  cfgFile.Asoc_Str('Macros'     , @Macros     , DirectoryEdit2, patMacros);
-  cfgFile.Asoc_Str('Lenguajes'  , @Lenguajes  , DirectoryEdit3, patSyntax);
-  //Configuraciones de macros
+  cfgFile.Asoc_Str('foldTemp'    , @foldTemp    , DirectoryEdit1, patTemp);
+  cfgFile.Asoc_Str('Macros'     , @foldMacros     , DirectoryEdit2, patMacros);
+  cfgFile.Asoc_Str('Lenguajes'  , @foldLenguajes  , DirectoryEdit3, patSyntax);
+  //Configuraciones de foldMacros
   cfgFile.Asoc_Int('TpoMax'     , @TpoMax, edTpoMax , 10, 1, 180);
   cfgFile.Asoc_Bol('MarLin'     , @marLin, chkMarLin, false);
-  //Configuración de editor de macros
+  //Configuración de editor de foldMacros
   fcEdMacr.Iniciar('edMacros', cfgFile, $E8FFE8);
   //Configuración de editor remoto
   fcEdRemo.Iniciar('edRemoto', cfgFile);
@@ -163,23 +165,77 @@ begin
   //lee parámetros del archivo de configuración.
   ReadFromFile;
 end;
+function TConfig.GetTabFromId(id: string): TTabSheet;
+{Retorna una página del PageControl, de acuerdo al ID  indicado.}
+begin
+  case id of
+  '1',
+  '1.1'  : exit(TabGeneral);
+  '1.2'  : exit(TabFilePath);
+  '2',
+  '2.1'  : exit(TabMacSett);
+  '2.2'  : exit(TabMacEdit);
+  '3',
+  '3.1'  : exit(TabRemEdEdit);
+  '4'    : exit(TabRemExpl);
+  else
+    exit(nil);
+  end;
+end;
 procedure TConfig.TreeView1Click(Sender: TObject);
+var
+  id: String;
 begin
   if TreeView1.Selected = nil then exit;
   //hay ítem seleccionado
-  case IdFromTTreeNode(TreeView1.Selected) of
-  '1',
-//  '1.1'  : ;
-  '1.2'  : TabFilePath.Show;
-  '2',
-  '2.1'  : TabMacSett.Show;
-  '2.2'  : TabMacEdit.Show;
-  '3',
-  '3.1'  : TabRemEdit.Show;
-  '4'    : TabRemExpl.Show;
+  id := IdFromTTreeNode(TreeView1.Selected);
+  if GetTabFromId(id) <> nil then GetTabFromId(id).Show;
+end;
+function TConfig.ActivateControl(ctlRef: TComponent): boolean;
+{Intenta seleccionar un control de la ventana de la configuración, a partir de una
+referencia "TComponente". Si logra la identifiación, devuelve en:
+  "ctl" -> El control como un TWinControl.
+  "tab" -> El contenedor como un TTabSheet.
+}
+var
+  pag: TComponent;
+  tab: TTabSheet;
+  it: TTreeNode;
+  id: String;
+  ctl: TWinControl;
+begin
+  if ctlRef=nil then exit(false);
+  //Busca al contenedor
+  pag := ctlRef.GetParentComponent;
+  if pag.ClassName = 'TTabSheet' then begin
+    //Lo contiene un TTabSheet. Lo activamos.
+    tab := TTabSheet(pag);
+    //tab.Show;  Esto activaría la página, pero no actualizaría el TreeView1
+    //Busca el ítem del árbol que activa esa página
+    for it in TreeView1.Items do begin
+      id := IdFromTTreeNode(it);  //Obtiene ID
+      if GetTabFromId(id)=nil then continue;
+      if  GetTabFromId(id) = tab then begin
+        //Encontramos el id que selecciona al "tab2.
+        it.Selected := true;  //Selecciona en el TreeView1
+        TreeView1Click(self); //Activa el "tab".
+        //Intenta seleccionar al control
+        if ctlRef is TWinControl then begin
+          ctl := TWinControl(ctlRef);
+          if (it.Visible=true) and (ctl.Visible = true) and ctl.CanFocus then begin
+            ctl.SetFocus;
+          end;
+        end;
+        exit(true);  //Se ubicó
+      end;
+    end;
+    //No se encontró al ítem que selecciona a este "tab".
+    exit(false);
+  end else begin
+    //No se conoce al contenedor
+    exit(false);
   end;
 end;
-
 procedure TConfig.bitAceptarClick(Sender: TObject);
 begin
   bitAplicarClick(Self);
@@ -189,20 +245,24 @@ end;
 procedure TConfig.bitAplicarClick(Sender: TObject);
 begin
   if not cfgFile.WindowToProperties then begin
+    //Se produjo un error
+    //Trata de seleccionar al control con error.
+    ActivateControl(cfgFile.ctlErr.ctlRef);
     MsgErr(cfgFile.MsjErr);
+    exit;
   end;
   //Valida las rutas leidas
-  if not DirectoryExists(Scripts) then begin
-    MsgExc('Folder not found: %s',[Scripts]);
-    Scripts := patScripts;
+  if not DirectoryExists(foldTemp) then begin
+    MsgExc('Folder not found: %s',[foldTemp]);
+    foldTemp := patTemp;
   end;
-  if not DirectoryExists(Macros) then begin
-    MsgExc('Folder not found: %s', [Macros]);
-    Macros := patMacros;
+  if not DirectoryExists(foldMacros) then begin
+    MsgExc('Folder not found: %s', [foldMacros]);
+    foldMacros := patMacros;
   end;
-  if not DirectoryExists(Lenguajes) then begin
-    MsgExc('Folder not found: %s', [Lenguajes]);
-    Lenguajes := patSyntax;
+  if not DirectoryExists(foldLenguajes) then begin
+    MsgExc('Folder not found: %s', [foldLenguajes]);
+    foldLenguajes := patSyntax;
   end;
   if OnPropertiesChanged<>nil then OnPropertiesChanged();
   SaveToFile;   //Guarda propiedades en disco

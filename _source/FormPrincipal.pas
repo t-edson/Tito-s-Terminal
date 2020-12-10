@@ -174,10 +174,13 @@ begin
 end;
 procedure TfrmPrincipal.FormDropFiles(Sender: TObject;
   const FileNames: array of String);
+var
+  i: Integer;
 begin
   //Carga archivo arrastrados
-//  if ePCom.SaveQuery then Exit;   //Verifica cambios
-//  ePCom.LoadFile(FileNames[0]);
+  for i:=0 to high(FileNames) do begin
+    AbrirSesion(FileNames[i]);
+  end;
 end;
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
@@ -224,12 +227,12 @@ end;
 procedure TfrmPrincipal.mnEjecMacroClick(Sender: TObject);
 begin
   mnEjecMacro.Clear;
-  LeeArchEnMenu(config.macros + DirectorySeparator +'*.ttm', mnEjecMacro,@itemEjecMacro);
+  LeeArchEnMenu(config.foldMacros + DirectorySeparator +'*.ttm', mnEjecMacro,@itemEjecMacro);
 end;
 procedure TfrmPrincipal.mnAbrMacroClick(Sender: TObject);
 begin
   mnAbrMacro.Clear;
-  LeeArchEnMenu(config.macros + DirectorySeparator +'*.ttm', mnAbrMacro,@itemAbreMacro);
+  LeeArchEnMenu(config.foldMacros + DirectorySeparator +'*.ttm', mnAbrMacro,@itemAbreMacro);
 end;
 procedure TfrmPrincipal.AbrirSesion(fileSession: string);
 //Abre una sesión
@@ -248,7 +251,7 @@ begin
   //Verifica si ya está abierto
   for i:=0 to TabSessions.pages.Count-1 do begin
     pag := TabSessions.pages[i];
-    if UpCase(pag.fileName) = fileSession then begin
+    if UpCase(pag.fileName) = UpCase(fileSession) then begin
       //Ya está abierto
       TabSessions.TabIndex := i;  //Selecciona
       exit;
@@ -269,12 +272,12 @@ end;
 procedure TfrmPrincipal.itemEjecMacro(Sender: TObject);
 //Ejecuta la macro elegida
 begin
-  frmEditMacros.Ejecutar(config.macros + DirectorySeparator + TMenuItem(Sender).Caption);
+  frmEditMacros.Ejecutar(config.foldMacros + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
 procedure TfrmPrincipal.itemAbreMacro(Sender: TObject);
 begin
   frmEditMacros.Show;
-  frmEditMacros.Abrir(config.macros + DirectorySeparator + TMenuItem(Sender).Caption);
+  frmEditMacros.Abrir(config.foldMacros + DirectorySeparator + TMenuItem(Sender).Caption);
 end;
 procedure TfrmPrincipal.PropertiesChanged;
 //Configura el entorno (IDE) a partir de la configuración global (FormConfig).
@@ -436,6 +439,12 @@ begin
   end;
   'req_open_page': begin  //Se pide abrir una página
      AcFIlOpeSesExecute(self);
+  end;
+  'exec_explor': begin
+     AcToolRemExplorExecute(self);
+  end;
+  'exec_edit': begin
+    AcToolRemEditExecute(self);
   end;
   end;
 end;
@@ -652,6 +661,20 @@ begin
      l.Add('IP: ' + ses.IP);
      l.Add('Port: ' + ses.Port);
   end;
+  TCON_TELNET: begin
+     l.Add('###########################################');
+     l.Add('## New Telnet session created ' + DateTimeToStr(now));
+     l.Add('###########################################');
+     l.Add('IP: ' + ses.IP);
+     l.Add('Port: ' + ses.Port);
+  end;
+  TCON_SERIAL: begin
+     l.Add('###########################################');
+     l.Add('## New SERIAL session created ' + DateTimeToStr(now));
+     l.Add('###########################################');
+//     l.Add('IP: ' + ses.IP);
+//     l.Add('Port: ' + ses.Port);
+  end;
   end;
   ses.setModified(true);  //Marca como modificado
 end;
@@ -700,11 +723,25 @@ begin
 end;
 //Acciones de Herramientas
 procedure TfrmPrincipal.AcToolRemExplorExecute(Sender: TObject);
+var
+  ses: TfraTabSession;
 begin
+  if not GetCurSession(ses) then begin
+    MsgBox('There isn''t an active session.');
+    exit;
+  end;
+  frmRemoteExplor.Init(ses);
   frmRemoteExplor.Show;
 end;
 procedure TfrmPrincipal.AcToolRemEditExecute(Sender: TObject);
+var
+  ses: TfraTabSession;
 begin
+  if not GetCurSession(ses) then begin
+    MsgBox('There isn''t an active session.');
+    exit;
+  end;
+  frmRemoteEditor.Init(ses);
   frmRemoteEditor.Show;
 end;
 procedure TfrmPrincipal.AcToolSettExecute(Sender: TObject);

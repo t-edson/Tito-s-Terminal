@@ -1,12 +1,12 @@
 object frmRemoteEditor: TfrmRemoteEditor
   Left = 258
-  Height = 406
+  Height = 533
   Top = 196
-  Width = 645
+  Width = 699
   AllowDropFiles = True
   Caption = 'Editor Remoto'
-  ClientHeight = 381
-  ClientWidth = 645
+  ClientHeight = 508
+  ClientWidth = 699
   DesignTimePPI = 120
   Menu = MainMenu1
   OnCloseQuery = FormCloseQuery
@@ -14,12 +14,13 @@ object frmRemoteEditor: TfrmRemoteEditor
   OnDestroy = FormDestroy
   OnDropFiles = FormDropFiles
   OnShow = FormShow
+  ShowInTaskBar = stAlways
   LCLVersion = '2.0.10.0'
   inline ed: TSynEdit
     Left = 0
-    Height = 321
+    Height = 448
     Top = 32
-    Width = 645
+    Width = 699
     Align = alClient
     Font.Height = -16
     Font.Name = 'Courier New'
@@ -520,8 +521,8 @@ object frmRemoteEditor: TfrmRemoteEditor
   object StatusBar1: TStatusBar
     Left = 0
     Height = 28
-    Top = 353
-    Width = 645
+    Top = 480
+    Width = 699
     Panels = <    
       item
         Width = 88
@@ -544,7 +545,7 @@ object frmRemoteEditor: TfrmRemoteEditor
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 645
+    Width = 699
     Caption = 'ToolBar1'
     Images = ImageList1
     ParentFont = False

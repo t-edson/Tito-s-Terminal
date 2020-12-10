@@ -160,6 +160,7 @@ object frmPrincipal: TfrmPrincipal
       Caption = '&New Session'
       ImageIndex = 41
       OnExecute = AcFilNewSesExecute
+      ShortCut = 16462
     end
     object AcFIlOpeSes: TAction
       Category = 'Fil'
@@ -167,6 +168,7 @@ object frmPrincipal: TfrmPrincipal
       Hint = 'Abre un archivo de sesión'
       ImageIndex = 9
       OnExecute = AcFIlOpeSesExecute
+      ShortCut = 16463
     end
     object AcFilSavSes: TAction
       Category = 'Fil'
@@ -174,6 +176,7 @@ object frmPrincipal: TfrmPrincipal
       Hint = 'Guarda la sesión actual'
       ImageIndex = 6
       OnExecute = AcFilSavSesExecute
+      ShortCut = 16467
     end
     object AcFilSavSesAs: TAction
       Category = 'Fil'

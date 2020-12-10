@@ -4,7 +4,8 @@ unit FormSesProperty;
 interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, Buttons, Spin, Globales, SynEdit, Types;
+  Types, ExtCtrls, Buttons, Spin, SynEdit,
+  FrameCfgSynEdit, FrameCfgSyntax, Globales;
 
 type
   TTipEnvio = (teComando, teArchivo);
@@ -12,6 +13,7 @@ type
   { TfrmSesProperty }
 
   TfrmSesProperty = class(TForm)
+  published
     bitOK: TBitBtn;
     bitOK_conn: TBitBtn;
     bitCancel: TBitBtn;
@@ -59,11 +61,26 @@ type
     cmdTestComm: TButton;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
+    txtEdiUser: TEdit;
+    txtEdiPass: TEdit;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label9: TLabel;
+    radGroupExpType: TRadioGroup;
+    radGroupEdtType: TRadioGroup;
+    TabGenSyntax: TTabSheet;
+    TabExplor: TTabSheet;
+    txtComLaunExpl: TEdit;
+    txtExternEdit: TEdit;
+    Label8: TLabel;
+    txtComLaunEdit: TEdit;
     GroupBox1: TGroupBox;
     grpVertPan: TGroupBox;
     GroupBox3: TGroupBox;
     grpVertPan1: TGroupBox;
     Label1: TLabel;
+    Label7: TLabel;
     lblBackCol: TLabel;
     lblBackCol1: TLabel;
     lblCLinAct1: TLabel;
@@ -108,10 +125,11 @@ type
     speTempo: TSpinEdit;
     spFontSize: TSpinEdit;
     spFontSize1: TSpinEdit;
-    TabGeneral: TTabSheet;
-    TabPromptDet: TTabSheet;
+    TabGenConnec: TTabSheet;
+    TabGenPrmtDet: TTabSheet;
     TabPComSet: TTabSheet;
     TabGenAppear: TTabSheet;
+    TabEditSett: TTabSheet;
     TabTermCRec: TTabSheet;
     TabPComEdit: TTabSheet;
     TabTermEdit: TTabSheet;
@@ -121,6 +139,7 @@ type
     txtCadFin: TEdit;
     txtCadIni: TEdit;
     txtComando: TEdit;
+    txtExternExplor: TEdit;
     txtMaxColT: TEdit;
     txtMaxLinT: TEdit;
     txtOtro: TEdit;
@@ -139,6 +158,8 @@ type
     procedure optSerialChange(Sender: TObject);
     procedure optSSHChange(Sender: TObject);
     procedure optTelnetChange(Sender: TObject);
+    procedure radGroupEdtTypeClick(Sender: TObject);
+    procedure radGroupExpTypeClick(Sender: TObject);
     procedure TabTermEditContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TreeView1Click(Sender: TObject);
@@ -146,6 +167,7 @@ type
     procedure Ocultar;
   public
     OnTest : procedure of object;
+    fraCfgSyntax : TfraCfgSyntax;
     procedure Exec(connected: boolean);
   end;
 
@@ -181,6 +203,45 @@ begin
   RadioGroup1.ItemIndex:=2;
 end;
 
+procedure TfrmSesProperty.radGroupEdtTypeClick(Sender: TObject);
+begin
+  //Deshabilita todos los controles
+  label8.Enabled := false;
+  txtExternEdit.Enabled := false;
+
+  label11.Enabled := false;
+  txtEdiUser.Enabled := false;
+  label12.Enabled := false;
+  txtEdiPass.Enabled := false;
+  //Habilita de acuerdo a tipo
+  case radGroupEdtType.ItemIndex of
+  0: begin //Edición local
+//    //Editor local pero externo.
+//    label8.Enabled := true;
+//    txtExternEdit.Enabled := true;
+  end;
+  1: begin
+    label11.Enabled := true;
+    txtEdiUser.Enabled := true;
+    label12.Enabled := true;
+    txtEdiPass.Enabled := true;
+  end;
+  2: begin
+
+  end;
+  end;
+end;
+
+procedure TfrmSesProperty.radGroupExpTypeClick(Sender: TObject);
+begin
+  if radGroupExpType.ItemIndex = 1 then begin
+    label10.Enabled := true;
+    txtExternExplor.Enabled := true;
+  end else begin
+    label10.Enabled := false;
+    txtExternExplor.Enabled := false;
+  end;
+end;
 procedure TfrmSesProperty.TabTermEditContextPopup(Sender: TObject;
   MousePos: TPoint; var Handled: Boolean);
 begin
@@ -193,9 +254,10 @@ begin
   //hay ítem seleccionado
   case IdFromTTreeNode(TreeView1.Selected) of
   '1',
-  '1.1'  : TabGeneral.Show;
-  '1.2'  : TabPromptDet.Show;
+  '1.1'  : TabGenConnec.Show;
+  '1.2'  : TabGenPrmtDet.Show;
   '1.3'  : TabGenAppear.Show;
+  '1.4'  : TabGenSyntax.Show;
   '2',
   '2.1'  : TabPComEdit.Show;
   '2.2'  : TabPComSet.Show;
@@ -203,6 +265,8 @@ begin
   '3.1'  : TabTermPant.Show;
   '3.2'  : TabTermEdit.Show;
   '3.3'  : TabTermCRec.Show;
+  '4'    : TabEditSett.Show;
+  '5'    : TabExplor.Show;
   end;
   //Visibilidad de botón
   bitOK_conn.Visible := (PageControl1.TabIndex = 0);
@@ -291,6 +355,11 @@ end;
 
 procedure TfrmSesProperty.FormCreate(Sender: TObject);
 begin
+  fraCfgSyntax := TfraCfgSyntax.Create(self);
+  fraCfgSyntax.Parent := TabGenSyntax;
+  fraCfgSyntax.Left := 0;
+  fraCfgSyntax.Top := 0;
+
   PageControl1.ShowTabs := false;
   cmbTipoLetra.Items.Clear;
   cmbTipoLetra.Items.Add('Courier New');
@@ -315,9 +384,9 @@ begin
   TreeView1.Items[0].Selected:=true;
   TreeView1Click(self);
   if connected then begin
-    TabGeneral.Enabled := false;
+    TabGenConnec.Enabled := false;
   end else begin
-    TabGeneral.Enabled := true;
+    TabGenConnec.Enabled := true;
   end;
 
   self.ShowModal;

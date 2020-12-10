@@ -71,7 +71,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="16">
+    <Units Count="17">
       <Unit0>
         <Filename Value="TTerm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -173,6 +173,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="Comandos.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit16>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -183,7 +187,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\_libraries\MiConfig-0.4.1;..\_libraries\Xpres-1.3.2;..\_libraries\MisUtils-0.6;..\_libraries\UnTerminal-0.9;..\_libraries\SynFacilUtils-1.23;..\_libraries\PreSQL 2.4"/>
+      <OtherUnitFiles Value="..\_libraries\MiConfig-0.4.2;..\_libraries\Xpres-1.3.2;..\_libraries\MisUtils-0.6;..\_libraries\UnTerminal-0.9;..\_libraries\SynFacilUtils-1.23;..\_libraries\PreSQL 2.4"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

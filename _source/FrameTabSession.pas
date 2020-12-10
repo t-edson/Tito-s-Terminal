@@ -7,7 +7,8 @@ uses
   SynPluginMultiCaret, SynPluginSyncroEdit, SynFacilUtils, FormSelFuente,
   MisUtils, MiConfigXML, MiConfigBasic, UnTerminal, TermVT, SynEdit,
   SynEditMarkupHighAll, SynEditKeyCmds, SynEditMarkup, SynEditTypes,
-  uResaltTerm, Globales, FormSesProperty, FormConfig, uPreProces, uPreBasicos;
+  uResaltTerm, Globales, FormSesProperty, FormConfig, process,
+  uPreProces, uPreBasicos;
 const
   FONT_TAB_SIZE = 9;
   MIN_WIDTH_TAB = 50;  //Ancho por defecto de la lengueta
@@ -49,6 +50,18 @@ type
     cFonPan    : TColor;   //Color de fondo del panel vertical.
     cTxtPan    : TColor;   //Color de texto del panel vertical.
   end;
+
+  //Modos de la herramienta Explorador de archivos
+  TexplorMode = (
+    expBashComm,   //Explorador manejado por comandos del bash de Linux.
+    expExternal    //Explorador externo.
+  );
+  //Modos de la herramienta Editor
+  TeditMode = (
+    edtLocal,  //Editor local personalizado
+    edtRemotSFTP,  //Editor conexión remota SFTP
+    edtBashComm    //Editor por comandos de bash del linux.
+  );
 
   { TfraTabSession }
   TfraTabSession = class(TFrame)
@@ -250,6 +263,8 @@ type
     Tipo      : TTipCon;  //Tipo de conexión
     IP        : String;   //Direción IP (solo válido con el tipo TCON_TELNET Y TCON_SSH)
     Port      : String;   //Puerto (solo válido con el tipo TCON_TELNET Y TCON_SSH)
+    //nPort     : integer;  //Número de puerto serial. Solo válido para TCON_SERIAL. Falta implementar.
+    //SerialPar   : String;  //Parámetros seriales  FALTA IMPLEMENTAR
     Command   : string;   //comando a ejecutar en el proceso
     Other     : String;   //Ruta del aplicativo (solo válido con el tipo TCON_OTHER)
     LineDelimSend: TUtLineDelSend;  //Tipo de delimitador de línea a enviar.
@@ -284,6 +299,18 @@ type
     UsarPrep   : boolean;   // Usar preprocesador.
   public   //Parámetros del editor del comandos
     cfgEdPCom  : TEditCfg;
+  public   //Parámetros de la herramienta editor.
+    commandEd  : string;  //Comando para lanzar al editor
+    editMode   : TeditMode; //Modo del editor
+    exterEditor: string;  //Ruta al editor externo, si no se selecciona interno.
+    ftpEditUser: string;  //Usuario SFTP para acceder a archivo a editar
+    ftpEditPass: string;  //Contraseña SFTP para acceder a archivo a editar
+  public   //Parámetros de la herramienta Explorador.
+    commandEx  : string;  //Comando para lanzar al explorador.
+    explorMode : TexplorMode;  //Modo del explorador.
+    exterExplor: string;  //Ruta al explorador externo.
+    commEx_bef : string;  //Comandos antes de lanzar al editor.
+    commEx_aft : string;  //Comandos después de lanzar al editor.
   public   //Parámetros adicionales
     langFile   : string;    //Archivo del lenguaje para el resaltador.
     textPCom   : TStrings;  //Texto del panel de comandos
@@ -301,6 +328,8 @@ type
     procedure setFileName(AValue: string);
   public   //Acceso a disco
     property fileName: string read getFileName write setFileName;
+    function IsTextFile: boolean;
+    function WriteData: boolean;
     function SaveToFile: boolean;
     function SaveAsDialog: boolean;
     procedure LoadFromFile;
@@ -332,7 +361,7 @@ type
 procedure InicTerminal(edTerm: TSynEdit; hlTerm: TResaltTerm);
 
 implementation
-uses FrameTabSessions;
+uses FrameTabSessions, Comandos;
 {$R *.lfm}
 resourcestring
   MSG_MODIFSAV = 'File %s has been modified. Save?';
@@ -506,10 +535,14 @@ procedure TfraTabSession.EnviarTxt(txt: string);
 //Envía un tetxo al terminal, aplicando el preprocesamiento si es necesario
 var
   usu: string;
+  tabSessions: TfraTabSessions;
 begin
-  if UsarPrep then begin
+  if not GetTabSessions(self, tabSessions) then exit;
+  if ProcessCommand(txt, self, tabSessions) then begin
+    //Era un comando y lo procesó
+  end else if UsarPrep then begin
     //se debe usar el preprocesador PreSQL
-    PreProcesar('',txt, usu);
+    PreProcesar('', txt, usu);
     if PErr.HayError Then begin
       msgerr(Perr.GenTxtError);
       exit;  //verificación
@@ -598,7 +631,7 @@ begin
   UpdatePanelState;   //Actualiza panel del estado de la conexión
   ePCom.RefreshPanCursor;  //Refresca el panel de posición del cursor.
   if langFile<>'' then begin  //Carga coloreado de sintaxis, actualiza menú y panel.
-    ePCom.LoadSyntaxFromFile(langFile);
+    ePCom.LoadSyntaxFromFile(patSyntax + DirectorySeparator + langFile);
   end;
   //Actualiza controles que dependen de las propiedades.
   ConfigEditor(edTerm, cfgEdTerm);       //Configura editor.
@@ -653,6 +686,33 @@ procedure TfraTabSession.setFileName(AValue: string);
 begin
   prop.SetFileName(AValue);
 end;
+//Acceso a disco
+function TfraTabSession.IsTextFile: boolean;
+begin
+  Result := UpCase(ExtractFileExt(fileName)) = '.TXT';
+end;
+function TfraTabSession.WriteData: boolean;
+{Escribe el contenido del archivo actual en disco. Si se produce algún error,
+muestra un mensaje y devuelve FALSE.}
+begin
+  if IsTextFile then begin
+    //Se guarda como texto
+    edPCom.Lines.SaveToFile(fileName);  //Podría fallar.
+    setModified(false);
+    UpdateActionsState(nil);
+    exit(true);
+  end else begin
+    //Se guarda como configuración
+    if not prop.PropertiesToFile then begin
+      MsgErr(prop.MsjErr);
+      exit(false);
+    end;
+    //Todo salió bien.
+    setModified(false);
+    UpdateActionsState(nil);
+    exit(true);
+  end;
+end;
 function TfraTabSession.SaveToFile: boolean;
 {Guarda esta página en "fileName". Si se cancela el guardado o hay algún error, se
 devuelve FALSE.}
@@ -661,13 +721,7 @@ begin
     //Es un archivo nuevo, que no se ha guardado.
     Result := SaveAsDialog();
   end else begin
-    //Se guarda como configuración
-    if not prop.PropertiesToFile then begin
-      MsgErr(prop.MsjErr);
-    end;
-    setModified(false);
-    UpdateActionsState(nil);
-    Result := true;
+    Result := WriteData;
   end;
 end;
 function TfraTabSession.SaveAsDialog: boolean;
@@ -707,12 +761,7 @@ begin
   //Delegamos la función de guardar históricos a la IDE
   tabSessions.PageEvent('reg_reg_file', self, res);
   //Finalmente guarda.
-  if not prop.PropertiesToFile then begin
-    MsgErr(prop.MsjErr);
-  end;
-  setModified(false);
-  UpdateActionsState(nil);
-  exit(true);
+  Result := WriteData;
 end;
 procedure TfraTabSession.LoadFromFile;
 {Actualiza el contenido de esta sesión a partir del archivo especificado en "fileName".}
@@ -721,6 +770,18 @@ var
   res: string;
 begin
   if not GetTabSessions(self, tabSessions) then exit;
+  if IsTextFile then begin
+    //Archivos de texto.
+    UpdateCaption(fileName);
+    //Carga contenido
+    edPCom.Lines.LoadFromFile(fileName);
+    //Muestra solo el panel de comandos
+    showPCom := true;
+    showTerm := false;
+    PropertiesChanged;
+    tabSessions.PageEvent('reg_reg_file', self, res);
+    exit;
+  end;
   prop.FileToProperties;  //Accede a "fileName"
   if prop.MsjErr<>'' then begin  //Accede a "fileName"
     MsgErr(prop.MsjErr);
@@ -874,6 +935,9 @@ begin
       msgerr(prop.MsjErr);
       exit;
     end;
+    //Guarda para tener actualizado los archivos de sintaxis.
+    frmSesProperty.fraCfgSyntax.SaveChanges;
+
     PropertiesChanged;   //Procesa el cambio de propiedades
     //fcConex.GrabarIP;  //Debería grabar las últimas IP
   end;
@@ -1002,7 +1066,7 @@ end;
 procedure TfraTabSession.ePComMenLangSelected(langName, xmlFile: string);
 {Se ha seleccionado un lenguaje para el resaltador, usando el menú contextual.}
 begin
-  langFile := xmlFile;
+  langFile := ExtractFileName(xmlFile);
 end;
 procedure TfraTabSession.eScript_MouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -1342,7 +1406,7 @@ begin
   prop.Asoc_Bol ('c_VerMarPle' , @cfgEdPcom.VerMarPle , f.chkVerMarPle1 , true);
   prop.Asoc_TCol('c_cFonPan'   , @cfgEdPcom.cFonPan   , f.cbutFonPan1   , clWhite);
   prop.Asoc_TCol('c_cTxtPan'   , @cfgEdPcom.cTxtPan   , f.cbutTxtPan1   , clBlack);
-  prop.Asoc_Int ('c_TamLet'    , @cfgEdPcom.FontSize  , f.spFontSize1   , 9);
+  prop.Asoc_Int ('c_TamLet'    , @cfgEdPcom.FontSize  , f.spFontSize1   , 10);
   prop.Asoc_Str ('c_TipLet'    , @cfgEdPcom.FontName  , f.cmbTipoLetra1 , 'Courier New');
   //Parámetros del panel de comandos.
   prop.Asoc_Bol ('CompletCode'  , @CompletCode   , f.chkCompletCode  , true);
@@ -1350,6 +1414,19 @@ begin
   prop.Asoc_Bol ('SendLnEnter'  , @SendLnEnter   , f.chkSendLnEnter  , false);
   prop.Asoc_Bol ('SendLnCtrEnter',@SendLnCtrEnter, f.chkSendLnCtrEnter, true);
   prop.Asoc_Bol ('UsarPrep'     , @UsarPrep      , f.chkUsarPrep     , false);
+  //Parámetros de la herramienta Editor
+  prop.Asoc_Str ('commandEd'    , @commandEd     , f.txtComLaunEdit  , '$EDIT');
+  prop.Asoc_Enum('editMode'     , @editMode      , sizeOf(editMode)  , f.radGroupEdtType, 0);
+  prop.Asoc_Str ('exterEditor'  , @exterEditor   , f.txtExternEdit   , 'notepad');
+  prop.Asoc_Str ('ftpEditUser'  , @ftpEditUser   , f.txtEdiUser      , '');
+  prop.Asoc_Str ('ftpEditPass'  , @ftpEditPass   , f.txtEdiPass      , '');
+  //Parámetros de la herramienta Explorador
+  prop.Asoc_Str ('commandEx'    , @commandEx     , f.txtComLaunExpl  , '$EXPLORER');
+  prop.Asoc_Enum('explorMode'   , @explorMode    , sizeOf(explorMode), f.radGroupExpType, 0);
+  prop.Asoc_Str ('exterExplor'  , @exterExplor   , f.txtExternExplor , 'explorer');
+
+  //Configuración del Editor-Sintaxis
+  f.fraCfgSyntax.LoadSyntaxFiles(patSyntax);
 
   //Parámetros adicionales
   prop.Asoc_Str ('langFile'    , @langFile, '');
@@ -1419,11 +1496,11 @@ destructor TfraTabSession.Destroy;
 begin
   EndLog;  //por si se estaba registrando
   proc.Free;
-  if prop<>nil then begin
-    if FileExists(fileName) then begin
-      prop.PropertiesToFile;  //Save to disk
-    end;
-  end;
+//  if prop<>nil then begin
+//    if FileExists(fileName) then begin
+//      prop.PropertiesToFile;  //Save to disk
+//    end;
+//  end;
   FreeAndNil(prop);
   hlTerm.Destroy;
   ePCom.Destroy;

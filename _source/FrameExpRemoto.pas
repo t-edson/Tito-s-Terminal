@@ -529,7 +529,7 @@ begin
 //    EnviarComando('cd '+it.Caption, listmp);
 //    if config.fcExpRem.RefDesp then Actualizar;
   end else begin  //es archivo
-    frmRemoteEditor.AbrirRemoto(it.Caption);
+    frmRemoteEditor.Open(it.Caption);
   end;
 end;
 procedure TfraExpRemoto.acConfigExecute(Sender: TObject);

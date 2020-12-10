@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  FrameExpRemoto, strutils, FormRemoteEditor, MisUtils;
+  FrameExpRemoto, strutils, FormRemoteEditor, FrameTabSession, MisUtils;
 
 type
 
@@ -20,8 +20,11 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
+    ses: TfraTabSession;
     explor: TfraExpRemoto;
     actualizar: boolean;
+  public
+    procedure Init(ses0: TfraTabSession);
   end;
 
 var
@@ -67,9 +70,12 @@ begin
      or AnsiEndsText('.sh',it.Caption)
      or AnsiEndsText('.py',it.Caption)
      or AnsiEndsText('.pas',it.Caption)
-     then begin
-     //tipos conocidos, se editan
-     frmRemoteEditor.AbrirRemoto(it.Caption);
+     then
+  begin
+     //Los tipos conocidos, se editan.
+    //Se abre el editor en el modo definido en la sesión.
+    frmRemoteEditor.Init(ses);
+    frmRemoteEditor.Open(it.Caption);
   end;
 end;
 
@@ -79,6 +85,11 @@ begin
     explor.Actualizar;  //lee archivos
     actualizar := false;
   end;
+end;
+
+procedure TfrmRemoteExplor.Init(ses0: TfraTabSession);
+begin
+  ses := ses0;
 end;
 
 end.

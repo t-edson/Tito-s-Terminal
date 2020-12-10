@@ -27,7 +27,7 @@ var
 
    patApp      : string;    // Ruta de la aplicación.
    patMacros   : string;    // Ruta de la carpeta de macros.
-   patScripts  : string;    // Ruta de la carpeta de scripts.
+   patTemp     : string;    // Ruta de la carpeta temporal
    patSyntax   : string;    // Ruta para guardar las sintaxis.
    patSessions : string;    // Ruta para guardar las sesiones.
 
@@ -332,8 +332,8 @@ begin
    //todos los nombres estaban ocupados. Sale con el mismo nombre
 End;
 procedure LeeArchEnMenu(arc: string; mn: TMenuItem; accion: TNotifyEvent);
-//Lee la carpeta de macros y actualiza un menú con el nombre de los archivos
-//Devuelve la cantidad de ítems leidos
+{Lee la carpeta de macros y actualiza un menú con el nombre de los archivos
+Devuelve la cantidad de ítems leidos. }
 var
     Hay: Boolean;
     SR: TSearchRec;
@@ -384,27 +384,27 @@ end;
 initialization
   //inicia directorios de la aplicación
   patApp     :=  ExtractFilePath(Application.ExeName);  //incluye el '\' final
+  patSyntax  := patApp + 'languages';
   patMacros  := patApp + 'macros';
-  patScripts := patApp + 'scripts';
-  patSyntax  := patApp + 'lenguajes';
-  patSessions:= patApp + 'sesiones';
-  inputFile := '';    //archivo de entrada
-  //verifica existencia de carpetas de trabajo
+  patTemp    := patApp + 'temp';
+  patSessions:= patApp + 'sessions';
+  inputFile := '';    //Archivo de entrada
+  //Verifica existencia de carpetas de trabajo
   try
-    if not DirectoryExists(patScripts) then begin
-      msgexc('No se encuentra carpeta /scripts. Se creará.');
-      CreateDir(patScripts);
+    if not DirectoryExists(patTemp) then begin
+      msgexc('Folder /temp doesn''t exist. It will be created.');
+      CreateDir(patTemp);
     end;
     if not DirectoryExists(patMacros) then begin
-      msgexc('No se encuentra carpeta /macros. Se creará.');
+      msgexc('Folder /macros doesn''t exist. It will be created.');
       CreateDir(patMacros);
     end;
     if not DirectoryExists(patSyntax) then begin
-      msgexc('No se encuentra carpeta /lenguajes. Se creará.');
+      msgexc('Folder /lenguages doesn''t exist. It will be created.');
       CreateDir(patSyntax);
     end;
     if not DirectoryExists(patSessions) then begin
-      msgexc('No se encuentra carpeta /sesiones. Se creará.');
+      msgexc('Folder /sessions doesn''t exist. It will be created.');
       CreateDir(patSessions);
     end;
     if not FileExists(patApp+'plink.exe') then begin
@@ -415,12 +415,12 @@ initialization
   end;
 
 finalization
-  //Por algún motivo, la unidad HeapTrc indica que hay gotera de memoria si no se liberan
-  //estas cadenas:
-  patApp :=  '';
-  patMacros := '';
-  patScripts := '';
-  patSyntax := '';
+  {Por algún motivo, la unidad HeapTrc indica que hay gotera de memoria si no se liberan
+  estas cadenas:   }
+  patApp      := '';
+  patMacros   := '';
+  patTemp     := '';
+  patSyntax   := '';
   patSessions := '';
 end.
 

@@ -8,8 +8,9 @@ unit FrameCfgSynEdit;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, Forms, StdCtrls, Dialogs, SynEdit, Graphics, Spin,
-  Globales, MiConfigXML, MiConfigBasic, SynEditMarkupHighAll, SynEditMarkup;
+  Classes, SysUtils, Forms, StdCtrls, Dialogs, SynEdit, Graphics, Spin, LCLType,
+  Globales, MiConfigXML, MiConfigBasic, SynEditMarkupHighAll, SynEditMarkup,
+  SynPluginSyncroEdit, SynPluginMultiCaret;
 type
 
   { TfraCfgSynEdit }
@@ -178,6 +179,8 @@ procedure TfraCfgSynEdit.ConfigEditor(ed: TSynEdit);
 {Configura el editor con las propiedades almacenadas}
 var
   marc: TSynEditMarkup;
+  fSynchro: TSynPluginSyncroEdit;
+  fMultiCaret: TSynPluginMultiCaret;
 begin
    if ed = nil then exit;  //protección
 
@@ -221,6 +224,26 @@ begin
    end;
    ///////fija color de delimitadores () {} [] ///////////
    ed.BracketMatchColor.Foreground := clRed;
+
+   //Crea un "plugin" de edición síncrona
+   fSynchro := TSynPluginSyncroEdit.Create(self);
+   fSynchro.Editor := ed;
+
+   //Configura múltiples cursores
+   fMultiCaret := TSynPluginMultiCaret.Create(self);
+   with fMultiCaret do begin
+     Editor := ed;
+     with KeyStrokes do begin
+       Add.Command    := ecPluginMultiCaretSetCaret;
+       Add.Key        := VK_INSERT;
+       Add.Shift      := [ssShift, ssCtrl];
+       Add.ShiftMask  := [ssShift,ssCtrl,ssAlt];
+ //      Add.Command    := ecPluginMultiCaretUnsetCaret;
+ //      Add.Key        := VK_DELETE;
+ //      Add.Shift      := [ssShift, ssCtrl];
+ //      Add.ShiftMask  := [ssShift,ssCtrl,ssAlt];
+     end;
+   end;
 
 end;
 
