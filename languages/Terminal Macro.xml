@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+Archivode definición de sintaxis para el lenguaje de macros de Tito's terminal.
+Este archivo se usa solamente para el resaltado de sinyaxis y autocompletado.
+Debe ser consistente con la definición del lexer de Tito's Terminal
+-->
+<Language name="Terminal Macro" ext="ttm" >
+  <Completion>
+	<List Name="ListSintax">
+  "IF \_expresion THEN &#xD;  &#xD;ENDIF"
+  "IF \_expresion THEN &#xD;  &#xD;ELSE &#xD;  &#xD;ENDIF"
+  "WHILE expresion &#xD;  &#xD;ENDWHILE"
+  "timeout := 20"
+  "CONNECT ""192.168.1.1"""
+  "CONNECTSSH ""192.168.1.1"""
+  "MESSAGEBOX ""\_"""
+  "SENDLN ""text to send"""
+  "WAIT ""text to wait"""
+  "PAUSE \_1"
+  "curIP := ""192.168.1.1"""
+  "curTYPE := ""telnet""" 
+  "curTYPE := ""SSH""" 
+  "curTYPE := ""Other""" 
+  "curPORT := 23"
+  "curENDLINE := ""LF"""
+  "curENDLINE := ""CRLF"""
+  "curAPP := ""cmd"""
+  "promptDETECT := true"
+  "promptSTART := ""$"""
+  "promptEND := ""]"""
+  "log \_1"
+"FILEOPEN n,"file.txt",0"
+"FILEWRITE n, ""hola"""
+"FILECLOSE n  "
+  IFA
+    </List>
+	<OpenOn AfterPattern='identifier'>
+	  <Include list="ListSintax"/>
+      <Include Attribute="Keyword"/>
+      <Include Attribute="Types"/>
+      <Include Attribute="Vars"/>
+	</OpenOn>
+	fulano "el
+mengano"
+
+  </Completion>
+  
+  <Attribute Name="Keyword" ForeCol="blue" Style="b"> </Attribute>
+  <Attribute Name="String" ForeCol="black" BackCol="#FFFF80" > </Attribute>
+  <Attribute Name="Types"   ForeCol="blue"> </Attribute>
+  <Attribute Name="Vars"> </Attribute>
+  <!--Esta definicón sigue la definición de sintaxis del lexer. Revisar antes de hacer cambios-->
+  <Identifiers CharsStart= "A..Za..z_" Content = "A..Za..z0..9_"> 
+    <!-- Delimitadores -->
+    <token attribute="Keyword"> ENDIF  ELSE  ELSEIF </token> 
+    <!-- Boolean -->
+    <token attribute="Keyword">  true false </token> 
+    <!-- Funciones del sistema -->
+    <token attribute="Keyword"> 
+		CLEAR CONNECT CONNECTSSH DISCONNECT SENDLN WAIT PAUSE STOP
+		LOGOPEN LOGWRITE LOGCLOSE LOGPAUSE LOGSTART
+		FILEOPEN FILECLOSE FILEWRITE
+		MESSAGEBOX CAPTURE ENDCAPTURE EDIT DETECT_PROMPT 
+    </token>
+    <!-- Estructuras -->
+    <token attribute="Keyword"> IF </token>
+    <!-- Otros -->
+    <token attribute="Keyword"> THEN </token>
+    <!-- Variables -->
+    <token attribute="Vars">
+		timeout 
+		curIP curTYPE curPORT curENDLINE curAPP
+		promptDETECT promptSTART promptEND 
+    </token>
+  </Identifiers>
+  
+  <Token CharsStart="0..9" Content = '0..9.' Attribute='NUMBER'> </Token>
+  <Token CharsStart="$" Content = '0..9ABCDEFabcdef' Attribute='NUMBER'> </Token>
+  <String Start="'" End="'" Multiline="true"></String>
+  <String Start='"' End='"' Multiline="true"></String>
+  <Token CharsStart="#" Content = '0..9' Attribute='STRING'> </Token>
+  <Comment Start="//" ></Comment>
+  <Comment Start="/*" End="*/" Multiline="true"></Comment>
+
+  <Section Name="unit" Start="unit"></Section>
+
+</Language>

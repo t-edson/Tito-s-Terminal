@@ -1,3 +1,38 @@
+Tito's Terminal 0.8.1
+=====================
+Se activa la carga de archivos por arrastre a la pantalla.
+Se implementa la opción de cargar archivos *.txt.
+Se cambia el nombre de la carpetas /sesiones y /lenguajes a inglés.
+Se modifica la propiedad de archivo de sintaxis, para que solo guarde el nombre y no la
+ruta.
+Se incluye una pestaña para configuración del coloreado de sintaxis, en las opciones de
+configuración.
+Se crean opciones adicionales en la configuración de la sesión, para configurar 
+al editor remoto (ahora llamado Editor Tool) y al explorador remoto.
+Se crea la carpeta /temp y se elimina /scripts.
+Se asigna atajos de teclas a algunas funciones de archivo.
+Se actualiza la libraría MiConfig y se soluciona un problema de detección de errores.
+Se implementa una rutina para mostrar el control asociado al error en la ventana de 
+configuración de la sesión.
+Se agregan dos nuevos resaltadores de sintaxis para Texto plano y XML.
+Se incluyen opciones de edición síncrona y multicursores, para la herramienta de edición.
+
+PENDIENTES
+Actualizar el Manual de Usuario.
+Queda pendiente reordenar la declaración de varias clases, porque falta clasificar sus campos.
+También está pendiente refactorizar algunos nombres a la terminlogía inglesa.
+Falta usar el frame de configuración para SynEdit( que se usa en FormConfig) en la ventana
+de configuración de las sesiones, donde se tienen controles con nombres similares (con postfijo 1).
+Falta implementar el reordenamiento de las ventanas de la sesión. Algo como se hacía en la 
+versión 0.7.
+Falta implementar el reconocimiento de algunas secuencias de escape (es más tema de la librería
+UnTerminal) como las que muestran el estado de avance de las descargas.
+Falta implementar la interacción directa con el terminal y el teclado.
+Queda pendiente implementar la grabación de macros.
+Formatear los archivos de sintaxis para que puedan ser editados por la ventana de configuración
+de sintaxis.
+Faltaría también incluir otras traducciones.
+
 Tito's Terminal 0.8
 ===================
 Se actualiza la libería SynFacilUtils a la versión 1.22 para trabajar con la versión más 
@@ -8,19 +43,6 @@ Se eliminan las traducciones de idioma "en código" y se pasa a usar el i18m de L
 Se deja de usar ConfigFrame y se usa ahora MiConfig.
 Se reordenan los menús y las acciones.
 
-PENDIENTES
-Cambiar el nombre de la carpetas /sesiones y /leguajes a inglés.
-Actualizar el Manual de Usuario.
-Queda pendiente reordenar la declaración de varias clases, porque falta clasificar sus campos.
-También está pendiente refactorizar algunos nombres a la terminlogía inglesa.
-Falta usar el frame de configuración para SynEdit( que se usa en FormConfig) en la ventana
-de configuración de las sesiones, donde se tienen controles con nombres similares (con postfijo 1).
-Falta implementar el reordenamiento de las ventanas de la sesión. Algo como se hacía en la 
-versión 0.7.
-Falta implementar el reconocimiento de algunas secuencias de escape (es más tema de la librería
-UnTerminal) como las que muestran el estado de avance de las descargas.
-Queda pendiente implementar la grabación de macros.
-Faltaría también incluir otras traducciones.
 
 Tito's Terminal 0.7
 ===================

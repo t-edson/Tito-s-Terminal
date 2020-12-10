@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <VerPanCom Val="True"/>
-  <VerBHerPcom Val="True"/>
-  <VerBHerTerm Val="True"/>
+  <VerPanCom Val="False"/>
+  <VerBHerPcom Val="False"/>
+  <VerBHerTerm Val="False"/>
   <VerBarEst Val="True"/>
   <TipAlineam Val="0"/>
-  <Recents_ses Val="D:\INICTEL\Proyectos\DSpace\Page1.ses
-D:\INICTEL\Proyectos\DSpace\Config. Mirage 2.ses
-D:\INICTEL\Proyectos\DSpace\conexion.ses
+  <Recents_ses Val="C:\Users\usuario\Desktop\Documento texto.txt
+D:\INICTEL\Proyectos\DSpace\Instalar DataDOI.ses
+D:\INICTEL\Proyectos\DSpace\Configurar tema DataDOI.ses
 D:\INICTEL\Proyectos\DSpace\Instal. Mirage 2.ses
-D:\INICTEL\Proyectos\Portal Web\Revisión de servidor Web.ses
+D:\INICTEL\Proyectos\DSpace\Inicio DSpace.ses
+D:\INICTEL\Proyectos\DSpace\accesos.txt
+D:\INICTEL\Proyectos\DSpace\Page1.ses
+D:\INICTEL\Proyectos\DSpace\Config. Mirage 2.ses
 "/>
   <UltScript Val=""/>
-  <AbrirUltScr Val="True"/>
-  <Scripts Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8\scripts"/>
-  <Macros Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8\macros"/>
-  <Lenguajes Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8\lenguajes"/>
-  <TpoMax Val="10"/>
+  <AbrirUltScr Val="False"/>
+  <foldTemp Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8.1\temp"/>
+  <Macros Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8.1\macros"/>
+  <Lenguajes Val="D:\Proyectos_Software\Lazarus\Tito'sTerminal 0.8.1\languages"/>
+  <TpoMax Val="30"/>
   <MarLin Val="False"/>
   <edMacros>
-    <TipLet Val="Courier New"/>
-    <TamLet Val="10"/>
-    <showVertSB Val="True"/>
-    <showHoriSB Val="True"/>
+    <TipLet Val=""/>
+    <TamLet Val="5"/>
+    <showVertSB Val="False"/>
+    <showHoriSB Val="False"/>
     <cTxtNor Val="0"/>
-    <cFonEdi Val="15269864"/>
-    <cLinAct Val="65535"/>
+    <cFonEdi Val="0"/>
+    <cLinAct Val="0"/>
     <MarLinAct Val="False"/>
-    <ResPalCur Val="True"/>
-    <ResPalCFon Val="15780518"/>
+    <ResPalCur Val="False"/>
+    <ResPalCFon Val="0"/>
     <ResPalCTxt Val="0"/>
-    <ResPalCBor Val="15780518"/>
+    <ResPalCBor Val="0"/>
     <ResPalFWord Val="False"/>
-    <VerPanVer Val="True"/>
+    <VerPanVer Val="False"/>
     <VerNumLin Val="False"/>
-    <VerMarPle Val="True"/>
-    <cFonPan Val="16777215"/>
+    <VerMarPle Val="False"/>
+    <cFonPan Val="0"/>
     <cTxtPan Val="0"/>
     <recient Val=""/>
   </edMacros>
@@ -46,23 +49,23 @@ D:\INICTEL\Proyectos\Portal Web\Revisión de servidor Web.ses
     <showHoriSB Val="True"/>
     <cTxtNor Val="0"/>
     <cFonEdi Val="16777215"/>
-    <cLinAct Val="65535"/>
+    <cLinAct Val="0"/>
     <MarLinAct Val="False"/>
     <ResPalCur Val="True"/>
-    <ResPalCFon Val="15780518"/>
+    <ResPalCFon Val="8454143"/>
     <ResPalCTxt Val="0"/>
-    <ResPalCBor Val="15780518"/>
+    <ResPalCBor Val="0"/>
     <ResPalFWord Val="False"/>
     <VerPanVer Val="True"/>
     <VerNumLin Val="False"/>
-    <VerMarPle Val="True"/>
-    <cFonPan Val="16777215"/>
+    <VerMarPle Val="False"/>
+    <cFonPan Val="0"/>
     <cTxtPan Val="0"/>
     <recient Val=""/>
   </edRemoto>
-  <TpoMax2 Val="10"/>
-  <MosRut Val="True"/>
-  <ListDet Val="True"/>
+  <TpoMax2 Val="30"/>
+  <MosRut Val="False"/>
+  <ListDet Val="False"/>
   <MosOcul Val="False"/>
-  <RefDesp Val="True"/>
+  <RefDesp Val="False"/>
 </CONFIG>

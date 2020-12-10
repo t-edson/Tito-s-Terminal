@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<Language name="SQL Oracle" ext="psql" ColorBlock="Block">
+  <Completion>
+    <Include Attribute="Keyword"></Include>
+
+  </Completion>
+
+  <Attribute Name="Keyword" Bold="true"></Attribute>
+  <Attribute Name="presql" ForeCol="Red"></Attribute>
+  <Identifiers CharsStart= "A..Za..z_$" Content = "A..Za..z0..9_"> 
+    <Keyword> 
+  ACCESS ADD ALL ALTER AND ANY AS ASC AUDIT
+BEGIN BETWEEN BY 
+CHAR CHECK CLUSTERS CLUSTER COLAUTH COLUMN CRASH COMMENT COMPRESS CONNECT CREATE CURRENT 
+DATE DECIMAL DECLARE DEFAULT DELETE DESC DISTINCT DROP 
+ELSE END EXCEPTION EXCLUSIVE EXISTS 
+FILE FLOAT FOR FROM FUNCTION
+GOTO GRANT GROUP 
+HAVING 
+IDENTIFIED IF IMMEDIATE IN INCREMENT INDEXES INDEX INITIAL INSERT INTEGER INTERSECT INTO IS 
+LEVEL LIKE LOCK LONG
+MAXEXTENTS MINUS MLSLABEL MODE MODIFY
+NOAUDIT NOCOMPRESS NOT NOWAIT NULL NUMBER 
+OF OFFLINE ON OR ONLINE OPTION OFF ORDER OVERLAPS
+PCTFREE PRIOR PROCEDURE PRIVILEGES PUBLIC 
+RANGE RAW RECORD RENAME RESOURCE REVOKE ROW ROWID ROWNUM ROWS 
+SELECT SESSION SET SYSDATE SPOOL SHARE SIZE SMALLINT SQL START SUBTYPE SUCCESSFUL SYNONYM 
+TABAUTH TABLE THEN TO TRIGGER TYPE
+UID UNION UNIQUE UPDATE USE USER 
+VALIDATE VALUES VARCHAR VARCHAR2 VIEW VIEWS
+WHEN WHENEVER WHERE WITH 
+    </Keyword>
+	<presql>
+	  $DEFINIR
+	  $REDEF
+	  $INCLUIR
+	  $PARA
+	  $CONSULTAR
+	  CON
+	  COMO
+	  EN
+	  FINPARA
+	  FINDEFINIR
+	  HACER
+$dir_actual
+$nom_actual
+$fecha_actual
+$formato
+$intervalo_semana
+$psql_reinic
+$expr
+$horas
+$meses
+$infotabla
+$infovista
+	</presql>
+  </Identifiers>
+  <Token CharsStart="0..9" Content = '0..9' Attribute="NUMBER"> </Token>
+  <String Start="'" End="'"></String>
+  <String Start="&quot;" End="&quot;"></String>
+  <Comment Start="--" ></Comment>
+  <Comment Start="/*" End="*/" Multiline="true" Folding="True"></Comment>
+
+  <Block Start="$PARA" End="FINPARA" Folding="True" Parent="Main" Name="blq_PARA"></Block>
+  <Block Start="COMO" End="FINDEFINIR"></Block>
+
+  <Block Start="SELECT" End=";" BackCol="#F2F5A9" Folding="False" Name="blo_SELECT">
+    <End TokPos="1">/</End>
+	<Section Start="SELECT" FirstSec="True" BackCol="#CEF6CE" Name="sec_SELECT"> </Section>
+	<Section Start="FROM" BackCol="#F2F5A9" Name="sec_FROM"> </Section>
+  </Block>
+  <Block Start="BEGIN" End="END" Folding="False"></Block>
+  <Block Start="THEN" End="END" Folding="True"></Block>
+  <Block Start="FOR" End="END" Folding="True"></Block>
+  <Block Start="INSERT" End=";" BackCol="#F6D5D5" Name="blo_INSERT"></Block>
+  <Block Start="UPDATE" End=";" BackCol="#F6D5D5" Name="blo_UPDATE"></Block>
+  <Block Start="DELETE" End=";" BackCol="#F6D5D5" Name="blo_DELETE"></Block>
+
+</Language>

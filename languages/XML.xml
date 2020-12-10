@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Language name="XML" ext="xml" CaseSensitive="true">
+  <Attribute name="Tag"     ForeCol="#00A000" Bold="true"  Italic="False" Underline="False"/>
+  <Attribute name="DTD"     ForeCol="#000000" Bold="true"  Italic="False" Underline="False" BackCol="#F7FE2E"/>
+  <Attribute name="Comment" ForeCol="#808080" Bold="False" Italic="False" Underline="False"/>
+  <Attribute name="Number"  ForeCol="#E00080" Bold="False" Italic="False" Underline="False"/>
+  <Completion CaseSensitive="false"> 
+  
+  </Completion>
+
+  <Token Start='&lt;!--' End='--&gt;' Attribute='Comment' Multiline="true" Folding="true"></Token>
+  <Token Start="&lt;!"   End='&gt;' Attribute='DTD'> </Token>
+  <Token Start="&lt;"    End='&gt;' Attribute='Tag'> </Token>
+  <Token CharsStart="0..9" Content = '0..9.' Attribute='NUMBER'> </Token>
+  <String Start='"' End='"'></String>
+  <String Start="'" End="'"></String>
+</Language>
