@@ -1,5 +1,5 @@
-Tito-s-Terminal 0.8
-===================
+Tito-s-Terminal 0.8.1
+=====================
 
 Terminal con Interfaz gráfica, coloreado de sintaxis y automatización para telnet, y ssh.
 
