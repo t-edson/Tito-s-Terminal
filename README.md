@@ -48,9 +48,9 @@ Prompt detection is based on the fact that it is possible to completely identify
 
 In the figure shown, the characters "[" and "] $" have been defined for the prompt. In this way, the following Prompt can be recognized:
 
-[user @ host] $
-[user @ localhost ~] $
-[CMD] $
+  [user @ host] $
+  [user @ localhost ~] $
+  [CMD] $
 
 # Tools
 
