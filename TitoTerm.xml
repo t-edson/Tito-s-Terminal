@@ -5,14 +5,14 @@
   <VerBHerTerm Val="False"/>
   <VerBarEst Val="True"/>
   <TipAlineam Val="0"/>
-  <Recents_ses Val="C:\Users\usuario\Desktop\Documento texto.txt
-D:\INICTEL\Proyectos\DSpace\Instalar DataDOI.ses
-D:\INICTEL\Proyectos\DSpace\Configurar tema DataDOI.ses
+  <Recents_ses Val="D:\INICTEL\Proyectos\DSpace\Parte 4 - Instal. Mirage 2.ses
+D:\INICTEL\Proyectos\DSpace\Parte 2 - Directorios.ses
+D:\INICTEL\Proyectos\DSpace\Parte 3 - Temas.ses
+D:\INICTEL\Proyectos\DSpace\Parte 3 - Instal. Mirage 2.ses
+D:\INICTEL\Proyectos\DSpace\Parte 2 - Temas.ses
+D:\INICTEL\Proyectos\DSpace\Parte 1 - Inicio.ses
 D:\INICTEL\Proyectos\DSpace\Instal. Mirage 2.ses
 D:\INICTEL\Proyectos\DSpace\Inicio DSpace.ses
-D:\INICTEL\Proyectos\DSpace\accesos.txt
-D:\INICTEL\Proyectos\DSpace\Page1.ses
-D:\INICTEL\Proyectos\DSpace\Config. Mirage 2.ses
 "/>
   <UltScript Val=""/>
   <AbrirUltScr Val="False"/>
@@ -43,8 +43,8 @@ D:\INICTEL\Proyectos\DSpace\Config. Mirage 2.ses
     <recient Val=""/>
   </edMacros>
   <edRemoto>
-    <TipLet Val="Courier New"/>
-    <TamLet Val="10"/>
+    <TipLet Val="Consolas"/>
+    <TamLet Val="11"/>
     <showVertSB Val="True"/>
     <showHoriSB Val="True"/>
     <cTxtNor Val="0"/>

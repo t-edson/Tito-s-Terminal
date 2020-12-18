@@ -1,38 +1,72 @@
-Tito-s-Terminal 0.8.1
+Tito-s-Terminal 0.8.2
 =====================
 
-Terminal con Interfaz gráfica, coloreado de sintaxis y automatización para telnet, y ssh.
+Terminal with graphical interface, syntax highlighting and automation for telnet, ssh, serial or any command line proccess.
 
 ![Tito's Terminal](https://github.com/t-edson/Tito-s-Terminal/blob/0.8/_screenshots/screen1.png "Pantalla de Tito's Terminal")
 
-Tito's Terminal empezó como una broma, pero ahora es una aplicación bastante completa y ha migrado recientemente a Lazarus.
+For Telnet and SSH connections, use the well-known [PLink](http://the.earth.li/~sgtatham/putty/0.60/htmldoc/Chapter7.html), program but any other similar client could be used.
 
-Este terminal puede hacer de cliente para Telnet, SSH, Serial y en general cualquier proceso que maneje consola.
+The program is strongly configurable, with innumerable options for the appearance and the way of working. To avoid having to constantly configure the environment, session management is included, which can save all the configuration in a single file, and which can then be easily recovered, with a couple of "Clicks".
 
-Para las conexiones Telnet y SSH, usa el conocido [PLink](http://the.earth.li/~sgtatham/putty/0.60/htmldoc/Chapter7.html), pero podría usarse cualquier otro cliente similar.
+## Sessions
 
-Este terminal incluye un panel de texto, que se usa para enviar los comandos al terminal. No es conveniente enviarlos directamente, porque la consola no está preparada para la interacción directa con el usuario.
+Connections are managed using sessions. A session is a document that includes all parameters of a typical connection like a SSH, or TELNET sesion.
 
-La pantalla del terminal, responde de forma similar a un VT100, pero sin las opciones de resaltado (color, negrita y brillante). Sin embargo, el texto mostrado en el terminal, incluye coloreado de sintaxis (para el lenguaje del Shell de UNIX) y plegado de código. 
+Unlike other similar programs, here, the sessions include a text panel (Command Panel), and a Terminal windows. The Command panel is used to send the commands to the terminal. It is not convenient to send them directly, because the console is not prepared for direct interaction with the user.
 
-El ancho de la pantalla no está limitado por el tamaño del VT100 (que está por defecto en 80 caracteres), sino que puede extenderse hasta varios cientos de caracteres más.
+The terminal screen responds in a similar way to a VT100 console, but without the highlight options (color, bold and bright). However, the text displayed in the terminal includes syntax coloring (for the UNIX Shell language) and code folding.
 
-El terminal se puede configurar para reconocer la llegada del "prompt" del sistema. Además lo resalta con un color especial.
+The width of the screen is not limited by the size of the VT100 (which defaults to 80 characters),. It can be extended up to several hundred more characters.
 
-La detección del prompt, es útil visualmente y también es necesaria para algunas herramientas adicionales que se incluyen en el programa como el Explorador Rremoto y el Editor Remoto.
+## Setting a connection
 
-El explorador de archivos remoto,  funciona interactuando con el terminal, mediante comandos, pero solo para las sesiones Telnet y SSH. De esta forma se puede emular un explorador de archivo en conexiones UNIX/Linux.
+When creating a new session, the settings form is shown to set the connection parameters.
+
+![Tito's Terminal](https://github.com/t-edson/Tito-s-Terminal/blob/0.8.2/_screenshots/connect_settings.png "Connection settings")
+
+Here you can define the type of connection and the connection parameters. You can also define additional parameters, such as the appearance of the window or the behavior of the terminal. All these settings will be saved in the session.
+
+If you want to handle an external program by command line, you must select the option "Other".
+
+For example, if you want to interact with the Windows command interpreter, you must use the "cmd" program.
+
+![Tito's Terminal](https://github.com/t-edson/Tito-s-Terminal/blob/0.8.2/_screenshots/cmd_connection.png "cmd control")
+
+## Prompt Detection
+
+The terminal can be configured to recognize the arrival of the system prompt. It also highlights it with a special color.
+
+Prompt detection is visually useful and is also necessary for some additional tools that are included in the program such as Remote Explorer and Remote Editor.
+
+The prompt detection is not done directly. It must first be configured in the terminal. This is done from the "General> Prompt detection" option from the session properties window:
+
+![Tito's Terminal](https://github.com/t-edson/Tito-s-Terminal/blob/0.8.2/_screenshots/prompt_detec.png "Prompt settings")
+
+
+Prompt detection is based on the fact that it is possible to completely identify the Prompt on a line, defining the initial and final characters that delimit it.
+
+In the figure shown, the characters "[" and "] $" have been defined for the prompt. In this way, the following Prompt can be recognized:
+
+[user @ host] $
+[user @ localhost ~] $
+[CMD] $
+
+# Tools
+
+The remote file browser works by interacting with the terminal, through commands, but only for Telnet and SSH sessions. In this way a file browser can be emulated on UNIX / Linux connections.
 
 ![Tito's Terminal](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/1969/12/tterm5.png "Título de la imagen")
 
-También se incluye un editor remoto, que interactuando, mediante comandos, con el "shell" permite realizar la edición de archivos pequeños, desde dentro del mismo "shell" UNIX/Linux.
+A remote editor is also included, which interacting, through commands, with the "shell" allows editing of small files, from within the same "shell" UNIX / Linux.
 
-Los editores del programa incluyen resaltado de sintaxis (para diversos lenguajes), plegado de código y autocompletado de código. Estos editores se pueden configurar en su apariencia y se pueden agregar lenguajes nuevos o modificar los que ya existen, en cuanto a resaltado de sintaxis, plegado de código o autocompletado.
+The remote editor includes syntax highlighting (for various languages), code folding, and code autocompletion.
 
-Tito's Terminal también permite la automatización de las conexiones con un lenguaje de macros similar al usado para TeraTerm. Se incluye además, un editor de código preparado exclusivamente para escribir y probar las macros.
+# Macros
+
+Tito's Terminal also allows the automation of connections with a macro language similar to that used for TeraTerm. It also includes a code editor prepared exclusively for writing and testing macros.
 
 ![Tito's Terminal](http://blog.pucp.edu.pe/blog/tito/wp-content/uploads/sites/610/1969/12/tterm3.png "Título de la imagen")
 
-Las funciones de ejecución de macros, así como otras comunes, tienen un acceso directo desde el menú principal o contextual del aplicativo.
+The macro execution functions, have a direct access from the main menu.
 
-El programa es fuertemente configurable, con innumerables opciones para la apariencia y el modo de trabajo. Para evitar tener que configurar constantemente el entorno, se incluye el manejo de sesiones, que pueden guardar toda la configuración en un solo archivo, y que puede luego recuperarse de forma sencilla, con un par de "Clicks".
