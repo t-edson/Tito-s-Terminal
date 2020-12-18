@@ -1,5 +1,5 @@
 {"version":1,"strings":[
-{"hash":238850223,"name":"tfrmremoteeditor.caption","sourcebytes":[69,100,105,116,111,114,32,82,101,109,111,116,111],"value":"Editor Remoto"},
+{"hash":79367010,"name":"tfrmremoteeditor.caption","sourcebytes":[69,100,105,116,111,114],"value":"Editor"},
 {"hash":106991073,"name":"tfrmremoteeditor.toolbar1.caption","sourcebytes":[84,111,111,108,66,97,114,49],"value":"ToolBar1"},
 {"hash":160486421,"name":"tfrmremoteeditor.toolbutton5.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,53],"value":"ToolButton5"},
 {"hash":177351,"name":"tfrmremoteeditor.acfilnew.caption","sourcebytes":[38,78,101,119],"value":"&New"},

@@ -208,17 +208,14 @@ type
     procedure Splitter1Moved(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
-    ejecCom: boolean;   //indica que está ejecutando un comando (editor remoto, exp. remoto ...)
+    procedure FindDialog1Close(Sender: TObject);
+  private
+    ejecCom: boolean;   //Indica que está ejecutando un comando (editor remoto, exp. remoto ...)
     hlTerm  : TResaltTerm;
-    LlegoPrompt: boolean;   //bandera
-    parpadPan0: boolean;   //para activar el parpadeo del panel0
-    ticComRec : integer;   //contador para comando recurrente
+    parpadPan0: boolean;   //Para activar el parpadeo del panel0
+    ticComRec : integer;   //Contador para comando recurrente
     edFocused : TSynEdit;  //Editor con enfoque
-    function BuscaPromptArr: integer;
-    function BuscaPromptAba: integer;
-    function BuscaUltPrompt: integer;
     function ConexDisponible: boolean;
-    procedure ConfigEditor(ed: TSynEdit; cfgEdit: TEditCfg);
     procedure DistribuirPantalla;
     procedure UpdateActionsState(Sender: TObject);
     procedure edPComKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -252,13 +249,12 @@ type
     procedure Activate; reintroduce;
     function getModified: boolean;
     procedure setModified(AValue: boolean);
-    procedure PosicionarCursor(HeightScr: integer);
+    procedure LocateCursor(HeightScr: integer);
     function EnviarComando(com: string; var salida: TStringList): string;
     procedure UpdatePanInfoConn;
     procedure UpdatePanelState;
     procedure UpdatePanelLangName;
     procedure UpdateCommand;
-    procedure PropertiesChanged;
   public   //Parámetros de conexión
     Tipo      : TTipCon;  //Tipo de conexión
     IP        : String;   //Direción IP (solo válido con el tipo TCON_TELNET Y TCON_SSH)
@@ -319,9 +315,13 @@ type
     showPCom   : boolean;   //Visibilidad del panel de comandos
     showTerm   : boolean;   //Visibilidad del Terminal
   public   //Detección de prompt
+    PromptReceived: boolean;   //bandera
+    function BuscaPromptArr: integer;
+    function BuscaPromptAba: integer;
+    function BuscaUltPrompt: integer;
     procedure UpdatePromptProc;
-    function ContienePrompt(const linAct: string): integer;
-    function EsPrompt(const cad: string): boolean;
+    function ContainsPrompt(const linAct: string): integer;
+    function IsPrompt(const cad: string): boolean;
   private  //Acceso a disco
     procedure UpdateCaption(filName: string);
     function getFileName: string;
@@ -344,15 +344,19 @@ type
     function WriteLog(txt: string): boolean;
   public   //Manejadores de eventos
     function queryClose: boolean;
-  public   //Inicialización
+  private //Configuración de propiedades
+    procedure ConfigEditor(ed: TSynEdit; cfgEdit: TEditCfg);
+  public  //Configuración de propiedades
     prop : TMiConfigXML;
+    procedure PropertiesChanged;
+    procedure ExecSettings;
     function ShowProperties: TModalResult;
+  public   //Inicialización
     procedure InicConect;
     procedure InicConectTelnet(ip0: string);
     procedure InicConectSSH(ip0: string);
     constructor Create(AOwner: TComponent); override;
     procedure Init;
-    procedure ExecSettings;
     destructor Destroy; override;
   end;
 
@@ -502,7 +506,7 @@ end;
 procedure TfraTabSession.proc_LlegoPrompt(prmLine: string; pIni: TPoint;
   HeightScr: integer);
 begin
-  LlegoPrompt := true;  //activa bandera
+  PromptReceived := true;  //activa bandera
 //  yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
 //debugln('  llegoPrompt en:'+IntToStr(yvt + pIni.y+1));
 end;
@@ -514,7 +518,7 @@ begin
 //  debugln('procRefreshLine: '+IntToStr(fIni));
   yvt := edTerm.Lines.Count-HeightScr-1;  //calcula fila equivalente a inicio de VT100
   edTerm.Lines[yvt+fIni] := grilla[fIni];
-  PosicionarCursor(HeightScr);
+  LocateCursor(HeightScr);
 end;
 procedure TfraTabSession.proc_RefreshLines(const grilla: TtsGrid; fIni, fFin,
   HeightScr: integer);
@@ -527,7 +531,7 @@ begin
   edTerm.BeginUpdate();
   for f:=fIni to fFin do
     edTerm.Lines[yvt+ f] := grilla[f];
-  PosicionarCursor(HeightScr);
+  LocateCursor(HeightScr);
   edTerm.EndUpdate;
   edTerm.Refresh;  //para mostrar el cambio
 end;
@@ -611,7 +615,7 @@ procedure TfraTabSession.setModified(AValue: boolean);
 begin
   edPCom.Modified := AValue;
 end;
-procedure TfraTabSession.PosicionarCursor(HeightScr: integer);
+procedure TfraTabSession.LocateCursor(HeightScr: integer);
 //Coloca el cursor del editor, en la misma posición que tiene el cursor del
 //terminal VT100 virtual.
 var
@@ -622,43 +626,317 @@ begin
     edTErm.CaretXY := Point(proc.term.curX, yvt+proc.term.CurY+1);
   end;
 end;
-procedure TfraTabSession.PropertiesChanged;
-{Rutinas a ejecutar cuando han cambiado las propiedades de la sesión, como cuando se
-cargan de archivo o se cambian con la ventana de propiedades.}
+procedure TfraTabSession.DistribuirPantalla;
+//Redistribuye los paneles de la pantalla
 begin
-  UpdatePromptProc;   //Actualiza los parámetros de detección del "prompt" en "proc".
-  UpdatePanInfoConn;  //Actualiza información de la conexión
-  UpdatePanelState;   //Actualiza panel del estado de la conexión
-  ePCom.RefreshPanCursor;  //Refresca el panel de posición del cursor.
-  if langFile<>'' then begin  //Carga coloreado de sintaxis, actualiza menú y panel.
-    ePCom.LoadSyntaxFromFile(patSyntax + DirectorySeparator + langFile);
-  end;
-  //Actualiza controles que dependen de las propiedades.
-  ConfigEditor(edTerm, cfgEdTerm);       //Configura editor.
-  ConfigEditor(edPCom, cfgEdPCom);       //Configura editor.
-  edTerm.Invalidate; //Para que refresque los cambios.
-  edPCom.Invalidate; //Para que refresque los cambios.
-  edPCom.Width := pComWidth;
-  //Visibilidad del panel de comando Y del terminal
-  if showPCom and showTerm then begin  //Mostrar ambos
-    edPCom.Visible := true;
-    edPCom.Align := alLeft;
-    Splitter1.Visible := true;
-    edTerm.Visible := true;
-    edTerm.Align := alClient;
-  end else if showPCom then begin  //Solo panel de comandos
-    edPCom.Visible := true;
-    edPCom.Align := alClient;  //Toda la pantalla
-    Splitter1.Visible := false;
-    edTerm.Visible := false;
-  end else if showTerm then begin  //Solo Terminal
-    edPCom.Visible := false;
-    Splitter1.Visible := false;
-    edTerm.Visible := true;
-    edTerm.Align := alClient;  //Toda la pantalla
+//  //primero quita alineamiento de componentes móviles
+//  PAnel2.Align:=alNone;
+//  Panel1.Align:=alNone;
+//  Splitter1.Align:=alNone;
+//  //alinea de acuerdo a TipAlineam
+//  case Config.TipAlineam of
+//  0: begin  //panel a la izquierda
+//      Panel1.Align:=alLeft;
+//      Splitter1.Align:=alLeft;
+//      Panel2.Align:=alClient;
+//      if Panel1.Width > Trunc(0.9*self.Width) then Panel1.Width := Trunc(0.5*self.Width);
+//    end;
+//  1: begin  //panel a la derecha
+//      Panel1.Align:=alRight;
+//      Splitter1.Align:=alRight;
+//      PAnel2.Align:=alClient;
+//      if Panel1.Width > Trunc(0.9*self.Width) then Panel1.Width := Trunc(0.5*self.Width);
+//    end;
+//  2: begin  //panel abajo
+//      Panel1.Align:=alBottom;
+//      Splitter1.Align:=alBottom;
+//      PAnel2.Align:=alClient;
+//      if Panel1.Height > Trunc(0.9*self.Height) then Panel1.Height := Trunc(0.5*self.Height);
+//    end;
+//  else  //por defecto
+//    Panel1.Align:=alLeft;
+//    Splitter1.Align:=alLeft;
+//    PAnel2.Align:=alClient;
+//  end;
+end;
+procedure TfraTabSession.UpdateActionsState(Sender: TObject);
+begin
+  if edPCom.Modified then begin
+    AcFilSavSes.Enabled := true;
   end else begin
-    edPCom.Visible := false;
-    edTerm.Visible := false;
+    AcFilSavSes.Enabled := false;
+  end;
+end;
+function TfraTabSession.ConexDisponible: boolean;
+//Indica si la conexión está en estado ECO_READY, es decir, que puede
+//recibir un comando
+begin
+   Result := (proc.state = ECO_READY);
+end;
+function TfraTabSession.EnviarComando(com: string; var salida: TStringList): string;
+{Función para enviar un comando por el Terminal. Espera hasta que aparezca de
+nuevo el "prompt" y devuelve el texto generado, por el comando, en "salida".
+Si hay error devuelve el mensaje de error.}
+var
+  n: Integer;
+  y1: Integer;
+  y2: Integer;
+  i: Integer;
+begin
+  Result := '';
+  if not ConexDisponible then begin
+    Result := 'Not available connection.';
+    MsgExc(Result);
+    exit;
+  end;
+//  if config.fcDetPrompt then begin
+//    msgExc('Para ejecutar comandos se debe tener la detección de prompt configurada');
+//  end;
+  ejecCom := true;  //marca estado
+  PromptReceived := False;
+  salida.Clear;   //por defecto limpia la lista
+//debugln('Inicio envío comando: '+ com);
+  proc.SendLn(com);
+//debugln('Fin envío comando: '+ com);
+  //Espera hasta la aparición del "prompt"
+  n := 0;
+  While Not PromptReceived And (n < Config.TpoMax2*10) do begin
+    Sleep(100);
+    Application.ProcessMessages;
+    Inc(n);
+  end;
+  If n >= Config.TpoMax2*10 then begin    //Hubo desborde
+    Result := dic('Timeout');
+    MsgExc(Result);
+    exit;
+  end else begin
+    //llegó el promt (normalmente es por que hay datos)
+    y2 := BuscaUltPrompt;  //por si el cursor estaba fuera de foco
+//debugln('Fin comando con prompt en: '+ IntToStr(y2));
+//debugln('');
+    edTerm.CaretY:=y2;  //posiciona como ayuda para ver si lo hizo bien
+    y1 := BuscaPromptArr;  //busca al prompt anterior
+    if y1 = -1 then begin
+      Result := 'Error detecting command prompt. ' +
+      'Maybe you must increase the number of lines shown in the screen.';
+      MsgExc(Result);
+      exit;
+    end;
+    //copia la salida
+    for i:= y1+1 to y2-1 do  //sin contar los prompt
+       salida.Add(edTerm.Lines[i-1]);
+  end;
+  ejecCom := false;
+end;
+procedure TfraTabSession.edPComKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  Enter: Boolean;
+begin
+  Enter := (key = VK_RETURN);
+  //Verificaciones
+  if (Shift = []) and Enter and SendLnEnter then begin
+    //Envíará línea actual
+    Key := 0;
+  end else if (Shift = [ssCtrl]) and Enter and SendLnCtrEnter  then begin
+    //Envíará línea actual
+    Key := 0;
+  end else if (Shift = [ssCtrl]) and Enter and not SendLnCtrEnter then begin
+    Key := 0;
+  end;
+end;
+procedure TfraTabSession.ePComMenLangSelected(langName, xmlFile: string);
+{Se ha seleccionado un lenguaje para el resaltador, usando el menú contextual.}
+begin
+  langFile := ExtractFileName(xmlFile);
+end;
+procedure TfraTabSession.eScript_MouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  caret: TPoint;
+begin
+  //Obtiene coordenada donde cae el puntero del mouse.
+  if edPCom.SelAvail then begin
+    PopupMenu1.PopUp;
+  end else begin
+    if (Button = mbRight) then begin
+      caret := edPCom.PixelsToRowColumn(Point(X,Y));
+      edPCom.CaretY := caret.y;
+      //MsgBox('Eureka %d', [ caret.Y ] );
+      PopupMenu1.PopUp;
+    end;
+  end;
+end;
+procedure TfraTabSession.TestRecurringCommand;
+begin
+  //guarda estado actual, para no perderlo
+  tipEnvio0 := tipEnvio;
+  Comando0 := Comando;
+  Archivo0 := Archivo;
+  prop.WindowToProperties;  //mueve valores de controles a variables
+  //lama al evento para probar la temporización
+  EnvioTemporizado;
+  //Retorna valores
+  tipEnvio := tipEnvio0;
+  Comando := Comando0;
+  Archivo := Archivo0;
+end;
+procedure TfraTabSession.EnvioTemporizado;
+//Envía el comando o archivo que se ha programado
+begin
+  case tipEnvio of
+  teComando:
+      proc.SendLn(Comando);
+  teArchivo: begin
+      if not FileExists(archivo) then begin
+        MsgErr('File not found: %s', [archivo]);
+        exit;
+      end;
+      proc.SendLn(StringFromFile(archivo));
+    end;
+  end;
+end;
+procedure TfraTabSession.Timer1Timer(Sender: TObject);
+{Temporizador cada de 0.5 segundos. Temporiza el envío de comandos recurrentes y
+el parpadeo del Panel de Información de la conexión.}
+begin
+  //Muestra mensaje de ejecución
+//  if ejecMac then begin
+//    //fuerza refresco del panel
+//    parpadPan0 := not parpadPan0;  //para el parpadeo
+//    StatusBar1.InvalidatePanel(0,[ppText]);
+//  end;
+  if Activar then begin
+    inc(ticComRec);
+    if ticComRec mod (Tempo * 2 * 60) = 0 then begin
+      //hay envío recurrente de comando
+      EnvioTemporizado;
+    end;
+  end;
+end;
+procedure TfraTabSession.UpdateCommand;
+//Configura el atributo "Command" de acuerdo a los parámetros de la conexión.
+begin
+  case Tipo of
+  TCON_TELNET: begin
+      if Port='' then begin
+        Command:='plink -telnet ' + IP;
+      end else begin
+        Command:='plink -telnet ' + ' -P '+ Port + ' ' + IP;
+      end;
+    end;
+  TCON_SSH: begin
+      if Port='' then begin
+        Command:='plink -ssh ' + IP + ' ';
+      end else begin
+        Command:='plink -ssh -P '+ Port + ' ' + IP + ' ';
+      end;
+    end;
+  TCON_SERIAL: begin
+      Command:='plink -serial ' + frmSesProperty.cmbSerPort.Text + ' -sercfg '+frmSesProperty.txtSerCfg.Text;
+    end;
+  TCON_OTHER: begin
+      Command:=Other;
+    end;
+  end;
+  //Configura salto de línea
+  { TODO : ¿No se podría mejor eliminar LineDelimSend y LineDelimRecv; y usar "proc"? }
+  proc.LineDelimSend := LineDelimSend;
+  proc.LineDelimRecv := LineDelimRecv;
+end;
+//Detección de prompt
+function TfraTabSession.BuscaPromptArr: integer;
+//Busca el primer prompt desde la posición actual hacia arriba
+//Si no lo encuentra devuelve -1
+var
+  cy: Integer;
+begin
+  cy := edterm.CaretY;
+  repeat
+    dec(cy)
+  until (cy<1) or (ContainsPrompt(edTerm.Lines[cy-1])>0);
+  if cy<1 then exit(-1) else exit(cy);
+end;
+function TfraTabSession.BuscaPromptAba: integer;
+//Busca el primer prompt desde la posición actual hacia abajo
+//Si no lo encuentra devuelve -1
+var
+  cy: Integer;
+begin
+  cy := edterm.CaretY;
+  repeat
+    inc(cy)
+  until (cy>edTerm.Lines.Count) or (ContainsPrompt(edTerm.Lines[cy-1])>0);
+  if cy>edTerm.Lines.Count then exit(-1) else exit(cy);
+end;
+function TfraTabSession.BuscaUltPrompt: integer;
+//Busca el último prompt de todo el terminal
+//Si no lo encuentra devuelve -1
+var
+  cy: Integer;
+begin
+  cy := edterm.Lines.Count+1;
+  repeat
+    dec(cy)
+  until (cy<1) or (ContainsPrompt(edTerm.Lines[cy-1])>0);
+  if cy<1 then exit(-1) else exit(cy);
+end;
+procedure TfraTabSession.UpdatePromptProc;
+{Configura al resaltador con la detección de prompt de la sesión. Se supone que se
+debe llamar, cada vez que se cambia algún parámetro de la detección del prompt.}
+begin
+  //Configura detección de prompt en proceso
+  if DetecPrompt then begin  //hay detección
+    proc.detecPrompt:=true;
+    proc.promptIni:= prIni;
+    proc.promptFin:= prFin;
+    proc.promptMatch := TipDetec;
+  end else begin //sin detección
+    proc.detecPrompt:=false;
+  end;
+  {Actualizar terminal para redibujar contenido con el resaltador "hlTerm" que ahora
+  tiene sus parámetros cambiados (accesibles mediante hlTerm.curSesObj). }
+  edTerm.Invalidate;
+end;
+function TfraTabSession.ContainsPrompt(const linAct: string): integer;
+//Verifica si una cadena contiene al prompt, usando los valroes de cadena inicial (prIni)
+//y cadena final (prFin). La veriifcaión se hace siempre desde el inicio de la cadena.
+//Si la cadena contiene al prompt, devuelve la longitud del prompt hallado, de otra forma
+//devuelve cero.
+//Se usa para el resaltador de sintaxis y el manejo de pantalla. Debería ser similar a
+//la detección de prompt usada en el proceso.
+var
+  l: Integer;
+  p: SizeInt;
+begin
+   Result := 0;   //valor por defecto
+   l := length(prIni);
+   if (l>0) and (copy(linAct,1,l) = prIni) then begin
+     //puede ser
+     if prFin = '' then begin
+       //no hace falta validar más
+       Result := l;  //el tamaño del prompt
+       exit;    //no hace falta explorar más
+     end;
+     //hay que validar la existencia del fin del prompt
+     p :=pos(prFin,linAct);
+     if p>0 then begin  //encontró
+       Result := p+length(prFin)-1;  //el tamaño del prompt
+       exit;
+     end;
+   end;
+end;
+function TfraTabSession.IsPrompt(const cad: string): boolean;
+//Indica si la línea dada, es el prompt, de acuerdo a los parámetros dados. Esta función
+//se pone aquí, porque aquí se tiene fácil acceso a las configuraciones del prompt.
+var
+  n: Integer;
+begin
+  if DetecPrompt then begin  //si hay detección activa
+    n := ContainsPrompt(cad);
+    Result := (n>0) and  (n = length(cad));
+  end else begin
+    Result := false;
   end;
 end;
 //Acceso a disco
@@ -846,6 +1124,7 @@ begin
     exit(false);
   end;
 end;
+//Manejadores de eventos
 function TfraTabSession.queryClose: boolean;
 {Consulta si se puede cerrar esta ventana. De ser así se devolverá TRUE.}
 var
@@ -875,45 +1154,101 @@ begin
   end;
   exit(true);
 end;
-procedure TfraTabSession.DistribuirPantalla;
-//Redistribuye los paneles de la pantalla
+//Configuración de propiedades
+procedure TfraTabSession.ConfigEditor(ed: TSynEdit; cfgEdit: TEditCfg);
+{Configura el editor con las propiedades almacenadas en "cfgEdit".}
+var
+  marc: TSynEditMarkup;
 begin
-//  //primero quita alineamiento de componentes móviles
-//  PAnel2.Align:=alNone;
-//  Panel1.Align:=alNone;
-//  Splitter1.Align:=alNone;
-//  //alinea de acuerdo a TipAlineam
-//  case Config.TipAlineam of
-//  0: begin  //panel a la izquierda
-//      Panel1.Align:=alLeft;
-//      Splitter1.Align:=alLeft;
-//      Panel2.Align:=alClient;
-//      if Panel1.Width > Trunc(0.9*self.Width) then Panel1.Width := Trunc(0.5*self.Width);
-//    end;
-//  1: begin  //panel a la derecha
-//      Panel1.Align:=alRight;
-//      Splitter1.Align:=alRight;
-//      PAnel2.Align:=alClient;
-//      if Panel1.Width > Trunc(0.9*self.Width) then Panel1.Width := Trunc(0.5*self.Width);
-//    end;
-//  2: begin  //panel abajo
-//      Panel1.Align:=alBottom;
-//      Splitter1.Align:=alBottom;
-//      PAnel2.Align:=alClient;
-//      if Panel1.Height > Trunc(0.9*self.Height) then Panel1.Height := Trunc(0.5*self.Height);
-//    end;
-//  else  //por defecto
-//    Panel1.Align:=alLeft;
-//    Splitter1.Align:=alLeft;
-//    PAnel2.Align:=alClient;
-//  end;
+   if ed = nil then exit;  //protección
+   //tipo de texto
+   if cfgEdit.FontName <> '' then ed.Font.Name := cfgEdit.FontName;  //El texto sin atributo
+   if (cfgEdit.FontSize > 6) and (cfgEdit.FontSize < 32) then ed.Font.Size:=Round(cfgEdit.FontSize);
+
+   ed.Font.Color := cfgEdit.cTxtNor;      //color de texto normal
+
+   ed.Color:= cfgEdit.cFonEdi;           //color de fondo
+   if cfgEdit.MarLinAct then          //resaltado de línea actual
+     ed.LineHighlightColor.Background:=cfgEdit.cLinAct
+   else
+     ed.LineHighlightColor.Background:=clNone;
+   //configura panel vertical
+   ed.Gutter.Visible:=cfgEdit.VerPanVer;  //muestra panel vertical
+   ed.Gutter.Parts[1].Visible:=cfgEdit.VerNumLin;  //Número de línea
+   if ed.Gutter.Parts.Count>4 then
+     ed.Gutter.Parts[4].Visible:=cfgEdit.VerMarPle;  //marcas de plegado
+   ed.Gutter.Color:=cfgEdit.cFonPan;   //color de fondo del panel
+   ed.Gutter.Parts[1].MarkupInfo.Background:=cfgEdit.cFonPan; //fondo del núemro de línea
+   ed.Gutter.Parts[1].MarkupInfo.Foreground:=cfgEdit.cTxtPan; //texto del núemro de línea
+
+   if cfgEdit.VerBarDesV and cfgEdit.VerBarDesH then  //barras de desplazamiento
+     ed.ScrollBars:= ssBoth
+   else if cfgEdit.VerBarDesV and not cfgEdit.VerBarDesH then
+     ed.ScrollBars:= ssVertical
+   else if not cfgEdit.VerBarDesV and cfgEdit.VerBarDesH then
+     ed.ScrollBars:= ssHorizontal
+   else
+     ed.ScrollBars := ssNone;
+   ////////Configura el resaltado de la palabra actual //////////
+   marc := ed.MarkupByClass[TSynEditMarkupHighlightAllCaret];
+   if marc<>nil then begin  //hay marcador
+      marc.Enabled := cfgEdit.ResPalCur;  //configura
+      marc.MarkupInfo.Background := cfgEdit.cResPal;
+   end;
+   ///////fija color de delimitadores () {} [] ///////////
+   ed.BracketMatchColor.Foreground := clRed;
 end;
-procedure TfraTabSession.UpdateActionsState(Sender: TObject);
+procedure TfraTabSession.PropertiesChanged;
+{Rutinas a ejecutar cuando han cambiado las propiedades de la sesión, como cuando se
+cargan de archivo o se cambian con la ventana de propiedades.}
 begin
-  if edPCom.Modified then begin
-    AcFilSavSes.Enabled := true;
+  UpdatePromptProc;   //Actualiza los parámetros de detección del "prompt" en "proc".
+  UpdatePanInfoConn;  //Actualiza información de la conexión
+  UpdatePanelState;   //Actualiza panel del estado de la conexión
+  ePCom.RefreshPanCursor;  //Refresca el panel de posición del cursor.
+  if langFile<>'' then begin  //Carga coloreado de sintaxis, actualiza menú y panel.
+    ePCom.LoadSyntaxFromFile(patSyntax + DirectorySeparator + langFile);
+  end;
+  //Actualiza controles que dependen de las propiedades.
+  ConfigEditor(edTerm, cfgEdTerm);       //Configura editor.
+  ConfigEditor(edPCom, cfgEdPCom);       //Configura editor.
+  edTerm.Invalidate; //Para que refresque los cambios.
+  edPCom.Invalidate; //Para que refresque los cambios.
+  edPCom.Width := pComWidth;
+  //Visibilidad del panel de comando Y del terminal
+  if showPCom and showTerm then begin  //Mostrar ambos
+    edPCom.Visible := true;
+    edPCom.Align := alLeft;
+    Splitter1.Visible := true;
+    edTerm.Visible := true;
+    edTerm.Align := alClient;
+  end else if showPCom then begin  //Solo panel de comandos
+    edPCom.Visible := true;
+    edPCom.Align := alClient;  //Toda la pantalla
+    Splitter1.Visible := false;
+    edTerm.Visible := false;
+  end else if showTerm then begin  //Solo Terminal
+    edPCom.Visible := false;
+    Splitter1.Visible := false;
+    edTerm.Visible := true;
+    edTerm.Align := alClient;  //Toda la pantalla
   end else begin
-    AcFilSavSes.Enabled := false;
+    edPCom.Visible := false;
+    edTerm.Visible := false;
+  end;
+end;
+procedure TfraTabSession.ExecSettings;
+begin
+  //Muestra ventana de configuración de la conexión (y los demás parámetros.)
+  if ShowProperties = mrYes then begin
+    //Se dio "Aceptar y conectar". Ya tenemos los parámetros. Iniciamos la conexión.
+    if not (proc.state = ECO_STOPPED) then begin
+      MsgExc('You need to close the current connection.');
+      exit;
+    end;
+    InicConect;
+    //Marca como modificado
+    //setModified(true);
   end;
 end;
 function TfraTabSession.ShowProperties: TModalResult;
@@ -949,277 +1284,6 @@ begin
   end;
   Result := frmSesProperty.ModalResult;
 end;
-function TfraTabSession.ConexDisponible: boolean;
-//Indica si la conexión está en estado ECO_READY, es decir, que puede
-//recibir un comando
-begin
-   Result := (proc.state = ECO_READY);
-end;
-function TfraTabSession.BuscaUltPrompt: integer;
-//Busca el último prompt de todo el terminal
-//Si no lo encuentra devuelve -1
-var
-  cy: Integer;
-begin
-  cy := edterm.Lines.Count+1;
-  repeat
-    dec(cy)
-  until (cy<1) or (ContienePrompt(edTerm.Lines[cy-1])>0);
-  if cy<1 then exit(-1) else exit(cy);
-end;
-function TfraTabSession.EnviarComando(com: string; var salida: TStringList): string;
-{Función para enviar un comando por el Terminal. Espera hasta que aparezca de
-nuevo el "prompt" y devuelve el texto generado, por el comando, en "salida".
-Si hay error devuelve el mensaje de error.}
-var
-  n: Integer;
-  y1: Integer;
-  y2: Integer;
-  i: Integer;
-begin
-  Result := '';
-  if not ConexDisponible then begin
-    Result := 'Not available connection.';
-    MsgExc(Result);
-    exit;
-  end;
-//  if config.fcDetPrompt then begin
-//    msgExc('Para ejecutar comandos se debe tener la detección de prompt configurada');
-//  end;
-  ejecCom := true;  //marca estado
-  LlegoPrompt := False;
-  salida.Clear;   //por defecto limpia la lista
-//debugln('Inicio envío comando: '+ com);
-  proc.SendLn(com);
-//debugln('Fin envío comando: '+ com);
-  //Espera hasta la aparición del "prompt"
-  n := 0;
-  While Not LlegoPrompt And (n < Config.TpoMax2*10) do begin
-    Sleep(100);
-    Application.ProcessMessages;
-    Inc(n);
-  end;
-  If n >= Config.TpoMax2*10 then begin    //Hubo desborde
-    Result := dic('Timeout');
-    MsgExc(Result);
-    exit;
-  end else begin
-    //llegó el promt (normalmente es por que hay datos)
-    y2 := BuscaUltPrompt;  //por si el cursor estaba fuera de foco
-//debugln('Fin comando con prompt en: '+ IntToStr(y2));
-//debugln('');
-    edTerm.CaretY:=y2;  //posiciona como ayuda para ver si lo hizo bien
-    y1 := BuscaPromptArr;  //busca al prompt anterior
-    if y1 = -1 then begin
-      Result := 'Error detecting command prompt. ' +
-      'Maybe you must increase the number of lines shown in the screen.';
-      MsgExc(Result);
-      exit;
-    end;
-    //copia la salida
-    for i:= y1+1 to y2-1 do  //sin contar los prompt
-       salida.Add(edTerm.Lines[i-1]);
-  end;
-  ejecCom := false;
-end;
-function TfraTabSession.BuscaPromptArr: integer;
-//Busca el primer prompt desde la posición actual hacia arriba
-//Si no lo encuentra devuelve -1
-var
-  cy: Integer;
-begin
-  cy := edterm.CaretY;
-  repeat
-    dec(cy)
-  until (cy<1) or (ContienePrompt(edTerm.Lines[cy-1])>0);
-  if cy<1 then exit(-1) else exit(cy);
-end;
-function TfraTabSession.BuscaPromptAba: integer;
-//Busca el primer prompt desde la posición actual hacia abajo
-//Si no lo encuentra devuelve -1
-var
-  cy: Integer;
-begin
-  cy := edterm.CaretY;
-  repeat
-    inc(cy)
-  until (cy>edTerm.Lines.Count) or (ContienePrompt(edTerm.Lines[cy-1])>0);
-  if cy>edTerm.Lines.Count then exit(-1) else exit(cy);
-end;
-procedure TfraTabSession.edPComKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-var
-  Enter: Boolean;
-begin
-  Enter := (key = VK_RETURN);
-  //Verificaciones
-  if (Shift = []) and Enter and SendLnEnter then begin
-    //Envíará línea actual
-    Key := 0;
-  end else if (Shift = [ssCtrl]) and Enter and SendLnCtrEnter  then begin
-    //Envíará línea actual
-    Key := 0;
-  end else if (Shift = [ssCtrl]) and Enter and not SendLnCtrEnter then begin
-    Key := 0;
-  end;
-end;
-procedure TfraTabSession.ePComMenLangSelected(langName, xmlFile: string);
-{Se ha seleccionado un lenguaje para el resaltador, usando el menú contextual.}
-begin
-  langFile := ExtractFileName(xmlFile);
-end;
-procedure TfraTabSession.eScript_MouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var
-  caret: TPoint;
-begin
-  //Obtiene coordenada donde cae el puntero del mouse.
-  if edPCom.SelAvail then begin
-    PopupMenu1.PopUp;
-  end else begin
-    if (Button = mbRight) then begin
-      caret := edPCom.PixelsToRowColumn(Point(X,Y));
-      edPCom.CaretY := caret.y;
-      //MsgBox('Eureka %d', [ caret.Y ] );
-      PopupMenu1.PopUp;
-    end;
-  end;
-end;
-procedure TfraTabSession.TestRecurringCommand;
-begin
-  //guarda estado actual, para no perderlo
-  tipEnvio0 := tipEnvio;
-  Comando0 := Comando;
-  Archivo0 := Archivo;
-  prop.WindowToProperties;  //mueve valores de controles a variables
-  //lama al evento para probar la temporización
-  EnvioTemporizado;
-  //Retorna valores
-  tipEnvio := tipEnvio0;
-  Comando := Comando0;
-  Archivo := Archivo0;
-end;
-procedure TfraTabSession.EnvioTemporizado;
-//Envía el comando o archivo que se ha programado
-begin
-  case tipEnvio of
-  teComando:
-      proc.SendLn(Comando);
-  teArchivo: begin
-      if not FileExists(archivo) then begin
-        MsgErr('File not found: %s', [archivo]);
-        exit;
-      end;
-      proc.SendLn(StringFromFile(archivo));
-    end;
-  end;
-end;
-procedure TfraTabSession.Timer1Timer(Sender: TObject);
-{Temporizador cada de 0.5 segundos. Temporiza el envío de comandos recurrentes y
-el parpadeo del Panel de Información de la conexión.}
-begin
-  //Muestra mensaje de ejecución
-//  if ejecMac then begin
-//    //fuerza refresco del panel
-//    parpadPan0 := not parpadPan0;  //para el parpadeo
-//    StatusBar1.InvalidatePanel(0,[ppText]);
-//  end;
-  if Activar then begin
-    inc(ticComRec);
-    if ticComRec mod (Tempo * 2 * 60) = 0 then begin
-      //hay envío recurrente de comando
-      EnvioTemporizado;
-    end;
-  end;
-end;
-procedure TfraTabSession.UpdateCommand;
-//Configura el atributo "Command" de acuerdo a los parámetros de la conexión.
-begin
-  case Tipo of
-  TCON_TELNET: begin
-      if Port='' then begin
-        Command:='plink -telnet ' + IP;
-      end else begin
-        Command:='plink -telnet ' + ' -P '+ Port + ' ' + IP;
-      end;
-    end;
-  TCON_SSH: begin
-      if Port='' then begin
-        Command:='plink -ssh ' + IP + ' ';
-      end else begin
-        Command:='plink -ssh -P '+ Port + ' ' + IP + ' ';
-      end;
-    end;
-  TCON_SERIAL: begin
-      Command:='plink -serial ' + frmSesProperty.cmbSerPort.Text + ' -sercfg '+frmSesProperty.txtSerCfg.Text;
-    end;
-  TCON_OTHER: begin
-      Command:=Other;
-    end;
-  end;
-  //Configura salto de línea
-  { TODO : ¿No se podría mejor eliminar LineDelimSend y LineDelimRecv; y usar "proc"? }
-  proc.LineDelimSend := LineDelimSend;
-  proc.LineDelimRecv := LineDelimRecv;
-end;
-procedure TfraTabSession.UpdatePromptProc;
-{Configura al resaltador con la detección de prompt de la sesión. Se supone que se
-debe llamar, cada vez que se cambia algún parámetro de la detección del prompt.}
-begin
-  //Configura detección de prompt en proceso
-  if DetecPrompt then begin  //hay detección
-    proc.detecPrompt:=true;
-    proc.promptIni:= prIni;
-    proc.promptFin:= prFin;
-    proc.promptMatch := TipDetec;
-  end else begin //sin detección
-    proc.detecPrompt:=false;
-  end;
-  {Actualizar terminal para redibujar contenido con el resaltador "hlTerm" que ahora
-  tiene sus parámetros cambiados (accesibles mediante hlTerm.curSesObj). }
-  edTerm.Invalidate;
-end;
-function TfraTabSession.ContienePrompt(const linAct: string): integer;
-//Verifica si una cadena contiene al prompt, usando los valroes de cadena inicial (prIni)
-//y cadena final (prFin). La veriifcaión se hace siempre desde el inicio de la cadena.
-//Si la cadena contiene al prompt, devuelve la longitud del prompt hallado, de otra forma
-//devuelve cero.
-//Se usa para el resaltador de sintaxis y el manejo de pantalla. Debería ser similar a
-//la detección de prompt usada en el proceso.
-var
-  l: Integer;
-  p: SizeInt;
-begin
-   Result := 0;   //valor por defecto
-   l := length(prIni);
-   if (l>0) and (copy(linAct,1,l) = prIni) then begin
-     //puede ser
-     if prFin = '' then begin
-       //no hace falta validar más
-       Result := l;  //el tamaño del prompt
-       exit;    //no hace falta explorar más
-     end;
-     //hay que validar la existencia del fin del prompt
-     p :=pos(prFin,linAct);
-     if p>0 then begin  //encontró
-       Result := p+length(prFin)-1;  //el tamaño del prompt
-       exit;
-     end;
-   end;
-end;
-function TfraTabSession.EsPrompt(const cad: string): boolean;
-//Indica si la línea dada, es el prompt, de acuerdo a los parámetros dados. Esta función
-//se pone aquí, porque aquí se tiene fácil acceso a las configuraciones del prompt.
-var
-  n: Integer;
-begin
-  if DetecPrompt then begin  //si hay detección activa
-    n := ContienePrompt(cad);
-    Result := (n>0) and  (n = length(cad));
-  end else begin
-    Result := false;
-  end;
-end;
 //Inicialización
 procedure TfraTabSession.InicConect;
 begin
@@ -1231,6 +1295,35 @@ begin
   if msjError<>'' then begin
     MsgErr(msjError);
   end;
+end;
+procedure TfraTabSession.Splitter1Moved(Sender: TObject);
+{Se está dimensionando}
+begin
+  pComWidth := edPCom.Width;
+end;
+procedure TfraTabSession.InicConectTelnet(ip0: string);
+begin
+  //configura conexión rápida Telnet
+  tipo := TCON_TELNET;
+  ip := ip0;
+  port := '23';
+  LineDelimSend := LDS_LF;
+  LineDelimRecv := LDR_LF;
+  InicConect;
+  //Marca como modificado
+  setModified(true);
+end;
+procedure TfraTabSession.InicConectSSH(ip0: string);
+begin
+  //configura conexión rápida Telnet
+  tipo := TCON_SSH;
+  ip := ip0;
+  port := '22';
+  LineDelimSend := LDS_LF;
+  LineDelimRecv := LDR_LF;
+  InicConect;
+  //Marca como modificado
+  setModified(true);
 end;
 constructor TfraTabSession.Create(AOwner: TComponent);
 var
@@ -1293,49 +1386,6 @@ begin
   proc.OnLineCompleted:= @proc_LineCompleted;
   //Usado para el registro
   AcTerDescon.Enabled:=false;  //Se supone que inicia siempre sin conectar.
-end;
-procedure TfraTabSession.ConfigEditor(ed: TSynEdit; cfgEdit: TEditCfg);
-{Configura el editor con las propiedades almacenadas}
-var
-  marc: TSynEditMarkup;
-begin
-   if ed = nil then exit;  //protección
-   //tipo de texto
-   if cfgEdit.FontName <> '' then ed.Font.Name := cfgEdit.FontName;  //El texto sin atributo
-   if (cfgEdit.FontSize > 6) and (cfgEdit.FontSize < 32) then ed.Font.Size:=Round(cfgEdit.FontSize);
-
-   ed.Font.Color := cfgEdit.cTxtNor;      //color de texto normal
-
-   ed.Color:= cfgEdit.cFonEdi;           //color de fondo
-   if cfgEdit.MarLinAct then          //resaltado de línea actual
-     ed.LineHighlightColor.Background:=cfgEdit.cLinAct
-   else
-     ed.LineHighlightColor.Background:=clNone;
-   //configura panel vertical
-   ed.Gutter.Visible:=cfgEdit.VerPanVer;  //muestra panel vertical
-   ed.Gutter.Parts[1].Visible:=cfgEdit.VerNumLin;  //Número de línea
-   if ed.Gutter.Parts.Count>4 then
-     ed.Gutter.Parts[4].Visible:=cfgEdit.VerMarPle;  //marcas de plegado
-   ed.Gutter.Color:=cfgEdit.cFonPan;   //color de fondo del panel
-   ed.Gutter.Parts[1].MarkupInfo.Background:=cfgEdit.cFonPan; //fondo del núemro de línea
-   ed.Gutter.Parts[1].MarkupInfo.Foreground:=cfgEdit.cTxtPan; //texto del núemro de línea
-
-   if cfgEdit.VerBarDesV and cfgEdit.VerBarDesH then  //barras de desplazamiento
-     ed.ScrollBars:= ssBoth
-   else if cfgEdit.VerBarDesV and not cfgEdit.VerBarDesH then
-     ed.ScrollBars:= ssVertical
-   else if not cfgEdit.VerBarDesV and cfgEdit.VerBarDesH then
-     ed.ScrollBars:= ssHorizontal
-   else
-     ed.ScrollBars := ssNone;
-   ////////Configura el resaltado de la palabra actual //////////
-   marc := ed.MarkupByClass[TSynEditMarkupHighlightAllCaret];
-   if marc<>nil then begin  //hay marcador
-      marc.Enabled := cfgEdit.ResPalCur;  //configura
-      marc.MarkupInfo.Background := cfgEdit.cResPal;
-   end;
-   ///////fija color de delimitadores () {} [] ///////////
-   ed.BracketMatchColor.Foreground := clRed;
 end;
 procedure TfraTabSession.Init;
 {Rutina que debe ser llamada para terminar la inicialización, después de la creación
@@ -1449,49 +1499,6 @@ begin
   //Asigna evento a botón para probar comando recurrente
   f.OnTest := @TestRecurringCommand;
 end;
-procedure TfraTabSession.Splitter1Moved(Sender: TObject);
-{Se está dimensionando}
-begin
-  pComWidth := edPCom.Width;
-end;
-procedure TfraTabSession.ExecSettings;
-begin
-  //Muestra ventana de configuración de la conexión (y los demás parámetros.)
-  if ShowProperties = mrYes then begin
-    //Se dio "Aceptar y conectar". Ya tenemos los parámetros. Iniciamos la conexión.
-    if not (proc.state = ECO_STOPPED) then begin
-      MsgExc('You need to close the current connection.');
-      exit;
-    end;
-    InicConect;
-    //Marca como modificado
-    //setModified(true);
-  end;
-end;
-procedure TfraTabSession.InicConectTelnet(ip0: string);
-begin
-  //configura conexión rápida Telnet
-  tipo := TCON_TELNET;
-  ip := ip0;
-  port := '23';
-  LineDelimSend := LDS_LF;
-  LineDelimRecv := LDR_LF;
-  InicConect;
-  //Marca como modificado
-  setModified(true);
-end;
-procedure TfraTabSession.InicConectSSH(ip0: string);
-begin
-  //configura conexión rápida Telnet
-  tipo := TCON_SSH;
-  ip := ip0;
-  port := '22';
-  LineDelimSend := LDS_LF;
-  LineDelimRecv := LDR_LF;
-  InicConect;
-  //Marca como modificado
-  setModified(true);
-end;
 destructor TfraTabSession.Destroy;
 begin
   EndLog;  //por si se estaba registrando
@@ -1514,6 +1521,7 @@ procedure TfraTabSession.edTermEnter(Sender: TObject);
 begin
   edFocused := edTerm;
 end;
+//Eventos para el manejo de búsquedas y reemplazos
 procedure TfraTabSession.FindDialog1Find(Sender: TObject);
 var
   encon  : integer;
@@ -1534,8 +1542,13 @@ begin
   if frWholeWord in FindDialog1.Options then opciones += [ssoWholeWord];
   if frEntireScope in FindDialog1.Options then opciones += [ssoEntireScope];
   encon := curEdit.SearchReplace(buscado,'',opciones);
-  if encon = 0 then
-     MsgBox('Not found "%s"', [buscado]);
+  if encon = 0 then begin
+    //MsgBox('No found: %s', [target]);
+    if MsgYesNo('No found: %s. Continue from start?', [buscado]) = 1 then begin
+      curEdit.CaretX := 1;
+      curEdit.CaretY := 1;
+    end;
+  end;
 end;
 procedure TfraTabSession.ReplaceDialog1Replace(Sender: TObject);
 var
@@ -1578,6 +1591,11 @@ begin
   end;
   MsgBox('No found "%s"', [buscado]);
 end;
+procedure TfraTabSession.FindDialog1Close(Sender: TObject);
+begin
+  self.Parent.SetFocus;   //Activa el formulario principal
+  edFocused.SetFocus;  //Pasa el enfoque al editor donde se está buscando.
+end;
 //////////////// Acciones ///////////////////
 //Acciones de archivo.
 procedure TfraTabSession.AcFilStarLogExecute(Sender: TObject);
@@ -1616,6 +1634,9 @@ end;
 procedure TfraTabSession.acFindFindExecute(Sender: TObject);
 begin
   FindDialog1.Execute;
+  {Configuramos el evento de cierre de este formulario, porque tiene un mal comportamiento
+  al cerrar: Pasa el enfoque a otra ventana, si se abre un msgbox(). }
+  FindDialog1.OnClose := @FindDialog1Close;
 end;
 procedure TfraTabSession.acFindNextExecute(Sender: TObject);
 begin

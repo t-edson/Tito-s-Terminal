@@ -1239,7 +1239,7 @@ msgstr ""
 
 #: tfrmremoteeditor.caption
 msgctxt "tfrmremoteeditor.caption"
-msgid "Editor Remoto"
+msgid "Editor"
 msgstr ""
 
 #: tfrmremoteeditor.menuitem1.caption
@@ -1645,7 +1645,7 @@ msgstr ""
 
 #: tfrmsesproperty.optotro.caption
 msgctxt "tfrmsesproperty.optotro.caption"
-msgid "&Otro"
+msgid "&Other"
 msgstr ""
 
 #: tfrmsesproperty.optscript.caption

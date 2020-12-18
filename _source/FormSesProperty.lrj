@@ -6,7 +6,7 @@
 {"hash":851,"name":"tfrmsesproperty.txtport.text","sourcebytes":[50,51],"value":"23"},
 {"hash":195835108,"name":"tfrmsesproperty.opttelnet.caption","sourcebytes":[38,84,101,108,110,101,116],"value":"&Telnet"},
 {"hash":178296,"name":"tfrmsesproperty.optssh.caption","sourcebytes":[38,83,83,72],"value":"&SSH"},
-{"hash":2845583,"name":"tfrmsesproperty.optotro.caption","sourcebytes":[38,79,116,114,111],"value":"&Otro"},
+{"hash":45526722,"name":"tfrmsesproperty.optotro.caption","sourcebytes":[38,79,116,104,101,114],"value":"&Other"},
 {"hash":163807194,"name":"tfrmsesproperty.lblotro.caption","sourcebytes":[65,112,108,105,99,97,116,105,118,111,58],"value":"Aplicativo:"},
 {"hash":97292076,"name":"tfrmsesproperty.optserial.caption","sourcebytes":[83,38,101,114,105,97,108],"value":"S&erial"},
 {"hash":184140510,"name":"tfrmsesproperty.txtsercfg.text","sourcebytes":[57,54,48,48,44,56,44,110,44,49,44,110],"value":"9600,8,n,1,n"},

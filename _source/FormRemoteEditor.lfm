@@ -1,10 +1,10 @@
 object frmRemoteEditor: TfrmRemoteEditor
-  Left = 258
+  Left = 480
   Height = 533
-  Top = 196
+  Top = 220
   Width = 699
   AllowDropFiles = True
-  Caption = 'Editor Remoto'
+  Caption = 'Editor'
   ClientHeight = 508
   ClientWidth = 699
   DesignTimePPI = 120
@@ -713,12 +713,14 @@ object frmRemoteEditor: TfrmRemoteEditor
       Category = 'Search'
       Caption = 'Search...'
       ImageIndex = 17
-      ShortCut = 16450
+      OnExecute = acSrchSearchExecute
+      ShortCut = 16454
     end
     object acSrchSearchNext: TAction
       Category = 'Search'
       Caption = 'Search &Next'
       ImageIndex = 18
+      OnExecute = acSrchSearchNextExecute
       ShortCut = 114
     end
     object acSrchReplace: TAction

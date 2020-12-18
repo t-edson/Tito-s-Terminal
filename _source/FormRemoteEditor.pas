@@ -94,6 +94,8 @@ type
     procedure acEdiRedoExecute(Sender: TObject);
     procedure acEdiSelecAllExecute(Sender: TObject);
     procedure acEdiUndoExecute(Sender: TObject);
+    procedure acSrchSearchExecute(Sender: TObject);
+    procedure acSrchSearchNextExecute(Sender: TObject);
     procedure AcToolSettingsExecute(Sender: TObject);
     procedure ChangeEditorState;
     procedure editChangeFileInform;
@@ -109,6 +111,7 @@ type
     edit: TSynFacilEditor;
     lineas: TStringList;    //lista temporal
     localFile, destFile: String;  //Rutas de archivo
+    procedure editFindDialog1Close(Sender: TObject);
   public
     MsjErr: String;
     NomArcLocal: string;  //nombre de archivo local
@@ -120,7 +123,7 @@ var
   frmRemoteEditor: TfrmRemoteEditor;
 
 implementation
-uses FormPrincipal, FormConfig, Comandos;
+uses FormConfig, Comandos;
 {$R *.lfm}
 
 { TfrmRemoteEditor }
@@ -200,6 +203,11 @@ procedure TfrmRemoteEditor.edSpecialLineMarkup(Sender: TObject; Line: integer;
 begin
   //vacío
 end;
+procedure TfrmRemoteEditor.editFindDialog1Close(Sender: TObject);
+{Se usa este evento para retornar el enfoque al editor.}
+begin
+  self.SetFocus;
+end;
 /////////////////// Acciones de Archivo /////////////////////
 procedure TfrmRemoteEditor.acFilNewExecute(Sender: TObject);
 begin
@@ -252,7 +260,6 @@ begin
     edit.Modified:=false;  //Este método no es público en la librería original
   end;
 end;
-
 procedure TfrmRemoteEditor.acFilSaveAsExecute(Sender: TObject);
 var
   arc0: String;
@@ -269,7 +276,6 @@ begin
 //  if ExtractFileExt(NomArc) = '' then NomArc += '.'+extDef;  //completa extensión
   edit.SaveFile;   //lo guarda
 end;
-
 procedure TfrmRemoteEditor.acFilExitExecute(Sender: TObject);
 begin
   frmRemoteEditor.Close;
@@ -278,6 +284,16 @@ end;
 procedure TfrmRemoteEditor.acEdiUndoExecute(Sender: TObject);
 begin
   edit.Undo;
+end;
+//Acciones de búsqueda
+procedure TfrmRemoteEditor.acSrchSearchExecute(Sender: TObject);
+begin
+  edit.FindDialog1.OnClose := @editFindDialog1Close;
+  edit.FindDialog;
+end;
+procedure TfrmRemoteEditor.acSrchSearchNextExecute(Sender: TObject);
+begin
+  edit.FindDialog_Find(self);
 end;
 procedure TfrmRemoteEditor.AcToolSettingsExecute(Sender: TObject);
 begin

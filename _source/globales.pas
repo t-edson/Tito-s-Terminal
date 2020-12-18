@@ -47,6 +47,8 @@ function NombDifArc(nomBase: String): String;
 procedure LeeArchEnMenu(arc: string; mn: TMenuItem; accion: TNotifyEvent);
 procedure CopiarMemu(menOrig, menDest: TMenuItem);
 
+procedure Init;
+
 implementation
 
 function IdFromTTreeNode(node: TTreeNode): string;
@@ -381,8 +383,12 @@ begin
 
 end;
 
-initialization
-  //inicia directorios de la aplicación
+procedure Init;
+{Inicializa variables de la aplicación. Inicialmente, se teníe este código en la sección
+INITIALIZATION, pero como se generan mensajes GUI, en algunos casos se producían errores.
+}
+begin
+  //Inicia directorios de la aplicación
   patApp     :=  ExtractFilePath(Application.ExeName);  //incluye el '\' final
   patSyntax  := patApp + 'languages';
   patMacros  := patApp + 'macros';
@@ -413,14 +419,17 @@ initialization
   except
     msgErr('Error. No se puede leer o crear directorios.');
   end;
+end;
+
+initialization
 
 finalization
-  {Por algún motivo, la unidad HeapTrc indica que hay gotera de memoria si no se liberan
-  estas cadenas:   }
-  patApp      := '';
-  patMacros   := '';
-  patTemp     := '';
-  patSyntax   := '';
-  patSessions := '';
+//  {Por algún motivo, la unidad HeapTrc indica que hay gotera de memoria si no se liberan
+//  estas cadenas:   }
+//  patApp      := '';
+//  patMacros   := '';
+//  patTemp     := '';
+//  patSyntax   := '';
+//  patSessions := '';
 end.
 

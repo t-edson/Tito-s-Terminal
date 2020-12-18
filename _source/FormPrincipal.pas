@@ -7,12 +7,12 @@ unit FormPrincipal;
 
 interface
 uses
-  Classes, SysUtils, Types, FileUtil, LazUTF8, SynEdit, Forms, Controls,
+  Classes, SysUtils, Types, FileUtil, LazUTF8, Forms, Controls,
   Graphics, Dialogs, Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds,
-  SynEditMiscClasses, LCLType, LCLProc, LCLIntf, UnTerminal, Clipbrd,
+  SynEditMiscClasses, LCLType, LCLProc, LCLIntf, UnTerminal,
   FormQuickConnect, FormConfig, FormRemoteExplor, FormEditMacros, MisUtils,
-  Globales, SynFacilUtils, FormRemoteEditor,
-  FrameTabSessions, FrameTabSession, uPreBasicos, uPreProces, StrUtils;
+  Globales, FormRemoteEditor,
+  FrameTabSessions, FrameTabSession, uPreProces, StrUtils;
 type
   TlogState = (logStopped, logRunning, logPaused);
 
@@ -152,6 +152,8 @@ resourcestring
 { TfrmPrincipal }
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
+  Globales.Init;  //Inicializa rutas de la aplicación.
+
   ticComRec  := 0;
 
   ejecMac := false;

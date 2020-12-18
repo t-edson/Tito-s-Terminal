@@ -15,10 +15,10 @@ object frmSesProperty: TfrmSesProperty
     Height = 358
     Top = 0
     Width = 411
-    ActivePage = TabEditSett
+    ActivePage = TabGenConnec
     Align = alClient
     ShowTabs = False
-    TabIndex = 9
+    TabIndex = 0
     TabOrder = 0
     object TabGenConnec: TTabSheet
       Caption = 'General'
@@ -78,8 +78,8 @@ object frmSesProperty: TfrmSesProperty
         Left = 19
         Height = 24
         Top = 104
-        Width = 54
-        Caption = '&Otro'
+        Width = 61
+        Caption = '&Other'
         OnChange = optOtroChange
         TabOrder = 4
       end

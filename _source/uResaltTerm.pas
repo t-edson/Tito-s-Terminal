@@ -582,7 +582,7 @@ begin
     //Estamos al inicio
     //verifica si hay prompt
     if TfraTabSession(curSesObj).detecPrompt then begin
-      l:= TfraTabSession(curSesObj).ContienePrompt(linAct);
+      l:= TfraTabSession(curSesObj).ContainsPrompt(linAct);
       if l>0 then begin
         posFin += l;   //pasa a siguiente token
         fTokenID := tkPrompt;  //de tipo prompt
