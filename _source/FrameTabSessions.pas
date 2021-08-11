@@ -14,6 +14,7 @@ type
   TPage = class
     procedure SetVisible(state: boolean); virtual; abstract;
   end;
+  TRecentLinks = specialize TFPGObjectList<TLabel>;
 
   TSessionTabEvent = procedure(ed: TfraTabSession) of object;
   { TfraTabSessions }
@@ -22,6 +23,7 @@ type
     ImgCompletion: TImageList;
     lblNewSession: TLabel;
     lblOpenSession: TLabel;
+    lblRecents: TLabel;
     mnCloseOthers: TMenuItem;
     mnCloseAll: TMenuItem;
     mnNewTab: TMenuItem;
@@ -41,6 +43,10 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure lblOpenSessionMouseEnter(Sender: TObject);
     procedure lblOpenSessionMouseLeave(Sender: TObject);
+    procedure lblRecentsMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure lblRecentsMouseEnter(Sender: TObject);
+    procedure lblRecentsMouseLeave(Sender: TObject);
     procedure mnCloseOthersClick(Sender: TObject);
     procedure mnCloseAllClick(Sender: TObject);
     procedure mnCloseTabClick(Sender: TObject);
@@ -50,6 +56,7 @@ type
     xIniTabs : integer;  //Coordenada inicial desde donde se dibujan las lenguetas
     tabDrag  : integer;
     tabSelec : integer;
+    procedure lblRecentLinkClick(Sender: TObject);
     procedure MakeActiveTabVisible;
     procedure Panel1DragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure Panel1DragOver(Sender, Source: TObject; X, Y: Integer;
@@ -70,6 +77,8 @@ type
     procedure InitTabs;
   private
     FTabIndex  : integer;
+    recentLinks: TRecentLinks;  //Lista de enlaces para archivos recientes.
+    showRecents: boolean;
     function LastIndex: integer;
     function NewName(prefix, ext: string): string;
     procedure DeleteEdit;
@@ -104,6 +113,7 @@ type
   public   //Inicialización
     procedure UpdateSynEditConfig;
     procedure UpdateSynEditCompletion;
+    procedure UpdateRecents(recents: TStringList);
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure SetLanguage;
@@ -631,6 +641,7 @@ begin
   end;
   exit(true);
 end;
+//Inicialización
 procedure TfraTabSessions.UpdateSynEditConfig;
 {Indica que se desea cambiar la configuración de todos los SynEdit abiertos.}
 var
@@ -652,7 +663,38 @@ begin
     if OnRequireSetCompletion<>nil then OnRequireSetCompletion(pages[i]);
   end;
 end;
-//Inicialización
+procedure TfraTabSessions.lblRecentLinkClick(Sender: TObject);
+var
+  res: string;
+begin
+  //MsgBox(TLabel(Sender).Caption);
+  PageEvent('req_open_ses', Sender, res);
+  SetFocus;
+end;
+procedure TfraTabSessions.UpdateRecents(recents: TStringList);
+{Actualiza la lista de la sesiones recientes que se mostrará en este frame.}
+var
+  rec: String;
+  lblRecentLink: TLabel;
+  i: Integer;
+begin
+  i := 0;
+  for rec in recents do begin
+//    MsgBox(rec);
+    lblRecentLink := TLabel.Create(nil);
+    lblRecentLink.Name := 'lbl' + IntToStr(i);
+    lblRecentLink.Visible:= false;
+    lblRecentLink.Caption:= rec;
+    lblRecentLink.Parent := panContent;
+    lblRecentLink.left:= 70;
+    lblRecentLink.Top:= 20*i + lblRecents.Top + lblRecents.Height;
+    lblRecentLink.Font.Size:=11;
+    lblRecentLink.Font.Color:=clBlue;
+    lblRecentLink.OnClick:=@lblRecentLinkClick;
+    recentLinks.Add(lblRecentLink);
+    inc(i);
+  end;
+end;
 constructor TfraTabSessions.Create(AOwner: TComponent);
 begin
   inherited;
@@ -662,9 +704,11 @@ begin
   InitTabs;
   tabSelec := -1;
   RefreshTabs;
+  recentLinks:= TRecentLinks.Create(true);
 end;
 destructor TfraTabSessions.Destroy;
 begin
+  recentLinks.Destroy;
   pages.Destroy;
   inherited Destroy;
 end;
@@ -749,6 +793,23 @@ var
 begin
   PageEvent('req_open_page', nil, res);
   SetFocus;
+end;
+//Eventos del botón "Recientes".
+procedure TfraTabSessions.lblRecentsMouseEnter(Sender: TObject);
+begin
+  lblRecents.Font.Bold := true;
+end;
+procedure TfraTabSessions.lblRecentsMouseLeave(Sender: TObject);
+begin
+  lblRecents.Font.Bold := false;
+end;
+procedure TfraTabSessions.lblRecentsMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  lbl: TLabel;
+begin
+  showRecents := not showRecents;
+  for lbl in recentLinks do lbl.Visible := showRecents;
 end;
 
 end.

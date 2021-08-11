@@ -9,7 +9,7 @@ interface
 uses
   Classes, SysUtils, Types, FileUtil, LazUTF8, Forms, Controls,
   Graphics, Dialogs, Menus, ActnList, ExtCtrls, ComCtrls, SynEditKeyCmds,
-  SynEditMiscClasses, LCLType, LCLProc, LCLIntf, UnTerminal,
+  SynEditMiscClasses, LCLType, LCLProc, LCLIntf, StdCtrls, UnTerminal,
   FormQuickConnect, FormConfig, FormRemoteExplor, FormEditMacros, MisUtils,
   Globales, FormRemoteEditor,
   FrameTabSessions, FrameTabSession, uPreProces, StrUtils;
@@ -132,9 +132,9 @@ type
     procedure RecentClick(Sender: TObject);
     procedure ActualMenusReciente(Sender: TObject);
     procedure AddRecentFile(arch: string);
-    procedure LoadLastFileEdited;
+//    procedure LoadLastFileEdited;
     procedure LoadListFiles(lst: string);
-    procedure InitMenuRecents(menRecents0: TMenuItem; RecentList: TStringList;
+    procedure PrepareMenuRecents(menRecents0: TMenuItem; RecentList: TStringList;
       MaxRecents0: integer = 5);
   end;
 
@@ -148,7 +148,7 @@ resourcestring
   MSG_FILE_EXT = '.ses';          //Extensión de archivo a usar.
   MSG_FILE_DES = 'Session Files';  //Descripción de archivo
   MSG_ALLFILES = 'All files';
-
+  MSG_FIL_NOEXIST_ = 'File doesn''t exits: %s';
 { TfrmPrincipal }
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
@@ -186,12 +186,12 @@ begin
 end;
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
-  InitMenuRecents(mnRecents, Config.RecentFiles, 8);
+  PrepareMenuRecents(mnRecents, Config.RecentFiles, 8);
   TranslateMsgs := true;  //activa la traducción en los mensajes
   frmEditMacros.Init(TabSessions);
   //Aquí ya sabemos que Config está creado. Lo configuramos.
   Config.edMacr := frmEditMacros.ed;
-  COnfig.edRemo := frmRemoteEditor.ed;
+  Config.edRemo := frmRemoteEditor.ed;
   Config.OnPropertiesChanged := @PropertiesChanged;
   Config.Iniciar();  //Inicia la configuración
   //muestra dirección IP actual
@@ -202,6 +202,7 @@ begin
   mnAbrMacroClick(self);
 
   UpdateHeader;    //Actualiza barra de título
+  TabSessions.UpdateRecents(Config.RecentFiles);  //Actualiza la lista de recientes
 end;
 procedure TfrmPrincipal.UpdateHeader;
 var
@@ -396,8 +397,10 @@ begin
   end;
 end;
 procedure TfrmPrincipal.TabSessionsPageEvent(event: string; page: TObject; out res: string);
+{Rutina que atiende los eventos del frame de sesiones "TabSessions".}
 var
   pag: TfraTabSession;
+  sesFile: TCaption;
 begin
   pag := TfraTabSession(page);
   res := '';  //Por defecto
@@ -441,6 +444,15 @@ begin
   end;
   'req_open_page': begin  //Se pide abrir una página
      AcFIlOpeSesExecute(self);
+  end;
+  'req_open_ses': begin  //Se pide abrir una sesión
+    sesFile := TLabel(page).Caption;
+    //MsgBox(sesFile);
+    if FileExists(sesFile) then begin
+      AbrirSesion(sesFile);
+    end else begin
+      MsgBox(MSG_FIL_NOEXIST_, [sesFile]);
+    end;
   end;
   'exec_explor': begin
      AcToolRemExplorExecute(self);
@@ -523,8 +535,11 @@ var
 begin
   cap := TMenuItem(Sender).Caption;
   recFile := MidStr(cap, 4,150);
-  if not FileExists(recFile) then exit;
-  AbrirSesion(recFile);
+  if FileExists(recFile) then begin
+    AbrirSesion(recFile);
+  end else begin
+    MsgBox(MSG_FIL_NOEXIST_, [recFile]);
+  end;
 end;
 procedure TfrmPrincipal.ActualMenusReciente(Sender: TObject);
 {Actualiza el menú de archivos recientes con la lista de los archivos abiertos
@@ -545,7 +560,7 @@ begin
     end;
     exit;
   end;
-  //hace visible los ítems
+  //Hace visible los ítems.
   mnRecents[0].Enabled:=true;
   for i:= 0 to mnRecents.Count-1 do begin
     if i<RecentFiles.Count then
@@ -553,7 +568,7 @@ begin
     else
       mnRecents[i].Visible:=false;
   end;
-  //pone etiquetas a los menús, incluyendo un atajo numérico
+  //Pone etiquetas a los menús, incluyendo un atajo numérico.
   for i:=0 to RecentFiles.Count-1 do begin
     mnRecents[i].Caption := '&'+IntToStr(i+1)+' '+RecentFiles[i];
   end;
@@ -579,13 +594,13 @@ begin
   while RecentFiles.Count>MaxRecents do  //Mantiene tamaño máximo
     RecentFiles.Delete(MaxRecents);
 end;
-procedure TfrmPrincipal.LoadLastFileEdited;
-{Carga el último archivo de la lista de recientes}
-begin
-  if mnRecents.Count = 0 then exit;
-  ActualMenusReciente(self);
-  mnRecents.Items[0].Click;
-end;
+//procedure TfrmPrincipal.LoadLastFileEdited;
+//{Carga el último archivo de la lista de recientes}
+//begin
+//  if mnRecents.Count = 0 then exit;
+//  ActualMenusReciente(self);
+//  mnRecents.Items[0].Click;
+//end;
 procedure TfrmPrincipal.LoadListFiles(lst: string);
 var
   a: TStringDynArray;
@@ -599,15 +614,16 @@ begin
      AbrirSesion(filName);
   end;
 end;
-procedure TfrmPrincipal.InitMenuRecents(menRecents0: TMenuItem; RecentList: TStringList;
+procedure TfrmPrincipal.PrepareMenuRecents(menRecents0: TMenuItem; RecentList: TStringList;
       MaxRecents0: integer=5);
-//Configura un menú, con el historial de los archivos abiertos recientemente
-//"nRecents", es el número de archivos recientes que se guardará
+{Prepara el ítem de menú "menRecents0" para que muestre "MaxRecents0" subítems. La idea
+es que en este menú se almacene, luego, el historial de los archivos abiertos
+recientemente.}
 var
   i: Integer;
 begin
   mnRecents := menRecents0;
-  Config.RecentFiles := RecentList;  //gaurda referencia a lista
+  Config.RecentFiles := RecentList;  //Guarda referencia a lista
   MaxRecents := MaxRecents0;
   //configura menú
   mnRecents.OnClick:=@ActualMenusReciente;

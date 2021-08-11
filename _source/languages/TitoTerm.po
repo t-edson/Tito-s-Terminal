@@ -16,6 +16,10 @@ msgctxt "formprincipal.msg_file_ext"
 msgid ".ses"
 msgstr ""
 
+#: formprincipal.msg_fil_noexist_
+msgid "File doesn't exits: %s"
+msgstr ""
+
 #: formprincipal.msg_nofiles
 msgctxt "formprincipal.msg_nofiles"
 msgid "No files"
@@ -668,6 +672,10 @@ msgstr ""
 #: tfratabsessions.lblopensession.caption
 msgctxt "tfratabsessions.lblopensession.caption"
 msgid ">&Open Session ..."
+msgstr ""
+
+#: tfratabsessions.lblrecents.caption
+msgid ">Recent sessions"
 msgstr ""
 
 #: tfratabsessions.mncloseall.caption

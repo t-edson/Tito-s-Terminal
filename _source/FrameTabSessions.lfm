@@ -62,12 +62,12 @@ object fraTabSessions: TfraTabSessions
     TabOrder = 1
     object lblNewSession: TLabel
       Left = 40
-      Height = 28
+      Height = 23
       Top = 24
-      Width = 140
+      Width = 124
       Caption = '>&New Session ...'
       Font.Color = clBlue
-      Font.Height = -20
+      Font.Height = 24
       ParentColor = False
       ParentFont = False
       OnMouseDown = lblNewSessionMouseDown
@@ -76,17 +76,31 @@ object fraTabSessions: TfraTabSessions
     end
     object lblOpenSession: TLabel
       Left = 40
-      Height = 28
-      Top = 72
-      Width = 149
+      Height = 23
+      Top = 64
+      Width = 132
       Caption = '>&Open Session ...'
       Font.Color = clBlue
-      Font.Height = -20
+      Font.Height = 24
       ParentColor = False
       ParentFont = False
       OnMouseDown = lblOpenSessionMouseDown
       OnMouseEnter = lblOpenSessionMouseEnter
       OnMouseLeave = lblOpenSessionMouseLeave
+    end
+    object lblRecents: TLabel
+      Left = 40
+      Height = 23
+      Top = 104
+      Width = 130
+      Caption = '>Recent sessions'
+      Font.Color = clBlue
+      Font.Height = 24
+      ParentColor = False
+      ParentFont = False
+      OnMouseDown = lblRecentsMouseDown
+      OnMouseEnter = lblRecentsMouseEnter
+      OnMouseLeave = lblRecentsMouseLeave
     end
   end
   object ImgCompletion: TImageList

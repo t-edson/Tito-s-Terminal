@@ -1,7 +1,7 @@
 object frmPrincipal: TfrmPrincipal
-  Left = 238
+  Left = 307
   Height = 756
-  Top = 95
+  Top = 115
   Width = 1180
   AllowDropFiles = True
   Caption = 'Tito''s Terminal'
@@ -17,11 +17,11 @@ object frmPrincipal: TfrmPrincipal
   OnDropFiles = FormDropFiles
   OnKeyDown = FormKeyDown
   OnShow = FormShow
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.0.12.0'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 28
-    Top = 703
+    Height = 29
+    Top = 702
     Width = 1180
     Panels = <    
       item
@@ -46,7 +46,7 @@ object frmPrincipal: TfrmPrincipal
     SimplePanel = False
   end
   object Splitter1: TSplitter
-    Left = 410
+    Left = 408
     Height = 648
     Top = 50
     Width = 6
