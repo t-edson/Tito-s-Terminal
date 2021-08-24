@@ -5,14 +5,14 @@
   <VerBHerTerm Val="False"/>
   <VerBarEst Val="True"/>
   <TipAlineam Val="0"/>
-  <Recents_ses Val="D:\INICTEL\Proyectos\DSpace\Parte 4 - Instal. Mirage 2.ses
-D:\INICTEL\Proyectos\DSpace\Parte 2 - Directorios.ses
-D:\INICTEL\Proyectos\DSpace\Parte 3 - Temas.ses
-D:\INICTEL\Proyectos\DSpace\Parte 3 - Instal. Mirage 2.ses
-D:\INICTEL\Proyectos\DSpace\Parte 2 - Temas.ses
-D:\INICTEL\Proyectos\DSpace\Parte 1 - Inicio.ses
-D:\INICTEL\Proyectos\DSpace\Instal. Mirage 2.ses
-D:\INICTEL\Proyectos\DSpace\Inicio DSpace.ses
+  <Recents_ses Val="D:\INICTEL\Proyectos\Repositorio Institucional\Cambios en producción - copia.ses
+D:\INICTEL\Proyectos\Repositorio Institucional\Sesiones de ejemplo\Parte 4 - Instal. Mirage 2.ses
+D:\INICTEL\Proyectos\Repositorio Institucional\Cambio en pruebas.ses
+D:\INICTEL\Proyectos\Repositorio Institucional\Cambios en producción.ses
+D:\INICTEL\Proyectos\Repositorio Institucional\Config. Mirage 2.ses
+D:\INICTEL\Proyectos\Repositorio Institucional\Cambio Temas.ses
+D:\INICTEL\Proyectos\Repositorio Institucional\Sesiones de ejemplo\Parte 3 - Temas.ses
+D:\INICTEL\Proyectos\Repositorio Institucional\Sesiones de ejemplo\Parte 2 - Directorios.ses
 "/>
   <UltScript Val=""/>
   <AbrirUltScr Val="False"/>
@@ -27,7 +27,7 @@ D:\INICTEL\Proyectos\DSpace\Inicio DSpace.ses
     <showVertSB Val="False"/>
     <showHoriSB Val="False"/>
     <cTxtNor Val="0"/>
-    <cFonEdi Val="0"/>
+    <cFonEdi Val="16777215"/>
     <cLinAct Val="0"/>
     <MarLinAct Val="False"/>
     <ResPalCur Val="False"/>
