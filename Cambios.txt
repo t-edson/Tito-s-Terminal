@@ -8,13 +8,16 @@ Remoto.
 Se mejora la búsqueda pudiendo empezar desde el principio.
 Se actualiza un poco más, el Manual de usuario.
 Se reordena un poco la clase TfraTabSessions y se refactoriza algunas propiedades y métodos.
+Se modifica la unidad FrameTabSessions para que en su panel vacío, muestre los archivos 
+recientes y permita abrirlos.
+Se agrega la sintaxis del comando bash "find" en el autocompletado.
 
 PENDIENTES
 Definir bien las herramientas: $SHELLEDIT, $EDIT, $SHELLEXPLOR y $EXPLOR.
 
 Actualizar el Manual de Usuario.
 Queda pendiente reordenar la declaración de varias clases, porque falta clasificar sus campos.
-También está pendiente refactorizar algunos nombres a la terminlogía inglesa.
+También está pendiente refactorizar algunos nombres a la terminología inglesa.
 Falta usar el frame de configuración para SynEdit( que se usa en FormConfig) en la ventana
 de configuración de las sesiones, donde se tienen controles con nombres similares (con postfijo 1).
 Falta implementar el reordenamiento de las ventanas de la sesión. Algo como se hacía en la 
