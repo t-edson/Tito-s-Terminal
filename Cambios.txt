@@ -1,20 +1,5 @@
-Tito's Terminal 0.8.2
-=====================
-Se crea el procedimiento Init() en la unidad "Globales", para solucionar un problema con los 
-MsgBox() que impedía mostrar diálogos.
-Se corrige el problema de pérdida de enfoque de la ventana principal, después de una búsqueda.
-Se corrige el problema de retorno a la pantalla principal cuando se busca desde el Editor 
-Remoto.
-Se mejora la búsqueda pudiendo empezar desde el principio.
-Se actualiza un poco más, el Manual de usuario.
-Se reordena un poco la clase TfraTabSessions y se refactoriza algunas propiedades y métodos.
-Se modifica la unidad FrameTabSessions para que en su panel vacío, muestre los archivos 
-recientes y permita abrirlos.
-Se agrega la sintaxis del comando bash "find" en el autocompletado.
-
 PENDIENTES
 Definir bien las herramientas: $SHELLEDIT, $EDIT, $SHELLEXPLOR y $EXPLOR.
-
 Actualizar el Manual de Usuario.
 Queda pendiente reordenar la declaración de varias clases, porque falta clasificar sus campos.
 También está pendiente refactorizar algunos nombres a la terminología inglesa.
@@ -30,6 +15,31 @@ Formatear los archivos de sintaxis para que puedan ser editados por la ventana d
 de sintaxis.
 Faltaría también incluir otras traducciones.
 
+NOTAS
+Si se quiere implementar unmodo interactivo de conexiones SSH, con plink, se debería ver la
+forma de poder enviarle datos caracter por caracter. Actualmente, por la forma como funciona
+la clase TProcess, solo permite enviar datos al stdin, cuando se pone un delimitador de línea
+al final. El problema debería ser el mismo que tratar de enviar caracter por caracter al CMD,
+porque el plink si se puede controlar caracter por caracter cuando se lanza por consola.
+
+CAMBIOS
+
+21/08/2021
+- Se actualiza la librería UnTerminal a la versión 1.0
+
+Tito's Terminal 0.8.2
+=====================
+Se crea el procedimiento Init() en la unidad "Globales", para solucionar un problema con los 
+MsgBox() que impedía mostrar diálogos.
+Se corrige el problema de pérdida de enfoque de la ventana principal, después de una búsqueda.
+Se corrige el problema de retorno a la pantalla principal cuando se busca desde el Editor 
+Remoto.
+Se mejora la búsqueda pudiendo empezar desde el principio.
+Se actualiza un poco más, el Manual de usuario.
+Se reordena un poco la clase TfraTabSessions y se refactoriza algunas propiedades y métodos.
+Se modifica la unidad FrameTabSessions para que en su panel vacío, muestre los archivos 
+recientes y permita abrirlos.
+Se agrega la sintaxis del comando bash "find" en el autocompletado.
 
 
 Tito's Terminal 0.8.1

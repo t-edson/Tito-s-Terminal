@@ -561,26 +561,6 @@ msgctxt "tfratabsession.acterdetprm.hint"
 msgid "Detect prompt"
 msgstr ""
 
-#: tfratabsession.acterenvcr.caption
-msgctxt "tfratabsession.acterenvcr.caption"
-msgid "Send &CR"
-msgstr ""
-
-#: tfratabsession.acterenvcrlf.caption
-msgctxt "tfratabsession.acterenvcrlf.caption"
-msgid "Send CR+&LF"
-msgstr ""
-
-#: tfratabsession.acterenventer.caption
-msgctxt "tfratabsession.acterenventer.caption"
-msgid "Send &Enter"
-msgstr ""
-
-#: tfratabsession.acterenvlf.caption
-msgctxt "tfratabsession.acterenvlf.caption"
-msgid "Send LF"
-msgstr ""
-
 #: tfratabsession.acterlimbuf.caption
 msgctxt "tfratabsession.acterlimbuf.caption"
 msgid "&Clean Buffer"
@@ -609,6 +589,30 @@ msgstr ""
 #: tfratabsession.acterprmarr.hint
 msgctxt "tfratabsession.acterprmarr.hint"
 msgid "Go to previous prompt"
+msgstr ""
+
+#: tfratabsession.actersendchar.caption
+msgid "Send c&har"
+msgstr ""
+
+#: tfratabsession.actersendcr.caption
+msgctxt "tfratabsession.actersendcr.caption"
+msgid "Send &CR"
+msgstr ""
+
+#: tfratabsession.actersendcrlf.caption
+msgctxt "tfratabsession.actersendcrlf.caption"
+msgid "Send CR+&LF"
+msgstr ""
+
+#: tfratabsession.actersendenter.caption
+msgctxt "tfratabsession.actersendenter.caption"
+msgid "Send &Enter"
+msgstr ""
+
+#: tfratabsession.actersendlf.caption
+msgctxt "tfratabsession.actersendlf.caption"
+msgid "Send LF"
 msgstr ""
 
 #: tfratabsession.acterverbher.caption

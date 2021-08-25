@@ -1669,50 +1669,6 @@ object fraTabSession: TfraTabSession
       ImageIndex = 29
       OnExecute = AcTerPrmAbaExecute
     end
-    object AcTerEnvEnter: TAction
-      Category = 'Ter'
-      Caption = 'Send &Enter'
-      ImageIndex = 42
-      OnExecute = AcTerEnvEnterExecute
-    end
-    object AcTerEnvCR: TAction
-      Category = 'Ter'
-      Caption = 'Send &CR'
-      ImageIndex = 42
-      OnExecute = AcTerEnvCRExecute
-    end
-    object AcTerEnvCRLF: TAction
-      Category = 'Ter'
-      Caption = 'Send CR+&LF'
-      ImageIndex = 42
-      OnExecute = AcTerEnvCRLFExecute
-    end
-    object AcTerEnvLF: TAction
-      Category = 'Ter'
-      Caption = 'Send LF'
-      ImageIndex = 42
-      OnExecute = AcTerEnvLFExecute
-    end
-    object AcTerCopPal: TAction
-      Category = 'Ter'
-      Caption = 'Copy &Word'
-      OnExecute = AcTerCopPalExecute
-    end
-    object AcTerCopNom: TAction
-      Category = 'Ter'
-      Caption = '&Copy File name'
-      OnExecute = AcTerCopNomExecute
-    end
-    object AcTerCopRut: TAction
-      Category = 'Ter'
-      Caption = 'Copy Pat&h'
-      OnExecute = AcTerCopRutExecute
-    end
-    object AcTerCopNomRut: TAction
-      Category = 'Ter'
-      Caption = 'Copy Name and Path'
-      OnExecute = AcTerCopNomRutExecute
-    end
     object AcHerCfg: TAction
       Category = 'Her'
       Caption = 'Se&ttings'
@@ -1757,6 +1713,56 @@ object fraTabSession: TfraTabSession
       ImageIndex = 20
       OnExecute = acFindReplaceExecute
       ShortCut = 16466
+    end
+    object AcTerSendChar: TAction
+      Category = 'Ter'
+      Caption = 'Send c&har'
+      ImageIndex = 42
+      OnExecute = AcTerSendCharExecute
+    end
+    object AcTerSendEnter: TAction
+      Category = 'Ter'
+      Caption = 'Send &Enter'
+      ImageIndex = 42
+      OnExecute = AcTerSendEnterExecute
+    end
+    object AcTerSendCR: TAction
+      Category = 'Ter'
+      Caption = 'Send &CR'
+      ImageIndex = 42
+      OnExecute = AcTerSendCRExecute
+    end
+    object AcTerSendCRLF: TAction
+      Category = 'Ter'
+      Caption = 'Send CR+&LF'
+      ImageIndex = 42
+      OnExecute = AcTerSendCRLFExecute
+    end
+    object AcTerSendLF: TAction
+      Category = 'Ter'
+      Caption = 'Send LF'
+      ImageIndex = 42
+      OnExecute = AcTerSendLFExecute
+    end
+    object AcTerCopPal: TAction
+      Category = 'Ter'
+      Caption = 'Copy &Word'
+      OnExecute = AcTerCopPalExecute
+    end
+    object AcTerCopNom: TAction
+      Category = 'Ter'
+      Caption = '&Copy File name'
+      OnExecute = AcTerCopNomExecute
+    end
+    object AcTerCopRut: TAction
+      Category = 'Ter'
+      Caption = 'Copy Pat&h'
+      OnExecute = AcTerCopRutExecute
+    end
+    object AcTerCopNomRut: TAction
+      Category = 'Ter'
+      Caption = 'Copy Name and Path'
+      OnExecute = AcTerCopNomRutExecute
     end
   end
   object PopupMenu1: TPopupMenu
@@ -3300,18 +3306,19 @@ object fraTabSession: TfraTabSession
     object MenuItem72: TMenuItem
       Caption = '&Enviar'
       object MenuItem73: TMenuItem
+        Action = AcTerSendChar
       end
       object MenuItem76: TMenuItem
-        Action = AcTerEnvEnter
+        Action = AcTerSendEnter
       end
       object MenuItem75: TMenuItem
-        Action = AcTerEnvCR
+        Action = AcTerSendCR
       end
       object MenuItem80: TMenuItem
-        Action = AcTerEnvLF
+        Action = AcTerSendLF
       end
       object MenuItem74: TMenuItem
-        Action = AcTerEnvCRLF
+        Action = AcTerSendCRLF
       end
     end
     object MenuItem78: TMenuItem

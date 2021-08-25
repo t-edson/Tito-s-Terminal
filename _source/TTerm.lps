@@ -3,8 +3,8 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="11"/>
-    <BuildModes Active="Release"/>
-    <Units Count="59">
+    <BuildModes Active="Debug"/>
+    <Units Count="64">
       <Unit0>
         <Filename Value="TTerm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -18,9 +18,8 @@
         <ComponentName Value="frmPrincipal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="408"/>
-        <CursorPos X="9" Y="430"/>
+        <TopLine Value="426"/>
+        <CursorPos X="7" Y="431"/>
         <FoldState Value=" T4806 T8L2{2012 TMjg010614181 T3l10211A T6l6014 T0lAX23542Cp"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="1">
@@ -156,8 +155,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="347"/>
-        <CursorPos Y="364"/>
+        <TopLine Value="1735"/>
+        <CursorPos X="39" Y="1808"/>
+        <FoldState Value=" T4307 TLQ2103121 p0w70201117115]Ft901013 T7LC]68M4]F22H piaoW26 TCWDJ TMf4[.6A1516]vuK[v5]?]J4]8[T4W]PvT]gH]NI181 T3pU0C3]'YiB2E8]9ek30DA]9ajH074[9550G5]9fjL0B[94bjC046 pjJjW0F[94Fjd0c6]Rcjf0z1]IPl20D[j4YjD0KC[95Q0J455 T6pX0[{z5%g011 T0r1S1L]Zbo7n2K]9Xl6O4I[94mHS2G[-4pfQ1[R5kTB6114:"/>
         <UsageCount Value="203"/>
         <Bookmarks Count="1">
           <Item0 ID="3"/>
@@ -206,7 +206,7 @@
         <TopLine Value="41"/>
         <CursorPos X="24" Y="70"/>
         <FoldState Value=" TMiW03 T3ib0H031 T6id0]70j573081="/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit17>
       <Unit18>
         <Filename Value="ConfigFrames\FrameCfgGener.pas"/>
@@ -215,7 +215,7 @@
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="14"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit18>
       <Unit19>
         <Filename Value="ConfigFrames\frameCfgDetPrompt.pas"/>
@@ -225,7 +225,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="88"/>
         <CursorPos X="51" Y="117"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit19>
       <Unit20>
         <Filename Value="ConfigFrames\frameCfgPantTerm.pas"/>
@@ -235,7 +235,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="50"/>
         <CursorPos X="63" Y="79"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit20>
       <Unit21>
         <Filename Value="ConfigFrames\FrameCfgExpRem.pas"/>
@@ -244,7 +244,7 @@
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="14"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit21>
       <Unit22>
         <Filename Value="ConfigFrames\FrameCfgMacros.pas"/>
@@ -254,7 +254,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="21" Y="17"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit22>
       <Unit23>
         <Filename Value="ConfigFrames\FrameCfgComandRec.pas"/>
@@ -264,7 +264,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="60"/>
         <CursorPos X="7" Y="69"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit23>
       <Unit24>
         <Filename Value="ConfigFrames\FrameCfgRutasCnx.pas"/>
@@ -274,7 +274,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="34"/>
         <CursorPos Y="67"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit24>
       <Unit25>
         <Filename Value="ConfigFrames\FrameCfgPanCom.pas"/>
@@ -284,7 +284,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="9" Y="88"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="173"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\_Librerias\ConfigFrame 0.6\ConfigFrame.pas"/>
@@ -292,7 +292,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="26"/>
       </Unit26>
       <Unit27>
         <Filename Value="FrameCfgDetPrompt.pas"/>
@@ -301,7 +301,7 @@
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="42" Y="9"/>
-        <UsageCount Value="88"/>
+        <UsageCount Value="84"/>
       </Unit27>
       <Unit28>
         <Filename Value="FrameCfgConex.pas"/>
@@ -310,7 +310,7 @@
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="68" Y="8"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="80"/>
       </Unit28>
       <Unit29>
         <Filename Value="FrameCfgEdit.pas"/>
@@ -319,7 +319,7 @@
         <ResourceBaseClass Value="Frame"/>
         <TopLine Value="176"/>
         <CursorPos X="8" Y="202"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="80"/>
       </Unit29>
       <Unit30>
         <Filename Value="FormSelFuente.pas"/>
@@ -328,7 +328,7 @@
         <ResourceBaseClass Value="Form"/>
         <TopLine Value="5"/>
         <CursorPos X="20" Y="18"/>
-        <UsageCount Value="85"/>
+        <UsageCount Value="81"/>
       </Unit30>
       <Unit31>
         <Filename Value="FrameCfgPantTerm.pas"/>
@@ -338,7 +338,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="36"/>
         <CursorPos X="19" Y="51"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="80"/>
       </Unit31>
       <Unit32>
         <Filename Value="FrameCfgGener.pas"/>
@@ -348,12 +348,12 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="10"/>
         <CursorPos X="36" Y="30"/>
-        <UsageCount Value="88"/>
+        <UsageCount Value="84"/>
       </Unit32>
       <Unit33>
         <Filename Value="XpresBas.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="80"/>
       </Unit33>
       <Unit34>
         <Filename Value="xpresparser_antes.pas"/>
@@ -361,7 +361,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="586"/>
         <CursorPos X="22" Y="592"/>
-        <UsageCount Value="86"/>
+        <UsageCount Value="82"/>
       </Unit34>
       <Unit35>
         <Filename Value="FrameCfgExpRem.pas"/>
@@ -371,7 +371,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="29"/>
         <CursorPos X="19" Y="45"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="80"/>
       </Unit35>
       <Unit36>
         <Filename Value="FrameCfgMacros.pas"/>
@@ -381,7 +381,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="21"/>
         <CursorPos X="19" Y="37"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="80"/>
       </Unit36>
       <Unit37>
         <Filename Value="FrameCfgComandRec.pas"/>
@@ -391,7 +391,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="63"/>
         <CursorPos X="21" Y="79"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="85"/>
       </Unit37>
       <Unit38>
         <Filename Value="FrameCfgRutasCnx.pas"/>
@@ -401,7 +401,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="31"/>
         <CursorPos X="5" Y="50"/>
-        <UsageCount Value="87"/>
+        <UsageCount Value="83"/>
       </Unit38>
       <Unit39>
         <Filename Value="FrameCfgPanCom.pas"/>
@@ -410,27 +410,27 @@
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="59" Y="8"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="29"/>
       </Unit39>
       <Unit40>
         <Filename Value="ConfigFrame.pas"/>
         <TopLine Value="97"/>
         <CursorPos X="32" Y="115"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="76"/>
         <Bookmarks Count="1">
           <Item0 ID="1"/>
         </Bookmarks>
       </Unit40>
       <Unit41>
         <Filename Value="MisUtils.pas"/>
-        <UsageCount Value="77"/>
+        <UsageCount Value="73"/>
       </Unit41>
       <Unit42>
         <Filename Value="UnTerminal.pas"/>
         <TopLine Value="441"/>
         <CursorPos X="25" Y="459"/>
         <FoldState Value=" T5S02011 TMmF010T181117]G8iX0w T3kg0I4 pkEiX2A6 piZkW06054 T6l001225 T0l5H88]Tek2bB3A3161Q THlR4Q]^U"/>
-        <UsageCount Value="78"/>
+        <UsageCount Value="74"/>
         <Bookmarks Count="1">
           <Item0 ID="1"/>
         </Bookmarks>
@@ -438,14 +438,14 @@
       <Unit43>
         <Filename Value="termVT.pas"/>
         <FoldState Value=" T3jU05B13M"/>
-        <UsageCount Value="79"/>
+        <UsageCount Value="75"/>
       </Unit43>
       <Unit44>
         <Filename Value="synFacilCompletion.pas"/>
         <TopLine Value="173"/>
         <CursorPos X="36" Y="545"/>
         <FoldState Value=" TL00u8 T4iJ05 T5iQ0{E TCiRH61 TMiZ210814241416111317]C24D p0vZ0121212712]j7jHLx T8jO223 T3l00N3 pjCjf0E2]9IjZ0Z5 pidjc09]IkSke0G[I4YjE0E]r6l202A T0lAy5D]q0iXR97]96jPSEH]hZkPk3[96CD8[94ajWq22 THuL2O1g"/>
-        <UsageCount Value="78"/>
+        <UsageCount Value="74"/>
         <Bookmarks Count="1">
           <Item0 Y="646" ID="1"/>
         </Bookmarks>
@@ -454,25 +454,25 @@
         <Filename Value="SynFacilUtils.pas"/>
         <TopLine Value="586"/>
         <CursorPos X="24" Y="603"/>
-        <UsageCount Value="77"/>
+        <UsageCount Value="73"/>
       </Unit45>
       <Unit46>
         <Filename Value="SynFacilHighlighter.pas"/>
         <TopLine Value="331"/>
         <CursorPos X="38" Y="354"/>
         <FoldState Value=" T4902 TCYEI3 TLdR1 T7iDG8 T8jF2T11]U3pO0H4 pjFjb0O3 pkIl40L]9iXjF0901]y0pUL4I]bdmbBZD21143126 T6q205M[i4)I[g5Hu74x]V TF#0225H"/>
-        <UsageCount Value="77"/>
+        <UsageCount Value="73"/>
       </Unit46>
       <Unit47>
         <Filename Value="synhighlighterfacil.pas"/>
         <FoldState Value=" T4D02 T5G011 poMoQ0N TMpg01041H21132C1 TCcEH3 T7iGG8]F8jI2T3 pkAl02L]:3pN0H4 pjFjb0M[Q4Hl10L]9iXjF09[94YiN0a1]RclZ0L[I5jI0E5]sHif2N113 T0pTL4H]JbmZBYE]balGnG6]tQjIac6]Igi6Y7[94Xi3V3N]9cnPf3I]9ZkfM5[{b5JhBE]/RjTj3G]HYnUg5E[Z4jND3G[Z4na73B]9dl4K4H[-5LD21 T6q105O[Z4)421I THu44x3 pi0$C2n p0wH49]fF~Z225C"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="51"/>
       </Unit47>
       <Unit48>
         <Filename Value="utilEditSyn.pas"/>
         <TopLine Value="49"/>
         <CursorPos X="3" Y="65"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="51"/>
         <Bookmarks Count="1">
           <Item0 Y="545" ID="2"/>
         </Bookmarks>
@@ -481,7 +481,7 @@
         <Filename Value="ShellComplet.pas"/>
         <TopLine Value="195"/>
         <CursorPos X="6" Y="211"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="46"/>
       </Unit49>
       <Unit50>
         <Filename Value="parser.pas"/>
@@ -496,17 +496,9 @@
           <WindowIndex Value="1"/>
           <CursorPos X="10" Y="16"/>
         </ExtraEditor1>
-        <UsageCount Value="33"/>
+        <UsageCount Value="29"/>
       </Unit50>
       <Unit51>
-        <Filename Value="..\..\_libraries\SynFacilUtils-1.22\SynFacilUtils.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1048"/>
-        <CursorPos X="57" Y="1073"/>
-        <FoldState Value=" TL006012 T4903 T5kd021 TMlO[748jX2D T3l404014 T6lB01F TKmE0]F0o8S291G1Os"/>
-        <UsageCount Value="1"/>
-      </Unit51>
-      <Unit52>
         <Filename Value="..\..\_libraries\ConfigFrame 0.8b\Predefined\FrameCfgEdit.pas"/>
         <ComponentName Value="fcEdit"/>
         <HasResources Value="True"/>
@@ -514,171 +506,224 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="75"/>
         <CursorPos X="19" Y="87"/>
-        <UsageCount Value="16"/>
-      </Unit52>
-      <Unit53>
+        <UsageCount Value="12"/>
+      </Unit51>
+      <Unit52>
         <Filename Value="..\..\_libraries\UnTerminal-0.9\UnTerminal.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="249"/>
         <CursorPos X="8" Y="273"/>
         <FoldState Value=" T3sB0E_"/>
-        <UsageCount Value="6"/>
-      </Unit53>
-      <Unit54>
+        <UsageCount Value="2"/>
+      </Unit52>
+      <Unit53>
         <Filename Value="..\_libraries\SynFacilUtils-1.23\SynFacilUtils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="110"/>
         <CursorPos X="47" Y="155"/>
         <FoldState Value=" TL006012 T5ke0]7MlP21 T8U2402]G3l504014 T6lC017]Kp0vE[p5KmF0]P0o9S2H241Pm"/>
-        <UsageCount Value="23"/>
-      </Unit54>
-      <Unit55>
+        <UsageCount Value="19"/>
+      </Unit53>
+      <Unit54>
         <Filename Value="..\_libraries\MiConfig-0.4.1\MiConfigXML.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="72"/>
         <CursorPos X="6" Y="184"/>
         <FoldState Value=" TL00H073 T4L01 T5i302 T8W28]E3iW0421]U0igZBI28 T6id01113t"/>
-        <UsageCount Value="9"/>
-      </Unit55>
-      <Unit56>
+        <UsageCount Value="5"/>
+      </Unit54>
+      <Unit55>
         <Filename Value="FrameCfgSyntax.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="528"/>
         <CursorPos Y="547"/>
-        <UsageCount Value="5"/>
-      </Unit56>
-      <Unit57>
+        <UsageCount Value="1"/>
+      </Unit55>
+      <Unit56>
         <Filename Value="..\_libraries\SynFacilUtils-1.24\SynFacilUtils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="822"/>
         <CursorPos Y="846"/>
-        <UsageCount Value="33"/>
-      </Unit57>
-      <Unit58>
+        <UsageCount Value="29"/>
+      </Unit56>
+      <Unit57>
         <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
         <UnitName Value="StdCtrls"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1564"/>
         <CursorPos X="3" Y="1580"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="1"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="..\_libraries\UnTerminal-0.9\UnTerminal.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="79"/>
+        <CursorPos X="41" Y="97"/>
+        <UsageCount Value="6"/>
       </Unit58>
+      <Unit59>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="395"/>
+        <CursorPos X="3" Y="531"/>
+        <FoldState Value=" TL00K0231117 p0w6046 T4P01 TMn4010817151511]Z61B31]dsV22 T7iYF{L T8iZ095 pibj902]v3lW0I51]JjHm70s114]UclP0A6]9ajB044]TCX2B3]8dj12A3 T6lX01A T0lcH8A]gZkPS5D[p5eOIQ[94l5BEC]9YmVBER"/>
+        <UsageCount Value="29"/>
+        <Loaded Value="True"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="..\_libraries\UnTerminal-1.0\TermVT.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="400"/>
+        <CursorPos X="3" Y="395"/>
+        <FoldState Value=" TL00T021 T4a0]6Mk721121C12281E27]K8iO2K012 T3jd05B pifjF0U31243 T6kb019 T0lYL3F3C pjClTA3B5H]gZlE716c"/>
+        <UsageCount Value="29"/>
+        <Loaded Value="True"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\fcl-process\src\process.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="23"/>
+        <CursorPos X="29" Y="56"/>
+        <UsageCount Value="6"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="C:\lazarus\lcl\dialogs.pp"/>
+        <UnitName Value="Dialogs"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="711"/>
+        <CursorPos X="10" Y="729"/>
+        <UsageCount Value="6"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\fcl-process\src\processbody.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="98"/>
+        <CursorPos X="19" Y="106"/>
+        <UsageCount Value="20"/>
+      </Unit63>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="606" Column="25" TopLine="556"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="277" Column="7" TopLine="247"/>
       </Position1>
       <Position2>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="137" Column="15" TopLine="121"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="304" Column="7" TopLine="274"/>
       </Position2>
       <Position3>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="11" Column="22"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="341" Column="7" TopLine="311"/>
       </Position3>
       <Position4>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="110" TopLine="13"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="343" Column="59" TopLine="313"/>
       </Position4>
       <Position5>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="666" Column="5" TopLine="621"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="428" Column="66" TopLine="398"/>
       </Position5>
       <Position6>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="207" Column="3" TopLine="164"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="447" Column="9" TopLine="423"/>
       </Position6>
       <Position7>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="669" Column="22" TopLine="637"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="445" Column="17" TopLine="421"/>
       </Position7>
       <Position8>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="209" Column="5" TopLine="192"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="454" Column="15" TopLine="426"/>
       </Position8>
       <Position9>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="676" Column="26" TopLine="669"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\TermVT.pas"/>
+        <Caret Line="88" Column="15" TopLine="72"/>
       </Position9>
       <Position10>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="746" Column="40" TopLine="677"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\TermVT.pas"/>
+        <Caret Line="330" TopLine="294"/>
       </Position10>
       <Position11>
-        <Filename Value="FrameTabSessions.pas"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="53" TopLine="4"/>
       </Position11>
       <Position12>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="748" Column="35" TopLine="684"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="126" Column="15" TopLine="99"/>
       </Position12>
       <Position13>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="752" Column="17" TopLine="684"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="125" Column="15" TopLine="99"/>
       </Position13>
       <Position14>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="748" Column="3" TopLine="684"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="126" Column="15" TopLine="99"/>
       </Position14>
       <Position15>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="675" Column="28" TopLine="667"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="125" Column="15" TopLine="99"/>
       </Position15>
       <Position16>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="678" Column="32" TopLine="667"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="127" Column="15" TopLine="99"/>
       </Position16>
       <Position17>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="780" Column="3" TopLine="700"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="1802" Column="37" TopLine="1525"/>
       </Position17>
       <Position18>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="786" Column="3" TopLine="711"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="1810" Column="47" TopLine="1526"/>
       </Position18>
       <Position19>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="798" TopLine="680"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="1813" Column="8" TopLine="1643"/>
       </Position19>
       <Position20>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="80" Column="16" TopLine="20"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="161" Column="13" TopLine="145"/>
       </Position20>
       <Position21>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="800" Column="7" TopLine="683"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="531" Column="23" TopLine="511"/>
       </Position21>
       <Position22>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="691" Column="48" TopLine="675"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="161" Column="23" TopLine="145"/>
       </Position22>
       <Position23>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="671" Column="3" TopLine="614"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="528" Column="3" TopLine="522"/>
       </Position23>
       <Position24>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="171" Column="50" TopLine="156"/>
+        <Filename Value="FrameTabSession.pas"/>
+        <Caret Line="1808" Column="34" TopLine="1675"/>
       </Position24>
       <Position25>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="112" Column="15" TopLine="21"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\TermVT.pas"/>
+        <Caret Line="423" Column="27" TopLine="410"/>
       </Position25>
       <Position26>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="448" Column="24" TopLine="399"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="531" Column="19" TopLine="316"/>
       </Position26>
       <Position27>
-        <Filename Value="FormPrincipal.pas"/>
-        <Caret Line="449" Column="5" TopLine="414"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\UnTerminal.pas"/>
+        <Caret Line="535" Column="11" TopLine="316"/>
       </Position27>
       <Position28>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="672" Column="3" TopLine="552"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\TermVT.pas"/>
+        <Caret Line="332" Column="7" TopLine="290"/>
       </Position28>
       <Position29>
-        <Filename Value="FrameTabSessions.pas"/>
-        <Caret Line="94" Column="15" TopLine="79"/>
+        <Filename Value="..\_libraries\UnTerminal-1.0\TermVT.pas"/>
+        <Caret Line="108" Column="15" TopLine="67"/>
       </Position29>
+      <Position30>
+        <Filename Value="..\_libraries\UnTerminal-1.0\TermVT.pas"/>
+        <Caret Line="395" Column="3" TopLine="400"/>
+      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

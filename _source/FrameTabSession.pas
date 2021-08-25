@@ -92,10 +92,10 @@ type
     AcTerCopRut: TAction;
     AcTerDescon: TAction;
     AcTerDetPrm: TAction;
-    AcTerEnvCR: TAction;
-    AcTerEnvCRLF: TAction;
-    AcTerEnvEnter: TAction;
-    AcTerEnvLF: TAction;
+    AcTerSendCR: TAction;
+    AcTerSendCRLF: TAction;
+    AcTerSendEnter: TAction;
+    AcTerSendLF: TAction;
     AcTerLimBuf: TAction;
     AcTerPrmAba: TAction;
     AcTerPrmArr: TAction;
@@ -104,6 +104,7 @@ type
     acFindNext: TAction;
     acFindPrev: TAction;
     acFindReplace: TAction;
+    AcTerSendChar: TAction;
     ActionList1: TActionList;
     FindDialog1: TFindDialog;
     ImageList1: TImageList;
@@ -193,10 +194,11 @@ type
     procedure AcTerCopRutExecute(Sender: TObject);
     procedure AcTerDesconExecute(Sender: TObject);
     procedure AcTerDetPrmExecute(Sender: TObject);
-    procedure AcTerEnvCRExecute(Sender: TObject);
-    procedure AcTerEnvCRLFExecute(Sender: TObject);
-    procedure AcTerEnvEnterExecute(Sender: TObject);
-    procedure AcTerEnvLFExecute(Sender: TObject);
+    procedure AcTerSendCharExecute(Sender: TObject);
+    procedure AcTerSendCRExecute(Sender: TObject);
+    procedure AcTerSendCRLFExecute(Sender: TObject);
+    procedure AcTerSendEnterExecute(Sender: TObject);
+    procedure AcTerSendLFExecute(Sender: TObject);
     procedure AcTerLimBufExecute(Sender: TObject);
     procedure AcTerPrmAbaExecute(Sender: TObject);
     procedure AcTerPrmArrExecute(Sender: TObject);
@@ -240,7 +242,7 @@ type
     { TODO : Para mejor separación de funciones, estos atributos no deberían estar aqui, sino en FrameTabSessions }
     x1      : integer;  //Coordenada inicial de dibujo
     tabWidth: integer;  //Ancho de lengueta
-  public
+  public  //Terminal
     proc  : TConsoleProc2; //Referencia al proceso actual
     ePCom : TSynFacilEditor;
     PanInfoConn: TStatusPanel;  //Panel de información sobre la conexión
@@ -276,7 +278,7 @@ type
     maxColTer  : integer;  //Máxima cantidad de columnas que se muestran en el terminal
     interDirec : boolean;  //Interceptar teclas direccionales
     curSigPrm  : boolean;  //cursor sigue a prompt
-  public    //Parámetros del editor del Terminal
+  public   //Parámetros del editor del Terminal
     cfgEdTerm  : TEditCfg;
   public   //Parámetros de Comando recurrente
     Activar  : boolean;
@@ -344,9 +346,9 @@ type
     function WriteLog(txt: string): boolean;
   public   //Manejadores de eventos
     function queryClose: boolean;
-  private //Configuración de propiedades
+  private  //Configuración de propiedades
     procedure ConfigEditor(ed: TSynEdit; cfgEdit: TEditCfg);
-  public  //Configuración de propiedades
+  public   //Configuración de propiedades
     prop : TMiConfigXML;
     procedure PropertiesChanged;
     procedure ExecSettings;
@@ -600,7 +602,7 @@ end;
 procedure TfraTabSession.UpdatePanelState;
 {Actualiza el panel de estado de la conexión.}
 begin
-  proc.RefPanelEstado;
+  proc.RefStatePanel;
 end;
 procedure TfraTabSession.UpdatePanelLangName;
 {Actualiza el panel del lenguaje del resaltador.}
@@ -1656,7 +1658,7 @@ procedure TfraTabSession.acFindReplaceExecute(Sender: TObject);
 begin
   ReplaceDialog1.Execute;
 end;
-//Acciones del Panel de comando.
+//Command panel actions.
 procedure TfraTabSession.AcPCmEnvLinExecute(Sender: TObject);
 var
   lin: String;
@@ -1700,7 +1702,7 @@ procedure TfraTabSession.acPCmEnvCtrCExecute(Sender: TObject);
 begin
   proc.Send(#3);
 end;
-
+//Terminal actions
 procedure TfraTabSession.AcTerConecExecute(Sender: TObject);
 begin
   InicConect;   //inicia conexión
@@ -1799,19 +1801,30 @@ begin
   TipDetec    := proc.promptMatch;
   edTerm.Invalidate;  //Colorea con nuevos parámetros de prompt
 end;
-procedure TfraTabSession.AcTerEnvEnterExecute(Sender: TObject);  //Enter
+procedure TfraTabSession.AcTerSendCharExecute(Sender: TObject);
+var
+  car: String;
+begin
+  car := InputBox('', 'Character:', 'A');
+  if length(car) <> 1 then begin
+    MsgErr('Invalid character');
+    exit;
+  end;
+  proc.Send(car);
+end;
+procedure TfraTabSession.AcTerSendEnterExecute(Sender: TObject);  //Enter
 begin
   proc.SendLn('');
 end;
-procedure TfraTabSession.AcTerEnvCRExecute(Sender: TObject);
+procedure TfraTabSession.AcTerSendCRExecute(Sender: TObject);
 begin
   proc.Send(#13);
 end;
-procedure TfraTabSession.AcTerEnvLFExecute(Sender: TObject);
+procedure TfraTabSession.AcTerSendLFExecute(Sender: TObject);
 begin
   proc.Send(#10);
 end;
-procedure TfraTabSession.AcTerEnvCRLFExecute(Sender: TObject);
+procedure TfraTabSession.AcTerSendCRLFExecute(Sender: TObject);
 begin
   proc.Send(#13#10);
 end;
@@ -1851,7 +1864,7 @@ procedure TfraTabSession.AcTerVerBHerExecute(Sender: TObject);
 begin
 
 end;
-//Acciones de herramientas
+//Tools actions
 procedure TfraTabSession.AcHerCfgExecute(Sender: TObject);
 begin
   ExecSettings;
