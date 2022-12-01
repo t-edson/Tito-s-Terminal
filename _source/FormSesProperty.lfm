@@ -9,16 +9,16 @@ object frmSesProperty: TfrmSesProperty
   ClientWidth = 581
   DesignTimePPI = 120
   OnCreate = FormCreate
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.2.0.4'
   object PageControl1: TPageControl
     Left = 170
     Height = 358
     Top = 0
     Width = 411
-    ActivePage = TabGenConnec
+    ActivePage = TabExplor
     Align = alClient
     ShowTabs = False
-    TabIndex = 0
+    TabIndex = 10
     TabOrder = 0
     object TabGenConnec: TTabSheet
       Caption = 'General'
@@ -30,7 +30,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 18
         Width = 15
         Caption = 'IP:'
-        ParentColor = False
       end
       object lblPort: TLabel
         Left = 104
@@ -38,7 +37,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 54
         Width = 46
         Caption = 'Puerto:'
-        ParentColor = False
       end
       object txtPort: TEdit
         Left = 160
@@ -96,7 +94,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 80
         Width = 70
         Caption = 'Aplicativo:'
-        ParentColor = False
       end
       object optSerial: TRadioButton
         Left = 19
@@ -121,7 +118,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 74
         Width = 96
         Caption = 'Configuración:'
-        ParentColor = False
       end
       object lblSerPort: TLabel
         Left = 120
@@ -129,7 +125,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 21
         Width = 87
         Caption = 'Puerto Serial:'
-        ParentColor = False
       end
       object cmbSerPort: TComboBox
         Left = 120
@@ -226,7 +221,6 @@ object frmSesProperty: TfrmSesProperty
           Top = 24
           Width = 85
           Caption = 'Prompt start:'
-          ParentColor = False
         end
         object txtCadIni: TEdit
           Left = 112
@@ -241,7 +235,6 @@ object frmSesProperty: TfrmSesProperty
           Top = 24
           Width = 81
           Caption = 'Prompt end:'
-          ParentColor = False
         end
         object txtCadFin: TEdit
           Left = 296
@@ -296,7 +289,7 @@ object frmSesProperty: TfrmSesProperty
     object TabGenAppear: TTabSheet
       Caption = 'Appearance'
       ClientHeight = 350
-      ClientWidth = 397
+      ClientWidth = 403
       object chkShowTerm: TCheckBox
         Left = 24
         Height = 24
@@ -320,7 +313,7 @@ object frmSesProperty: TfrmSesProperty
     object TabPComEdit: TTabSheet
       Caption = 'TabPComEdit'
       ClientHeight = 350
-      ClientWidth = 397
+      ClientWidth = 403
       object chkMarLinAct1: TCheckBox
         Left = 16
         Height = 24
@@ -345,7 +338,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 184
         Width = 39
         Caption = 'Color:'
-        ParentColor = False
       end
       object lblFontName1: TLabel
         Left = 16
@@ -353,7 +345,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 23
         Width = 36
         Caption = 'Letra:'
-        ParentColor = False
       end
       object cmbTipoLetra1: TComboBox
         Left = 88
@@ -368,9 +359,8 @@ object frmSesProperty: TfrmSesProperty
         Left = 221
         Height = 20
         Top = 22
-        Width = 57
+        Width = 55
         Caption = 'Tamaño:'
-        ParentColor = False
       end
       object spFontSize1: TSpinEdit
         Left = 315
@@ -389,7 +379,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 54
         Width = 104
         Caption = 'Color de fondo:'
-        ParentColor = False
       end
       object cbutBackCol1: TColorButton
         Left = 136
@@ -406,7 +395,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 53
         Width = 77
         Caption = 'Color texto:'
-        ParentColor = False
       end
       object cbutTexto1: TColorButton
         Left = 312
@@ -458,7 +446,6 @@ object frmSesProperty: TfrmSesProperty
           Top = 29
           Width = 85
           Caption = 'Color Fondo:'
-          ParentColor = False
         end
         object lblVPtxtCol1: TLabel
           Left = 192
@@ -466,7 +453,6 @@ object frmSesProperty: TfrmSesProperty
           Top = 61
           Width = 98
           Caption = 'Color de texto:'
-          ParentColor = False
         end
         object cbutTxtPan1: TColorButton
           Left = 302
@@ -517,7 +503,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 152
         Width = 39
         Caption = 'Color:'
-        ParentColor = False
       end
       object cbutResPal1: TColorButton
         Left = 312
@@ -580,7 +565,7 @@ object frmSesProperty: TfrmSesProperty
     object TabTermPant: TTabSheet
       Caption = 'Term.Screen'
       ClientHeight = 350
-      ClientWidth = 397
+      ClientWidth = 403
       object txtMaxLinT: TEdit
         Left = 224
         Height = 28
@@ -594,7 +579,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 112
         Width = 75
         Caption = 'Max Lines ::'
-        ParentColor = False
       end
       object ComboBox1: TComboBox
         Left = 224
@@ -628,19 +612,17 @@ object frmSesProperty: TfrmSesProperty
         Left = 16
         Height = 20
         Top = 16
-        Width = 97
+        Width = 95
         Caption = 'Terminal &Type:'
         Enabled = False
-        ParentColor = False
       end
       object Label5: TLabel
         Left = 16
         Height = 20
         Top = 48
-        Width = 92
+        Width = 91
         Caption = 'Terminal &Size:'
         Enabled = False
-        ParentColor = False
       end
       object Label6: TLabel
         Left = 16
@@ -648,7 +630,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 80
         Width = 95
         Caption = 'Max. Columns:'
-        ParentColor = False
       end
       object txtMaxColT: TEdit
         Left = 224
@@ -677,7 +658,7 @@ object frmSesProperty: TfrmSesProperty
     object TabTermEdit: TTabSheet
       Caption = 'Term.Edit'
       ClientHeight = 350
-      ClientWidth = 397
+      ClientWidth = 403
       OnContextPopup = TabTermEditContextPopup
       object chkMarLinAct: TCheckBox
         Left = 16
@@ -703,7 +684,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 184
         Width = 39
         Caption = 'Color:'
-        ParentColor = False
       end
       object lblFontName: TLabel
         Left = 16
@@ -711,7 +691,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 23
         Width = 36
         Caption = 'Letra:'
-        ParentColor = False
       end
       object cmbTipoLetra: TComboBox
         Left = 88
@@ -726,9 +705,8 @@ object frmSesProperty: TfrmSesProperty
         Left = 221
         Height = 20
         Top = 22
-        Width = 57
+        Width = 55
         Caption = 'Tamaño:'
-        ParentColor = False
       end
       object spFontSize: TSpinEdit
         Left = 315
@@ -747,7 +725,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 54
         Width = 104
         Caption = 'Color de fondo:'
-        ParentColor = False
       end
       object cbutBackCol: TColorButton
         Left = 136
@@ -764,7 +741,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 53
         Width = 77
         Caption = 'Color texto:'
-        ParentColor = False
       end
       object cbutTexto: TColorButton
         Left = 312
@@ -816,7 +792,6 @@ object frmSesProperty: TfrmSesProperty
           Top = 37
           Width = 85
           Caption = 'Color Fondo:'
-          ParentColor = False
         end
         object lblVPtxtCol: TLabel
           Left = 192
@@ -824,7 +799,6 @@ object frmSesProperty: TfrmSesProperty
           Top = 69
           Width = 98
           Caption = 'Color de texto:'
-          ParentColor = False
         end
         object cbutTxtPan: TColorButton
           Left = 302
@@ -875,7 +849,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 152
         Width = 39
         Caption = 'Color:'
-        ParentColor = False
       end
       object cbutResPal: TColorButton
         Left = 312
@@ -917,7 +890,6 @@ object frmSesProperty: TfrmSesProperty
         Top = 60
         Width = 198
         Caption = 'Time between sendings (min):'
-        ParentColor = False
       end
       object GroupBox3: TGroupBox
         Left = 16
@@ -981,32 +953,21 @@ object frmSesProperty: TfrmSesProperty
         Top = 32
         Width = 181
         Caption = 'Command to launch Editor:'
-        ParentColor = False
-      end
-      object txtComLaunEdit: TEdit
-        Left = 272
-        Height = 28
-        Top = 24
-        Width = 100
-        Enabled = False
-        TabOrder = 0
-        Text = 'txtComLaunEdit'
       end
       object txtExternEdit: TEdit
         Left = 16
         Height = 28
         Top = 232
         Width = 368
-        TabOrder = 1
+        TabOrder = 0
         Text = 'txtExternEdit'
       end
       object Label8: TLabel
         Left = 16
         Height = 20
         Top = 208
-        Width = 151
+        Width = 150
         Caption = 'Path to external editor:'
-        ParentColor = False
       end
       object radGroupEdtType: TRadioGroup
         Left = 16
@@ -1030,7 +991,7 @@ object frmSesProperty: TfrmSesProperty
           'Remote using Bash Commands'
         )
         OnClick = radGroupEdtTypeClick
-        TabOrder = 2
+        TabOrder = 1
       end
       object Label11: TLabel
         Left = 16
@@ -1038,22 +999,20 @@ object frmSesProperty: TfrmSesProperty
         Top = 276
         Width = 32
         Caption = 'User:'
-        ParentColor = False
       end
       object Label12: TLabel
         Left = 200
         Height = 20
         Top = 276
-        Width = 65
+        Width = 64
         Caption = 'Password:'
-        ParentColor = False
       end
       object txtEdiUser: TEdit
         Left = 72
         Height = 28
         Top = 272
         Width = 100
-        TabOrder = 3
+        TabOrder = 2
         Text = 'txtEdiUser'
       end
       object txtEdiPass: TEdit
@@ -1063,7 +1022,7 @@ object frmSesProperty: TfrmSesProperty
         Width = 100
         EchoMode = emPassword
         PasswordChar = '*'
-        TabOrder = 4
+        TabOrder = 3
         Text = 'txtEdiPass'
       end
     end
@@ -1077,31 +1036,20 @@ object frmSesProperty: TfrmSesProperty
         Top = 32
         Width = 181
         Caption = 'Command to launch Editor:'
-        ParentColor = False
-      end
-      object txtComLaunExpl: TEdit
-        Left = 272
-        Height = 28
-        Top = 24
-        Width = 100
-        Enabled = False
-        TabOrder = 0
-        Text = 'txtComLaunExpl'
       end
       object Label10: TLabel
         Left = 16
         Height = 20
         Top = 192
-        Width = 166
+        Width = 165
         Caption = 'Path to external explorer:'
-        ParentColor = False
       end
       object txtExternExplor: TEdit
         Left = 16
         Height = 28
         Top = 216
         Width = 356
-        TabOrder = 1
+        TabOrder = 0
         Text = 'txtExternExplor'
       end
       object radGroupExpType: TRadioGroup
@@ -1125,7 +1073,7 @@ object frmSesProperty: TfrmSesProperty
           'External Explorer'
         )
         OnClick = radGroupExpTypeClick
-        TabOrder = 2
+        TabOrder = 1
       end
     end
   end

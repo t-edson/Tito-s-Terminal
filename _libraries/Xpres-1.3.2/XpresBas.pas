@@ -305,7 +305,7 @@ begin
   if nlin = 0 then exit;  //protección
   if lex.GetEol then begin  //llegó al fin de línea
     fFil := lex.GetY;  //Pasa a siguiente fila.
-    if fFil <= nlin then begin //se puede leer
+    if fFil < nlin then begin //se puede leer
       lex.SetLine(curLines[fFil],fFil);  //prepara exploración
       //actualiza estado
 //      tok := lex.GetToken;    //lee el token

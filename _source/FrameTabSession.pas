@@ -80,11 +80,11 @@ type
     AcFilStopLog: TAction;
     AcHerCfg: TAction;
     AcHerGraMac: TAction;
-    AcPCmCamPos: TAction;
-    acPCmEnvCtrC: TAction;
-    AcPCmEnvLin: TAction;
-    AcPCmEnvTod: TAction;
-    AcPCmOcul: TAction;
+    AcPcmChgPos: TAction;
+    acPcmSendCtrC: TAction;
+    AcPcmSendLin: TAction;
+    AcPcmSendAll: TAction;
+    AcPcmHide: TAction;
     AcTerConec: TAction;
     AcTerCopNom: TAction;
     AcTerCopNomRut: TAction;
@@ -184,9 +184,9 @@ type
     procedure acFindPrevExecute(Sender: TObject);
     procedure acFindReplaceExecute(Sender: TObject);
     procedure AcHerCfgExecute(Sender: TObject);
-    procedure acPCmEnvCtrCExecute(Sender: TObject);
-    procedure AcPCmEnvLinExecute(Sender: TObject);
-    procedure AcPCmEnvTodExecute(Sender: TObject);
+    procedure acPcmSendCtrCExecute(Sender: TObject);
+    procedure AcPcmSendLinExecute(Sender: TObject);
+    procedure AcPcmSendAllExecute(Sender: TObject);
     procedure AcTerConecExecute(Sender: TObject);
     procedure AcTerCopNomExecute(Sender: TObject);
     procedure AcTerCopNomRutExecute(Sender: TObject);
@@ -237,7 +237,7 @@ type
     procedure proc_RefreshLine(const grilla: TtsGrid; fIni, HeightScr: integer);
     procedure proc_RefreshLines(const grilla: TtsGrid; fIni, fFin,
       HeightScr: integer);
-    procedure EnviarTxt(txt: string);
+    procedure SendTxt(txt: string);
   public  //Propiedades de lengueta
     { TODO : Para mejor separación de funciones, estos atributos no deberían estar aqui, sino en FrameTabSessions }
     x1      : integer;  //Coordenada inicial de dibujo
@@ -298,13 +298,13 @@ type
   public   //Parámetros del editor del comandos
     cfgEdPCom  : TEditCfg;
   public   //Parámetros de la herramienta editor.
-    commandEd  : string;  //Comando para lanzar al editor
+    //commandEd  : string;  //Comando para lanzar al editor
     editMode   : TeditMode; //Modo del editor
     exterEditor: string;  //Ruta al editor externo, si no se selecciona interno.
     ftpEditUser: string;  //Usuario SFTP para acceder a archivo a editar
     ftpEditPass: string;  //Contraseña SFTP para acceder a archivo a editar
   public   //Parámetros de la herramienta Explorador.
-    commandEx  : string;  //Comando para lanzar al explorador.
+    //commandEx  : string;  //Comando para lanzar al explorador.
     explorMode : TexplorMode;  //Modo del explorador.
     exterExplor: string;  //Ruta al explorador externo.
     commEx_bef : string;  //Comandos antes de lanzar al editor.
@@ -428,7 +428,7 @@ procedure TfraTabSession.edPComKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
   procedure EnviarActual;  //Envía la línea actual y controla el cursor
   begin
-    AcPCmEnvLinExecute(self);
+    AcPcmSendLinExecute(self);
     if edPCom.SelAvail then begin  //había selección
       //no se cambia la selección
     end else if edPCom.CaretY = edPCom.Lines.Count then begin
@@ -537,7 +537,7 @@ begin
   edTerm.EndUpdate;
   edTerm.Refresh;  //para mostrar el cambio
 end;
-procedure TfraTabSession.EnviarTxt(txt: string);
+procedure TfraTabSession.SendTxt(txt: string);
 //Envía un tetxo al terminal, aplicando el preprocesamiento si es necesario
 var
   usu: string;
@@ -1305,7 +1305,7 @@ begin
 end;
 procedure TfraTabSession.InicConectTelnet(ip0: string);
 begin
-  //configura conexión rápida Telnet
+  //Configura conexión rápida Telnet
   tipo := TCON_TELNET;
   ip := ip0;
   port := '23';
@@ -1317,7 +1317,7 @@ begin
 end;
 procedure TfraTabSession.InicConectSSH(ip0: string);
 begin
-  //configura conexión rápida Telnet
+  //Configura conexión rápida SSH
   tipo := TCON_SSH;
   ip := ip0;
   port := '22';
@@ -1467,13 +1467,13 @@ begin
   prop.Asoc_Bol ('SendLnCtrEnter',@SendLnCtrEnter, f.chkSendLnCtrEnter, true);
   prop.Asoc_Bol ('UsarPrep'     , @UsarPrep      , f.chkUsarPrep     , false);
   //Parámetros de la herramienta Editor
-  prop.Asoc_Str ('commandEd'    , @commandEd     , f.txtComLaunEdit  , '$EDIT');
+//  prop.Asoc_Str ('commandEd'    , @commandEd     , f.txtComLaunEdit  , '$EDIT');
   prop.Asoc_Enum('editMode'     , @editMode      , sizeOf(editMode)  , f.radGroupEdtType, 0);
   prop.Asoc_Str ('exterEditor'  , @exterEditor   , f.txtExternEdit   , 'notepad');
   prop.Asoc_Str ('ftpEditUser'  , @ftpEditUser   , f.txtEdiUser      , '');
   prop.Asoc_Str ('ftpEditPass'  , @ftpEditPass   , f.txtEdiPass      , '');
   //Parámetros de la herramienta Explorador
-  prop.Asoc_Str ('commandEx'    , @commandEx     , f.txtComLaunExpl  , '$EXPLORER');
+//  prop.Asoc_Str ('commandEx'    , @commandEx     , f.txtComLaunExpl  , '$EXPLORER');
   prop.Asoc_Enum('explorMode'   , @explorMode    , sizeOf(explorMode), f.radGroupExpType, 0);
   prop.Asoc_Str ('exterExplor'  , @exterExplor   , f.txtExternExplor , 'explorer');
 
@@ -1659,20 +1659,20 @@ begin
   ReplaceDialog1.Execute;
 end;
 //Command panel actions.
-procedure TfraTabSession.AcPCmEnvLinExecute(Sender: TObject);
+procedure TfraTabSession.AcPcmSendLinExecute(Sender: TObject);
 var
   lin: String;
 begin
   if proc = nil then exit;
   if edPCom.SelAvail then begin  //hay selección
     //Envía texto seleccionado
-    EnviarTxt(edPCom.SelText);
+    SendTxt(edPCom.SelText);
   end else begin  //no hay selección, envía la línea actual
     lin := edPCom.LineText;  //línea actual
-    EnviarTxt(lin);
+    SendTxt(lin);
   end;
 end;
-procedure TfraTabSession.AcPCmEnvTodExecute(Sender: TObject);
+procedure TfraTabSession.AcPcmSendAllExecute(Sender: TObject);
 //Envía todo el texto.
 begin
   if proc = nil then exit ;
@@ -1684,21 +1684,21 @@ begin
     If frmSelFuente.cancelado Then Exit;  //cancelado
     //se eligió
     If frmSelFuente.optTod.Checked Then begin  //todo
-      EnviarTxt(edPCom.Text);
+      SendTxt(edPCom.Text);
     end else if frmSelFuente.optSel.Checked Then begin  //selección
-      EnviarTxt(edPCom.SelText);
+      SendTxt(edPCom.SelText);
     end Else begin   //solo la línea actual
-      EnviarTxt(edPCom.LineText);
+      SendTxt(edPCom.LineText);
     End;
   end else begin
     //No hay selección, envía todo
     if MsgYesNoCancel('Send all the content of the editor?')<>1 then begin
       exit;
     end;
-    EnviarTxt(edPCom.Text);
+    SendTxt(edPCom.Text);
   end;
 end;
-procedure TfraTabSession.acPCmEnvCtrCExecute(Sender: TObject);
+procedure TfraTabSession.acPcmSendCtrCExecute(Sender: TObject);
 begin
   proc.Send(#3);
 end;

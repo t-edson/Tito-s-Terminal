@@ -225,6 +225,7 @@ procedure TGenCod.int_procLoad;
 begin
   //carga el operando en res
   res.typ := tipInt;
+  res.catOp := p1^.catOp;
   res.valInt := p1^.ReadInt;
 end;
 procedure TGenCod.int_asig_int;
@@ -289,6 +290,7 @@ procedure TGenCod.str_procLoad;
 begin
   //carga el operando en res
   res.typ := tipStr;
+  res.catOp := p1^.catOp;
   res.valStr := p1^.ReadStr;
 end;
 procedure TGenCod.str_asig_str;
@@ -352,6 +354,7 @@ procedure TGenCod.bol_procLoad;
 begin
   //carga el operando en res
   res.typ := tipStr;
+  res.catOp := p1^.catOp;
   res.valBool := p1^.ReadBool;
 end;
 procedure TGenCod.bol_asig_bol;

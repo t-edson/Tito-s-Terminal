@@ -124,7 +124,7 @@ begin
     cIn.PosAct := posFin;  {Deja el cursor aquí, porque es el mejor lugar para el cursor
                             en caso de error, y también porque aquí se debe quedar el
                             cursor después de evaluar.}
-    Oper(Op1, opr, exp);    //Evalua en "res". Puede geenera error.
+    Oper(Op1, opr, exp);    //Puede generar error.
     if Perr.HayError then exit(false);
     exit(true);        //si es asignación
   end;
@@ -304,7 +304,7 @@ begin
     //compila el archivo abierto
 
   //  con := PosAct;   //Guarda posición y referencia a contenido actual
-    cIn.NewContextFromFile(NombArc,LinArc);   //Crea nuevo contenido
+    cIn.NewContextFromFile(NombArc, LinArc);   //Crea nuevo contenido
     if PErr.HayError then exit;
     CompilarArc;     //puede dar error
     Cod_EndProgram;  //da oportunidad de hacer verificaciones

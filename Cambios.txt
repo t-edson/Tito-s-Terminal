@@ -23,9 +23,18 @@ al final. El problema debería ser el mismo que tratar de enviar caracter por car
 porque el plink si se puede controlar caracter por caracter cuando se lanza por consola.
 
 CAMBIOS
+1/12/2022
+- Se habilita la ejecución de instrucciones de macros desde el editor de comandos.
+
+30/11/2022
+- Se corrige un problema en el lexer al llegar a fin de línea. 
+- Se eliminan las propiedades de sesión commandEd y commandEx y ahora se usan
+cadenas fijas.
+- Se modifican las rutinas de tipo TCompilerBase.Oper() para que ahora sean funciones.
 
 21/08/2021
 - Se actualiza la librería UnTerminal a la versión 1.0
+
 
 Tito's Terminal 0.8.2
 =====================

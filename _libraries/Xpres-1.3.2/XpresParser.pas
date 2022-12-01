@@ -117,10 +117,11 @@ protected  //Eventos del compilador
   procedure CaptureParams; virtual;
   function FindFuncWithParams0(const funName: string; var idx: integer;
     idx0: integer=0): TFindFuncResult;
-  procedure Oper(var Op1: TOperand; opr: TxpOperator; var Op2: TOperand);
-  procedure OperPre(var Op1: TOperand; opr: TxpOperator);
-  procedure OperPost(var Op1: TOperand; opr: TxpOperator);
-  procedure Oper(var Op1: TOperand);
+  function Oper(var Op1: TOperand; opr: TxpOperator; var Op2: TOperand
+    ): TOperand;
+  function OperPre(var Op1: TOperand; opr: TxpOperator): TOperand;
+  function OperPost(var Op1: TOperand; opr: TxpOperator): Toperand;
+  function Oper(var Op1: TOperand): Toperand;
 protected   //Campos de elementos
   cons  : TxpEleCons;     //lista de constantes
   vars  : TxpEleVars;     //lista de variables
@@ -905,8 +906,7 @@ begin
       exit;
     end;
     //Sí corresponde. Así que apliquémoslo
-    OperPre(Op, opr);
-    Result := res;
+    Result := OperPre(Op, opr);
   end else begin
     //No se reconoce el operador
     GenError('Se esperaba operando');
@@ -1003,7 +1003,7 @@ begin
   if not CaptureDelExpres then exit;
   SkipWhites;
 end;
-procedure TCompilerBase.Oper(var Op1: TOperand; opr: TxpOperator; var Op2: TOperand);
+function TCompilerBase.Oper(var Op1: TOperand; opr: TxpOperator; var Op2: TOperand): TOperand;
 {Ejecuta una operación con dos operandos y un operador. "opr" es el operador de Op1.
 El resultado debe devolverse en "res". En el caso de intérpretes, importa el
 resultado de la Operación.
@@ -1031,9 +1031,10 @@ begin
    Los parámetros de entrada se dejan en p1 y p2. El resultado debe dejarse en "res"}
    Operation.proc;
    //Completa campos de "res", si es necesario
-   {$IFDEF LogExpres} res.txt := '%';{$ENDIF}   //indica que es expresión
+   {$IFDEF LogExpres} res.txt := 'A%B';{$ENDIF}   //indica que es expresión
+   Result := res;
 End;
-procedure TCompilerBase.OperPre(var Op1: TOperand; opr: TxpOperator);
+function TCompilerBase.OperPre(var Op1: TOperand; opr: TxpOperator): TOperand;
 {Ejecuta una operación con un operando y un operador unario de tipo Pre. "opr" es el
 operador de Op1.
 El resultado debe devolverse en "res".}
@@ -1050,9 +1051,10 @@ begin
    {Ejecuta la operación. El resultado debe dejarse en "res"}
    opr.OperationPre;
    //Completa campos de "res", si es necesario
-   {$IFDEF LogExpres} res.txt := '%';{$ENDIF}   //indica que es expresión
+   {$IFDEF LogExpres} res.txt := '%A';{$ENDIF}   //indica que es expresión
+   Result := res;
 end;
-procedure TCompilerBase.OperPost(var Op1: TOperand; opr: TxpOperator);
+function TCompilerBase.OperPost(var Op1: TOperand; opr: TxpOperator): Toperand;
 {Ejecuta una operación con un operando y un operador unario de tipo Post. "opr" es el
 operador de Op1.
 El resultado debe devolverse en "res".}
@@ -1069,9 +1071,10 @@ begin
    {Ejecuta la operación. El resultado debe dejarse en "res"}
    opr.OperationPost;
    //Completa campos de "res", si es necesario
-   {$IFDEF LogExpres} res.txt := '%';{$ENDIF}   //indica que es expresión
+   {$IFDEF LogExpres} res.txt := 'A%';{$ENDIF}   //indica que es expresión
+   Result := res;
 end;
-procedure TCompilerBase.Oper(var Op1: TOperand);
+function TCompilerBase.Oper(var Op1: TOperand): Toperand;
 {Ejecuta una operación con un solo operando, que puede ser una constante, una variable
 o la llamada a una función.
 El resultado debe devolverse en "res".
@@ -1084,9 +1087,14 @@ begin
   {Llama al evento asociado con p1 como operando. }
   p1 := @Op1; {Solo hay un parámetro}
   {Ejecuta la operación. El resultado debe dejarse en "res"}
-  if Op1.typ.OperationLoad <> nil then Op1.typ.OperationLoad();
-  //Completa campos de "res", si es necesario
-//   res.txt := Op1.txt + opr.txt + Op2.txt;   //texto de la expresión
+  if Op1.typ.OperationLoad = nil then begin
+    Result := Op1;
+  end else begin
+    Op1.typ.OperationLoad();
+    Result := res;
+  end;
+  //Completa campos de "Result", si es necesario
+  {$IFDEF LogExpres} Result.txt := 'A';{$ENDIF}   //indica que es expresión
 end;
 function TCompilerBase.GetOperandPrec(pre: integer): TOperand;
 {Toma un operando, que es en realidad una expresión, extrayendo operandos hasta encontrar
@@ -1120,8 +1128,7 @@ begin
       //es de mayor precedencia, se debe Oper antes.
       Op2 := GetOperandPrec(pre);  //toma el siguiente operando (puede ser recursivo)
       if pErr.HayError then exit;
-      Oper(Op1, opr, Op2);  //devuelve en "res"
-      Result:=res;
+      Result := Oper(Op1, opr, Op2);
     End else begin  //la precedencia es menor o igual, debe salir
       cIn.PosAct := pos;   //antes de coger el operador
       Result:=Op1;
@@ -1159,8 +1166,7 @@ begin
   opr1 := GetOperator(Op1);
   if opr1 = nil then begin  //no sigue operador
     //Expresión de un solo operando.
-    Oper(Op1);
-    Result:=res;
+    Result := Oper(Op1);
     exit;  //termina ejecucion
   end;
   //------- sigue un operador ---------
@@ -1177,9 +1183,8 @@ begin
       exit;
     End;
     if opr1.OperationPost<>nil then begin  //Verifica si es operación Unaria
-      OperPost(Op1, opr1);
+      Op1 := OperPost(Op1, opr1);
       if PErr.HayError then exit;
-      Op1 := res;
       SkipWhites;
       opr1 := GetOperator(Op1);
       continue;
@@ -1189,8 +1194,7 @@ begin
     {$IFDEF LogExpres} debugln(space(ExprLevel)+' Op2='+Op2.txt); {$ENDIF}
     if pErr.HayError then exit;
     //prepara siguiente operación
-    Oper(Op1, opr1, Op2);    //evalua resultado en "res"
-    Op1 := res;
+    Op1 := Oper(Op1, opr1, Op2);
     if PErr.HayError then exit;
     SkipWhites;
     opr1 := GetOperator(Op1);   {lo toma ahora con el tipo de la evaluación Op1 (opr1) Op2

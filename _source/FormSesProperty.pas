@@ -71,10 +71,8 @@ type
     radGroupEdtType: TRadioGroup;
     TabGenSyntax: TTabSheet;
     TabExplor: TTabSheet;
-    txtComLaunExpl: TEdit;
     txtExternEdit: TEdit;
     Label8: TLabel;
-    txtComLaunEdit: TEdit;
     GroupBox1: TGroupBox;
     grpVertPan: TGroupBox;
     GroupBox3: TGroupBox;

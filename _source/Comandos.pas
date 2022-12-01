@@ -4,7 +4,9 @@ unit Comandos;
 interface
 uses
   Classes, SysUtils, MisUtils, FrameTabSession, Globales, FrameTabSessions,
-  FormRemoteEditor, process;
+  FormRemoteEditor, process, Parser;
+
+const INI_COMM = '$';  //Initial character for commands
 
   function GetCommand(lin: string; out comm, pars: string): boolean;
   function ExecSFTP(usr, pwd, ip, cmds: string): boolean;
@@ -20,7 +22,7 @@ var
 begin
   lin := trim(lin);
   if lin='' then exit(false);
-  if lin[1] = '$' then begin
+  if lin[1] = INI_COMM then begin  //It's a command
     p := pos(' ', lin);
     if p=0 then begin
       //Sin separacion
@@ -33,7 +35,9 @@ begin
       pars := copy(lin, p+1, length(lin));
       exit(true);
     end;
-  end else exit(false);
+  end else begin        //Not a command
+    exit(false);
+  end;
 end;
 
 function ExecSFTP(usr, pwd, ip, cmds: string): boolean;
@@ -63,15 +67,16 @@ begin
 end;
 
 function ProcessCommand(lin: string; ses: TfraTabSession; tabSessions: TfraTabSessions): boolean;
-{Procesa una línea que debe contener un comando, si procesa el comando. Si no encuentra
-un comando, devuelve FALSE.}
+{Procesa una línea que debe contener un comando. Si no encuentra un comando, devuelve
+FALSE.}
 var
   comm, pars, res: string;
   edit: TfrmRemoteEditor;
+  linCommand: TStringList;
 begin
   if GetCommand(lin, comm, pars)  then begin
-    //Es un comando
-    if comm = ses.commandEx then begin   //Comando $EXPLORER
+    //Es un comando.
+    if comm = '$EDIT' then begin   //Comando $EXPLORER
       if ses.explorMode = expBashComm then begin
         //Explorador Bash
         tabSessions.PageEvent('exec_explor', ses, res);  //Lanza explorador
@@ -79,7 +84,7 @@ begin
         //Explorador de comando
         Exec(ses.exterEditor, '');
       end;
-    end else if comm = ses.commandEd then begin
+    end else if comm = '$EXPLORER' then begin
       if ses.editMode = edtLocal then begin
         //Editor local por comando
         //Exec(ses.exterEditor, '');
@@ -103,6 +108,16 @@ begin
       end else begin
         MsgExc('Invalid option');
       end;
+    end else if lin[1] = INI_COMM then begin
+      //Comando equivalente al lenguaje de macros
+      //**** Todos los comandos deberían llamar al intérprete de macros
+      linCommand := TStringList.Create;
+      linCommand.Text := copy(lin, 2, length(lin));
+      cxp.Compilar('current file', linCommand);
+      if cxp.HayError then begin
+        cxp.ShowError;
+      end;
+      linCommand.Destroy;
     end else begin
       //No se reconoce el comando.
       exit(false);
