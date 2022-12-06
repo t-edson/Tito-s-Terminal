@@ -109,6 +109,7 @@ type
     FindDialog1: TFindDialog;
     ImageList1: TImageList;
     imgBookMarks: TImageList;
+    MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem48: TMenuItem;
     MenuItem49: TMenuItem;
@@ -138,7 +139,6 @@ type
     MenuItem84: TMenuItem;
     MenuItem85: TMenuItem;
     MenuItem86: TMenuItem;
-    mnPopComAlm: TMenuItem;
     mnPopLeng: TMenuItem;
     Panel1: TPanel;
     PopupMenu1: TPopupMenu;
@@ -373,8 +373,12 @@ resourcestring
   MSG_MODIFSAV = 'File %s has been modified. Save?';
 
 function GetTabSessions(pag: TfraTabSession; out tabSessions: TfraTabSessions): boolean;
-{Devuelve la referencia al contenedor de páginas de este frame. Si no lo encuentra,
-devuelve FALSE.}
+{Devuelve la referencia al contenedor de páginas de este frame (que representa a solo una
+sesión).
+Si no lo encuentra, devuelve FALSE.
+Se crae esta función solo en la sección IMPLEMENTATION porque va a devolver una
+referencia a la clase TfraTabSessions y no se puede incluir la unidad FrameTabSessions
+en INTERFACE porque geenraría una referencia circular.}
 var
   panContent: TWinControl;
 begin

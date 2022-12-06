@@ -3,8 +3,8 @@ unit GenCod;
 interface
 uses
   Classes, SysUtils, Graphics, Forms, Globales, FrameTabSession,
-  SynEditHighlighter, MisUtils, SynFacilBasic, XpresParser, XpresTypes,
-  XpresElements, strutils;
+  FormRemoteEditor, FrameTabSessions, SynEditHighlighter, MisUtils,
+  SynFacilBasic, XpresParser, XpresTypes, XpresElements, strutils;
 
 {Implementación de un interprete sencillo para el lenguaje Xpres.
 Este módulo no generará código sino que lo ejecutará directamente.
@@ -74,6 +74,8 @@ type
     procedure fun_connectTelnet(fun: TxpEleFun);
     procedure fun_detect_prompt(fun: TxpEleFun);
     procedure fun_disconnect(fun: TxpEleFun);
+    procedure fun_edit(fun: TxpEleFun);
+    procedure fun_explorer(fun: TxpEleFun);
     procedure fun_fileopen(fun: TxpEleFun);
     procedure fun_logclose(fun: TxpEleFun);
     procedure fun_logopen(fun: TxpEleFun);
@@ -409,6 +411,72 @@ begin
     end;
   end;
 end;
+procedure TGenCod.fun_edit(fun: TxpEleFun);
+var
+  ses: TfraTabSession;
+  par1, strRes: String;
+  tabSessions: TfraTabSessions;
+begin
+  PopResult;  //saca parámetro 1
+  if not ejec then exit;
+  //Obtiene el frame de la sesión y el frame de todas las sesiones
+  if not frmPrincipal.GetCurSession(ses) then exit;
+  if ses.Parent = nil then exit;
+  tabSessions := TfraTabSessions(ses.Parent.Parent);  //Debe ser TFraTabSessions, sino fallará.
+  if tabSessions=nil then exit;
+  //Ejecuta comando
+  par1 := stack[sp].valStr;
+  if ses.editMode = edtLocal then begin
+    //Editor local por comando
+    //Exec(ses.exterEditor, '');
+    frmRemoteEditor.Init(ses);
+    frmRemoteEditor.Open(par1);
+  end else if ses.editMode = edtBashComm then begin
+    //Editor remoto por comandos bash
+    //tabSessions.PageEvent('exec_edit', ses, strRes);  //Lanza editor
+    frmRemoteEditor.Init(ses);
+    //frmRemoteEditor.Show;
+    if par1<>'' then begin
+      frmRemoteEditor.Open(par1);
+    end;
+  end else if ses.editMode = edtRemotSFTP then begin
+    //Editor remoto usando SFTP
+    if par1<>'' then begin
+      //Se espera que se haya indicado el archivo a editar
+      frmRemoteEditor.Init(ses);
+      frmRemoteEditor.Open(par1);
+      //edit := TfrmRemoteEditor.Create(nil);
+      //edit.Init(ses);
+      //edit.Open(par1);
+    end else begin
+      Exec('notepad', '');
+    end;
+  end else begin
+    MsgExc('Invalid option');
+  end;
+end;
+procedure TGenCod.fun_explorer(fun: TxpEleFun);
+var
+  ses: TfraTabSession;
+  tabSessions: TfraTabSessions;
+  strRes: string;
+begin
+//  PopResult;  //saca parámetro 1
+  if not ejec then exit;
+  //Obtiene el frame de la sesión y el frame de todas las sesiones
+  if not frmPrincipal.GetCurSession(ses) then exit;
+  if ses.Parent = nil then exit;
+  tabSessions := TfraTabSessions(ses.Parent.Parent);  //Debe ser TFraTabSessions, sino fallará.
+  if tabSessions=nil then exit;
+  //Ejecuta comando
+  if ses.explorMode = expBashComm then begin
+    //Explorador Bash
+    tabSessions.PageEvent('exec_explor', ses, strRes);  //Lanza explorador
+  end else begin
+    //Explorador de comando
+    Exec(ses.exterEditor, '');
+  end;
+end;
 procedure TGenCod.fun_connect(fun :TxpEleFun);
 //Inicia la conexión actual
 var
@@ -669,7 +737,7 @@ begin
   xLex.AddIdentSpecList('CLEAR CONNECT CONNECTSSH DISCONNECT SENDLN WAIT PAUSE STOP', tnSysFunct);
   xLex.AddIdentSpecList('LOGOPEN LOGWRITE LOGCLOSE LOGPAUSE LOGSTART', tnSysFunct);
   xLex.AddIdentSpecList('FILEOPEN FILECLOSE FILEWRITE', tnSysFunct);
-  xLex.AddIdentSpecList('MESSAGEBOX CAPTURE ENDCAPTURE EDIT DETECT_PROMPT', tnSysFunct);
+  xLex.AddIdentSpecList('MESSAGEBOX CAPTURE ENDCAPTURE EDIT EXPLORER DETECT_PROMPT', tnSysFunct);
   xLex.AddIdentSpecList('IF', tnStruct);
   xLex.AddIdentSpecList('THEN', tnKeyword);
   //símbolos especiales
@@ -749,38 +817,20 @@ begin
   opr.CreateOperation(tipBol,@bol_asig_bol);
 
   //////// Funciones básicas ////////////
-  f := CreateSysFunction('puts', tipInt, @fun_puts);
-  f.CreateParam('',tipStr);
-  f := CreateSysFunction('puts', tipInt, @fun_putsI);  //sobrecargada
-  f.CreateParam('',tipInt);
-  f := CreateSysFunction('disconnect', tipInt, @fun_disconnect);
+  f := CreateSysFunction('clear', tipInt, @fun_clear);
   f := CreateSysFunction('connect', tipInt, @fun_connectTelnet);
   f.CreateParam('',tipStr);
   f := CreateSysFunction('connect', tipInt, @fun_connect);  //sobrecargada
 
   f := CreateSysFunction('connectSSH', tipInt, @fun_connectSSH);
   f.CreateParam('',tipStr);
-  f := CreateSysFunction('sendln', tipInt, @fun_sendln);
-  f.CreateParam('',tipStr);
-  f := CreateSysFunction('wait', tipInt, @fun_wait);
-  f.CreateParam('',tipStr);
-  f := CreateSysFunction('pause', tipInt, @fun_pause);
-  f.CreateParam('',tipInt);
-  f := CreateSysFunction('messagebox', tipInt, @fun_messagebox);
-  f.CreateParam('',tipStr);
-  f := CreateSysFunction('messagebox', tipInt, @fun_messageboxI);
-  f.CreateParam('',tipInt);
   if FindDuplicFunction then exit;
+  f := CreateSysFunction('disconnect', tipInt, @fun_disconnect);
   f := CreateSysFunction('detect_prompt', tipInt, @fun_detect_prompt);
-  f := CreateSysFunction('clear', tipInt, @fun_clear);
-  f := CreateSysFunction('stop', tipInt, @fun_stop);
-  f := CreateSysFunction('logopen', tipInt, @fun_logopen);
+  f := CreateSysFunction('edit', tipInt, @fun_edit);
   f.CreateParam('',tipStr);
-  f := CreateSysFunction('logwrite', tipInt, @fun_logwrite);
+  f := CreateSysFunction('explorer', tipInt, @fun_explorer);
   f.CreateParam('',tipStr);
-  f := CreateSysFunction('logclose', tipInt, @fun_logclose);
-  f := CreateSysFunction('logpause', tipInt, @fun_logpause);
-  f := CreateSysFunction('logstart', tipInt, @fun_logstart);
   f := CreateSysFunction('fileopen', tipInt, @fun_fileopen);
   f.CreateParam('',tipInt);
   f.CreateParam('',tipStr);
@@ -789,6 +839,28 @@ begin
   f.CreateParam('',tipInt);
   f := CreateSysFunction('filewrite', tipInt, @fun_write);
   f.CreateParam('',tipInt);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('logopen', tipInt, @fun_logopen);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('logwrite', tipInt, @fun_logwrite);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('logclose', tipInt, @fun_logclose);
+  f := CreateSysFunction('logpause', tipInt, @fun_logpause);
+  f := CreateSysFunction('logstart', tipInt, @fun_logstart);
+  f := CreateSysFunction('messagebox', tipInt, @fun_messagebox);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('messagebox', tipInt, @fun_messageboxI);
+  f.CreateParam('',tipInt);
+  f := CreateSysFunction('pause', tipInt, @fun_pause);
+  f.CreateParam('',tipInt);
+  f := CreateSysFunction('puts', tipInt, @fun_puts);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('puts', tipInt, @fun_putsI);  //sobrecargada
+  f.CreateParam('',tipInt);
+  f := CreateSysFunction('sendln', tipInt, @fun_sendln);
+  f.CreateParam('',tipStr);
+  f := CreateSysFunction('stop', tipInt, @fun_stop);
+  f := CreateSysFunction('wait', tipInt, @fun_wait);
   f.CreateParam('',tipStr);
 //  f := CreateSysFunction('capture', tipInt, @fun_connectTelnet);
 //  f := CreateSysFunction('endcapture', tipInt, @fun_connectTelnet);

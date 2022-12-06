@@ -8,6 +8,7 @@
   <Attribute name="Langs"     ForeCol="#FF00FF" Bold="False" Italic="False" Underline="False"/>
   <Attribute name="Awk"       BackCol="#C8F7F7" Bold="False" Italic="False" Underline="False"/>
   <Attribute name="Variable"  ForeCol="#C88717" Bold="true"  Italic="False" Underline="False"/>
+  <Attribute name="Macro"  ForeCol="#C88717" Bold="true"  Italic="False" Underline="False"/>
   
   <Completion OpenOnKeyUp="True">
 <!-- Atributos a usar. Fin de lista. -->
@@ -18,6 +19,19 @@ $EXPLORER
   <OpenOn AfterPattern='Variable'>
 $EDIT
 $EXPLORER
+  </OpenOn>
+  <OpenOn AfterPattern='Macro'>
+%EDIT
+%EXPLORER
+%CLEAR
+%CONNECT
+%CONNECTSSH
+%DISCONNECT 
+%SENDLN 
+%WAIT 
+%PAUSE 
+%STOP
+%DETECT_PROMPT
   </OpenOn>
   <OpenOn AfterPattern="Identifier">
 alias ar asa awk
@@ -149,6 +163,7 @@ xargs zcat
   </Identifiers>
   <Token CharsStart="0..9" Content = '0..9' Attribute="NUMBER"> </Token>
   <Token CharsStart='$' Content = "{}A..Za..z0..9_" Attribute="Variable"> </Token>
+  <Token CharsStart='%' Content = "{}A..Za..z0..9_" Attribute="Macro"> </Token>
   <String Start='"' End='"'></String>
   <Token Start="'" End="'" Multiline = "true" Folding="true" Attribute="Awk"></Token>
   <Comment Start="#" ></Comment>

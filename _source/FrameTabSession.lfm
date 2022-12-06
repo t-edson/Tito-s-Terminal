@@ -1465,6 +1465,7 @@ object fraTabSession: TfraTabSession
     end
   end
   object PopupMenu1: TPopupMenu
+    Images = ImageList1
     Left = 164
     Top = 344
     object MenuItem48: TMenuItem
@@ -1475,6 +1476,9 @@ object fraTabSession: TfraTabSession
     end
     object MenuItem2: TMenuItem
       Action = AcPcmSendLin
+    end
+    object MenuItem1: TMenuItem
+      Action = acPcmSendCtrC
     end
     object MenuItem50: TMenuItem
       Caption = '-'
@@ -1489,10 +1493,7 @@ object fraTabSession: TfraTabSession
       Action = acEdPaste
     end
     object mnPopLeng: TMenuItem
-      Caption = '&Lenguaje'
-    end
-    object mnPopComAlm: TMenuItem
-      Caption = 'Comandos Almacenados'
+      Caption = '&Languages'
     end
     object MenuItem54: TMenuItem
       Caption = '-'

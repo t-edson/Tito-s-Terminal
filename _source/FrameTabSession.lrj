@@ -74,8 +74,7 @@
 {"hash":68035157,"name":"tfratabsession.actercopnom.caption","sourcebytes":[38,67,111,112,121,32,70,105,108,101,32,110,97,109,101],"value":"&Copy File name"},
 {"hash":189931704,"name":"tfratabsession.actercoprut.caption","sourcebytes":[67,111,112,121,32,80,97,116,38,104],"value":"Copy Pat&h"},
 {"hash":75523480,"name":"tfratabsession.actercopnomrut.caption","sourcebytes":[67,111,112,121,32,78,97,109,101,32,97,110,100,32,80,97,116,104],"value":"Copy Name and Path"},
-{"hash":206478629,"name":"tfratabsession.mnpopleng.caption","sourcebytes":[38,76,101,110,103,117,97,106,101],"value":"&Lenguaje"},
-{"hash":172230611,"name":"tfratabsession.mnpopcomalm.caption","sourcebytes":[67,111,109,97,110,100,111,115,32,65,108,109,97,99,101,110,97,100,111,115],"value":"Comandos Almacenados"},
+{"hash":82431811,"name":"tfratabsession.mnpopleng.caption","sourcebytes":[38,76,97,110,103,117,97,103,101,115],"value":"&Languages"},
 {"hash":73124687,"name":"tfratabsession.menuitem82.caption","sourcebytes":[67,111,112,105,97,114,32,69,108,101,109,101,110,116,111],"value":"Copiar Elemento"},
 {"hash":180735906,"name":"tfratabsession.menuitem72.caption","sourcebytes":[38,69,110,118,105,97,114],"value":"&Enviar"}
 ]}

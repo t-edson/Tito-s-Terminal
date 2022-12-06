@@ -4,42 +4,14 @@ unit Comandos;
 interface
 uses
   Classes, SysUtils, MisUtils, FrameTabSession, Globales, FrameTabSessions,
-  FormRemoteEditor, process, Parser;
+  process, Parser;
 
-const INI_COMM = '$';  //Initial character for commands
+const INI_COMM = '%';  //Initial character for commands
 
-  function GetCommand(lin: string; out comm, pars: string): boolean;
   function ExecSFTP(usr, pwd, ip, cmds: string): boolean;
   function ProcessCommand(lin: string; ses: TfraTabSession; tabSessions: TfraTabSessions): boolean;
 
 implementation
-function GetCommand(lin: string; out comm, pars: string): boolean;
-{Analiza una linea para ver si contiene un comando como $EDITOR o $EXPLORER.
-Si encuentra un comando, devuelve TRUE, el texto del comando en "comm" y el
-parámetro en "pars".}
-var
-  p: SizeInt;
-begin
-  lin := trim(lin);
-  if lin='' then exit(false);
-  if lin[1] = INI_COMM then begin  //It's a command
-    p := pos(' ', lin);
-    if p=0 then begin
-      //Sin separacion
-      comm := lin;
-      pars := '';
-      exit(true);
-    end else  begin
-      //Hay separación
-      comm := copy(lin, 1, p-1);
-      pars := copy(lin, p+1, length(lin));
-      exit(true);
-    end;
-  end else begin        //Not a command
-    exit(false);
-  end;
-end;
-
 function ExecSFTP(usr, pwd, ip, cmds: string): boolean;
 //Ejecuta el cliente SFTP. Devuelve FALSE si hubo error
 var
@@ -70,62 +42,20 @@ function ProcessCommand(lin: string; ses: TfraTabSession; tabSessions: TfraTabSe
 {Procesa una línea que debe contener un comando. Si no encuentra un comando, devuelve
 FALSE.}
 var
-  comm, pars, res: string;
-  edit: TfrmRemoteEditor;
   linCommand: TStringList;
 begin
-  if GetCommand(lin, comm, pars)  then begin
-    //Es un comando.
-    if comm = '$EDIT' then begin   //Comando $EXPLORER
-      if ses.explorMode = expBashComm then begin
-        //Explorador Bash
-        tabSessions.PageEvent('exec_explor', ses, res);  //Lanza explorador
-      end else begin
-        //Explorador de comando
-        Exec(ses.exterEditor, '');
-      end;
-    end else if comm = '$EXPLORER' then begin
-      if ses.editMode = edtLocal then begin
-        //Editor local por comando
-        //Exec(ses.exterEditor, '');
-        frmRemoteEditor.Init(ses);
-        frmRemoteEditor.Open(pars);
-      end else if ses.editMode = edtBashComm then begin
-        //Editor remoto por comandos bash
-        tabSessions.PageEvent('exec_edit', ses, res);  //Lanza explorador
-      end else if ses.editMode = edtRemotSFTP then begin
-        //Editor remoto usando SFTP
-        if pars<>'' then begin
-          //Se espera que se haya indicado el archivo a editar
-          frmRemoteEditor.Init(ses);
-          frmRemoteEditor.Open(pars);
-          //edit := TfrmRemoteEditor.Create(nil);
-          //edit.Init(ses);
-          //edit.Open(pars);
-        end else begin
-          Exec('notepad', '');
-        end;
-      end else begin
-        MsgExc('Invalid option');
-      end;
-    end else if lin[1] = INI_COMM then begin
-      //Comando equivalente al lenguaje de macros
-      //**** Todos los comandos deberían llamar al intérprete de macros
-      linCommand := TStringList.Create;
-      linCommand.Text := copy(lin, 2, length(lin));
-      cxp.Compilar('current file', linCommand);
-      if cxp.HayError then begin
-        cxp.ShowError;
-      end;
-      linCommand.Destroy;
-    end else begin
-      //No se reconoce el comando.
-      exit(false);
+  if copy(lin, 1, 1) = INI_COMM then begin    //Es un comando.
+    //Comando equivalente al lenguaje de macros
+    linCommand := TStringList.Create;
+    linCommand.Text := copy(lin, 2, length(lin));
+    cxp.Compilar('current file', linCommand);
+    if cxp.HayError then begin
+      cxp.ShowError;
     end;
+    linCommand.Destroy;
     exit(true);
-  end else begin
-    //No es comando
-    exit(false)
+  end else begin   //No se reconoce como comando.
+    exit(false);
   end;
 end;
 

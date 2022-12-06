@@ -23,8 +23,13 @@ al final. El problema debería ser el mismo que tratar de enviar caracter por car
 porque el plink si se puede controlar caracter por caracter cuando se lanza por consola.
 
 CAMBIOS
+6/12/2022
+- Se corrige la ejecución del comando %EDIT desde el panel de comandos.
+
 1/12/2022
 - Se habilita la ejecución de instrucciones de macros desde el editor de comandos.
+- Se quitan los comandos $EDIT y $EXPLORER como acciones desde el Panel de comandos porque
+ahora se pueden lanzar como llamadas a macros %EDIT y %EXPLORER.
 
 30/11/2022
 - Se corrige un problema en el lexer al llegar a fin de línea. 

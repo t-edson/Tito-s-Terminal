@@ -455,7 +455,7 @@ begin
     end;
   end;
   'exec_explor': begin
-     AcToolRemExplorExecute(self);
+    AcToolRemExplorExecute(self);
   end;
   'exec_edit': begin
     AcToolRemEditExecute(self);
