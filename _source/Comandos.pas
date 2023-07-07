@@ -1,4 +1,4 @@
-{Unidad que implementa la ejecución de comandos de tipo: $EDIT, $EXPLORER, ...}
+{Unidad que implementa la ejecución de comandos de tipo: %EDIT, %EXPLORER, ...}
 unit Comandos;
 {$mode objfpc}{$H+}
 interface

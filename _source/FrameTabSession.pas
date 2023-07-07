@@ -258,7 +258,7 @@ type
     procedure UpdatePanelLangName;
     procedure UpdateCommand;
   public   //Parámetros de conexión
-    Tipo      : TTipCon;  //Tipo de conexión
+    cType     : TTipCon;  //Tipo de conexión
     IP        : String;   //Direción IP (solo válido con el tipo TCON_TELNET Y TCON_SSH)
     Port      : String;   //Puerto (solo válido con el tipo TCON_TELNET Y TCON_SSH)
     //nPort     : integer;  //Número de puerto serial. Solo válido para TCON_SERIAL. Falta implementar.
@@ -267,7 +267,8 @@ type
     Other     : String;   //Ruta del aplicativo (solo válido con el tipo TCON_OTHER)
     LineDelimSend: TUtLineDelSend;  //Tipo de delimitador de línea a enviar.
     LineDelimRecv: TUtLineDelRecv;  //Tipo de delimitador de línea a recibir.
-    ConRecientes : TStringList;  //Lista de conexiones recientes
+    ConRecientes : TStringList;     //Lista de conexiones recientes
+    function cTypeStr: String;  //Tipo de conexión en cadena
   public   //Parámetros de detección de prompt
     detecPrompt: boolean;
     prIni      : string;
@@ -565,7 +566,7 @@ end;
 function TfraTabSession.InfoConnection: string;
 //Actualiza el panel 0, con información de la conexión o de la ejecución de macros
 begin
-   case Tipo of
+   case cType of
    TCON_TELNET:
       Result :='Telnet: ' + IP;
    TCON_SSH:
@@ -823,7 +824,7 @@ end;
 procedure TfraTabSession.UpdateCommand;
 //Configura el atributo "Command" de acuerdo a los parámetros de la conexión.
 begin
-  case Tipo of
+  case cType of
   TCON_TELNET: begin
       if Port='' then begin
         Command:='plink -telnet ' + IP;
@@ -849,6 +850,19 @@ begin
   { TODO : ¿No se podría mejor eliminar LineDelimSend y LineDelimRecv; y usar "proc"? }
   proc.LineDelimSend := LineDelimSend;
   proc.LineDelimRecv := LineDelimRecv;
+end;
+function TfraTabSession.cTypeStr: String;
+//Devuelve el tipo de conexión en cadena, en el formato que se usa para asignar
+//a la variable predefinida "curTYPE" desde el lenguaje de macros.
+begin
+  case cType of
+    TCON_TELNET: exit('Telnet');
+    TCON_SSH   : exit('SSH');
+    TCON_SERIAL: exit('Serial');
+    TCON_OTHER : exit('Other');
+  else
+    exit('');
+  end;
 end;
 //Detección de prompt
 function TfraTabSession.BuscaPromptArr: integer;
@@ -1310,7 +1324,7 @@ end;
 procedure TfraTabSession.InicConectTelnet(ip0: string);
 begin
   //Configura conexión rápida Telnet
-  tipo := TCON_TELNET;
+  cType := TCON_TELNET;
   ip := ip0;
   port := '23';
   LineDelimSend := LDS_LF;
@@ -1322,7 +1336,7 @@ end;
 procedure TfraTabSession.InicConectSSH(ip0: string);
 begin
   //Configura conexión rápida SSH
-  tipo := TCON_SSH;
+  cType := TCON_SSH;
   ip := ip0;
   port := '22';
   LineDelimSend := LDS_LF;
@@ -1408,7 +1422,7 @@ begin
   prop := TMiConfigXML.Create(self.Caption);   //"prop.GetFileName() será el nombre inicial del archivo.
   f := frmSesProperty;
   //Parámetros de conexión
-  prop.Asoc_Enum('tipo'   , @Tipo , SizeOf(TTipCon), [f.optTelnet,f.optSSH,f.optSerial,f.optOtro], 1);
+  prop.Asoc_Enum('tipo'   , @cType , SizeOf(TTipCon), [f.optTelnet,f.optSSH,f.optSerial,f.optOtro], 1);
   prop.Asoc_Str ('ip'     , @IP   , f.cmbIP     , '127.0.0.1');
   prop.Asoc_Str ('port'   , @Port , f.txtPort   , '22');
   prop.Asoc_Str ('other'  , @Other, f.txtOtro   , '');

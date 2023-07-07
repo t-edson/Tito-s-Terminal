@@ -1,4 +1,4 @@
-Tito-s-Terminal 0.8.2
+Tito-s-Terminal 0.8.3
 =====================
 
 Terminal with graphical interface, syntax highlighting and automation for telnet, ssh, serial or any command line proccess.

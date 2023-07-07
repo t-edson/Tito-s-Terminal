@@ -16,13 +16,19 @@ de sintaxis.
 Faltaría también incluir otras traducciones.
 
 NOTAS
-Si se quiere implementar unmodo interactivo de conexiones SSH, con plink, se debería ver la
+Si se quiere implementar un modo interactivo de conexiones SSH, con plink, se debería ver la
 forma de poder enviarle datos caracter por caracter. Actualmente, por la forma como funciona
 la clase TProcess, solo permite enviar datos al stdin, cuando se pone un delimitador de línea
 al final. El problema debería ser el mismo que tratar de enviar caracter por caracter al CMD,
 porque el plink si se puede controlar caracter por caracter cuando se lanza por consola.
 
 CAMBIOS
+05/06/2023
+- Se corrige la asignación a la variable "curPORT" desde TGenCod.str_asig_str(), para que
+actualice el formulario de configuración.
+- Se modifica TfrmPrincipal.AcFilNewSesExecute() para que genere instrucciones de conexión
+desde el panel de control.
+
 6/12/2022
 - Se corrige la ejecución del comando %EDIT desde el panel de comandos.
 

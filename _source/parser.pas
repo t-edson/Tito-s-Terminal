@@ -116,7 +116,7 @@ begin
     end;
     cIn.PosAct := posIni;  //retorna posición, para obtener fácilmente el operando
     Op1 := GetOperand;   {Toma operando que puede ser la variable nueva creada, o algún
-                          identificador concoido, al que se le prentende asignar algo.}
+                          identificador conocido, al que se le prentende asignar algo.}
     if Perr.HayError then exit;
     {Ya tenemos a los, dos operandos de la asignación. Lo más apropiado es usar
      la función Evaluar, para que las cosas sigan su curso, normal.}

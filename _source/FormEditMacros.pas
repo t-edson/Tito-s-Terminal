@@ -255,7 +255,7 @@ begin
   ed.Lines.Add('CLEAR         '+'//Clear the terminal');
   //lee parámetros de la configuración actual
   if sessions.TabIndex = -1 then exit;
-  case  sessions.ActivePage.Tipo of
+  case  sessions.ActivePage.cType of
   TCON_TELNET: begin
       ed.Lines.Add('curTYPE := "Telnet"');
     end;

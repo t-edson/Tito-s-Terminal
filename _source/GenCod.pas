@@ -242,7 +242,7 @@ begin
   if Upcase(p1^.rVar.name) = 'TIMEOUT' then begin
     //variable interna
     config.TpoMax := p2^.ReadInt;
-  end else if Upcase(p1^.rVar.name) = 'curPORT' then begin
+  end else if Upcase(p1^.rVar.name) = 'CURPORT' then begin
     //Variable interna
     frmPrincipal.SetCurPort(p2^.ReadInt);
   end;
@@ -309,6 +309,8 @@ begin
   if Upcase(p1^.rVar.name) = 'CURIP' then begin
     //variable interna
     frmPrincipal.SetCurIP(p2^.ReadStr);
+//  end else if Upcase(p1^.rVar.name) = 'CURPORT' then begin
+//    CURPORT se asigna en TGenCod.int_asig_int() porque es número.
   end else if Upcase(p1^.rVar.name) = 'CURTYPE' then begin
     //variable interna
     case UpCase(p2^.ReadStr) of

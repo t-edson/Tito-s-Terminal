@@ -513,7 +513,7 @@ end;
 procedure TfrmPrincipal.SetCurConnType(ctyp: TTipCon);
 begin
   if TabSessions.TabIndex = -1 then exit;
-  TabSessions.ActivePage.Tipo := ctyp;
+  TabSessions.ActivePage.cType := ctyp;
   TabSessions.ActivePage.UpdateCommand;
 end;
 procedure TfrmPrincipal.SetCurLineDelimSend(delim: TUtLineDelSend);
@@ -671,27 +671,30 @@ begin
   TabSessions.SetFocus;
   ses.ExecSettings;  //Muestra ventana de configuración
   l := ses.edPCom.Lines;
-  case ses.Tipo of
+  case ses.cType of
   TCON_SSH: begin
      l.Add('###########################################');
      l.Add('## New SSH session created ' + DateTimeToStr(now));
      l.Add('###########################################');
-     l.Add('IP: ' + ses.IP);
-     l.Add('Port: ' + ses.Port);
+     l.Add('%curIP   := "' + ses.IP + '"');
+     l.Add('%curPORT := ' + ses.Port);
+     l.Add('%curTYPE := "' + ses.cTypeStr + '"');
   end;
   TCON_TELNET: begin
      l.Add('###########################################');
      l.Add('## New Telnet session created ' + DateTimeToStr(now));
      l.Add('###########################################');
-     l.Add('IP: ' + ses.IP);
-     l.Add('Port: ' + ses.Port);
+     l.Add('%curIP   := "' + ses.IP + '"');
+     l.Add('%curPORT := ' + ses.Port);
+     l.Add('%curTYPE := "' + ses.cTypeStr + '"');
   end;
   TCON_SERIAL: begin
      l.Add('###########################################');
      l.Add('## New SERIAL session created ' + DateTimeToStr(now));
      l.Add('###########################################');
-//     l.Add('IP: ' + ses.IP);
-//     l.Add('Port: ' + ses.Port);
+     l.Add('%curIP   := "' + ses.IP + '"');
+     l.Add('%curPORT := ' + ses.Port);
+     l.Add('%curTYPE := "' + ses.cTypeStr + '"');
   end;
   end;
   ses.setModified(true);  //Marca como modificado
