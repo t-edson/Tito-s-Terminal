@@ -44,7 +44,7 @@ type
     cLinAct    : TColor;   //Color de la línea actual.
     cResPal    : TColor;   //Color de la palabra actual.
     //Panel vertical
-    VerPanVer  : boolean;  //Ver pánel vertical.
+    VerPanVer  : boolean;  //Ver pánel vertical del editor (Gutter).
     VerNumLin  : boolean;  //Ver número de línea.
     VerMarPle  : boolean;  //Ver marcas de plegado.
     cFonPan    : TColor;   //Color de fondo del panel vertical.
@@ -213,12 +213,14 @@ type
     procedure FindDialog1Close(Sender: TObject);
   private
     ejecCom: boolean;   //Indica que está ejecutando un comando (editor remoto, exp. remoto ...)
+    FeditMode: TeditMode;
     hlTerm  : TResaltTerm;
     parpadPan0: boolean;   //Para activar el parpadeo del panel0
     ticComRec : integer;   //Contador para comando recurrente
     edFocused : TSynEdit;  //Editor con enfoque
     function ConexDisponible: boolean;
     procedure DistribuirPantalla;
+    procedure SeteditMode(AValue: TeditMode);
     procedure UpdateActionsState(Sender: TObject);
     procedure edPComKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure EnvioTemporizado;
@@ -300,10 +302,10 @@ type
     cfgEdPCom  : TEditCfg;
   public   //Parámetros de la herramienta editor.
     //commandEd  : string;  //Comando para lanzar al editor
-    editMode   : TeditMode; //Modo del editor
     exterEditor: string;  //Ruta al editor externo, si no se selecciona interno.
     ftpEditUser: string;  //Usuario SFTP para acceder a archivo a editar
     ftpEditPass: string;  //Contraseña SFTP para acceder a archivo a editar
+    property editMode: TeditMode read FeditMode write SeteditMode; //Modo del editor
   public   //Parámetros de la herramienta Explorador.
     //commandEx  : string;  //Comando para lanzar al explorador.
     explorMode : TexplorMode;  //Modo del explorador.
@@ -666,6 +668,13 @@ begin
 //    PAnel2.Align:=alClient;
 //  end;
 end;
+
+procedure TfraTabSession.SeteditMode(AValue: TeditMode);
+begin
+  if FeditMode = AValue then Exit;
+  FeditMode := AValue;
+end;
+
 procedure TfraTabSession.UpdateActionsState(Sender: TObject);
 begin
   if edPCom.Modified then begin

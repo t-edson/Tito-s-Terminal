@@ -7,9 +7,10 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, FormPrincipal, FormQuickConnect, FormConfig, globales,
-  uResaltTerm, FormEditMacros, FormRemoteExplor, FormRemoteEditor,
-  FormRemoteOpenDial, GenCod, FrameTabSession, FormSesProperty, Comandos;
+  Forms, FormPrincipal, FormQuickConnect, FormConfig, globales, uResaltTerm,
+  FormEditMacros, FormRemoteExplor, FormRemoteEditor, FormRemoteOpenDial,
+  GenCod, FrameTabSession, FormSesProperty, Comandos, FrameCfgSyntax, Parser,
+  RegExpr2;
 
 {$R *.res}
 
